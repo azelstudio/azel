@@ -299,6 +299,35 @@ footer.sr-foot a:hover { color: var(--paper); }
   .f-acts [data-go="perso"] { display: none; }
   .f-bar[hidden] { display: none; }
 }
+/* Un seul espace d’essai : personnalisation et démo réunies. */
+.f-hero { display: block; padding-block: 28px 24px; }
+.f-copy { gap: 16px; }
+.f-copy h1 { font-size: clamp(44px, 5vw, 76px); line-height: 1; }
+.f-copy p { max-width: none; }
+.perso { border-top: 0; padding-top: 8px; align-items: start; }
+.perso h2 { font-size: clamp(30px, 3vw, 44px); }
+.perso-form { gap: 18px; }
+.perso > .stage { position: sticky; top: calc(var(--navh) + 24px); }
+.full-demo { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; padding-block: 10px; color: var(--soft); }
+.full-demo svg { width: 13px; height: 13px; }
+.trial-order { justify-self: end; }
+#fPerso, #fOffer, .perso-form { scroll-margin-top: calc(var(--navh) + 20px); }
+.theme-details { padding-bottom: 32px; }
+.theme-details summary { cursor: pointer; padding-block: 18px; border-block: 1px solid var(--line); color: var(--soft); }
+.theme-details .hl-grid { margin-top: 18px; }
+@media (max-width: 960px) {
+  .perso > .stage { position: static; order: -1; }
+  .perso { gap: 32px; }
+  body.in-fiche footer.sr-foot { padding-bottom: 28px; }
+}
+@media (max-width: 640px) {
+  .perso .stage-box { padding: 8px; }
+  .perso .phone-holder { width: 100%; height: clamp(320px, 52svh, 480px) !important; }
+  .perso .phone { width: 100%; height: 100%; padding: 0; border-radius: 12px; transform: none !important; box-shadow: none; }
+  .perso .screen { width: 100%; height: 100%; border-radius: 12px; }
+  .perso .phone .frame-in { width: 100%; height: 100%; }
+  .trial-order { width: 100%; justify-content: space-between; }
+}
 </style>
 
 <header class="nav">
@@ -430,32 +459,16 @@ const renderFiche = (t, mode) => {
   $("#vFiche").innerHTML = `
   <div class="wrap f-hero" id="fHero">
     <div class="f-copy">
-      <div class="crumbs"><a href="#collection">Nos créations</a><span class="label">/ Création ${esc(t.num)}</span></div>
+      <div class="crumbs"><a href="#collection">Nos créations</a><span class="label">/ ${esc(t.sector)}</span></div>
       <h1>${esc(t.name)}</h1>
-      <span class="concept">${esc(t.concept)}</span>
-      <p>${esc(t.line)}</p>
-      <div class="f-acts">
-        <a class="btn lg" href="${esc(t.demo)}">Voir la démo ${up}</a>
-        <div class="row"><button class="btn line lg" type="button" data-view="mob">Prévisualiser sur mobile</button><button class="btn line lg" type="button" data-go="perso">Je veux ce style</button></div>
-      </div>
-    </div>
-    <div class="stage">
-      <div class="stage-bar"><span class="label">Démonstration réelle · ${esc(t.sector)}</span>
-        <div class="seg" role="group" aria-label="Affichage"><button type="button" data-view="desk" aria-pressed="true">Ordinateur</button><button type="button" data-view="mob" aria-pressed="false">Mobile</button></div></div>
-      <div class="stage-box" id="stageBox" data-view="desk">${winHTML(t, "démonstration · " + t.name)}<div class="phone-zone">${phoneHTML(t)}</div></div>
+      <p>Essayez ce thème avec votre entreprise. L’aperçu se met à jour avec vos choix.</p>
     </div>
   </div>
 
-  <section class="wrap hl" aria-labelledby="hlTitle">
-    <div class="rv"><span class="label">Dans cette création</span><h2 id="hlTitle" style="margin-top:12px">Pensée pour ${esc(t.fits ? t.fits.split(",")[0].toLowerCase() : "votre activité")}.</h2></div>
-    <div class="hl-grid rv">${(t.highlights || []).map((h, i) => `<div class="hl-item"><span class="label">${String(i + 1).padStart(2, "0")}</span><b>${esc(h.t)}</b><span>${esc(h.x)}</span></div>`).join("")}</div>
-  </section>
-
   <section class="wrap perso" id="fPerso" aria-labelledby="persoTitle">
     <div class="perso-form rv">
-      <span class="label">Je veux ce style pour mon activité</span>
-      <h2 id="persoTitle">Votre nom, dans ${esc(t.name)}</h2>
-      <p>Votre nom, votre ville, votre couleur, votre logo : la démonstration change aussitôt. Textes et photos seront ensuite adaptés avec vous.</p>
+      <h2 id="persoTitle">À votre image.</h2>
+      <p>Nom, couleurs, logo : faites l’essai ici. Nous adapterons ensuite les textes et les photos avec vous.</p>
       <div class="fields">
         <div class="row"><label for="meName">Entreprise</label><input id="meName" type="text" maxlength="32" autocomplete="organization" placeholder="Le nom de votre entreprise"></div>
         <div class="row"><label for="meCity">Ville</label><input id="meCity" type="text" maxlength="28" autocomplete="address-level2" placeholder="Facultatif"></div>
@@ -472,8 +485,17 @@ const renderFiche = (t, mode) => {
         <p class="share-hint" id="shareHint">Montrez-le à un associé ou à un proche : le lien ouvre le site avec votre nom, votre ville et votre couleur. Le logo n'est pas inclus.</p>
       </div>
     </div>
-    <div class="stage rv"><div class="stage-box" id="persoBox" data-view="desk">${winHTML(t, "votre aperçu")}<div class="phone-zone">${phoneHTML(t)}</div></div></div>
+    <div class="stage">
+      <div class="stage-bar">
+        <div class="seg" role="group" aria-label="Affichage"><button type="button" data-view="desk" aria-pressed="true">Ordinateur</button><button type="button" data-view="mob" aria-pressed="false">Mobile</button></div>
+        <a class="full-demo" id="fullDemo" href="${esc(t.demo)}" target="_blank" rel="noopener">Plein écran ${up}</a>
+      </div>
+      <div class="stage-box" id="stageBox" data-view="desk">${winHTML(t, "votre aperçu")}<div class="phone-zone">${phoneHTML(t)}</div></div>
+      <a class="btn lg trial-order" href="#fOffer" data-go="offer">Demander ce site ${fw}</a>
+    </div>
   </section>
+
+  <details class="wrap theme-details"><summary>Ce que ce thème propose</summary><div class="hl-grid">${(t.highlights || []).map((h) => `<div class="hl-item"><b>${esc(h.t)}</b><span>${esc(h.x)}</span></div>`).join("")}</div></details>
 
   <section class="wrap offer" id="fOffer" aria-labelledby="offerTitle">
     <div class="offer-head rv"><div><span class="label">L'offre</span><h2 id="offerTitle" style="margin-top:12px">Ce site, réalisé pour vous.</h2></div>
@@ -485,22 +507,15 @@ const renderFiche = (t, mode) => {
         <p class="extra">À prévoir en plus : nom de domaine, hébergement et maintenance (modalités précisées dans le devis).</p></div>
     </div>
   </section>
-  <div class="f-bar"><a class="btn line" href="${esc(t.demo)}">Voir la démo</a><button class="btn" type="button" data-go="perso">Je veux ce style ${fw}</button></div>`;
+  `;
 
   const hero = $("#fHero");
   if (!reduce) { hero.classList.add("play"); }
   document.querySelectorAll("#vFiche [data-view]").forEach((b) => b.addEventListener("click", () => setView(b.dataset.view, b.closest(".f-acts"))));
-  if (window.persoBarObserver) window.persoBarObserver.disconnect();
-  const updatePersoBar = () => {
-    const destination = $("#fPerso").getBoundingClientRect();
-    const offer = $("#fOffer");
-    const offerVisible = offer && offer.getBoundingClientRect().top < innerHeight;
-    $(".f-bar").hidden = (destination.top < innerHeight && destination.bottom > 0) || !!offerVisible;
-  };
-  window.persoBarObserver = new IntersectionObserver(updatePersoBar, { rootMargin: "0px 0px -80px 0px" });
-  window.persoBarObserver.observe($("#fPerso"));
-  window.persoBarObserver.observe($("#fOffer"));
-  document.querySelectorAll("#vFiche [data-go]").forEach((b) => b.addEventListener("click", () => goPerso()));
+  document.querySelectorAll('#vFiche [data-go="offer"]').forEach((a) => a.addEventListener("click", (e) => {
+    e.preventDefault();
+    $("#fOffer").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  }));
   $("#meName").value = ME.name; $("#meCity").value = ME.city;
   let tm;
   ["#meName", "#meCity"].forEach((s) => $(s).addEventListener("input", () => {
@@ -552,19 +567,19 @@ const renderFiche = (t, mode) => {
   renderFormula();
   fit($("#vFiche"));
   personalise();
-  if (mode === "mobile") setView("mob", true);
+  if (mode === "mobile" || matchMedia("(max-width: 640px)").matches) setView("mob", false);
   if (mode === "style") setTimeout(goPerso, 250);
 };
 
 const setView = (v, scroll) => {
   const box = $("#stageBox");
   box.dataset.view = v;
-  document.querySelectorAll("#fHero .seg [data-view]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === v)));
+  document.querySelectorAll("#fPerso .seg [data-view]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === v)));
   fit(box);
   if (scroll && matchMedia("(max-width: 960px)").matches) box.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
 };
 const goPerso = () => {
-  $("#fPerso").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  $(".perso-form").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   setTimeout(() => $("#meName").focus({ preventScroll: true }), reduce ? 0 : 700);
 };
 const personalise = () => {
@@ -572,7 +587,7 @@ const personalise = () => {
   if (ME.name) extra.nom = ME.name;
   if (ME.city) extra.ville = ME.city;
   if (ME.color) extra.c = ME.color;
-  document.querySelectorAll("#persoBox iframe").forEach((f) => { f.onload = () => pushLook(f); f.src = demoUrl(cur, extra); });
+  document.querySelectorAll("#stageBox iframe").forEach((f) => { f.onload = () => pushLook(f); f.src = demoUrl(cur, extra); });
 };
 /* couleur et logo envoyés en direct aux aperçus, sans recharger */
 const pushLook = (f) => {
@@ -580,7 +595,7 @@ const pushLook = (f) => {
   if (ME.color) w.postMessage({ azel: "color", hex: ME.color }, "*");
   w.postMessage({ azel: "logo", src: ME.logo || null }, "*");
 };
-const pushAll = () => document.querySelectorAll("#persoBox iframe").forEach(pushLook);
+const pushAll = () => document.querySelectorAll("#stageBox iframe").forEach(pushLook);
 /* couleur dominante d'un logo (la plus saturée parmi les pixels opaques) */
 const logoColor = (img) => {
   try {
@@ -621,6 +636,7 @@ const renderFormula = () => {
   if (ME.logo) q.set("logo", "1");
   $("#order").href = "../?" + q + "#devis";
   SHARE.url = apercu; SHARE.name = ME.name; SHARE.t = t;
+  $("#fullDemo").href = apercu;
   const subj = `Aperçu de site : ${t.name}${ME.name ? " pour " + ME.name : ""}`;
   $("#shareMail").href = "mailto:?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(`Regarde à quoi pourrait ressembler ${ME.name ? "le site de " + ME.name : "notre site"} :\n${apercu}\n\nAperçu préparé avec le showroom Azel Studio.`);
 };
