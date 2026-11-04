@@ -33,3 +33,6 @@
   X-Robots-Tag: noindex
 /showroom/immo/*
   X-Robots-Tag: noindex
+
+/showroom/apiculture/*
+  X-Robots-Tag: noindex

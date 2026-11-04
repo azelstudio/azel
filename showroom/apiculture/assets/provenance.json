@@ -1,0 +1,17 @@
+[
+  {
+    "file": "rucher.webp",
+    "type": "generated illustration",
+    "prompt": "Create one exceptionally realistic documentary photograph, horizontal 3:2 composition, premium independent French beekeeper website. Close-up of a beekeeper's hands in worn cream cotton gloves holding a REAL rectangular wooden honeybee frame full of natural golden wax honeycomb with a few small realistic honeybees; one cream beekeeping suit sleeve entering from the right. Frame diagonally composed from lower left to mid right. Background a real softly blurred sunlit meadow and distant wooden beehives, olive greens and ochre gold, natural morning sunlight, authentic organic imperfect wax texture, tactile wood grain, shallow depth of field, editorial food magazine photography, shot on full frame camera 50mm. No CGI, no cartoon, no vector art, no honey dipper, no excessive bees, no giant insects, no fantasy geometry, no text, no watermark, no logo. Subject fills the right two thirds; left upper third has soft dark out-of-focus olive foliage providing calm space. The image should be indistinguishable from a real professional apiary photograph, not an advertising render.",
+    "source": "image_gen; original exec-179b379c-de80-4dbb-b34a-257daed58d92.png",
+    "processing": "WebP encoding, maximum width 1600, quality 87; original retained"
+  },
+  {
+    "file": "pots.webp",
+    "type": "generated photoreal illustration with transparent background",
+    "source": "image_gen; original exec-6c8213c8-d037-4c90-a46c-809ec2b81bd5.png",
+    "reference": "previous generated miels.webp, archived outside deployed theme",
+    "processing": "WebP encoding at native1536x1024, quality90, alpha retained",
+    "prompt": "Edit this food photograph into a premium photographic product cutout sheet. Keep the same three REALISTIC cylindrical clear glass jars with black metal screw lids and completely BLANK ivory paper labels; left jar contains pale straw acacia honey, center warm golden spring honey, right dark amber forest honey. Output the THREE jars in a perfectly even frontal row, centers at exactly one sixth, one half, and five sixths of the image width, each identical scale, full glass base and lid visible. Transparent background, no table, no plants, no scenery. Each jar is physically plausible premium studio PRODUCT PHOTOGRAPHY with authentic glass reflections and naturally imperfect real honey, NOT CGI, NOT a 3D rendering, not illustration. Landscape 3:2 canvas, all three jars same height, fill 85 percent canvas height, each stays within its own equal-width third with generous separation so they can be presented individually on a website. Straight-on camera, no perspective tilt. Light from upper left, realistic soft highlights, no text or logo, blank labels only. Carefully preserve actual photographic realism of the reference."
+  }
+]

@@ -551,6 +551,68 @@
         "#CD2934",
         "#F5F5F3"
       ]
+    },
+    {
+      "id": "apiculture",
+      "num": "010",
+      "name": "Aube",
+      "sector": "Apiculture · Vente directe",
+      "concept": "Une miellerie chaleureuse, du rucher à la sélection de pots",
+      "line": "Une collection de miels, des pots portant votre nom et deux signatures d’étiquette. Le visiteur découvre chaque saveur, compose sa sélection et prépare son retrait.",
+      "fits": "Apiculteurs, mielleries, producteurs de miel, vente directe à la ferme",
+      "palette": [
+        "#FAF7EE",
+        "#233E32",
+        "#F4D77C"
+      ],
+      "tags": [
+        "Vos étiquettes",
+        "Sélection de miels",
+        "Demande de retrait"
+      ],
+      "demo": "apiculture/",
+      "cover": null,
+      "status": "live",
+      "offer": "outil",
+      "alts": [
+        "vitrine"
+      ],
+      "highlights": [
+        {
+          "t": "Votre rucher, votre signature",
+          "x": "Le nom se retrouve sur les étiquettes dès l’accueil et dans le récapitulatif. Deux signatures d’étiquette, une accroche et un message de retrait personnalisables."
+        },
+        {
+          "t": "Choisir ses miels",
+          "x": "Trois saveurs, deux formats et les quantités : le total indicatif se calcule au fil de la sélection."
+        },
+        {
+          "t": "Un conseil selon les goûts",
+          "x": "Doux, corsé ou pour les tartines : une recommandation mène au miel sélectionné."
+        },
+        {
+          "t": "Préparer le retrait",
+          "x": "Le récapitulatif rassemble les pots et les coordonnées. La démo ne transmet aucune commande ; le raccordement au canal réel sera défini au devis."
+        }
+      ],
+      "colors": [
+        [
+          "Vert rucher",
+          "294D3B"
+        ],
+        [
+          "Ambre profond",
+          "86501D"
+        ],
+        [
+          "Bleu ardoise",
+          "37566C"
+        ]
+      ],
+      "glow": [
+        "#F4D77C",
+        "#294D3B"
+      ]
     }
   ]
 }

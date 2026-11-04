@@ -160,6 +160,7 @@
     const c = (q.get("c") || "").replace("#", "");
     if (/^[0-9a-f]{6}$/i.test(c)) s.set("c", c);
     if (id === "artisan" && window.AzelArtisan) AzelArtisan.write(s, AzelArtisan.read(q));
+    if(id === "apiculture" && window.AzelApiculture) AzelApiculture.write(s,AzelApiculture.read(q));
     return s.toString() ? "?" + s : "";
   };
 
