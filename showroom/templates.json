@@ -1,0 +1,556 @@
+{
+  "_note": "Catalogue du Showroom Azel. Une entrée = une création. Pour ajouter une création : déposer son dossier à côté (ex. depart/) et ajouter une entrée ici. status : live (publiée) ou soon (en préparation, sans lien). Une entrée en soon peut avoir preview (vidéo .mp4 courte, muette) et poster (image) : la carte montre alors l'aperçu du concept.",
+  "templates": [
+    {
+      "id": "depart",
+      "num": "001",
+      "name": "Ligne A",
+      "sector": "Auto-école",
+      "concept": "Auto-école moderne",
+      "line": "Bleu nuit et bleu électrique. Le nom de l'auto-école s'allume sur l'enseigne, la voiture roule sur la route du permis au défilement, et trois questions donnent la bonne formation.",
+      "fits": "Auto-écoles, moto-écoles, formations à la conduite",
+      "palette": [
+        "#0A1628",
+        "#F3F5F8",
+        "#1F5BFF"
+      ],
+      "tags": [
+        "Enseigne à votre nom",
+        "La route du permis",
+        "Quiz de formation"
+      ],
+      "demo": "depart/",
+      "cover": null,
+      "status": "live",
+      "offer": "vitrine",
+      "alts": [
+        "essentiel",
+        "outil"
+      ],
+      "highlights": [
+        {
+          "t": "Votre nom sur l'enseigne",
+          "x": "La façade de l'agence affiche le nom de l'auto-école, qui s'allume à l'arrivée."
+        },
+        {
+          "t": "La route du permis",
+          "x": "Cinq étapes sur une route : la voiture avance avec le défilement."
+        },
+        {
+          "t": "Trouver sa formation",
+          "x": "Trois questions (âge, niveau, boîte) et la formation conseillée s'affiche."
+        },
+        {
+          "t": "L'évaluation en ligne",
+          "x": "La demande d'évaluation de départ, préremplie depuis la formation choisie."
+        }
+      ],
+      "glow": [
+        "#1F5BFF",
+        "#9DB8FF"
+      ],
+      "colors": [
+        [
+          "Bleu électrique",
+          "1F5BFF"
+        ],
+        [
+          "Rouge signal",
+          "E5383B"
+        ],
+        [
+          "Vert piste",
+          "0FA36B"
+        ]
+      ]
+    },
+    {
+      "id": "beaute",
+      "num": "002",
+      "name": "Chérie Club",
+      "sector": "Beauté · Lash · Salon",
+      "concept": "Beauty studio pop et éditorial",
+      "line": "Un hero photo bord à bord, « Le glow, c'est toi. » en grand, des tirages Polaroid, un sticker qui tourne et un bandeau citron. La réservation tient dans un ticket.",
+      "fits": "Instituts de beauté, extensions de cils, onglerie, brow bar, soins visage",
+      "palette": [
+        "#FFF8EF",
+        "#1E1917",
+        "#D9213A"
+      ],
+      "tags": [
+        "Pop et éditorial",
+        "Tirages Polaroid",
+        "Réservation en ticket"
+      ],
+      "demo": "beaute/",
+      "cover": null,
+      "status": "live",
+      "offer": "outil",
+      "alts": [
+        "vitrine",
+        "essentiel"
+      ],
+      "highlights": [
+        {
+          "t": "Une entrée magazine",
+          "x": "Photo bord à bord, titre géant centré, lettrage de fond au nom du studio et bandeaux qui défilent."
+        },
+        {
+          "t": "Les tirages Polaroid",
+          "x": "Ongles, cils et peau en tirages scotchés, qui se redressent au survol et suivent la souris."
+        },
+        {
+          "t": "Trois univers clairs",
+          "x": "Nails, lashes et skin, chacun avec ses soins et leur durée."
+        },
+        {
+          "t": "Le ticket de réservation",
+          "x": "Soins, jour et heure : le ticket se remplit en direct, prêt à être confirmé."
+        }
+      ],
+      "colors": [
+        [
+          "Cerise",
+          "D9213A"
+        ],
+        [
+          "Fuchsia",
+          "D11F7A"
+        ],
+        [
+          "Prune",
+          "6E2A8C"
+        ]
+      ],
+      "glow": [
+        "#D9213A",
+        "#E6F77A"
+      ]
+    },
+    {
+      "id": "cabinet",
+      "num": "003",
+      "name": "003 Cabinet",
+      "sector": "Cabinet · Avocat · Conseil",
+      "concept": "Cabinet d'avocats et de conseil",
+      "line": "La pierre de taille, le bordeaux et un serif élégant. Le nom du cabinet gravé sur la vitrine, et une prise de rendez-vous en quatre étapes.",
+      "fits": "Avocats, notaires, experts-comptables, cabinets de conseil",
+      "palette": [
+        "#F6F1EA",
+        "#1D1A18",
+        "#6B1626"
+      ],
+      "tags": [
+        "Classique et sobre",
+        "Nom gravé en vitrine",
+        "Prise de rendez-vous"
+      ],
+      "demo": "cabinet/",
+      "cover": null,
+      "status": "live",
+      "offer": "outil",
+      "alts": [
+        "vitrine",
+        "essentiel"
+      ],
+      "highlights": [
+        {
+          "t": "Une vitrine à votre nom",
+          "x": "La façade en pierre et le nom du cabinet qui se grave sur la vitre à l'arrivée."
+        },
+        {
+          "t": "Les expertises lisibles",
+          "x": "Chaque domaine s'ouvre avec ses interventions et l'associé référent."
+        },
+        {
+          "t": "Une méthode rassurante",
+          "x": "Les quatre étapes d'un dossier, qui s'éclairent au défilement."
+        },
+        {
+          "t": "Le rendez-vous en ligne",
+          "x": "Domaine, format, créneau, coordonnées : le client réserve en moins d'une minute."
+        }
+      ],
+      "glow": [
+        "#6B1626",
+        "#E3D8C8"
+      ],
+      "colors": [
+        [
+          "Bordeaux",
+          "6B1626"
+        ],
+        [
+          "Bleu nuit",
+          "1F3A5F"
+        ],
+        [
+          "Vert anglais",
+          "2F4A3A"
+        ]
+      ]
+    },
+    {
+      "id": "artisan",
+      "num": "004",
+      "name": "004 Artisan",
+      "sector": "Artisan · Bâtiment",
+      "concept": "Entreprise de rénovation et d'extension",
+      "line": "Béton, lumière chaude et orange chantier. Sur la photo d'accueil, on fait glisser du plan à la réalisation, et la demande de devis tient en quatre questions.",
+      "fits": "Maçons, rénovation, menuisiers, plombiers, électriciens, paysagistes",
+      "palette": [
+        "#1E1D1B",
+        "#F1EEEA",
+        "#E8671C"
+      ],
+      "tags": [
+        "Du plan au chantier",
+        "Réalisations en fiches",
+        "Devis avec photos"
+      ],
+      "demo": "artisan/",
+      "cover": null,
+      "status": "live",
+      "offer": "vitrine",
+      "alts": [
+        "essentiel",
+        "outil"
+      ],
+      "highlights": [
+        {
+          "t": "Du plan au chantier",
+          "x": "Un curseur sur la photo d'accueil fait passer du plan coté à la réalisation."
+        },
+        {
+          "t": "Les métiers d'un coup d'œil",
+          "x": "Rénovation, gros œuvre, aménagement et finitions, chacun avec son icône."
+        },
+        {
+          "t": "Des réalisations détaillées",
+          "x": "Chaque chantier s'ouvre avec surface, durée, corps de métier et lieu."
+        },
+        {
+          "t": "Un devis simple",
+          "x": "Type de projet, surface, délai et photos du lieu, en moins d'une minute."
+        }
+      ],
+      "glow": [
+        "#E8671C",
+        "#F1EEEA"
+      ],
+      "colors": [
+        [
+          "Orange chantier",
+          "E8671C"
+        ],
+        [
+          "Bleu acier",
+          "2F6FB0"
+        ],
+        [
+          "Vert sauge",
+          "3E7B4F"
+        ]
+      ]
+    },
+    {
+      "id": "kova",
+      "num": "005",
+      "name": "Kova",
+      "sector": "Marque · E-commerce",
+      "concept": "Marque d'objets sonores",
+      "line": "Une marque produit qui se vit : l'enceinte suit la souris, bat au rythme d'un son joué dans la page et se démonte pièce par pièce au défilement.",
+      "fits": "Marques produit, créateurs d'objets, e-commerce haut de gamme, lancements",
+      "palette": [
+        "#EEE8DE",
+        "#161616",
+        "#E85C3A"
+      ],
+      "tags": [
+        "Objet interactif",
+        "Son en direct",
+        "Vue éclatée au défilement"
+      ],
+      "demo": "kova/",
+      "cover": null,
+      "status": "live",
+      "offer": "outil",
+      "alts": [
+        "vitrine",
+        "essentiel"
+      ],
+      "highlights": [
+        {
+          "t": "Un objet vivant",
+          "x": "L'enceinte réagit à la souris et change de teinte avec le panneau."
+        },
+        {
+          "t": "Le son dans la page",
+          "x": "Un bouton « Écouter » joue une boucle, la membrane bat avec la musique."
+        },
+        {
+          "t": "La vue éclatée",
+          "x": "Au défilement, l'objet se démonte en quatre pièces légendées."
+        },
+        {
+          "t": "Une liste de lancement",
+          "x": "Les produits, un panier « me prévenir » et l'inscription à l'annonce."
+        }
+      ],
+      "glow": [
+        "#E85C3A",
+        "#EEE8DE"
+      ],
+      "colors": [
+        [
+          "Orange",
+          "E85C3A"
+        ],
+        [
+          "Bleu vif",
+          "4F7BFF"
+        ],
+        [
+          "Jaune soleil",
+          "F2C14E"
+        ]
+      ]
+    },
+    {
+      "id": "galerie",
+      "num": "006",
+      "name": "Concept 01",
+      "sector": "Galerie · Studio créatif",
+      "concept": "Galerie d'art et studio de création",
+      "line": "Une galerie sombre et métallique : fond de fumée vivant, titre en métal, œuvres à faire glisser et fiches qui s'ouvrent comme dans un catalogue.",
+      "fits": "Galeries d'art, studios créatifs, architectes d'intérieur, photographes",
+      "palette": [
+        "#060607",
+        "#ECEBE7",
+        "#8E8F93"
+      ],
+      "tags": [
+        "Fumée en temps réel",
+        "Titre métal",
+        "Galerie à glisser"
+      ],
+      "demo": "galerie/",
+      "cover": null,
+      "status": "live",
+      "offer": "vitrine",
+      "alts": [
+        "essentiel",
+        "outil"
+      ],
+      "highlights": [
+        {
+          "t": "Une entrée en matière",
+          "x": "Fond de soie fumée qui réagit à la souris, et le nom de l'entreprise en grand titre métal."
+        },
+        {
+          "t": "Les œuvres à glisser",
+          "x": "Une galerie horizontale avec curseur rond, compteur et fiche détaillée pour chaque pièce."
+        },
+        {
+          "t": "Le lieu et le studio",
+          "x": "Les informations pratiques et les services présentés comme une fiche technique."
+        },
+        {
+          "t": "Une visite réservée",
+          "x": "Programme des expositions et demande de visite privée, préremplie depuis une œuvre."
+        }
+      ],
+      "glow": [
+        "#D9DCE1",
+        "#6F7480"
+      ]
+    },
+    {
+      "id": "ramen",
+      "num": "007",
+      "name": "Koko",
+      "sector": "Restaurant · Street food",
+      "concept": "Ramen bar pop et graphique",
+      "line": "Un bol de ramen en volume qui flotte, fume et s'incline avec la souris, posé sur un lettrage géant. Plus bas, le client compose son bol ingrédient par ingrédient.",
+      "fits": "Restaurants, street food, bars, food trucks, boulangeries, coffee shops",
+      "palette": [
+        "#F5DE51",
+        "#261423",
+        "#EA3B2B"
+      ],
+      "tags": [
+        "Bol en volume",
+        "Compose ton bol",
+        "Pop et graphique"
+      ],
+      "demo": "ramen/",
+      "cover": null,
+      "status": "live",
+      "offer": "vitrine",
+      "alts": [
+        "essentiel",
+        "outil"
+      ],
+      "highlights": [
+        {
+          "t": "Le bol star",
+          "x": "Il flotte, fume, suit la souris et ses baguettes se lèvent au survol."
+        },
+        {
+          "t": "Un lettrage à votre nom",
+          "x": "Le nom du restaurant s'écrit en géant derrière le bol."
+        },
+        {
+          "t": "Compose ton bol",
+          "x": "Bouillon et toppings à choisir : le bol change de couleur et d'ingrédients en direct."
+        },
+        {
+          "t": "La carte et le spot",
+          "x": "Trois recettes, le niveau de piquant, les horaires et le bouton de commande."
+        }
+      ],
+      "colors": [
+        [
+          "Vermillon",
+          "EA3B2B"
+        ],
+        [
+          "Vert matcha",
+          "1E7F5C"
+        ],
+        [
+          "Bleu indigo",
+          "2D4BD6"
+        ]
+      ],
+      "glow": [
+        "#F5DE51",
+        "#EA3B2B"
+      ]
+    },
+    {
+      "id": "immo",
+      "num": "008",
+      "name": "Auréa",
+      "sector": "Immobilier · Agence",
+      "concept": "Agence immobilière premium, calme et rigoureuse",
+      "line": "Bleu nuit, blanc minéral et or champagne. Un hero architectural qui change de photo, une recherche par ville, type et budget, et des fiches de biens qui s'ouvrent en grand.",
+      "fits": "Agences immobilières, mandataires, promoteurs, architectes, gestion locative",
+      "palette": [
+        "#152331",
+        "#F8F5F0",
+        "#D8B27D"
+      ],
+      "tags": [
+        "Recherche de biens",
+        "Fiches détaillées",
+        "Calme et premium"
+      ],
+      "demo": "immo/",
+      "cover": null,
+      "status": "live",
+      "offer": "outil",
+      "alts": [
+        "vitrine"
+      ],
+      "highlights": [
+        {
+          "t": "Votre nom en façade",
+          "x": "Le nom de l'agence remplace Auréa dans le logo, et la ville apparaît dans l'accroche."
+        },
+        {
+          "t": "La recherche qui répond",
+          "x": "Ville, type de bien et budget : la sélection se met à jour, avec un message clair si rien ne correspond."
+        },
+        {
+          "t": "Des fiches qui donnent envie",
+          "x": "Photo en grand, surface, chambres, prix et demande de renseignements préremplie."
+        },
+        {
+          "t": "Vendeurs et avis",
+          "x": "Une section estimation pour attirer les mandats, et les avis clients mis en valeur."
+        }
+      ],
+      "colors": [
+        [
+          "Or champagne",
+          "D8B27D"
+        ],
+        [
+          "Terracotta",
+          "C98466"
+        ],
+        [
+          "Bleu ardoise",
+          "8FA9C4"
+        ]
+      ],
+      "glow": [
+        "#D8B27D",
+        "#152331"
+      ]
+    },
+    {
+      "id": "sport",
+      "num": "009",
+      "name": "Atos JJB",
+      "sector": "Sport · Salle de combat",
+      "concept": "Académie de Jiu-Jitsu Brésilien, intense et premium",
+      "line": "Une photo de combat au sol, une typographie massive en italique et le nom du club peint sur le mur du dojo. Plus bas, le planning se filtre par jour et par discipline, et l'essai se demande en deux clics.",
+      "fits": "Clubs de sport de combat, salles de boxe, CrossFit, coachs sportifs, dojos, écoles de danse",
+      "palette": [
+        "#0B0D0F",
+        "#F5F5F3",
+        "#CD2934"
+      ],
+      "tags": [
+        "Planning filtrable",
+        "Nom sur le mur",
+        "Intense et premium"
+      ],
+      "demo": "sport/",
+      "cover": null,
+      "status": "live",
+      "offer": "outil",
+      "alts": [
+        "vitrine"
+      ],
+      "highlights": [
+        {
+          "t": "Votre nom sur le mur",
+          "x": "Le nom du club s'affiche sur le mur du dojo, dans la photo, en plus du logo."
+        },
+        {
+          "t": "Le prochain cours",
+          "x": "Calculé en direct depuis le planning : ce soir, demain ou le jour suivant."
+        },
+        {
+          "t": "Planning filtrable",
+          "x": "Jour et discipline : chaque créneau mène à la demande d'essai, déjà préremplie."
+        },
+        {
+          "t": "Formules et essai",
+          "x": "Trois abonnements lisibles et un formulaire d'essai qui reprend la formule choisie."
+        }
+      ],
+      "colors": [
+        [
+          "Rouge tatami",
+          "CD2934"
+        ],
+        [
+          "Bleu ring",
+          "2456D6"
+        ],
+        [
+          "Vert dojo",
+          "1F8A5B"
+        ]
+      ],
+      "glow": [
+        "#CD2934",
+        "#F5F5F3"
+      ]
+    }
+  ]
+}

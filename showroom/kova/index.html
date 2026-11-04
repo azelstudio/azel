@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kova Sound Systems · Objet sonore (démonstration)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Instrument+Serif:ital@1&display=swap">
+<style>
+/* KOVA SOUND SYSTEMS : marque fictive d'enceintes, démonstration Azel 005.
+   L'enceinte est dessinée en SVG : elle suit la souris, bat au rythme du son et se démonte au défilement. */
+:root {
+  color-scheme: light;
+  --cream: #EEE8DE;
+  --cream-2: #E4DDD0;
+  --ink: #161616;
+  --ink-2: #1D1D1D;
+  --acc: #E85C3A;
+  --mute: #6F6B64;
+  --line: rgba(22,22,22,.16);
+  --line-d: rgba(238,232,222,.14);
+  --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Instrument Serif", Georgia, serif;
+  --g: clamp(16px, 4.2vw, 68px);
+  --ease: cubic-bezier(.2,.7,.1,1);
+}
+* { box-sizing: border-box; }
+html { background: var(--cream); scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); font: 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
+.wrap { padding-inline: max(var(--g), env(safe-area-inset-left, 0px)) max(var(--g), env(safe-area-inset-right, 0px)); }
+.cap { font: 600 11px/1.4 var(--sans); letter-spacing: .2em; text-transform: uppercase; }
+.topbar { background: var(--ink); color: var(--cream); text-align: center; padding: 8px 12px; font-size: 10.5px; }
+
+/* NAV */
+.nav { position: sticky; top: 0; z-index: 30; background: rgba(238,232,222,.86); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.nav .wrap { height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.logo { display: flex; align-items: center; gap: 14px; }
+.logo b { font: 900 clamp(30px, 3vw, 42px)/1 var(--sans); letter-spacing: -.07em; text-transform: uppercase; white-space: nowrap; }
+.logo b::after { content: ""; display: inline-block; width: .26em; height: .26em; border-radius: 50%; background: var(--acc); margin-left: .04em; }
+.logo small { font: 600 9.5px/1.25 var(--sans); letter-spacing: .2em; color: var(--mute); text-transform: uppercase; }
+.links { display: flex; gap: 40px; font-weight: 600; font-size: 14.5px; }
+.links a { position: relative; }
+.links a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -4px; height: 2px; background: var(--acc); transition: right .35s var(--ease); }
+.links a:hover::after { right: 0; }
+.cart { display: inline-flex; align-items: center; gap: 12px; height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid var(--ink); font-weight: 500; font-size: 14px; background: none; cursor: pointer; transition: background .3s, color .3s; }
+.cart:hover { background: var(--ink); color: var(--cream); }
+.cart b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.cart.bump b { animation: bump .5s var(--ease); display: inline-block; }
+@keyframes bump { 40% { transform: scale(1.5); color: var(--acc); } }
+
+/* HERO */
+.hero { display: grid; grid-template-columns: 52% 48%; min-height: calc(100svh - 118px); }
+.h-left { display: grid; grid-template-rows: auto 1fr auto; padding-block: clamp(40px, 6vh, 72px) 28px; }
+.kick { display: flex; align-items: center; gap: 16px; }
+.kick::before { content: ""; width: 48px; height: 1px; background: var(--ink); }
+h1 { margin: clamp(28px, 5vh, 64px) 0 0; font: 900 clamp(64px, 8.6vw, 150px)/.86 var(--sans); letter-spacing: -.075em; text-transform: uppercase; }
+h1 .l { display: block; overflow: hidden; padding-bottom: .04em; }
+h1 .l > span { display: inline-block; transform: translateY(105%); animation: up 1.05s var(--ease) forwards; }
+h1 .l:nth-child(2) > span { animation-delay: .1s; }
+h1 .l:nth-child(3) > span { animation-delay: .2s; }
+h1 em { font: italic 400 1.18em/.8 var(--serif); letter-spacing: -.04em; text-transform: none; }
+@keyframes up { to { transform: none; } }
+.h-txt { align-self: end; display: grid; gap: 30px; }
+.h-txt p { margin: 0; font-size: clamp(17px, 1.35vw, 21px); line-height: 1.5; color: #3B3936; max-width: 25em; }
+.ctas { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; justify-content: space-between; gap: 30px; height: 60px; padding: 0 28px; border-radius: 999px; background: var(--ink); color: var(--cream); font-weight: 600; font-size: 15px; border: 0; cursor: pointer; transition: transform .3s var(--ease), background .3s; }
+.btn:hover { transform: translateY(-2px); }
+.btn svg { width: 14px; height: 14px; }
+.btn .eq { display: inline-flex; gap: 3px; align-items: end; height: 14px; }
+.btn .eq i { width: 3px; height: 30%; background: var(--acc); border-radius: 1px; }
+.playing .btn .eq i { animation: eq .5s ease-in-out infinite alternate; }
+.playing .btn .eq i:nth-child(2) { animation-delay: .15s; }
+.playing .btn .eq i:nth-child(3) { animation-delay: .3s; }
+@keyframes eq { to { height: 100%; } }
+.ulink { font-weight: 600; font-size: 14.5px; padding-bottom: 6px; border-bottom: 1px solid var(--ink); }
+.h-foot { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--mute); font-size: 10.5px; }
+.h-foot span:nth-child(2) { color: var(--ink); }
+.h-foot span:last-child { text-align: right; }
+
+.h-right { position: relative; overflow: hidden; background: var(--acc); color: var(--ink); transition: background .7s var(--ease); isolation: isolate; }
+.h-right::before { content: ""; position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.05) 1px, transparent 1px); background-size: 72px 72px; }
+.ghost { position: absolute; right: -6%; top: 50%; z-index: -1; translate: 0 -50%; font: 900 clamp(200px, 26vw, 460px)/.8 var(--sans); letter-spacing: -.06em; writing-mode: vertical-rl; color: rgba(255,255,255,.16); transform: translateY(var(--py, 0px)); }
+.hr-top, .hr-bot { position: absolute; left: clamp(20px, 3vw, 50px); right: clamp(20px, 3vw, 40px); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.hr-top { top: clamp(24px, 4vh, 52px); }
+.hr-bot { bottom: clamp(20px, 3.5vh, 40px); }
+.swatches { display: flex; gap: 8px; }
+.swatches button { width: 26px; height: 26px; border-radius: 50%; border: 0; cursor: pointer; box-shadow: inset 0 0 0 2px rgba(22,22,22,.25); padding: 0; transition: transform .3s var(--ease), box-shadow .3s; }
+.swatches button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--cream), 0 0 0 3.5px var(--ink); transform: scale(1.08); }
+.explore { display: flex; align-items: center; gap: 16px; }
+.explore a { width: 56px; height: 56px; border-radius: 50%; border: 1.5px solid var(--ink); display: grid; place-items: center; transition: background .3s, color .3s; }
+.explore a:hover { background: var(--ink); color: var(--cream); }
+.explore svg { width: 16px; height: 16px; }
+.stage { position: absolute; inset: 12% 6% 14%; display: grid; place-items: center; perspective: 1100px; }
+.spk { width: min(88%, 560px); transform-style: preserve-3d; transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) rotateZ(-8deg); transition: transform .9s var(--ease); animation: float 6s ease-in-out infinite; }
+@keyframes float { 50% { translate: 0 -10px; } }
+.spk svg { width: 100%; height: auto; display: block; overflow: visible; filter: drop-shadow(0 50px 40px rgba(60,20,8,.35)); }
+.spk .cone { transform-origin: 200px 160px; transform: scale(var(--beat, 1)); }
+.waves { position: absolute; inset: 0; pointer-events: none; }
+.waves i { position: absolute; left: 50%; top: 50%; width: 40%; aspect-ratio: 1; margin: -20% 0 0 -20%; border-radius: 50%; border: 1.5px solid rgba(255,255,255,.55); opacity: 0; }
+.waves i.go { animation: wave 1.6s var(--ease) forwards; }
+@keyframes wave { from { opacity: .8; transform: scale(.6); } to { opacity: 0; transform: scale(2.4); } }
+
+/* CONCEPT (sombre) */
+.dark { background: var(--ink); color: var(--cream); }
+.concept { display: grid; grid-template-columns: 1fr 1fr; }
+.c-left { padding-block: clamp(56px, 7vw, 110px); padding-right: 40px; border-right: 1px solid var(--line-d); }
+.c-left .cap { color: #8D877D; font-weight: 500; }
+h2 { margin: 28px 0 0; font: 800 clamp(42px, 4.6vw, 76px)/.98 var(--sans); letter-spacing: -.055em; }
+h2 em { font: italic 400 1.1em/1 var(--serif); letter-spacing: -.03em; color: var(--acc); }
+.c-left p { margin: 30px 0 0; color: #B3ADA3; max-width: 30em; }
+.acc { padding: clamp(40px, 5vw, 80px) 0 clamp(40px, 5vw, 80px) clamp(24px, 3vw, 40px); align-self: center; }
+.acc-i { border-bottom: 1px solid var(--line-d); }
+.acc-h { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: 12px; padding: 26px 0; font-weight: 600; font-size: clamp(18px, 1.5vw, 21px); }
+.acc-h:focus-visible { outline: 2px solid var(--acc); outline-offset: 4px; }
+.acc-h span:first-child { color: var(--acc); font-size: 15px; font-weight: 500; }
+.acc-h i { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(238,232,222,.4); display: grid; place-items: center; transition: transform .5s var(--ease), background .3s, color .3s; }
+.acc-h i svg { width: 14px; height: 14px; }
+.acc-i.open .acc-h i { transform: rotate(45deg); background: var(--cream); color: var(--ink); }
+.acc-b { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
+.acc-i.open .acc-b { grid-template-rows: 1fr; }
+.acc-b > div { overflow: hidden; }
+.acc-b p { margin: 0 0 26px 56px; color: #B3ADA3; max-width: 34em; }
+
+/* DÉMONTAGE au défilement */
+.xpl { position: relative; height: 320vh; background: var(--cream-2); }
+.xpl-in { position: sticky; top: 84px; height: calc(100svh - 84px); display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: center; overflow: hidden; }
+.xpl-txt { display: grid; gap: 22px; align-content: center; padding-right: 20px; }
+.xpl-txt h2 { margin: 0; }
+.xpl-txt h2 em { color: var(--acc); }
+.parts { list-style: none; margin: 10px 0 0; padding: 0; display: grid; }
+.parts li { display: grid; grid-template-columns: 40px 1fr; gap: 10px; padding: 14px 0; border-top: 1px solid var(--line); color: var(--mute); transition: color .4s; }
+.parts li:last-child { border-bottom: 1px solid var(--line); }
+.parts li b { color: inherit; font-weight: 600; }
+.parts li span { font-size: 13px; }
+.parts li.on { color: var(--ink); }
+.parts li.on span:first-child { color: var(--acc); }
+.iso { position: relative; height: 100%; display: grid; place-items: center; perspective: 1600px; }
+.iso-st { position: relative; width: min(70%, 460px); aspect-ratio: 400 / 320; transform-style: preserve-3d; transform: rotateX(58deg) rotateZ(-32deg); }
+.layer { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateZ(calc(var(--z, 0) * 1px)); }
+.layer svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.layer .tag { position: absolute; right: -8%; top: 8%; transform: rotateZ(32deg) rotateX(-58deg); transform-origin: left center; white-space: nowrap; font: 600 11px var(--sans); letter-spacing: .16em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; opacity: var(--o, 0); transition: opacity .4s; }
+.layer .tag::before { content: ""; width: 26px; height: 1px; background: var(--ink); }
+.xpl-prog { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--line); }
+.xpl-prog i { display: block; height: 100%; width: 0; background: var(--acc); }
+
+/* OBJETS */
+.objs { padding-block: clamp(70px, 8vw, 130px); }
+.objs-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; }
+.objs-head h2 { margin-top: 18px; }
+.objs-head p { margin: 0; color: var(--mute); max-width: 26em; }
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: clamp(32px, 4vw, 56px); }
+.obj { border-radius: 18px; overflow: hidden; background: #F6F2EB; box-shadow: inset 0 0 0 1px var(--line); display: grid; grid-template-rows: auto 1fr; transition: transform .6s var(--ease), box-shadow .4s; }
+.obj:hover { transform: translateY(-6px); box-shadow: inset 0 0 0 1px var(--line), 0 30px 50px -30px rgba(40,20,10,.35); }
+.obj-vis { position: relative; aspect-ratio: 5 / 4; display: grid; place-items: center; background: var(--c); }
+.obj-vis svg { width: 72%; transform: rotate(-8deg); transition: transform .8s var(--ease); filter: drop-shadow(0 26px 20px rgba(0,0,0,.28)); }
+.obj:hover .obj-vis svg { transform: rotate(-2deg) scale(1.04); }
+.obj-vis .k { position: absolute; left: 18px; top: 16px; font: 600 11px var(--sans); letter-spacing: .18em; }
+.obj-b { padding: 22px; display: grid; gap: 14px; align-content: space-between; }
+.obj-b h3 { margin: 0; font: 800 24px/1.05 var(--sans); letter-spacing: -.04em; }
+.obj-b p { margin: 6px 0 0; color: var(--mute); font-size: 14.5px; }
+.obj-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--mute); }
+.add { height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--ink); background: none; cursor: pointer; font-weight: 600; font-size: 13px; transition: background .3s, color .3s; }
+.add:hover, .add[aria-pressed="true"] { background: var(--ink); color: var(--cream); }
+
+/* LANCEMENT */
+.launch { padding-block: clamp(70px, 8vw, 130px); }
+.l-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(28px, 5vw, 90px); align-items: end; }
+.l-grid h2 { font-size: clamp(48px, 6.4vw, 112px); }
+.form { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.field { display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 22px; border-radius: 999px; background: #262626; box-shadow: inset 0 0 0 1px var(--line-d); }
+.field input { flex: 1; min-width: 0; font: 16px var(--sans); color: var(--cream); background: none; border: 0; padding: 12px 0; }
+.field input:focus { outline: none; }
+.field:focus-within { box-shadow: inset 0 0 0 1.5px var(--acc); }
+.field .btn { height: 48px; background: var(--acc); color: var(--ink); gap: 14px; }
+.note { margin: 0; min-height: 1.5em; font-size: 14px; color: #B3ADA3; }
+footer { border-top: 1px solid var(--line-d); }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 22px max(96px, env(safe-area-inset-bottom, 0px)); color: #8D877D; font-size: 10.5px; }
+
+.rv { opacity: 0; transform: translateY(28px); transition: opacity .9s var(--ease), transform 1.1s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+
+@media (max-width: 1020px) {
+  .links { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .h-right { min-height: 92vw; }
+  .concept, .l-grid { grid-template-columns: minmax(0, 1fr); }
+  .c-left { border-right: 0; padding-right: 0; border-bottom: 1px solid var(--line-d); }
+  .acc { padding-left: 0; }
+  .grid3 { grid-template-columns: 1fr 1fr; }
+  .xpl-in { grid-template-columns: 1fr; grid-template-rows: auto 1fr; align-content: start; padding-top: 28px; }
+  .xpl-txt { padding-right: 0; }
+  .xpl-txt p { display: none; }
+  .parts { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .parts li { grid-template-columns: 1fr; border-top: 2px solid var(--line); border-bottom: 0 !important; padding: 10px 0 0; }
+  .parts li.on { border-top-color: var(--acc); }
+  .parts li span:last-child { display: none; }
+}
+@media (max-width: 640px) {
+  .nav .wrap { height: 68px; }
+  .xpl-in { top: 68px; height: calc(100svh - 68px); }
+  .logo small { display: none; }
+  .cart { height: 40px; padding: 0 14px; }
+  .h-foot span:nth-child(2) { display: none; }
+  .h-foot { grid-template-columns: 1fr 1fr; }
+  .grid3 { grid-template-columns: 1fr; }
+  .hr-top .cap:last-child { display: none; }
+  .explore .cap { display: none; }
+  .acc-b p { margin-left: 0; }
+  .h-txt { margin-top: 28px; }
+  .l-grid h2 { font-size: clamp(42px, 12vw, 60px); }
+  .field .btn { padding: 0 18px; }
+  .parts li b { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  h1 .l > span { transform: none; }
+  .rv { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+<script defer src="/analytics.js"></script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F2EE"/><stop offset=".22" stop-color="#8F8E8B"/><stop offset=".45" stop-color="#ECEAE6"/><stop offset=".7" stop-color="#5E5D5B"/><stop offset="1" stop-color="#D9D7D2"/></linearGradient>
+    <linearGradient id="shell" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2A2A"/><stop offset="1" stop-color="#0E0E0E"/></linearGradient>
+    <radialGradient id="cone" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#3A3A3A"/><stop offset=".6" stop-color="#1A1A1A"/><stop offset="1" stop-color="#0A0A0A"/></radialGradient>
+    <radialGradient id="dome" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#5A5A5A"/><stop offset=".5" stop-color="#1E1E1E"/><stop offset="1" stop-color="#0B0B0B"/></radialGradient>
+    <pattern id="mesh" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r=".9" fill="#3C3C3C"/></pattern>
+    <symbol id="shellS" viewBox="0 0 400 320"><rect x="14" y="14" width="372" height="292" rx="78" fill="url(#shell)" stroke="url(#metal)" stroke-width="12"/><rect x="40" y="40" width="320" height="240" rx="58" fill="#121212" stroke="#2C2C2C" stroke-width="2"/><circle cx="330" cy="256" r="5" style="fill:var(--acc)"/><circle cx="346" cy="256" r="4" fill="#777"/></symbol>
+    <symbol id="ringS" viewBox="0 0 400 320"><circle cx="200" cy="160" r="114" fill="none" stroke="url(#metal)" stroke-width="12"/><circle cx="200" cy="160" r="104" fill="url(#mesh)"/></symbol>
+    <symbol id="coneS" viewBox="0 0 400 320"><circle cx="200" cy="160" r="84" fill="url(#cone)"/><circle cx="200" cy="160" r="84" fill="none" stroke="#2E2E2E" stroke-width="6"/><circle cx="200" cy="160" r="62" fill="none" stroke="#252525" stroke-width="2"/></symbol>
+    <symbol id="capS" viewBox="0 0 400 320"><circle cx="200" cy="160" r="40" fill="url(#metal)"/><circle cx="200" cy="160" r="31" fill="#161616"/><circle cx="200" cy="160" r="21" fill="url(#dome)"/></symbol>
+  </defs>
+</svg>
+
+<div class="topbar cap">Étude de concept · marque fictive · <span data-azel="name">Kova</span> Sound Systems</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Accueil"><b data-azel="name" data-azel-logo>Kova</b><small>Sound<br>Systems</small></a>
+    <nav class="links" aria-label="Navigation principale"><a href="#objets">Les objets</a><a href="#vision">Notre vision</a><a href="#son">Le son</a><a href="#lancement">Journal</a></nav>
+    <button class="cart" type="button" id="cart" aria-live="polite"><span>Panier (<b id="cartN">0</b>)</span><svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-label="Accueil">
+    <div class="h-left wrap">
+      <span class="kick cap">Objet sonore / Édition 001</span>
+      <div>
+        <h1><span class="l"><span>Le son</span></span><span class="l"><span>prend</span></span><span class="l"><span><em>forme.</em></span></span></h1>
+      </div>
+      <div class="h-txt">
+        <p>Une nouvelle façon de vivre la musique. Une présence sculpturale, une écoute sans compromis.</p>
+        <div class="ctas" id="ctas">
+          <button class="btn" type="button" id="play" aria-pressed="false"><span id="playL">Écouter K/01</span><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span></button>
+          <a class="ulink" href="#vision">Découvrir le concept</a>
+        </div>
+        <div class="h-foot cap"><span><span data-azel="name">Kova</span> Sound Systems</span><span>Design / Audio / Culture</span><span>01 / 03</span></div>
+      </div>
+    </div>
+    <div class="h-right" id="panel" data-cursor>
+      <span class="ghost" aria-hidden="true">K/01</span>
+      <div class="hr-top"><span class="cap">K/01 / Enceinte sans fil</span><div class="swatches" role="group" aria-label="Couleur du panneau"><button type="button" style="background:#E85C3A" data-c="#E85C3A" aria-label="Orange" aria-pressed="true"></button><button type="button" style="background:#D9CFBF" data-c="#D9CFBF" aria-label="Sable" aria-pressed="false"></button><button type="button" style="background:#8FA39A" data-c="#8FA39A" aria-label="Sauge" aria-pressed="false"></button></div></div>
+      <div class="stage" id="stage">
+        <div class="waves" id="waves" aria-hidden="true"></div>
+        <div class="spk" id="spk" role="img" aria-label="Enceinte K/01, coque noire, anneau en métal brossé">
+          <svg viewBox="0 0 400 320"><use href="#shellS"/><use href="#ringS"/><g class="cone" id="cone"><use href="#coneS"/><use href="#capS"/></g></svg>
+        </div>
+      </div>
+      <div class="hr-bot"><span class="cap">01 / 03 &nbsp; Objects to feel</span><div class="explore"><span class="cap">Démonter l'objet</span><a href="#son" aria-label="Voir l'objet démonté"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 1v12M2 8l5 5 5-5"/></svg></a></div></div>
+    </div>
+  </section>
+
+  <section class="dark" id="vision" aria-labelledby="vi-t">
+    <div class="wrap concept">
+      <div class="c-left rv">
+        <span class="cap">01 / Le concept</span>
+        <h2 id="vi-t">La technologie disparaît. <em>L'émotion</em> reste.</h2>
+        <p>Pas d'écran, pas de menu. Un objet que l'on pose, que l'on touche, et qui se fait oublier dès que la musique commence.</p>
+      </div>
+      <div class="acc rv" id="acc">
+        <div class="acc-i open"><button class="acc-h" type="button" aria-expanded="true"><span>01</span><span>Une présence sculpturale</span><i aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 1v12M1 7h12"/></svg></i></button><div class="acc-b"><div><p>Une coque d'un seul tenant, un anneau en aluminium brossé. Elle se regarde autant qu'elle s'écoute.</p></div></div></div>
+        <div class="acc-i"><button class="acc-h" type="button" aria-expanded="false"><span>02</span><span>Un son qui remplit l'espace</span><i aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 1v12M1 7h12"/></svg></i></button><div class="acc-b"><div><p>Un grand haut-parleur central et une chambre acoustique pensée pour diffuser dans toute la pièce, sans point d'écoute idéal.</p></div></div></div>
+        <div class="acc-i"><button class="acc-h" type="button" aria-expanded="false"><span>03</span><span>Pensé pour durer</span><i aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 1v12M1 7h12"/></svg></i></button><div class="acc-b"><div><p>Des pièces vissées plutôt que collées : chaque élément se démonte, se répare et se remplace.</p></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="xpl" id="son" aria-labelledby="xp-t">
+    <div class="xpl-in wrap" id="xplIn">
+      <div class="xpl-txt">
+        <span class="cap" style="color:var(--mute)">02 / Le son</span>
+        <h2 id="xp-t">Quatre pièces, <em>un seul</em> objet.</h2>
+        <p style="margin:0;color:var(--mute);max-width:26em">Faites défiler : K/01 se démonte sous vos yeux. Rien de caché, tout se répare.</p>
+        <ol class="parts" id="parts">
+          <li><span>01</span><div><b>Coque monobloc</b><br><span>Une seule pièce, sans vis apparente</span></div></li>
+          <li><span>02</span><div><b>Anneau et grille</b><br><span>Aluminium brossé, grille micro-perforée</span></div></li>
+          <li><span>03</span><div><b>Membrane</b><br><span>Le grand haut-parleur central</span></div></li>
+          <li><span>04</span><div><b>Ogive</b><br><span>Le cœur qui oriente les aigus</span></div></li>
+        </ol>
+      </div>
+      <div class="iso" aria-hidden="true">
+        <div class="iso-st" id="iso">
+          <div class="layer" data-z="0"><svg viewBox="0 0 400 320"><use href="#shellS"/></svg><span class="tag">Coque</span></div>
+          <div class="layer" data-z="1"><svg viewBox="0 0 400 320"><use href="#ringS"/></svg><span class="tag">Anneau</span></div>
+          <div class="layer" data-z="2"><svg viewBox="0 0 400 320"><use href="#coneS"/></svg><span class="tag">Membrane</span></div>
+          <div class="layer" data-z="3"><svg viewBox="0 0 400 320"><use href="#capS"/></svg><span class="tag">Ogive</span></div>
+        </div>
+      </div>
+      <div class="xpl-prog"><i id="xpProg"></i></div>
+    </div>
+  </section>
+
+  <section class="objs wrap" id="objets" aria-labelledby="ob-t">
+    <div class="objs-head rv">
+      <div><span class="cap" style="color:var(--mute)">03 / Les objets</span><h2 id="ob-t">Trois formes, une famille.</h2></div>
+      <p>Chaque objet existe en trois teintes. Les tarifs seront annoncés au lancement.</p>
+    </div>
+    <div class="grid3" id="grid3"></div>
+  </section>
+
+  <section class="dark launch" id="lancement" aria-labelledby="la-t">
+    <div class="wrap l-grid">
+      <div class="rv"><span class="cap" style="color:#8D877D">04 / Journal</span><h2 id="la-t">Soyez là <em>au premier</em> son.</h2></div>
+      <form class="form rv" id="form" novalidate>
+        <label class="cap" for="mail" style="color:#8D877D">Recevoir l'annonce du lancement</label>
+        <div class="field"><input id="mail" type="email" autocomplete="email" placeholder="votre@email.fr"><button class="btn" type="submit">S'inscrire <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></button></div>
+        <p class="note" id="note" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+    <footer><div class="wrap cap"><span><span data-azel="name">Kova</span> Sound Systems · concept fictif</span><span>Art direction / Web experience / Product design · démonstration Azel 005</span></div></footer>
+  </section>
+</main>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const root = document.documentElement;
+
+/* ---------- couleur du panneau ---------- */
+const panel = $("#panel");
+document.querySelectorAll(".swatches button").forEach((b) => b.addEventListener("click", () => {
+  document.querySelectorAll(".swatches button").forEach((x) => x.setAttribute("aria-pressed", x === b));
+  panel.style.background = b.dataset.c; root.style.setProperty("--acc-panel", b.dataset.c);
+}));
+
+/* ---------- l'enceinte suit la souris ---------- */
+const spk = $("#spk");
+if (!calm) panel.addEventListener("pointermove", (e) => {
+  const r = panel.getBoundingClientRect();
+  const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+  spk.style.setProperty("--ry", (x * 26).toFixed(2) + "deg"); spk.style.setProperty("--rx", (-y * 22).toFixed(2) + "deg");
+});
+panel.addEventListener("pointerleave", () => { spk.style.setProperty("--ry", "0deg"); spk.style.setProperty("--rx", "0deg"); });
+const ghost = $(".ghost");
+addEventListener("scroll", () => { if (!calm) ghost.style.setProperty("--py", (scrollY * .25).toFixed(1) + "px"); }, { passive: true });
+
+/* ---------- Écouter K/01 : une boucle synthétisée dans le navigateur, la membrane bat avec ---------- */
+const cone = $("#cone"), waves = $("#waves"), playB = $("#play");
+let ac = null, an = null, buf = null, out = null, timer = 0, playing = false, step = 0, lastWave = 0;
+const CH = [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]];
+const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+const note = (f, t, d, type, g) => {
+  const o = ac.createOscillator(), v = ac.createGain(), lp = ac.createBiquadFilter();
+  o.type = type; o.frequency.value = f; lp.type = "lowpass"; lp.frequency.value = 1400;
+  v.gain.setValueAtTime(0, t); v.gain.linearRampToValueAtTime(g, t + .03); v.gain.exponentialRampToValueAtTime(.0001, t + d);
+  o.connect(lp); lp.connect(v); v.connect(out); o.start(t); o.stop(t + d + .05);
+};
+const kick = (t) => {
+  const o = ac.createOscillator(), v = ac.createGain();
+  o.frequency.setValueAtTime(120, t); o.frequency.exponentialRampToValueAtTime(42, t + .18);
+  v.gain.setValueAtTime(.9, t); v.gain.exponentialRampToValueAtTime(.0001, t + .32);
+  o.connect(v); v.connect(out); o.start(t); o.stop(t + .35);
+};
+const BEAT = .5;
+const schedule = () => {
+  const t = ac.currentTime + .05;
+  const ch = CH[Math.floor(step / 4) % 4];
+  kick(t);
+  if (step % 4 === 0) ch.forEach((m) => { note(hz(m), t, 2, "sawtooth", .045); note(hz(m) * 1.003, t, 2, "triangle", .05); });
+  note(hz(ch[0] - 12), t, .42, "sine", .22);
+  if (step % 2) note(hz(ch[(step >> 1) % 3] + 12), t + .25, .25, "triangle", .05);
+  step++;
+};
+const meter = () => {
+  if (!playing) { cone.style.setProperty("--beat", 1); return; }
+  const a = new Uint8Array(an.fftSize); an.getByteTimeDomainData(a);
+  let m = 0; for (const x of a) m = Math.max(m, Math.abs(x - 128));
+  const lvl = m / 128;
+  cone.style.setProperty("--beat", (1 + lvl * .09).toFixed(3));
+  const now = performance.now();
+  if (lvl > .45 && now - lastWave > 380 && !calm) { lastWave = now; const w = document.createElement("i"); w.className = "go"; waves.appendChild(w); setTimeout(() => w.remove(), 1700); }
+  requestAnimationFrame(meter);
+};
+const stop = () => { playing = false; clearInterval(timer); document.body.classList.remove("playing"); playB.setAttribute("aria-pressed", "false"); $("#playL").textContent = "Écouter K/01"; if (out) out.gain.setTargetAtTime(0, ac.currentTime, .08); };
+playB.addEventListener("click", async () => {
+  if (playing) return stop();
+  try {
+    if (!ac) { ac = new (window.AudioContext || window.webkitAudioContext)(); an = ac.createAnalyser(); an.fftSize = 512; out = ac.createGain(); out.connect(an); an.connect(ac.destination); }
+    await ac.resume(); out.gain.cancelScheduledValues(ac.currentTime); out.gain.setValueAtTime(.32, ac.currentTime);
+  } catch (e) { return; }
+  playing = true; step = 0; document.body.classList.add("playing"); playB.setAttribute("aria-pressed", "true"); $("#playL").textContent = "Arrêter le son";
+  schedule(); timer = setInterval(schedule, BEAT * 1000); requestAnimationFrame(meter);
+});
+document.addEventListener("visibilitychange", () => { if (document.hidden && playing) stop(); });
+
+/* ---------- accordéon ---------- */
+document.querySelectorAll(".acc-h").forEach((h) => h.addEventListener("click", () => {
+  const it = h.parentElement, open = !it.classList.contains("open");
+  document.querySelectorAll(".acc-i").forEach((x) => { x.classList.remove("open"); $(".acc-h", x).setAttribute("aria-expanded", "false"); });
+  if (open) { it.classList.add("open"); h.setAttribute("aria-expanded", "true"); }
+}));
+
+/* ---------- démontage au défilement ---------- */
+const xpl = $("#son"), layers = [...document.querySelectorAll(".layer")], parts = [...document.querySelectorAll("#parts li")], prog = $("#xpProg");
+const explode = () => {
+  const r = xpl.getBoundingClientRect(), span = r.height - innerHeight;
+  const p = calm ? 1 : Math.min(1, Math.max(0, -r.top / (span || 1)));
+  const gap = Math.min(innerWidth, 1400) * .085;
+  layers.forEach((l, i) => {
+    const local = Math.min(1, Math.max(0, p * 1.25 - i * .08));
+    const e = 1 - Math.pow(1 - local, 3);
+    l.style.setProperty("--z", (i * gap * e).toFixed(1));
+    l.style.setProperty("--o", e > .55 ? 1 : 0);
+  });
+  const on = Math.min(parts.length - 1, Math.floor(p * parts.length * .999));
+  parts.forEach((li, i) => li.classList.toggle("on", p > .02 && i <= on));
+  prog.style.width = (p * 100).toFixed(1) + "%";
+};
+addEventListener("scroll", explode, { passive: true }); addEventListener("resize", explode); explode();
+
+/* ---------- objets ---------- */
+const OBJ = [
+  { k: "K/01", n: "K/01 Enceinte", d: "L'objet signature. Pour le salon, posée ou au mur.", c: "#E85C3A", s: 1 },
+  { k: "K/02", n: "K/02 Mini", d: "La même voix en plus petit, pour la chambre ou le bureau.", c: "#D9CFBF", s: .82 },
+  { k: "K/03", n: "K/03 Duo", d: "Deux enceintes qui se reconnaissent et jouent ensemble.", c: "#8FA39A", s: .92 },
+];
+$("#grid3").innerHTML = OBJ.map((o, i) => `
+  <article class="obj rv">
+    <div class="obj-vis" style="--c:${o.c}"><span class="k">${o.k}</span><svg viewBox="0 0 400 320" style="width:${72 * o.s}%" aria-hidden="true"><use href="#shellS"/><use href="#ringS"/><use href="#coneS"/><use href="#capS"/></svg></div>
+    <div class="obj-b"><div><h3>${o.n}</h3><p>${o.d}</p></div><div class="obj-row"><span>Tarif au lancement</span><button class="add" type="button" aria-pressed="false" data-i="${i}">Me prévenir</button></div></div>
+  </article>`).join("");
+let n = 0;
+document.querySelectorAll(".add").forEach((b) => b.addEventListener("click", () => {
+  const on = b.getAttribute("aria-pressed") !== "true";
+  b.setAttribute("aria-pressed", on); b.textContent = on ? "Ajouté ✓" : "Me prévenir";
+  n += on ? 1 : -1; $("#cartN").textContent = n;
+  const c = $("#cart"); c.classList.remove("bump"); void c.offsetWidth; c.classList.add("bump");
+}));
+$("#cart").addEventListener("click", () => { $("#objets").scrollIntoView({ behavior: calm ? "auto" : "smooth" }); });
+
+/* ---------- formulaire : démonstration ---------- */
+$("#form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const v = $("#mail").value.trim(), note = $("#note");
+  if (!/^\S+@\S+\.\S+$/.test(v)) { note.textContent = "Indiquez une adresse e-mail valide."; $("#mail").focus(); return; }
+  note.textContent = "Ceci est une démonstration : aucune adresse n'a été enregistrée. Sur le vrai site, l'inscription part dans la liste de lancement.";
+});
+
+/* ---------- apparitions ---------- */
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+})();
+</script>
+<script src="../azel-demo.js" data-template="kova" data-accent="--acc" data-on="dark" defer></script>
+</body>
+</html>

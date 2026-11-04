@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="description" content="Showroom Azel Studio : des sites animés à voir en démonstration réelle, à personnaliser avec votre nom, votre couleur et votre logo.">
+<script defer src="/analytics.js"></script>
+</head>
+<body>
+<title>Azel Showroom</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Showroom Azel Studio : des créations web haut de gamme, à voir en démonstration réelle et à faire réaliser pour votre activité.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Showroom : une galerie sombre où chaque création tourne en direct dans son cadre. Azel reste en retrait ; les créations portent leur propre identité. */
+:root {
+  color-scheme: dark;
+  --void: #080808;
+  --panel: #101113;
+  --raise: #17181B;
+  --paper: #F3F1EB;
+  --soft: #CFCDC6;
+  --mute: #8A8C91;
+  --line: rgba(243,241,235,.14);
+  --line-2: rgba(243,241,235,.24);
+  --ok: #7FB083;
+  --ui: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --gutter: clamp(16px, 3.9vw, 56px);
+  --ease: cubic-bezier(.2,.7,.1,1);
+  --navh: 72px;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { background: var(--void); }
+body { margin: 0; color: var(--paper); font: 16px/1.55 var(--ui); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; border-radius: 4px; }
+.wrap { padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); max-width: 1640px; margin: 0 auto; }
+.label { font: 500 11px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; height: 48px; padding: 0 22px 0 24px; border: 0; border-radius: 999px; background: var(--paper); color: var(--void); font-weight: 600; font-size: 14.5px; cursor: pointer; white-space: nowrap; transition: transform .16s var(--ease), box-shadow .25s, background .25s; }
+.btn svg { width: 14px; height: 14px; flex: none; transition: transform .3s var(--ease); }
+.btn:hover svg { transform: translate(3px,-3px); }
+.btn.fw:hover svg { transform: translateX(3px); }
+.btn:active { transform: scale(.97); }
+.btn.lg { height: 56px; font-size: 15px; padding: 0 24px 0 26px; }
+.btn.line { background: transparent; color: var(--paper); box-shadow: inset 0 0 0 1px var(--line-2); }
+.btn.line:hover { box-shadow: inset 0 0 0 1px var(--paper); }
+
+/* NAV */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--void); }
+header.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: rgba(8,8,8,.82); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--line); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: var(--navh); }
+.brand { display: flex; align-items: center; gap: 12px; font-size: 19px; letter-spacing: -.01em; }
+.brand svg { width: 26px; height: 26px; flex: none; }
+.brand b { font-weight: 700; }
+.brand .tag { font: 500 11px/1 var(--mono); letter-spacing: .14em; color: var(--mute); padding-left: 12px; border-left: 1px solid var(--line-2); }
+.nav-links { display: flex; align-items: center; gap: 30px; font-size: 14px; font-weight: 500; color: #BDBBB5; }
+.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--paper); }
+
+/* CADRES : la démo réelle tourne dedans (iframe), à l'échelle */
+.win { position: relative; border-radius: 12px; overflow: hidden; background: #141517; box-shadow: 0 0 0 1px var(--line-2), 0 50px 110px rgba(0,0,0,.6); }
+.win .chrome { height: 30px; display: flex; align-items: center; gap: 6px; padding: 0 12px; border-bottom: 1px solid rgba(255,255,255,.06); }
+.win .chrome i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.13); }
+.win .chrome span { margin-left: auto; font: 500 10px/1 var(--mono); letter-spacing: .08em; color: #75777C; }
+.win .vp { position: relative; overflow: hidden; aspect-ratio: 16 / 10; }
+.frame-in { position: absolute; left: 0; top: 0; border: 0; transform-origin: 0 0; background: #111214; }
+.win .frame-in { width: 1440px; height: 900px; }
+.phone { position: relative; width: 410px; height: 864px; padding: 10px; border-radius: 56px; background: #1B1C1F; box-shadow: 0 0 0 1.5px rgba(243,241,235,.16), 0 40px 90px rgba(0,0,0,.6); transform-origin: 0 0; }
+.phone .screen { position: relative; width: 390px; height: 844px; border-radius: 46px; overflow: hidden; background: #111214; }
+.phone .frame-in { width: 390px; height: 844px; }
+.phone-holder { position: relative; }
+
+/* Révélations : état de repos visible, seuls les blocs hors écran au chargement attendent */
+.rv.wait { opacity: 0; transform: translateY(28px); }
+.rv { transition: opacity .9s var(--ease), transform .9s var(--ease); }
+
+/* ================= BIBLIOTHÈQUE (grille) ================= */
+/* Halo coloré animé autour de chaque aperçu, dans les couleurs de la création */
+@property --a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.frame { position: relative; isolation: isolate; border-radius: 16px; padding: 1.5px; background: conic-gradient(from var(--a), var(--c1) 0%, transparent 22%, var(--c2) 50%, transparent 72%, var(--c1) 100%); animation: sr-spin 7s linear infinite; }
+.frame::before { content: ""; position: absolute; inset: -14px; z-index: -1; border-radius: 28px; background: inherit; filter: blur(26px); opacity: .32; transition: opacity .6s var(--ease); }
+.card:hover .frame::before, .card:focus-within .frame::before { opacity: .75; }
+.frame > .card-vis { border-radius: 14.5px; box-shadow: none; }
+@keyframes sr-spin { to { --a: 360deg; } }
+.card.is-soon .frame { animation-duration: 11s; }
+.card.is-soon .frame::before { opacity: .16; }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filters button { height: 38px; padding: 0 16px; border-radius: 999px; border: 0; background: transparent; box-shadow: inset 0 0 0 1px var(--line-2); color: var(--soft); font-size: 13.5px; cursor: pointer; transition: background .2s, color .2s, box-shadow .2s; }
+.filters button:hover { color: var(--paper); box-shadow: inset 0 0 0 1px var(--paper); }
+.filters button[aria-pressed="true"] { background: var(--paper); color: var(--void); box-shadow: none; }
+.filters button span { font: 500 11px/1 var(--mono); margin-left: 6px; opacity: .6; }
+.lib { overflow-x: clip; overflow-y: visible; padding-top: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px) clamp(14px, 1.6vw, 22px); padding-bottom: clamp(64px, 8vw, 120px); }
+.card { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.card-vis { position: relative; display: block; border-radius: 14.5px; overflow: hidden; background: #141517; box-shadow: 0 0 0 1px var(--line); aspect-ratio: 16 / 10; transition: box-shadow .5s var(--ease), transform .6s var(--ease); }
+.card-vis .frame-in { width: 1440px; height: 900px; pointer-events: none; transition: transform 1.2s var(--ease); }
+.card-vis img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.card-vis::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8,8,8,.55), transparent 45%); opacity: 0; transition: opacity .4s var(--ease); }
+.card-vis .open svg { width: 14px; height: 14px; }
+.card-vis .open { position: absolute; z-index: 2; left: 16px; bottom: 14px; display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 999px; background: var(--paper); color: var(--void); font-size: 13px; font-weight: 600; opacity: 0; transform: translateY(8px); transition: opacity .35s var(--ease), transform .45s var(--ease); }
+.card .frame { transition: transform .6s var(--ease); }
+.card:hover .frame, .card:focus-within .frame { transform: translateY(-4px); }
+.card:hover .card-vis::after, .card-vis:focus-visible::after { opacity: 1; }
+.card:hover .card-vis .open, .card-vis:focus-visible .open { opacity: 1; transform: none; }
+.card-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.card-head h2 { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -.03em; }
+.badge { height: 24px; display: inline-flex; align-items: center; padding: 0 10px; border-radius: 999px; font: 500 10.5px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; box-shadow: inset 0 0 0 1px var(--line-2); color: var(--soft); white-space: nowrap; }
+.badge.live { background: var(--paper); color: var(--void); box-shadow: none; }
+.card p { margin: 0; color: var(--mute); font-size: 14.5px; line-height: 1.5; min-height: 4.5em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card { grid-template-rows: auto auto 1fr auto; }
+.card-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 13.5px; color: var(--soft); }
+.card-foot a { color: var(--soft); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--line-2); }
+.card-foot a:hover { color: var(--paper); text-decoration-color: var(--paper); }
+.card-foot .explore { display: inline-flex; align-items: center; gap: 8px; color: var(--paper); text-decoration: none; font-weight: 500; }
+.card-foot .explore svg { width: 13px; height: 13px; transition: transform .3s; }
+.card-foot .explore:hover svg { transform: translateX(3px); }
+.card.is-soon .card-vis { background: repeating-linear-gradient(135deg, #0E0F10 0 14px, #121315 14px 15px); display: grid; place-items: center; }
+.card.is-soon .card-vis span { font: 500 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+.card.has-prev .card-vis { background: #0B0B0C; }
+.card.has-prev .frame { animation-duration: 7s; }
+.card.has-prev .frame::before { opacity: .38; }
+.card.has-prev:hover .frame::before { opacity: .7; }
+.card-vis video.prev { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s var(--ease); }
+.card.has-prev:hover video.prev { transform: scale(1.03); }
+.card.has-prev .card-vis span.prev-tag { position: absolute; z-index: 2; left: 14px; bottom: 12px; display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 999px; background: rgba(8,8,8,.62); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: inset 0 0 0 1px rgba(243,241,235,.16); color: var(--paper); font: 500 10.5px/1 var(--mono); letter-spacing: .12em; }
+.prev-tag i { width: 6px; height: 6px; border-radius: 50%; background: var(--paper); animation: prevBlink 2.4s ease-in-out infinite; }
+@keyframes prevBlink { 50% { opacity: .3; } }
+.card.feat { grid-column: 1 / -1; }
+.card.feat .card-vis { aspect-ratio: 16 / 7; }
+.card.feat .frame { animation-duration: 6s; }
+.card.feat .frame::before { opacity: .55; }
+.card.feat .card-head h2 { font-size: clamp(30px, 3vw, 46px); display: grid; gap: 6px; }
+.feat-k { font: 500 11px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+.card.feat p { max-width: 52em; }
+@media (max-width: 1100px) { .lib { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .card.feat .card-vis { aspect-ratio: 16 / 11; } }
+@media (max-width: 640px) { .lib { grid-template-columns: minmax(0, 1fr); } }
+
+/* ================= COLLECTION ================= */
+.intro { padding-block: clamp(56px, 9vw, 120px) clamp(40px, 6vw, 80px); display: grid; gap: 26px; }
+.intro h1 { margin: 0; font-size: clamp(46px, 7.4vw, 124px); line-height: .9; font-weight: 600; letter-spacing: -.055em; max-width: 13ch; text-wrap: balance; }
+.intro { padding-block: clamp(48px, 7vw, 100px) clamp(28px, 4vw, 48px); }
+.intro h1 { font-size: clamp(38px, 5vw, 82px); max-width: 17ch; }
+.intro h1 span { display: block; }
+.intro h1 span:nth-child(2) { color: var(--soft); font-weight: 400; }
+.intro { gap: 22px; }
+.intro-foot { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 22px; }
+.intro p { margin: 0; color: var(--soft); font-size: clamp(16px, 1.4vw, 19px); max-width: 36em; }
+
+.collection { display: grid; gap: clamp(56px, 8vw, 120px); padding-bottom: clamp(64px, 8vw, 120px); }
+.price { display: flex; align-items: baseline; gap: 10px; }
+.price b { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.soon { border-radius: 16px; box-shadow: inset 0 0 0 1px var(--line); padding: 26px; display: flex; justify-content: space-between; align-items: end; gap: 16px; min-height: 160px; background: repeating-linear-gradient(135deg, transparent 0 14px, rgba(243,241,235,.025) 14px 15px); }
+.soon b { display: block; font-size: 24px; font-weight: 600; letter-spacing: -.03em; margin-top: 8px; color: var(--soft); }
+
+.elsewhere { border-top: 1px solid var(--line); padding-block: 48px 72px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.elsewhere h3 { margin: 0; font-size: clamp(24px, 2.6vw, 36px); font-weight: 600; letter-spacing: -.035em; max-width: 22ch; }
+
+/* ================= FICHE ================= */
+.f-hero { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.5fr); gap: clamp(28px, 4vw, 64px); align-items: center; padding-block: clamp(32px, 4.5vw, 64px) clamp(48px, 6vw, 96px); }
+.crumbs { display: flex; gap: 10px; align-items: center; }
+.crumbs a { color: var(--soft); font-size: 13.5px; }
+.crumbs a:hover { color: var(--paper); }
+.f-copy { display: grid; gap: 22px; min-width: 0; }
+.f-copy h1 { margin: 0; font-size: clamp(60px, 7.6vw, 136px); line-height: .84; font-weight: 600; letter-spacing: -.06em; overflow-wrap: anywhere; }
+.f-copy .concept { font-size: 18px; color: var(--soft); }
+.f-copy p { margin: 0; color: var(--soft); font-size: 16.5px; max-width: 30em; }
+.f-acts { display: grid; gap: 10px; }
+.f-acts .row { display: flex; gap: 10px; flex-wrap: wrap; }
+.stage { display: grid; gap: 14px; min-width: 0; }
+.stage-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.seg { display: inline-flex; padding: 3px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line-2); }
+.seg button { height: 34px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--mute); font-size: 13px; font-weight: 500; cursor: pointer; }
+.seg button:hover { color: var(--paper); }
+.seg button[aria-pressed="true"] { background: var(--raise); color: var(--paper); box-shadow: inset 0 0 0 1px var(--line-2); }
+.stage-box { position: relative; border-radius: 18px; background: radial-gradient(120% 90% at 50% 0%, #17181B 0%, #0B0B0C 70%); box-shadow: inset 0 0 0 1px var(--line); padding: clamp(10px, 2vw, 26px); }
+.stage-box .phone-zone { display: flex; justify-content: center; }
+.stage-box .phone-holder { width: min(100%, 320px); }
+.stage-box[data-view="desk"] .phone-zone, .stage-box[data-view="mob"] .win { display: none; }
+.f-hero.play .f-copy > * { animation: sr-up .9s var(--ease) both; }
+.f-hero.play .f-copy > *:nth-child(2) { animation-delay: .08s; }
+.f-hero.play .f-copy > *:nth-child(3) { animation-delay: .16s; }
+.f-hero.play .f-copy > *:nth-child(4) { animation-delay: .24s; }
+.f-hero.play .f-copy > *:nth-child(5) { animation-delay: .32s; }
+.f-hero.play .stage { animation: sr-rise 1.2s var(--ease) both .12s; }
+@keyframes sr-rise { from { opacity: 0; transform: translateY(60px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes sr-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+.hl { border-top: 1px solid var(--line); padding-block: clamp(56px, 7vw, 100px); display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.5fr); gap: clamp(28px, 4vw, 64px); }
+.hl h2, .perso h2, .offer h2 { margin: 0; font-size: clamp(36px, 4.2vw, 64px); line-height: .94; font-weight: 600; letter-spacing: -.05em; }
+.hl-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
+.hl-item { border-top: 1px solid var(--line); padding: 22px 0 26px; display: grid; gap: 6px; }
+.hl-item .label { color: var(--mute); }
+.hl-item b { font-size: 21px; font-weight: 600; letter-spacing: -.02em; }
+.hl-item span { color: var(--soft); font-size: 15px; }
+
+.perso { border-top: 1px solid var(--line); padding-block: clamp(56px, 7vw, 100px); display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.5fr); gap: clamp(28px, 4vw, 64px); align-items: center; }
+.perso-form { display: grid; gap: 22px; min-width: 0; }
+.perso-form p { margin: 0; color: var(--soft); max-width: 30em; }
+.fields { border-radius: 16px; background: var(--panel); box-shadow: inset 0 0 0 1px var(--line-2); }
+.fields:focus-within { box-shadow: inset 0 0 0 1px var(--paper); }
+.fields .row { display: grid; grid-template-columns: 110px minmax(0, 1fr); align-items: center; gap: 12px; padding: 0 18px; }
+.fields .row + .row { border-top: 1px solid var(--line); }
+.fields label { font: 500 11px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.fields input { width: 100%; border: 0; background: transparent; outline: none; font-size: 18px; font-weight: 500; padding: 16px 0; }
+.fields input::placeholder { color: #5F6166; }
+.mine { font-size: 14px; color: var(--ok); min-height: 22px; }
+.fields .row.tall { padding-block: 14px; align-items: start; }
+.fields .row.tall label { padding-top: 10px; }
+.swatch-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.sw { position: relative; width: 38px; height: 38px; border-radius: 50%; border: 0; cursor: pointer; padding: 0; background: var(--c); box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); transition: transform .3s var(--ease), box-shadow .3s; }
+.sw:hover { transform: scale(1.08); }
+.sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--void), 0 0 0 4px var(--paper); }
+.sw.pick { background: conic-gradient(#ff5d5d, #ffd25d, #6dff8f, #5dc8ff, #b45dff, #ff5d5d); overflow: hidden; }
+.sw.pick input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.sw.pick.has { background: var(--c); }
+.sw-name { font-size: 14px; color: var(--soft); margin-left: 4px; }
+.logo-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.logo-btn { position: relative; display: inline-flex; align-items: center; gap: 10px; height: 42px; padding: 0 16px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line-2); font-size: 14.5px; font-weight: 500; cursor: pointer; transition: box-shadow .3s, background .3s; }
+.fields .logo-btn { font: 500 14.5px/1 var(--display, inherit); letter-spacing: 0; text-transform: none; color: var(--paper); }
+.logo-btn:hover, .logo-btn:focus-within { box-shadow: inset 0 0 0 1px var(--paper); }
+.logo-btn input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.logo-btn svg { width: 16px; height: 16px; }
+.logo-prev { height: 36px; max-width: 140px; object-fit: contain; border-radius: 6px; background: repeating-conic-gradient(#2a2b2e 0 25%, #1f2023 0 50%) 0 0 / 12px 12px; padding: 4px; }
+.logo-x { border: 0; background: none; color: var(--mute); cursor: pointer; font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+.privacy { font-size: 13px; color: var(--mute); margin: 0; }
+.share { display: grid; gap: 10px; padding-top: 18px; border-top: 1px solid var(--line); }
+.share-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.share-row .btn svg { width: 15px; height: 15px; }
+.share-row .btn:hover svg { transform: none; }
+.share-mail { font-size: 14px; color: var(--soft); text-decoration: underline; text-underline-offset: 4px; }
+.share-mail:hover { color: var(--paper); }
+.share-hint { font-size: 13px; color: var(--mute) !important; }
+.share-hint.ok { color: var(--ok) !important; }
+
+
+.offer { border-top: 1px solid var(--line); padding-block: clamp(56px, 7vw, 100px); display: grid; gap: 36px; }
+.offer-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+.offer-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px; }
+.formula { border-radius: 20px; background: var(--paper); color: var(--void); padding: clamp(24px, 3vw, 40px); display: grid; gap: 22px; align-content: start; }
+.formula .label { color: #6A6C70; }
+.formula-top { display: flex; justify-content: space-between; align-items: start; gap: 20px; flex-wrap: wrap; }
+.formula h3 { margin: 6px 0 0; font-size: clamp(26px, 2.4vw, 36px); line-height: 1.02; letter-spacing: -.04em; }
+.formula .amount { text-align: right; }
+.formula .amount span { display: block; font-size: 13px; color: #5A5C60; }
+.formula .amount b { font-size: clamp(34px, 3.4vw, 50px); letter-spacing: -.04em; font-variant-numeric: tabular-nums; line-height: 1; }
+.formula ul { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; }
+.formula li { display: flex; gap: 10px; font-size: 15px; line-height: 1.4; }
+.formula li::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--void); margin-top: 7px; flex: none; }
+.formula .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; border-top: 1px solid rgba(8,8,8,.14); padding-top: 18px; font-size: 14px; color: #3D3F43; }
+.formula .facts b { display: block; color: var(--void); font-size: 13px; margin-bottom: 2px; }
+.formula .btn { background: var(--void); color: var(--paper); width: 100%; justify-content: space-between; }
+.formula .note { margin: 0; font-size: 13px; color: #5A5C60; }
+.alts { display: grid; gap: 12px; align-content: start; }
+.alt { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 20px; border-radius: 16px; background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; transition: box-shadow .2s, background .2s; }
+.alt:hover { box-shadow: inset 0 0 0 1px var(--line-2); }
+.alt input { width: 18px; height: 18px; accent-color: var(--paper); margin: 0; }
+.alt b { display: block; font-size: 16px; }
+.alt span { font-size: 13.5px; color: var(--mute); }
+.alt .p { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.alt:has(input:checked) { background: var(--raise); box-shadow: inset 0 0 0 1.5px var(--paper); }
+.extra { font-size: 13px; color: var(--mute); padding: 4px 4px 0; margin: 0; }
+
+footer.sr-foot { border-top: 1px solid var(--line); padding-block: 28px 40px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--mute); }
+footer.sr-foot a:hover { color: var(--paper); }
+.f-bar { display: none; }
+
+@media (max-width: 960px) {
+  .piece, .f-hero, .hl, .perso, .offer-grid { grid-template-columns: minmax(0, 1fr); }
+  .hl-grid { grid-template-columns: minmax(0, 1fr); }
+  .f-bar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; gap: 10px; padding: 12px max(16px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: rgba(8,8,8,.9); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 -1px 0 var(--line); }
+  .f-bar .btn { flex: 1; height: 50px; padding: 0 16px; justify-content: space-between; }
+  body.in-fiche footer.sr-foot { padding-bottom: 100px; }
+}
+@media (max-width: 640px) {
+  :root { --navh: 62px; }
+  .nav-links a:not(.btn) { display: none; }
+  .brand .tag { display: none; }
+  .nav-links .btn { height: 40px; padding: 0 16px; font-size: 13px; }
+  .formula ul, .formula .facts { grid-template-columns: minmax(0, 1fr); }
+  .formula-top { flex-direction: column; }
+  .formula .amount { text-align: left; }
+  .fields .row { grid-template-columns: 1fr; gap: 0; padding: 12px 16px 0; }
+  .fields input { padding: 4px 0 12px; font-size: 17px; }
+  .f-acts .btn, .acts .btn { flex: 1 1 100%; justify-content: space-between; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
+  .rv.wait { opacity: 1; transform: none; }
+}
+.formula, .formula-top > div { min-width: 0; }
+#order { white-space: normal; height: auto; min-height: 56px; padding-block: 16px; }
+#collection { scroll-margin-top: calc(var(--navh) + 20px); }
+@media (max-width: 960px) {
+  .f-acts [data-go="perso"] { display: none; }
+  .f-bar[hidden] { display: none; }
+}
+</style>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#showroom" aria-label="Showroom Azel Studio">
+      <svg viewBox="0 0 30 30" aria-hidden="true"><rect x="0" y="10.5" width="19.5" height="19.5" rx="1.6" fill="#F3F1EB"/><rect x="19.5" y="0" width="10.5" height="10.5" rx="1.1" fill="#F3F1EB"/></svg>
+      <span><b>AZEL</b> STUDIO</span><span class="tag">SHOWROOM</span>
+    </a>
+    <nav class="nav-links" aria-label="Navigation">
+      <a href="#collection" id="navShowroom" aria-current="page">Nos créations</a>
+      <a href="/#offres">Offres</a>
+      <a href="/">Le studio</a>
+      <a class="btn" href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section id="vCollection" aria-labelledby="srTitle">
+    <div class="wrap intro">
+      <span class="label">Inspirez-vous. Imaginez votre vision.</span>
+      <h1 id="srTitle"><span>Des idées qui donnent envie.</span> <span>Des sites dès 490 €.</span></h1>
+      <div class="intro-foot">
+        <p>Chaque création tourne ici pour de vrai. Ouvrez-la, voyez-la avec le nom de votre entreprise, puis faites-la réaliser par Azel Studio.</p>
+        <span class="label" id="srCount"></span>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Filtrer par activité"></div>
+    </div>
+    <div class="wrap collection" id="collection"></div>
+    <div class="wrap elsewhere">
+      <h3>Votre activité n'est pas encore dans la collection ?</h3>
+      <a class="btn lg" href="/#contact">Parler de mon projet <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
+    </div>
+  </section>
+  <section id="vFiche" hidden></section>
+</main>
+
+<footer class="wrap sr-foot">
+  <span>© 2026 Azel Studio · Les créations présentées sont des démonstrations : entreprises et contenus fictifs.</span>
+  <span><a href="/">Le studio</a> · <a href="/mentions-legales.html">Mentions légales</a></span>
+</footer>
+
+<script>
+(() => {
+/* Offres et tarifs : repris tels quels du site Azel (ne pas modifier ici sans modifier le site). */
+const OFFERS = {
+  essentiel: { name: "Essentiel", kind: "Site one-page", price: "490 €", line: "Une page qui présente l'activité, pour démarrer.",
+    inc: ["Une page présentant l'activité", "Design adapté aux ordinateurs et mobiles", "Organisation et mise en forme des contenus fournis", "Formulaire de contact simple", "Optimisations techniques de base", "Mise en ligne selon les modalités convenues"], delay: "1 à 3 semaines selon le projet." },
+  vitrine: { name: "Vitrine", kind: "Site multipage", price: "790 €", line: "Plusieurs pages pour présenter chaque prestation.",
+    inc: ["Site de plusieurs pages", "Navigation adaptée à votre activité", "Design personnalisé", "Mise en valeur de vos prestations", "Formulaire de contact ou de demande de devis", "Optimisations techniques de base selon le périmètre"], delay: "Précisé dans le devis selon le projet." },
+  outil: { name: "Site et outil", kind: "Fonctionnalités spécifiques", price: "1 290 €", line: "Le site, avec réservation, paiement ou formulaires avancés.",
+    inc: ["Réservation en ligne", "Paiement", "Formulaires avancés", "Connexion à des outils existants", "Fonctionnalité spécifique de complexité limitée", "Périmètre défini après échange"], delay: "Précisé dans le devis selon le projet." }
+};
+
+/* Catalogue de secours, identique à templates.json (utilisé si le fichier ne se charge pas). */
+const FALLBACK = {"_note": "Catalogue du Showroom Azel. Une entrée = une création. Pour ajouter une création : déposer son dossier à côté (ex. depart/) et ajouter une entrée ici. status : live (publiée) ou soon (en préparation, sans lien). Une entrée en soon peut avoir preview (vidéo .mp4 courte, muette) et poster (image) : la carte montre alors l'aperçu du concept.", "templates": [{"id": "depart", "num": "001", "name": "Ligne A", "sector": "Auto-école", "concept": "Auto-école moderne", "line": "Bleu nuit et bleu électrique. Le nom de l'auto-école s'allume sur l'enseigne, la voiture roule sur la route du permis au défilement, et trois questions donnent la bonne formation.", "fits": "Auto-écoles, moto-écoles, formations à la conduite", "palette": ["#0A1628", "#F3F5F8", "#1F5BFF"], "tags": ["Enseigne à votre nom", "La route du permis", "Quiz de formation"], "demo": "depart/", "cover": null, "status": "live", "offer": "vitrine", "alts": ["essentiel", "outil"], "highlights": [{"t": "Votre nom sur l'enseigne", "x": "La façade de l'agence affiche le nom de l'auto-école, qui s'allume à l'arrivée."}, {"t": "La route du permis", "x": "Cinq étapes sur une route : la voiture avance avec le défilement."}, {"t": "Trouver sa formation", "x": "Trois questions (âge, niveau, boîte) et la formation conseillée s'affiche."}, {"t": "L'évaluation en ligne", "x": "La demande d'évaluation de départ, préremplie depuis la formation choisie."}], "glow": ["#1F5BFF", "#9DB8FF"], "colors": [["Bleu électrique", "1F5BFF"], ["Rouge signal", "E5383B"], ["Vert piste", "0FA36B"]]}, {"id": "beaute", "num": "002", "name": "Chérie Club", "sector": "Beauté · Lash · Salon", "concept": "Beauty studio pop et éditorial", "line": "Un hero photo bord à bord, « Le glow, c'est toi. » en grand, des tirages Polaroid, un sticker qui tourne et un bandeau citron. La réservation tient dans un ticket.", "fits": "Instituts de beauté, extensions de cils, onglerie, brow bar, soins visage", "palette": ["#FFF8EF", "#1E1917", "#D9213A"], "tags": ["Pop et éditorial", "Tirages Polaroid", "Réservation en ticket"], "demo": "beaute/", "cover": null, "status": "live", "offer": "outil", "alts": ["vitrine", "essentiel"], "highlights": [{"t": "Une entrée magazine", "x": "Photo bord à bord, titre géant centré, lettrage de fond au nom du studio et bandeaux qui défilent."}, {"t": "Les tirages Polaroid", "x": "Ongles, cils et peau en tirages scotchés, qui se redressent au survol et suivent la souris."}, {"t": "Trois univers clairs", "x": "Nails, lashes et skin, chacun avec ses soins et leur durée."}, {"t": "Le ticket de réservation", "x": "Soins, jour et heure : le ticket se remplit en direct, prêt à être confirmé."}], "colors": [["Cerise", "D9213A"], ["Fuchsia", "D11F7A"], ["Prune", "6E2A8C"]], "glow": ["#D9213A", "#E6F77A"]}, {"id": "cabinet", "num": "003", "name": "003 Cabinet", "sector": "Cabinet · Avocat · Conseil", "concept": "Cabinet d'avocats et de conseil", "line": "La pierre de taille, le bordeaux et un serif élégant. Le nom du cabinet gravé sur la vitrine, et une prise de rendez-vous en quatre étapes.", "fits": "Avocats, notaires, experts-comptables, cabinets de conseil", "palette": ["#F6F1EA", "#1D1A18", "#6B1626"], "tags": ["Classique et sobre", "Nom gravé en vitrine", "Prise de rendez-vous"], "demo": "cabinet/", "cover": null, "status": "live", "offer": "outil", "alts": ["vitrine", "essentiel"], "highlights": [{"t": "Une vitrine à votre nom", "x": "La façade en pierre et le nom du cabinet qui se grave sur la vitre à l'arrivée."}, {"t": "Les expertises lisibles", "x": "Chaque domaine s'ouvre avec ses interventions et l'associé référent."}, {"t": "Une méthode rassurante", "x": "Les quatre étapes d'un dossier, qui s'éclairent au défilement."}, {"t": "Le rendez-vous en ligne", "x": "Domaine, format, créneau, coordonnées : le client réserve en moins d'une minute."}], "glow": ["#6B1626", "#E3D8C8"], "colors": [["Bordeaux", "6B1626"], ["Bleu nuit", "1F3A5F"], ["Vert anglais", "2F4A3A"]]}, {"id": "artisan", "num": "004", "name": "004 Artisan", "sector": "Artisan · Bâtiment", "concept": "Entreprise de rénovation et d'extension", "line": "Béton, lumière chaude et orange chantier. Sur la photo d'accueil, on fait glisser du plan à la réalisation, et la demande de devis tient en quatre questions.", "fits": "Maçons, rénovation, menuisiers, plombiers, électriciens, paysagistes", "palette": ["#1E1D1B", "#F1EEEA", "#E8671C"], "tags": ["Du plan au chantier", "Réalisations en fiches", "Devis avec photos"], "demo": "artisan/", "cover": null, "status": "live", "offer": "vitrine", "alts": ["essentiel", "outil"], "highlights": [{"t": "Du plan au chantier", "x": "Un curseur sur la photo d'accueil fait passer du plan coté à la réalisation."}, {"t": "Les métiers d'un coup d'œil", "x": "Rénovation, gros œuvre, aménagement et finitions, chacun avec son icône."}, {"t": "Des réalisations détaillées", "x": "Chaque chantier s'ouvre avec surface, durée, corps de métier et lieu."}, {"t": "Un devis simple", "x": "Type de projet, surface, délai et photos du lieu, en moins d'une minute."}], "glow": ["#E8671C", "#F1EEEA"], "colors": [["Orange chantier", "E8671C"], ["Bleu acier", "2F6FB0"], ["Vert sauge", "3E7B4F"]]}, {"id": "kova", "num": "005", "name": "Kova", "sector": "Marque · E-commerce", "concept": "Marque d'objets sonores", "line": "Une marque produit qui se vit : l'enceinte suit la souris, bat au rythme d'un son joué dans la page et se démonte pièce par pièce au défilement.", "fits": "Marques produit, créateurs d'objets, e-commerce haut de gamme, lancements", "palette": ["#EEE8DE", "#161616", "#E85C3A"], "tags": ["Objet interactif", "Son en direct", "Vue éclatée au défilement"], "demo": "kova/", "cover": null, "status": "live", "offer": "outil", "alts": ["vitrine", "essentiel"], "highlights": [{"t": "Un objet vivant", "x": "L'enceinte réagit à la souris et change de teinte avec le panneau."}, {"t": "Le son dans la page", "x": "Un bouton « Écouter » joue une boucle, la membrane bat avec la musique."}, {"t": "La vue éclatée", "x": "Au défilement, l'objet se démonte en quatre pièces légendées."}, {"t": "Une liste de lancement", "x": "Les produits, un panier « me prévenir » et l'inscription à l'annonce."}], "glow": ["#E85C3A", "#EEE8DE"], "colors": [["Orange", "E85C3A"], ["Bleu vif", "4F7BFF"], ["Jaune soleil", "F2C14E"]]}, {"id": "galerie", "num": "006", "name": "Concept 01", "sector": "Galerie · Studio créatif", "concept": "Galerie d'art et studio de création", "line": "Une galerie sombre et métallique : fond de fumée vivant, titre en métal, œuvres à faire glisser et fiches qui s'ouvrent comme dans un catalogue.", "fits": "Galeries d'art, studios créatifs, architectes d'intérieur, photographes", "palette": ["#060607", "#ECEBE7", "#8E8F93"], "tags": ["Fumée en temps réel", "Titre métal", "Galerie à glisser"], "demo": "galerie/", "cover": null, "status": "live", "offer": "vitrine", "alts": ["essentiel", "outil"], "highlights": [{"t": "Une entrée en matière", "x": "Fond de soie fumée qui réagit à la souris, et le nom de l'entreprise en grand titre métal."}, {"t": "Les œuvres à glisser", "x": "Une galerie horizontale avec curseur rond, compteur et fiche détaillée pour chaque pièce."}, {"t": "Le lieu et le studio", "x": "Les informations pratiques et les services présentés comme une fiche technique."}, {"t": "Une visite réservée", "x": "Programme des expositions et demande de visite privée, préremplie depuis une œuvre."}], "glow": ["#D9DCE1", "#6F7480"]}, {"id": "ramen", "num": "007", "name": "Koko", "sector": "Restaurant · Street food", "concept": "Ramen bar pop et graphique", "line": "Un bol de ramen en volume qui flotte, fume et s'incline avec la souris, posé sur un lettrage géant. Plus bas, le client compose son bol ingrédient par ingrédient.", "fits": "Restaurants, street food, bars, food trucks, boulangeries, coffee shops", "palette": ["#F5DE51", "#261423", "#EA3B2B"], "tags": ["Bol en volume", "Compose ton bol", "Pop et graphique"], "demo": "ramen/", "cover": null, "status": "live", "offer": "vitrine", "alts": ["essentiel", "outil"], "highlights": [{"t": "Le bol star", "x": "Il flotte, fume, suit la souris et ses baguettes se lèvent au survol."}, {"t": "Un lettrage à votre nom", "x": "Le nom du restaurant s'écrit en géant derrière le bol."}, {"t": "Compose ton bol", "x": "Bouillon et toppings à choisir : le bol change de couleur et d'ingrédients en direct."}, {"t": "La carte et le spot", "x": "Trois recettes, le niveau de piquant, les horaires et le bouton de commande."}], "colors": [["Vermillon", "EA3B2B"], ["Vert matcha", "1E7F5C"], ["Bleu indigo", "2D4BD6"]], "glow": ["#F5DE51", "#EA3B2B"]}, {"id": "immo", "num": "008", "name": "Auréa", "sector": "Immobilier · Agence", "concept": "Agence immobilière premium, calme et rigoureuse", "line": "Bleu nuit, blanc minéral et or champagne. Un hero architectural qui change de photo, une recherche par ville, type et budget, et des fiches de biens qui s'ouvrent en grand.", "fits": "Agences immobilières, mandataires, promoteurs, architectes, gestion locative", "palette": ["#152331", "#F8F5F0", "#D8B27D"], "tags": ["Recherche de biens", "Fiches détaillées", "Calme et premium"], "demo": "immo/", "cover": null, "status": "live", "offer": "outil", "alts": ["vitrine"], "highlights": [{"t": "Votre nom en façade", "x": "Le nom de l'agence remplace Auréa dans le logo, et la ville apparaît dans l'accroche."}, {"t": "La recherche qui répond", "x": "Ville, type de bien et budget : la sélection se met à jour, avec un message clair si rien ne correspond."}, {"t": "Des fiches qui donnent envie", "x": "Photo en grand, surface, chambres, prix et demande de renseignements préremplie."}, {"t": "Vendeurs et avis", "x": "Une section estimation pour attirer les mandats, et les avis clients mis en valeur."}], "colors": [["Or champagne", "D8B27D"], ["Terracotta", "C98466"], ["Bleu ardoise", "8FA9C4"]], "glow": ["#D8B27D", "#152331"]}, {"id": "sport", "num": "009", "name": "Atos JJB", "sector": "Sport · Salle de combat", "concept": "Académie de Jiu-Jitsu Brésilien, intense et premium", "line": "Une photo de combat au sol, une typographie massive en italique et le nom du club peint sur le mur du dojo. Plus bas, le planning se filtre par jour et par discipline, et l'essai se demande en deux clics.", "fits": "Clubs de sport de combat, salles de boxe, CrossFit, coachs sportifs, dojos, écoles de danse", "palette": ["#0B0D0F", "#F5F5F3", "#CD2934"], "tags": ["Planning filtrable", "Nom sur le mur", "Intense et premium"], "demo": "sport/", "cover": null, "status": "live", "offer": "outil", "alts": ["vitrine"], "highlights": [{"t": "Votre nom sur le mur", "x": "Le nom du club s'affiche sur le mur du dojo, dans la photo, en plus du logo."}, {"t": "Le prochain cours", "x": "Calculé en direct depuis le planning : ce soir, demain ou le jour suivant."}, {"t": "Planning filtrable", "x": "Jour et discipline : chaque créneau mène à la demande d'essai, déjà préremplie."}, {"t": "Formules et essai", "x": "Trois abonnements lisibles et un formulaire d'essai qui reprend la formule choisie."}], "colors": [["Rouge tatami", "CD2934"], ["Bleu ring", "2456D6"], ["Vert dojo", "1F8A5B"]], "glow": ["#CD2934", "#F5F5F3"]}]};
+
+const $ = (s, r = document) => r.querySelector(s);
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const up = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg>';
+const fw = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 7h10M8 3l4 4-4 4"/></svg>';
+let LIST = [];
+const SHARE = { url: "", name: "", t: null };
+const ME = { name: "", city: "", color: "", logo: "" };
+
+const demoUrl = (t, extra = {}) => {
+  const q = new URLSearchParams({ embed: "1", tour: "1", ...extra });
+  return `${t.demo}${t.demo.includes("?") ? "&" : "?"}${q}`;
+};
+const winHTML = (t, label) => `<div class="win"><div class="chrome"><i></i><i></i><i></i><span>${esc(label)}</span></div><div class="vp"><iframe class="frame-in" title="Démonstration ${esc(t.name)}, ordinateur" loading="lazy" tabindex="-1" src="${esc(demoUrl(t))}"></iframe></div></div>`;
+const phoneHTML = (t) => `<div class="phone-holder"><div class="phone"><div class="screen"><iframe class="frame-in" title="Démonstration ${esc(t.name)}, mobile" loading="lazy" tabindex="-1" src="${esc(demoUrl(t))}"></iframe></div></div></div>`;
+
+/* mise à l'échelle des cadres */
+const fit = (root = document) => {
+  root.querySelectorAll(".win .vp, .card-vis").forEach((vp) => { const f = $("iframe", vp); if (f) f.style.transform = `scale(${vp.clientWidth / 1440})`; });
+  root.querySelectorAll(".phone-holder").forEach((h) => { const k = h.clientWidth / 410; $(".phone", h).style.transform = `scale(${k})`; h.style.height = 864 * k + "px"; });
+};
+new ResizeObserver(() => fit()).observe(document.body);
+
+/* ---------- collection ---------- */
+let FILTER = "tous";
+/* aperçus vidéo : ne jouent que visibles à l'écran, jamais en mouvement réduit */
+let prevIO = null;
+const watchPreviews = () => {
+  const vids = document.querySelectorAll("#collection video.prev");
+  if (!vids.length) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+  if (prevIO) prevIO.disconnect();
+  prevIO = new IntersectionObserver((es) => es.forEach((e) => { const v = e.target; if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause(); }), { threshold: .25 });
+  vids.forEach((v) => prevIO.observe(v));
+};
+const renderCollection = () => {
+  const live = LIST.filter((t) => t.status === "live"), soon = LIST.filter((t) => t.status !== "live");
+  $("#srCount").textContent = `${live.length} création${live.length > 1 ? "s" : ""} disponible${live.length > 1 ? "s" : ""}${soon.length ? ` · ${soon.length} en préparation` : ""}`;
+  const sectors = [...new Set(LIST.map((t) => t.sector.split(" · ")[0]))];
+  $("#filters").innerHTML = [["tous", "Toutes", LIST.length], ...sectors.map((x) => [x, x, LIST.filter((t) => t.sector.startsWith(x)).length])]
+    .map(([v, l, n]) => `<button type="button" data-f="${esc(v)}" aria-pressed="${FILTER === v}">${esc(l)}<span>${n}</span></button>`).join("");
+  document.querySelectorAll("#filters button").forEach((b) => b.addEventListener("click", () => { FILTER = b.dataset.f; renderCollection(); }));
+  const shown = LIST.filter((t) => FILTER === "tous" || t.sector.startsWith(FILTER));
+  $("#collection").className = "wrap lib";
+  const glow = (t, i) => { const g = t.glow || [(t.palette || [])[2] || "#F3F1EB", (t.palette || [])[1] || "#8A8C91"]; return `--c1:${esc(g[0])};--c2:${esc(g[1])};animation-delay:${-i * 1.3}s`; };
+  $("#collection").innerHTML = shown.map((t, i) => t.status === "live" ? `
+    <article class="card rv${t.featured ? " feat" : ""}">
+      <div class="frame" style="${glow(t, i)}"><a class="card-vis" href="#${esc(t.id)}" aria-label="Ouvrir ${esc(t.name)}">
+        ${t.cover ? `<img src="${esc(t.cover)}" alt="" loading="lazy">` : `<iframe class="frame-in" title="Aperçu ${esc(t.name)}" loading="lazy" tabindex="-1" src="${esc(demoUrl(t))}"></iframe>`}
+        <span class="open">Ouvrir la création ${fw}</span>
+      </a></div>
+      <div class="card-head"><h2>${t.featured ? `<span class="feat-k">Création ${esc(t.num)} · en vedette</span>` : ""}${esc(t.name)}</h2><span class="badge live">${esc(t.sector.split(" · ")[0])}</span></div>
+      <div class="card-foot"><a class="explore" href="#${esc(t.id)}">Explorer ${fw}</a></div>
+    </article>` : `
+    <article class="card is-soon${t.preview ? " has-prev" : ""} rv" aria-label="${esc(t.sector)}, en préparation">
+      <div class="frame" style="${glow(t, i)}"><div class="card-vis">${t.preview
+        ? `<video class="prev" src="${esc(t.preview)}"${t.poster ? ` poster="${esc(t.poster)}"` : ""} muted loop playsinline preload="metadata" aria-label="Aperçu vidéo du concept ${esc(t.name)}"></video><span class="prev-tag"><i></i>Aperçu du concept</span>`
+        : `<span>En préparation</span>`}</div></div>
+      <div class="card-head"><h2${t.preview ? "" : ` style="color:var(--soft)"`}>${esc(t.preview ? t.name : t.sector.split(" · ")[0])}</h2><span class="badge">Bientôt</span></div>
+      <p>${t.preview ? `${esc(t.sector)}. ${esc(t.fits || "")}. La démo cliquable arrive bientôt.` : `${esc(t.sector)}. Création ${esc(t.num)}, en cours de production.`}</p>
+      <div class="card-foot"><span>${t.preview ? `Création ${esc(t.num)} · en production` : "Bientôt disponible"}</span></div>
+    </article>`).join("");
+  watchPreviews();
+  fit($("#collection"));
+};
+
+/* ---------- fiche ---------- */
+let cur = null;
+const renderFiche = (t, mode) => {
+  cur = t;
+  const o = OFFERS[t.offer];
+  $("#vFiche").innerHTML = `
+  <div class="wrap f-hero" id="fHero">
+    <div class="f-copy">
+      <div class="crumbs"><a href="#collection">Nos créations</a><span class="label">/ Création ${esc(t.num)}</span></div>
+      <h1>${esc(t.name)}</h1>
+      <span class="concept">${esc(t.concept)}</span>
+      <p>${esc(t.line)}</p>
+      <div class="f-acts">
+        <a class="btn lg" href="${esc(t.demo)}">Voir la démo ${up}</a>
+        <div class="row"><button class="btn line lg" type="button" data-view="mob">Prévisualiser sur mobile</button><button class="btn line lg" type="button" data-go="perso">Je veux ce style</button></div>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="stage-bar"><span class="label">Démonstration réelle · ${esc(t.sector)}</span>
+        <div class="seg" role="group" aria-label="Affichage"><button type="button" data-view="desk" aria-pressed="true">Ordinateur</button><button type="button" data-view="mob" aria-pressed="false">Mobile</button></div></div>
+      <div class="stage-box" id="stageBox" data-view="desk">${winHTML(t, "démonstration · " + t.name)}<div class="phone-zone">${phoneHTML(t)}</div></div>
+    </div>
+  </div>
+
+  <section class="wrap hl" aria-labelledby="hlTitle">
+    <div class="rv"><span class="label">Dans cette création</span><h2 id="hlTitle" style="margin-top:12px">Pensée pour ${esc(t.fits ? t.fits.split(",")[0].toLowerCase() : "votre activité")}.</h2></div>
+    <div class="hl-grid rv">${(t.highlights || []).map((h, i) => `<div class="hl-item"><span class="label">${String(i + 1).padStart(2, "0")}</span><b>${esc(h.t)}</b><span>${esc(h.x)}</span></div>`).join("")}</div>
+  </section>
+
+  <section class="wrap perso" id="fPerso" aria-labelledby="persoTitle">
+    <div class="perso-form rv">
+      <span class="label">Je veux ce style pour mon activité</span>
+      <h2 id="persoTitle">Votre nom, dans ${esc(t.name)}</h2>
+      <p>Votre nom, votre ville, votre couleur, votre logo : la démonstration change aussitôt. Textes et photos seront ensuite adaptés avec vous.</p>
+      <div class="fields">
+        <div class="row"><label for="meName">Entreprise</label><input id="meName" type="text" maxlength="32" autocomplete="organization" placeholder="Le nom de votre entreprise"></div>
+        <div class="row"><label for="meCity">Ville</label><input id="meCity" type="text" maxlength="28" autocomplete="address-level2" placeholder="Facultatif"></div>
+        ${t.colors ? `<div class="row tall"><span class="lbl-c"><label id="lblCol">Couleur</label></span><div class="swatch-row" role="group" aria-labelledby="lblCol">${t.colors.map(([n, h], i) => `<button type="button" class="sw" style="--c:#${esc(h)}" data-hex="${esc(h)}" data-name="${esc(n)}" aria-pressed="${i === 0}" aria-label="${esc(n)}"></button>`).join("")}<span class="sw pick" id="swPick" title="Votre couleur"><input type="color" id="mePick" value="#${esc(t.colors[0][1])}" aria-label="Choisir votre couleur"></span><span class="sw-name" id="swName">${esc(t.colors[0][0])}</span></div></div>` : ""}
+        <div class="row tall"><label for="meLogo">Logo</label><div class="logo-row"><label class="logo-btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 11V2M4 6l4-4 4 4M2 11v3h12v-3"/></svg><span id="logoL">Ajouter votre logo</span><input type="file" id="meLogo" accept="image/png,image/jpeg,image/svg+xml,image/webp"></label><img class="logo-prev" id="logoPrev" alt="Votre logo" hidden><button type="button" class="logo-x" id="logoX" hidden>Retirer</button></div></div>
+      </div>
+      <p class="privacy">Votre logo reste sur votre appareil : il n'est envoyé nulle part.</p>
+      <div class="mine" id="mine" aria-live="polite"></div>
+      <div class="share" id="share">
+        <div class="share-row">
+          <button class="btn line" type="button" id="shareBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 9.5 9.5 6.5M7 4.5l1.3-1.3a2.6 2.6 0 0 1 3.7 3.7L10.7 8.2M9 11.5l-1.3 1.3a2.6 2.6 0 0 1-3.7-3.7L5.3 7.8"/></svg><span>Partager mon aperçu</span></button>
+          <a class="share-mail" id="shareMail" href="#">Envoyer par e-mail</a>
+        </div>
+        <p class="share-hint" id="shareHint">Montrez-le à un associé ou à un proche : le lien ouvre le site avec votre nom, votre ville et votre couleur. Le logo n'est pas inclus.</p>
+      </div>
+    </div>
+    <div class="stage rv"><div class="stage-box" id="persoBox" data-view="desk">${winHTML(t, "votre aperçu")}<div class="phone-zone">${phoneHTML(t)}</div></div></div>
+  </section>
+
+  <section class="wrap offer" id="fOffer" aria-labelledby="offerTitle">
+    <div class="offer-head rv"><div><span class="label">L'offre</span><h2 id="offerTitle" style="margin-top:12px">Ce site, réalisé pour vous.</h2></div>
+      <p style="margin:0;color:var(--soft);max-width:30em">Prix de départ. Le devis final dépend du périmètre retenu ensemble. Pas de rendez-vous obligatoire.</p></div>
+    <div class="offer-grid rv">
+      <div class="formula" id="formula"></div>
+      <div class="alts"><span class="label" style="padding:0 4px">Choisir la formule</span>
+        ${[t.offer, ...(t.alts || [])].map((k, i) => `<label class="alt"><input type="radio" name="formula" value="${k}"${i === 0 ? " checked" : ""}><div><b>${esc(OFFERS[k].name)}${i === 0 ? " · conseillée" : ""}</b><span>${esc(OFFERS[k].line)}</span></div><span class="p">Dès ${esc(OFFERS[k].price)}</span></label>`).join("")}
+        <p class="extra">À prévoir en plus : nom de domaine, hébergement et maintenance (modalités précisées dans le devis).</p></div>
+    </div>
+  </section>
+  <div class="f-bar"><a class="btn line" href="${esc(t.demo)}">Voir la démo</a><button class="btn" type="button" data-go="perso">Je veux ce style ${fw}</button></div>`;
+
+  const hero = $("#fHero");
+  if (!reduce) { hero.classList.add("play"); }
+  document.querySelectorAll("#vFiche [data-view]").forEach((b) => b.addEventListener("click", () => setView(b.dataset.view, b.closest(".f-acts"))));
+  if (window.persoBarObserver) window.persoBarObserver.disconnect();
+  const updatePersoBar = () => {
+    const destination = $("#fPerso").getBoundingClientRect();
+    const offer = $("#fOffer");
+    const offerVisible = offer && offer.getBoundingClientRect().top < innerHeight;
+    $(".f-bar").hidden = (destination.top < innerHeight && destination.bottom > 0) || !!offerVisible;
+  };
+  window.persoBarObserver = new IntersectionObserver(updatePersoBar, { rootMargin: "0px 0px -80px 0px" });
+  window.persoBarObserver.observe($("#fPerso"));
+  window.persoBarObserver.observe($("#fOffer"));
+  document.querySelectorAll("#vFiche [data-go]").forEach((b) => b.addEventListener("click", () => goPerso()));
+  $("#meName").value = ME.name; $("#meCity").value = ME.city;
+  let tm;
+  ["#meName", "#meCity"].forEach((s) => $(s).addEventListener("input", () => {
+    clearTimeout(tm);
+    tm = setTimeout(() => {
+      ME.name = $("#meName").value.trim().replace(/\s+/g, " ");
+      ME.city = $("#meCity").value.trim().replace(/\s+/g, " ");
+      $("#mine").textContent = ME.name ? `Voici ${t.name} avec le nom ${ME.name}.` : "";
+      personalise();
+      renderFormula();
+    }, 450);
+  }));
+  const sws = [...document.querySelectorAll("#fPerso .sw[data-hex]")], pick = $("#swPick");
+  const setColor = (hex, label, btn) => {
+    ME.color = hex; sws.forEach((s) => s.setAttribute("aria-pressed", String(s === btn)));
+    if (pick) { pick.classList.toggle("has", !btn); pick.style.setProperty("--c", "#" + hex); pick.setAttribute("aria-pressed", String(!btn)); }
+    if ($("#swName")) $("#swName").textContent = label;
+    pushAll(); renderFormula();
+  };
+  sws.forEach((s) => s.addEventListener("click", () => setColor(s.dataset.hex, s.dataset.name, s)));
+  if ($("#mePick")) $("#mePick").addEventListener("input", (e) => setColor(e.target.value.slice(1), "Votre couleur", null));
+  if (ME.color && sws.length) { const m = sws.find((s) => s.dataset.hex.toLowerCase() === ME.color.toLowerCase()); setColor(ME.color, m ? m.dataset.name : "Votre couleur", m || null); }
+  const showLogo = () => { const on = !!ME.logo; $("#logoPrev").hidden = !on; $("#logoX").hidden = !on; if (on) $("#logoPrev").src = ME.logo; $("#logoL").textContent = on ? "Changer de logo" : "Ajouter votre logo"; };
+  $("#meLogo").addEventListener("change", (e) => {
+    const f = e.target.files[0]; if (!f) return;
+    if (f.size > 1.1e6) { $("#mine").textContent = "Ce fichier est un peu lourd : choisissez une image de moins de 1 Mo."; return; }
+    const rd = new FileReader();
+    rd.onload = () => {
+      ME.logo = rd.result; showLogo(); pushAll(); renderFormula();
+      const im = new Image(); im.onload = () => { const hx = logoColor(im); if (hx && sws.length) { setColor(hx, "Tirée de votre logo", null); if ($("#mePick")) $("#mePick").value = "#" + hx; } }; im.src = rd.result;
+      $("#mine").textContent = "Votre logo est en place dans l'aperçu.";
+    };
+    rd.readAsDataURL(f);
+  });
+  const hint = $("#shareHint"), baseHint = hint.textContent;
+  let hintT;
+  const flash = (msg) => { hint.textContent = msg; hint.classList.add("ok"); clearTimeout(hintT); hintT = setTimeout(() => { hint.textContent = baseHint; hint.classList.remove("ok"); }, 4000); };
+  $("#shareBtn").addEventListener("click", async () => {
+    const url = SHARE.url, title = `${SHARE.t.name}${SHARE.name ? " pour " + SHARE.name : ""} · aperçu Azel Studio`;
+    if (navigator.share && matchMedia("(pointer: coarse)").matches) {
+      try { await navigator.share({ title, text: `Regarde à quoi pourrait ressembler ${SHARE.name ? "le site de " + SHARE.name : "notre site"} :`, url }); return; } catch (e) { if (e && e.name === "AbortError") return; }
+    }
+    try { await navigator.clipboard.writeText(url); flash("Lien copié. Collez-le dans un message ou un e-mail."); }
+    catch (e) { window.prompt("Copiez ce lien :", url); }
+  });
+  $("#logoX").addEventListener("click", () => { ME.logo = ""; $("#meLogo").value = ""; showLogo(); pushAll(); renderFormula(); });
+  showLogo();
+  document.querySelectorAll('input[name="formula"]').forEach((r) => r.addEventListener("change", renderFormula));
+  renderFormula();
+  fit($("#vFiche"));
+  personalise();
+  if (mode === "mobile") setView("mob", true);
+  if (mode === "style") setTimeout(goPerso, 250);
+};
+
+const setView = (v, scroll) => {
+  const box = $("#stageBox");
+  box.dataset.view = v;
+  document.querySelectorAll("#fHero .seg [data-view]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === v)));
+  fit(box);
+  if (scroll && matchMedia("(max-width: 960px)").matches) box.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+};
+const goPerso = () => {
+  $("#fPerso").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  setTimeout(() => $("#meName").focus({ preventScroll: true }), reduce ? 0 : 700);
+};
+const personalise = () => {
+  const extra = { tour: "0" };
+  if (ME.name) extra.nom = ME.name;
+  if (ME.city) extra.ville = ME.city;
+  if (ME.color) extra.c = ME.color;
+  document.querySelectorAll("#persoBox iframe").forEach((f) => { f.onload = () => pushLook(f); f.src = demoUrl(cur, extra); });
+};
+/* couleur et logo envoyés en direct aux aperçus, sans recharger */
+const pushLook = (f) => {
+  const w = f && f.contentWindow; if (!w) return;
+  if (ME.color) w.postMessage({ azel: "color", hex: ME.color }, "*");
+  w.postMessage({ azel: "logo", src: ME.logo || null }, "*");
+};
+const pushAll = () => document.querySelectorAll("#persoBox iframe").forEach(pushLook);
+/* couleur dominante d'un logo (la plus saturée parmi les pixels opaques) */
+const logoColor = (img) => {
+  try {
+    const c = document.createElement("canvas"), n = 48; c.width = c.height = n;
+    const g = c.getContext("2d"); g.drawImage(img, 0, 0, n, n);
+    const d = g.getImageData(0, 0, n, n).data, bins = {};
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] < 200) continue;
+      const r = d[i], gg = d[i + 1], b = d[i + 2], mx = Math.max(r, gg, b), mn = Math.min(r, gg, b);
+      if (mx - mn < 40 || mx < 50 || mn > 225) continue;
+      const k = [r >> 5, gg >> 5, b >> 5].join(","); (bins[k] = bins[k] || [0, 0, 0, 0]); bins[k][0] += r; bins[k][1] += gg; bins[k][2] += b; bins[k][3]++;
+    }
+    const best = Object.values(bins).sort((a, b) => b[3] - a[3])[0];
+    if (!best || best[3] < 6) return "";
+    return best.slice(0, 3).map((v) => Math.round(v / best[3]).toString(16).padStart(2, "0")).join("");
+  } catch (e) { return ""; }
+};
+const renderFormula = () => {
+  const t = cur;
+  const k = (document.querySelector('input[name="formula"]:checked') || {}).value || t.offer;
+  const o = OFFERS[k];
+  $("#formula").innerHTML = `
+    <div class="formula-top"><div><span class="label">Création ${esc(t.name)} · formule ${esc(o.name)}</span><h3>${esc(o.kind)} pour ${esc(ME.name || "votre entreprise")}</h3></div>
+      <div class="amount"><span>À partir de</span><b>${esc(o.price)}</b></div></div>
+    <ul>${o.inc.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+    <div class="facts"><div><b>Délai indicatif</b>${esc(o.delay)}</div><div><b>Ensuite</b>Vous recevez un devis précis, puis on adapte textes, photos et couleurs ensemble.</div></div>
+    <a class="btn lg" id="order" href="/#devis">Faire réaliser ce site par Azel ${up}</a>
+    <p class="note">Sans rendez-vous obligatoire. La création choisie et vos informations sont jointes à votre demande.</p>`;
+  const lines = [`Demande depuis le Showroom Azel`, `Création : ${t.name} (${t.num}, ${t.sector})`, `Formule souhaitée : ${o.name}, à partir de ${o.price}`, `Entreprise : ${ME.name || "non précisée"}${ME.city ? ", " + ME.city : ""}`, ...(ME.color ? [`Couleur choisie : #${ME.color.toUpperCase()}`] : []), ...(ME.logo ? ["Logo : à m'envoyer (testé dans l'aperçu)"] : [])].join("\n");
+  /* Tout ce que le visiteur a personnalisé part avec sa demande : concept, nom, ville, couleur, lien vers son aperçu. */
+  const look = new URLSearchParams();
+  if (ME.name) look.set("nom", ME.name);
+  if (ME.city) look.set("ville", ME.city);
+  if (ME.color) look.set("c", ME.color.toUpperCase());
+  const apercu = new URL(t.demo + (look.toString() ? "?" + look : ""), location.href).href;
+  const q = new URLSearchParams({ sr: t.id, concept: `${t.name} (${t.num}, ${t.sector})`, f: o.name, apercu });
+  look.forEach((v, k) => q.set(k, v));
+  if (ME.logo) q.set("logo", "1");
+  $("#order").href = "../?" + q + "#devis";
+  SHARE.url = apercu; SHARE.name = ME.name; SHARE.t = t;
+  const subj = `Aperçu de site : ${t.name}${ME.name ? " pour " + ME.name : ""}`;
+  $("#shareMail").href = "mailto:?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(`Regarde à quoi pourrait ressembler ${ME.name ? "le site de " + ME.name : "notre site"} :\n${apercu}\n\nAperçu préparé avec le showroom Azel Studio.`);
+};
+
+/* ---------- révélations ---------- */
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.remove("wait"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+const arm = () => { if (reduce) return; document.querySelectorAll(".rv").forEach((el) => { if (el.getBoundingClientRect().top > innerHeight * .92) { el.classList.add("wait"); io.observe(el); } }); };
+
+/* ---------- routage : #depart (fiche), #depart-mobile (aperçu mobile), #depart-style (personnalisation) ---------- */
+const route = () => {
+  const h = location.hash.slice(1);
+  const m = h.match(/^(.+?)(?:-(mobile|style))?$/);
+  const t = m && LIST.find((x) => x.id === m[1] && x.status === "live");
+  $("#vCollection").hidden = !!t;
+  $("#vFiche").hidden = !t;
+  document.body.classList.toggle("in-fiche", !!t);
+  $("#navShowroom").setAttribute("aria-current", t ? "false" : "page");
+  if (t || h !== "collection") window.scrollTo(0, 0);
+  if (t) { document.title = `${t.name} · Showroom Azel Studio`; renderFiche(t, m[2]); }
+  else { document.title = "Azel Showroom"; renderCollection(); }
+  requestAnimationFrame(() => {
+    arm();
+    if (!t && h === "collection") $("#collection").scrollIntoView({ block: "start" });
+  });
+};
+addEventListener("hashchange", route);
+$("#navShowroom").addEventListener("click", (e) => {
+  if (location.hash === "#collection") { e.preventDefault(); $("#collection").scrollIntoView({ block: "start" }); }
+});
+
+/* Une personnalisation arrivée par l'adresse (bouton « Je veux ce style » d'une démo) est reprise telle quelle */
+try {
+  const qs = new URLSearchParams(location.search), cl = (v, n) => (v || "").replace(/\s+/g, " ").trim().slice(0, n);
+  ME.name = cl(qs.get("nom"), 32); ME.city = cl(qs.get("ville"), 28);
+  const c = (qs.get("c") || "").replace("#", ""); if (/^[0-9a-f]{6}$/i.test(c)) ME.color = c;
+} catch (e) {}
+(async () => {
+  try {
+    const r = await fetch("templates.json", { cache: "no-cache" });
+    LIST = r.ok ? (await r.json()).templates : FALLBACK.templates;
+  } catch { LIST = FALLBACK.templates; }
+  route();
+})();
+})();
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Parrainage · Azel Studio</title>
+<meta name="description" content="Recommandez Azel Studio : jusqu'à 150 € par virement pour vous, jusqu'à 80 € de réduction pour votre proche.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  color-scheme: dark;
+  --void: #080808; --paper: #F3F1EB; --soft: #CFCDC6; --mute: #8A8C91; --line: rgba(243,241,235,.14); --ok: #7FB083; --bad: #E58A7A;
+  --display: "Instrument Sans", "Helvetica Neue", Arial, sans-serif; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --gutter: clamp(16px, 3.9vw, 56px); --ease: cubic-bezier(.2,.7,.1,1); --navh: 84px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; background: var(--void); }
+body { color: var(--paper); font: 16px/1.55 var(--display); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; border-radius: 2px; }
+.wrap { padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); max-width: 1600px; margin: 0 auto; }
+.label { font: 500 11px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
+.sec-meta { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 18px; }
+h1, h2, h3, p { margin: 0; }
+.outline { color: transparent; -webkit-text-stroke: max(1.2px, .012em) var(--paper); }
+
+/* NAV */
+header.nav { position: sticky; top: 0; z-index: 20; background: rgba(8,8,8,.82); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--line); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: var(--navh); }
+.brand { display: flex; align-items: center; gap: 14px; font-size: 21px; letter-spacing: -.01em; }
+.brand svg { width: 28px; height: 28px; flex: none; }
+.brand b { font-weight: 700; }
+.back { font-size: 14.5px; color: #BDBBB5; transition: color .25s; }
+.back:hover { color: var(--paper); }
+.btn { display: inline-flex; align-items: center; justify-content: space-between; gap: 18px; height: 56px; padding: 0 26px 0 28px; border: 0; border-radius: 999px; background: var(--paper); color: var(--void); font: 600 14.5px var(--display); cursor: pointer; transition: transform .25s var(--ease), box-shadow .25s, opacity .25s; white-space: nowrap; }
+.btn svg { width: 14px; height: 14px; transition: transform .3s var(--ease); }
+.btn:hover svg { transform: translate(3px,-3px); }
+.btn:active { transform: scale(.98); }
+.btn.line { background: transparent; color: var(--paper); box-shadow: inset 0 0 0 1px var(--line); }
+.btn.line:hover { box-shadow: inset 0 0 0 1px var(--paper); }
+.btn[disabled] { opacity: .55; cursor: progress; }
+
+/* HERO */
+.hero .wrap { padding-block: clamp(56px, 8vw, 120px) clamp(32px, 4vw, 58px); }
+.hero h1 { margin-top: clamp(36px, 5vw, 72px); font: 600 clamp(48px, 9.4vw, 156px)/.9 var(--display); letter-spacing: -.06em; }
+.hero-sub { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 24px 56px; align-items: end; margin-top: clamp(36px, 4.5vw, 64px); }
+.hero-sub .lead { font-size: clamp(22px, 2.2vw, 34px); line-height: 1.15; letter-spacing: -.03em; max-width: 18em; }
+.hero-sub p:not(.lead) { color: var(--soft); font-size: 16.5px; max-width: 30em; }
+
+/* CHIFFRES */
+.figs { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.fig { display: grid; gap: 10px; padding: 26px 0 30px; }
+.fig + .fig { border-left: 1px solid var(--line); padding-left: clamp(20px, 3vw, 48px); }
+.fig strong { font: 600 clamp(72px, 13vw, 220px)/.85 var(--display); letter-spacing: -.065em; font-variant-numeric: tabular-nums; }
+.fig + .fig strong { color: transparent; -webkit-text-stroke: max(1.2px, .008em) var(--paper); }
+.fig > span:last-child { color: var(--soft); font-size: 15px; }
+
+section.block .wrap { padding-block: clamp(58px, 6.4vw, 102px) 0; }
+.block h2 { font: 600 clamp(34px, 4.2vw, 68px)/.98 var(--display); letter-spacing: -.05em; margin-top: clamp(28px, 3vw, 44px); max-width: 14em; }
+
+/* ÉTAPES */
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: clamp(36px, 4vw, 56px); border-top: 1px solid var(--line); }
+.step { padding: 24px clamp(16px, 2vw, 32px) 8px 0; display: grid; gap: 12px; align-content: start; }
+.step + .step { border-left: 1px solid var(--line); padding-left: clamp(16px, 2vw, 32px); }
+.step b { font: 600 22px/1.2 var(--display); letter-spacing: -.02em; }
+.step p { color: var(--soft); font-size: 15.5px; }
+
+/* BARÈME */
+.table { margin-top: clamp(36px, 4vw, 56px); border-top: 1px solid var(--line); font-size: 16px; }
+.tr { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr); gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.tr span:not(:first-child) { font-variant-numeric: tabular-nums; font-size: clamp(18px, 1.6vw, 24px); letter-spacing: -.02em; }
+.th { font: 500 11px/1.4 var(--mono) !important; letter-spacing: .13em; text-transform: uppercase; color: var(--mute); }
+.th span { font: inherit !important; }
+.tr b { font-weight: 600; }
+.tr.off { color: var(--mute); }
+.table-note { margin-top: 16px; color: var(--mute); font-size: 13.5px; }
+
+/* INSCRIPTION */
+.join { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px 56px; margin-top: clamp(36px, 4vw, 56px); align-items: start; }
+.join-copy p { color: var(--soft); font-size: 16.5px; max-width: 28em; }
+.join-copy p + p { margin-top: 14px; }
+.card { border: 1px solid var(--line); border-radius: 20px; padding: clamp(22px, 3vw, 36px); background: #0C0D0F; }
+.fld { display: grid; gap: 8px; margin-bottom: 22px; }
+.fld label { font: 500 11px/1.4 var(--mono); letter-spacing: .13em; text-transform: uppercase; color: var(--mute); }
+.fld input { width: 100%; height: 52px; padding: 0 2px; border: 0; border-bottom: 1px solid #3D3E42; background: transparent; color: var(--paper); font: 400 19px var(--display); border-radius: 0; transition: border-color .25s; }
+.fld input:focus { outline: none; border-bottom-color: var(--paper); }
+.fld input::placeholder { color: #5E6062; }
+.fld .msg { min-height: 1em; font-size: 13px; color: var(--bad); }
+.check { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; color: var(--soft); margin: 6px 0 24px; cursor: pointer; }
+.check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--paper); flex: none; }
+.check a { text-decoration: underline; text-underline-offset: 3px; }
+.hp { position: absolute; left: -9999px; }
+.status { margin-top: 14px; font-size: 14px; min-height: 1.2em; }
+.status.bad { color: var(--bad); }
+.result { display: grid; gap: 18px; }
+.result .label { color: var(--ok); }
+.code { font: 600 clamp(36px, 5vw, 64px)/1 var(--display); letter-spacing: -.03em; word-break: break-all; }
+.linkbox { display: flex; gap: 10px; align-items: center; border: 1px solid var(--line); border-radius: 14px; padding: 6px 6px 6px 16px; }
+.linkbox input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--soft); font: 400 14px var(--mono); }
+.linkbox .btn { height: 44px; padding: 0 18px; }
+.result-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.result p { color: var(--soft); font-size: 14.5px; }
+
+/* CONDITIONS */
+.cond { margin-top: clamp(36px, 4vw, 56px); border-top: 1px solid var(--line); }
+.cond > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 12px 40px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+.cond dt { font-weight: 600; font-size: 16px; }
+.cond dd { margin: 0; color: var(--soft); font-size: 15.5px; max-width: 46em; }
+
+.cond dd p { margin: 0; } .cond dd p + p, .cond dd ul + p { margin-top: 10px; }
+.cond-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.cond-list li { position: relative; padding-left: 18px; }
+.cond-list li::before { content: ""; position: absolute; left: 0; top: .7em; width: 8px; height: 1px; background: var(--soft); }
+.cond-list b { color: var(--paper); font-weight: 600; }
+footer .wrap { padding-block: clamp(80px, 9vw, 140px) 32px; }
+.foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px; padding-top: 18px; border-top: 1px solid #3D3E42; font-size: 12px; color: #94969B; }
+.foot a { text-decoration: underline; text-underline-offset: 3px; }
+
+.rv { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } .btn, .btn svg { transition: none; } }
+
+@media (max-width: 960px) { .hero-sub, .join { grid-template-columns: 1fr; } }
+@media (max-width: 760px) {
+  :root { --navh: 68px; }
+  .figs { grid-template-columns: 1fr; }
+  .fig + .fig { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; }
+  .steps { grid-template-columns: 1fr; }
+  .step + .step { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; }
+  .step { padding: 22px 0 18px; }
+  .tr { grid-template-columns: 1fr 1fr; }
+  .tr span:first-child { grid-column: 1 / -1; }
+  .th span:first-child { display: none; }
+  .cond > div { grid-template-columns: 1fr; gap: 6px; }
+  .btn { width: 100%; }
+  .linkbox { flex-wrap: wrap; padding: 12px; }
+  .linkbox input { flex-basis: 100%; }
+  .brand { font-size: 18px; }
+}
+</style>
+<script defer src="/analytics.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Azel Studio, accueil">
+      <svg viewBox="0 0 30 30" aria-hidden="true"><rect x="0" y="10.5" width="19.5" height="19.5" rx="1.6" fill="#F3F1EB"/><rect x="19.5" y="0" width="10.5" height="10.5" rx="1.1" fill="#F3F1EB"/></svg>
+      <span><b>AZEL</b> STUDIO</span>
+    </a>
+    <a class="back" href="../">← Retour au site</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="sec-meta"><span class="label">Azel Studio / Parrainage</span><span class="label">Programme ouvert à tous</span></div>
+      <h1 class="rv">Une recommandation<br><span class="outline">qui rapporte.</span></h1>
+      <div class="hero-sub rv">
+        <p class="lead">Gagnez jusqu'à 150 € par virement. Offrez jusqu'à 80 € de réduction à vos proches.</p>
+        <div style="display:grid;gap:22px;justify-items:start">
+          <p>Vous connaissez quelqu'un qui a besoin d'un site internet ? Recommandez Azel et offrez-lui jusqu'à 80 € de réduction.</p>
+          <a class="btn" href="#inscription">Je deviens parrain <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="figs rv">
+        <div class="fig"><span class="label">Pour vous</span><strong>150 €</strong><span>Jusqu'à 150 € par virement</span></div>
+        <div class="fig"><span class="label">Pour votre proche</span><strong>−80 €</strong><span>Jusqu'à 80 € de réduction</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="h-steps">
+    <div class="wrap">
+      <div class="sec-meta"><span class="label">01 · Comment ça marche</span><span class="label">Trois étapes</span></div>
+      <h2 id="h-steps" class="rv">Vous recommandez. On s'occupe du reste.</h2>
+      <div class="steps rv">
+        <div class="step"><span class="label">01</span><b>Inscrivez-vous</b><p>Votre nom et votre e-mail suffisent. Vous recevez aussitôt votre code et votre lien personnel.</p></div>
+        <div class="step"><span class="label">02</span><b>Partagez votre lien</b><p>Votre proche fait sa demande de site depuis votre lien : votre code est déjà renseigné.</p></div>
+        <div class="step"><span class="label">03</span><b>Recevez votre virement</b><p>Une fois son site commandé et réglé, nous vérifions la vente et vous versons votre récompense dans les 30 jours.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="h-bareme">
+    <div class="wrap">
+      <div class="sec-meta"><span class="label">02 · Barème</span><span class="label">Selon la formule choisie par votre proche</span></div>
+      <h2 id="h-bareme" class="rv">Plus le projet est complet, plus la récompense l'est aussi.</h2>
+      <div class="table rv" role="table" aria-label="Barème du parrainage">
+        <div class="tr th" role="row"><span role="columnheader">Site commandé par votre proche</span><span role="columnheader">Vous recevez</span><span role="columnheader">Votre proche économise</span></div>
+        <div class="tr" role="row"><span role="cell"><b>Projet sur devis</b> · dès 1 290 €</span><span role="cell">150 €</span><span role="cell">80 €</span></div>
+        <div class="tr" role="row"><span role="cell"><b>Site et outil</b> · dès 1 290 €</span><span role="cell">150 €</span><span role="cell">80 €</span></div>
+        <div class="tr" role="row"><span role="cell"><b>Vitrine</b> · dès 790 €</span><span role="cell">100 €</span><span role="cell">50 €</span></div>
+        <div class="tr off" role="row"><span role="cell"><b>Essentiel</b> · 490 €</span><span role="cell">Non éligible</span><span role="cell">Non éligible</span></div>
+      </div>
+      <p class="table-note">Seuils appréciés sur le montant du devis, avant la réduction de parrainage. La réduction est déduite du devis de votre proche ; votre récompense est versée par virement.</p>
+    </div>
+  </section>
+
+  <section class="block" id="inscription" aria-labelledby="h-join">
+    <div class="wrap">
+      <div class="sec-meta"><span class="label">03 · Inscription</span><span class="label">Gratuit, sans engagement</span></div>
+      <div class="join">
+        <div class="join-copy rv">
+          <h2 id="h-join" style="margin-top:clamp(28px,3vw,44px)">Votre code en moins d'une minute.</h2>
+          <p style="margin-top:22px">Vous n'avez pas besoin d'être client d'Azel pour devenir parrain. Nous ne demandons aucune coordonnée bancaire sur le site : elles vous seront demandées par e-mail, uniquement au moment du versement.</p>
+          <p>Le même e-mail vous redonne toujours le même code.</p>
+        </div>
+        <div class="card rv">
+          <form id="pForm" novalidate>
+            <div class="fld"><label for="p-nom">Votre nom *</label><input id="p-nom" name="nom" autocomplete="name" placeholder="Prénom et nom" aria-describedby="p-nom-msg" required><p class="msg" id="p-nom-msg" aria-live="polite"></p></div>
+            <div class="fld"><label for="p-mail">Votre e-mail *</label><input id="p-mail" name="email" type="email" autocomplete="email" placeholder="vous@exemple.fr" aria-describedby="p-mail-msg" required><p class="msg" id="p-mail-msg" aria-live="polite"></p></div>
+            <label class="check"><input type="checkbox" id="p-cond" name="conditions"> <span>J'ai lu et j'accepte les <a href="#conditions">conditions du programme</a>.</span></label>
+            <input class="hp" type="text" name="site_web" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <button class="btn" type="submit" id="pSubmit"><span class="t">Obtenir mon code</span> <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></button>
+            <p class="status" id="pStatus" role="status" aria-live="polite"></p>
+          </form>
+          <div class="result" id="pResult" hidden>
+            <span class="label">Votre code de parrainage</span>
+            <div class="code" id="rCode"></div>
+            <div class="linkbox"><input id="rLink" readonly aria-label="Votre lien de parrainage"><button class="btn" type="button" id="rCopy">Copier le lien</button></div>
+            <div class="result-actions"><button class="btn line" type="button" id="rShare" hidden>Partager</button></div>
+            <p>Gardez ce code : votre proche peut aussi le saisir lui-même dans le formulaire de demande. Nous vous écrirons quand une vente sera confirmée.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="conditions" aria-labelledby="h-cond">
+    <div class="wrap">
+      <div class="sec-meta"><span class="label">04 · Conditions</span><span class="label">À lire avant de recommander</span></div>
+      <h2 id="h-cond" class="rv">Les conditions, en clair.</h2>
+      <dl class="cond rv">
+        <div><dt>Qui peut parrainer</dt><dd>Toute personne majeure ou entreprise peut participer, qu'elle soit cliente d'Azel ou non. L'inscription est gratuite et permet d'obtenir un code personnel.</dd></div>
+        <div><dt>Qui peut être parrainé</dt><dd>Toute personne ou entreprise n'ayant jamais été cliente d'Azel et n'ayant pas déjà engagé de projet avec le studio. L'auto-parrainage est interdit.</dd></div>
+        <div><dt>Quand indiquer le code</dt><dd>Le code doit être communiqué lors de la première demande de projet, via un lien personnel ou dans le formulaire prévu à cet effet, et avant l'acceptation du devis. Un seul parrain peut être associé à un projet.</dd></div>
+        <div><dt>Formules éligibles</dt><dd><ul class="cond-list"><li><b>Vitrine</b>, dès 790 € : 100 € pour le parrain et 50 € de réduction pour le filleul.</li><li><b>Site et outil</b>, dès 1 290 € : 150 € pour le parrain et 80 € de réduction pour le filleul.</li><li><b>Projet spécifique sur devis</b>, à partir de 1 290 € : 150 € pour le parrain et 80 € de réduction pour le filleul.</li><li><b>Essentiel</b>, 490 € : non éligible.</li></ul><p>Les seuils sont appréciés sur le montant du devis avant application de la réduction de parrainage.</p></dd></div>
+        <div><dt>La réduction du filleul</dt><dd>Elle est directement déduite du devis. Elle n'est ni cumulable avec d'autres offres promotionnelles, ni échangeable contre de l'argent.</dd></div>
+        <div><dt>La récompense du parrain</dt><dd><p>Elle est versée par virement bancaire dans les 30 jours suivant l'encaissement définitif du paiement intégral du projet éligible et la validation du parrainage.</p><p>Les coordonnées bancaires nécessaires au virement sont demandées au moment du versement, jamais lors de l'inscription.</p></dd></div>
+        <div><dt>Projet annulé ou remboursé</dt><dd>Aucune récompense n'est due si le projet est annulé, intégralement remboursé ou demeure impayé.</dd></div>
+        <div><dt>Fiscalité et activité professionnelle</dt><dd>Les sommes perçues peuvent être soumises à déclaration fiscale selon la situation du bénéficiaire. Les recommandations exercées de manière régulière et rémunérée peuvent également relever d'une activité professionnelle. Chaque participant est responsable des obligations qui lui sont applicables.</dd></div>
+        <div><dt>Protection des données</dt><dd><p>Les informations recueillies servent à gérer les inscriptions, identifier les parrainages, communiquer avec les participants et effectuer les versements.</p><p>Elles peuvent être traitées par les prestataires techniques et bancaires nécessaires au fonctionnement du programme, dans les limites applicables.</p><p>Les durées de conservation, la base légale des traitements et les droits des participants sont précisés dans notre <a href="/mentions-legales.html#confidentialite" style="text-decoration:underline">politique de confidentialité</a>.</p><p>Pour toute demande relative à vos données : <a href="mailto:contact@azelstudio.fr" style="text-decoration:underline">contact@azelstudio.fr</a>.</p></dd></div>
+        <div><dt>Évolution du programme</dt><dd>Azel peut modifier ou mettre fin au programme pour les nouveaux parrainages. Les parrainages valablement enregistrés avant une modification conservent les conditions applicables au moment de leur enregistrement, sous réserve de leur éligibilité et du respect du présent règlement.</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot"><span>© 2026 Azel Studio · Val-d'Oise, France</span><span><a href="../">Accueil</a> · <a href="/mentions-legales.html">Mentions légales</a></span><a href="mailto:contact@azelstudio.fr">contact@azelstudio.fr</a></div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  // Apparitions douces
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
+  document.querySelectorAll('.rv').forEach((el) => io ? io.observe(el) : el.classList.add('in'));
+
+  // Inscription : le code vient du serveur (stockage réel). Sans serveur, on le dit, on ne simule rien.
+  const form = document.getElementById('pForm'), status = document.getElementById('pStatus'), btn = document.getElementById('pSubmit');
+  const say = (m, bad) => { status.textContent = m; status.className = 'status' + (bad ? ' bad' : ''); };
+  const field = (id, ok, msg) => { const el = document.getElementById(id); const good = ok(el.value.trim()); el.setAttribute('aria-invalid', !good); document.getElementById(id + '-msg').textContent = good ? '' : msg; return good ? null : el; };
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const bad = [field('p-nom', (v) => v.length > 1, 'Indiquez votre nom.'), field('p-mail', (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v), 'Indiquez une adresse e-mail valide.')].filter(Boolean);
+    if (bad.length) { say('Il manque une information.', true); bad[0].focus(); return; }
+    if (!document.getElementById('p-cond').checked) { say('Merci d\'accepter les conditions du programme.', true); document.getElementById('p-cond').focus(); return; }
+    btn.disabled = true; btn.querySelector('.t').textContent = 'Création du code'; say('');
+    try {
+      const r = await fetch('/api/parrainage', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nom: form.nom.value, email: form.email.value, conditions: true, site_web: form.site_web.value }) });
+      const d = await r.json().catch(() => ({}));
+      if (r.status === 503 || r.status === 404 || r.status === 405) throw new Error('off');
+      if (!r.ok || !d.code) { say(d.message || 'L\'inscription n\'a pas abouti. Réessayez dans un instant.', true); return; }
+      document.getElementById('rCode').textContent = d.code;
+      document.getElementById('rLink').value = d.lien;
+      form.hidden = true; document.getElementById('pResult').hidden = false;
+      if (navigator.share) { const s = document.getElementById('rShare'); s.hidden = false; s.onclick = () => navigator.share({ title: 'Azel Studio', text: 'Je te recommande Azel pour ton site : avec mon lien, tu as une réduction sur ton devis.', url: d.lien }).catch(() => {}); }
+    } catch (err) {
+      say('L\'inscription en ligne n\'est pas encore active. Écrivez à contact@azelstudio.fr pour recevoir votre code.', true);
+    } finally { btn.disabled = false; btn.querySelector('.t').textContent = 'Obtenir mon code'; }
+  });
+  document.getElementById('rCopy').addEventListener('click', async (e) => {
+    const inp = document.getElementById('rLink');
+    try { await navigator.clipboard.writeText(inp.value); } catch (err) { inp.select(); document.execCommand && document.execCommand('copy'); }
+    e.currentTarget.textContent = 'Lien copié';
+  });
+})();
+</script>
+</body>
+</html>

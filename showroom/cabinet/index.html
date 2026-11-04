@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>003 Cabinet · Avocats et conseils (démonstration)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* 003 CABINET : cabinet d'avocats fictif, démonstration Azel 003.
+   Pierre de taille, bordeaux et serif. Le nom gravé sur la vitrine change avec « Je veux ce style ».
+   Outil mis en avant : la prise de rendez-vous en quatre étapes. */
+:root {
+  color-scheme: light;
+  --cream: #F6F1EA;
+  --cream-2: #EFE8DE;
+  --stone: #E3D8C8;
+  --ink: #1D1A18;
+  --soft: #4A4540;
+  --mute: #8A8178;
+  --wine: #6B1626;
+  --wine-2: #561020;
+  --line: rgba(29,26,24,.14);
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans: "Figtree", "Helvetica Neue", Arial, sans-serif;
+  --g: clamp(16px, 5vw, 96px);
+  --ease: cubic-bezier(.2,.7,.1,1);
+}
+* { box-sizing: border-box; }
+html { background: var(--cream); scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); font: 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--wine); outline-offset: 3px; }
+.wrap { padding-inline: max(var(--g), env(safe-area-inset-left, 0px)) max(var(--g), env(safe-area-inset-right, 0px)); }
+.eyebrow { display: inline-flex; align-items: center; gap: 16px; font: 600 11.5px/1.4 var(--sans); letter-spacing: .24em; text-transform: uppercase; }
+.eyebrow::before { content: ""; width: 38px; height: 1.5px; background: var(--wine); }
+.btn { display: inline-flex; align-items: center; gap: 22px; height: 54px; padding: 0 28px; border-radius: 4px; background: var(--wine); color: #fff; font-weight: 500; font-size: 15.5px; border: 0; cursor: pointer; transition: background .3s, transform .3s var(--ease); }
+.btn:hover { background: var(--wine-2); }
+.btn svg { width: 16px; height: 16px; transition: transform .35s var(--ease); }
+.btn:hover svg { transform: translateX(4px); }
+.btn.line { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px rgba(29,26,24,.35); gap: 12px; }
+.btn.line:hover { box-shadow: inset 0 0 0 1px var(--ink); background: rgba(255,255,255,.4); }
+.btn.line svg { width: 13px; height: 13px; }
+.btn.line:hover svg { transform: none; }
+
+/* NAV */
+.nav { position: fixed; inset: 0 0 auto; z-index: 30; transition: background .4s, box-shadow .4s; }
+.nav.solid { background: rgba(246,241,234,.9); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--line); }
+.nav .wrap { height: 92px; display: flex; align-items: center; gap: 40px; transition: height .4s; }
+.nav.solid .wrap { height: 74px; }
+.logo { display: grid; gap: 2px; padding-right: 40px; border-right: 1px solid var(--line); }
+.logo b { font: 400 34px/1 var(--serif); letter-spacing: -.02em; white-space: nowrap; }
+.logo b span.n { color: var(--wine); }
+.logo small { font: 500 10.5px/1 var(--sans); letter-spacing: .34em; text-transform: uppercase; }
+.links { display: flex; gap: 40px; font-weight: 500; font-size: 15px; }
+.links a { position: relative; }
+.links a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -5px; height: 1.5px; background: var(--wine); transition: right .35s var(--ease); }
+.links a:hover::after { right: 0; }
+.nav .btn { margin-left: auto; height: 48px; border-radius: 999px; padding: 0 24px; gap: 10px; font-size: 15px; }
+.nav .btn svg { width: 17px; height: 17px; }
+.nav .btn:hover svg { transform: none; }
+.nav .btn .short { display: none; }
+
+/* HERO */
+.hero { position: relative; min-height: min(100svh, 1000px); display: grid; grid-template-columns: minmax(0, 44fr) minmax(0, 56fr); grid-template-rows: 1fr auto; overflow: hidden; }
+.h-txt { position: relative; z-index: 2; align-self: center; padding-block: 140px 64px; display: grid; gap: 28px; justify-items: start; }
+h1 { margin: 0; font: 400 clamp(40px, 4.1vw, 74px)/1.04 var(--serif); letter-spacing: -.025em; }
+h1 .l { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+h1 .l > span { display: inline-block; transform: translateY(110%); animation: up 1.1s var(--ease) forwards; }
+h1 .l:nth-child(2) > span { animation-delay: .1s; }
+h1 .l:nth-child(3) > span { animation-delay: .2s; }
+h1 em { color: var(--wine); }
+@keyframes up { to { transform: none; } }
+.h-txt p { margin: 0; font-size: clamp(16.5px, 1.25vw, 19px); color: var(--soft); max-width: 31em; }
+.h-txt .ctas { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 10px; }
+.fade { opacity: 0; animation: fade 1s .55s var(--ease) forwards; }
+@keyframes fade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+.h-vis { position: relative; margin-bottom: -1px; }
+.photo { position: absolute; left: -2%; right: 34%; top: 92px; bottom: 0; clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%); overflow: hidden; animation: wipe 1.4s .15s var(--ease) both; }
+@keyframes wipe { from { clip-path: polygon(30% 0, 30% 0, 0 100%, 0 100%); } }
+.photo img { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; transform: translateY(var(--py, 0px)) scale(1.04); }
+.vitrine { position: absolute; right: 0; top: 0; bottom: 0; width: 36%; background: linear-gradient(90deg, #CDBFAE 0 9%, #B9AA97 9% 10.5%, transparent 10.5%), linear-gradient(115deg, #2A2523 0%, #3B322D 38%, #1E1A18 62%, #2D2622 100%); overflow: hidden; }
+.vitrine::before { content: ""; position: absolute; inset: 0 0 0 10.5%; background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,.09) 30%, transparent 42%, transparent 60%, rgba(255,255,255,.06) 68%, transparent 76%); animation: glare 9s ease-in-out infinite; }
+@keyframes glare { 50% { transform: translateX(6%); } }
+.vitrine::after { content: ""; position: absolute; right: 12%; top: 26%; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(rgba(255,214,160,.55), transparent 65%); filter: blur(6px); }
+.frame-v { position: absolute; left: 10.5%; top: 0; bottom: 0; width: 10px; background: #15110F; }
+.plaque { position: absolute; left: 22%; right: 8%; top: 30%; transform: rotate(-12deg); transform-origin: left center; color: rgba(246,241,234,.86); }
+.plaque .slash { display: block; width: 1.5px; height: 70px; background: rgba(246,241,234,.7); transform: rotate(28deg); margin: 0 0 18px 52%; }
+.plaque b { display: inline-block; font: 400 clamp(30px, 3.2vw, 54px)/1 var(--serif); letter-spacing: -.01em; white-space: nowrap; }
+.plaque small { display: block; white-space: nowrap; margin-top: 10px; font: 500 clamp(9px, .72vw, 12px)/1 var(--sans); letter-spacing: .26em; text-transform: uppercase; }
+.plaque b, .plaque small, .plaque .slash { clip-path: inset(0 100% 0 0); animation: engrave 1.6s .9s var(--ease) forwards; }
+.plaque small { animation-delay: 1.3s; }
+.plaque .slash { animation-delay: .7s; }
+@keyframes engrave { to { clip-path: inset(0 0 0 0); } }
+
+/* bandeau expertises + approche */
+.band { position: relative; grid-column: 1 / -1; z-index: 3; display: grid; grid-template-columns: minmax(0, 63fr) minmax(0, 37fr); }
+.ex-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--cream); padding: 30px 0 34px max(var(--g), env(safe-area-inset-left, 0px)); }
+.ex { all: unset; box-sizing: border-box; cursor: pointer; display: grid; gap: 14px; align-content: start; padding: 0 24px; border-left: 1px solid var(--line); }
+.ex:first-child { border-left: 0; padding-left: 0; }
+.ex svg { width: 44px; height: 44px; color: var(--wine); }
+.ex svg * { stroke-dasharray: 160; stroke-dashoffset: 160; animation: draw 1.6s var(--ease) forwards; }
+.ex:nth-child(2) svg * { animation-delay: .12s; }
+.ex:nth-child(3) svg * { animation-delay: .24s; }
+.ex:nth-child(4) svg * { animation-delay: .36s; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.ex b { font-weight: 600; font-size: clamp(17px, 1.35vw, 21px); line-height: 1.15; letter-spacing: -.01em; }
+.ex span { color: var(--soft); font-size: 14.5px; line-height: 1.45; }
+.ex:hover b, .ex:focus-visible b { color: var(--wine); }
+.ex:focus-visible { outline: 2px solid var(--wine); outline-offset: 6px; }
+.appr { position: relative; color: #fff; background: var(--wine); clip-path: polygon(13% 0, 100% 0, 100% 100%, 0 100%); padding: 40px max(var(--g), env(safe-area-inset-right, 0px)) 40px 22%; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 20px; overflow: hidden; }
+.appr::before { content: ""; position: absolute; right: -4%; top: -10%; bottom: -10%; width: 34%; background: repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 10px, transparent 10px 22px); mask-image: linear-gradient(90deg, transparent, #000 60%); -webkit-mask-image: linear-gradient(90deg, transparent, #000 60%); }
+.appr .eyebrow { color: rgba(255,255,255,.75); }
+.appr .eyebrow::before { background: rgba(255,255,255,.6); }
+.appr-t { margin: 14px 0 0; font: 400 clamp(26px, 2.5vw, 42px)/1.08 var(--serif); min-height: 2.2em; transition: opacity .35s, transform .45s var(--ease); }
+.appr-t.out { opacity: 0; transform: translateY(10px); }
+.appr button { all: unset; cursor: pointer; width: 58px; height: 58px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.8); display: grid; place-items: center; transition: background .3s, color .3s; position: relative; z-index: 1; }
+.appr button:hover { background: #fff; color: var(--wine); }
+.appr button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.appr button svg { width: 18px; height: 18px; }
+.appr .dots { display: flex; gap: 6px; margin-top: 16px; }
+.appr .dots i { width: 18px; height: 2px; background: rgba(255,255,255,.3); transition: background .3s, width .4s var(--ease); }
+.appr .dots i.on { background: #fff; width: 30px; }
+
+/* LE CABINET */
+section { position: relative; }
+.cab { display: grid; grid-template-columns: minmax(0, 36fr) minmax(0, 64fr); background: var(--cream-2); }
+.cab-img { position: relative; min-height: 480px; overflow: hidden; border-top-right-radius: 40px; }
+.cab-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.15); transition: transform 1.6s var(--ease); }
+.cab-img.in img { transform: scale(1); }
+.cab-txt { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(24px, 4vw, 72px); align-items: start; padding: clamp(48px, 6vw, 96px) max(var(--g), env(safe-area-inset-right, 0px)) clamp(48px, 6vw, 96px) clamp(32px, 5vw, 90px); }
+.cab-txt h2 { position: relative; margin: 14px 0 0; padding-left: 36px; font: 400 clamp(32px, 3vw, 52px)/1.08 var(--serif); letter-spacing: -.02em; }
+.cab-txt h2::before { content: ""; position: absolute; left: 0; top: -40px; bottom: 6px; width: 2px; background: var(--wine); transform-origin: top; transform: scaleY(0); transition: transform 1.2s .2s var(--ease); }
+.cab-txt.in h2::before { transform: none; }
+.cab-txt .eyebrow { padding-left: 36px; color: var(--wine); }
+.cab-txt .eyebrow::before { display: none; }
+.cab-side { display: grid; gap: 24px; padding-top: 34px; }
+.cab-side p { margin: 0; color: var(--soft); font-size: 16.5px; }
+.vals { list-style: none; margin: 0; padding: 0; display: grid; }
+.vals li { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); font-weight: 500; }
+.vals li span { color: var(--mute); font-weight: 400; font-size: 14px; }
+
+/* EXPERTISES (détail) */
+.exp { padding-block: clamp(80px, 9vw, 140px); }
+.sec-h { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: end; margin-bottom: clamp(36px, 4vw, 60px); }
+.sec-h h2 { margin: 18px 0 0; font: 400 clamp(38px, 4vw, 68px)/1.04 var(--serif); letter-spacing: -.025em; }
+.sec-h h2 em { color: var(--wine); }
+.sec-h p { margin: 0; color: var(--soft); max-width: 30em; justify-self: end; }
+.tabs { display: grid; grid-template-columns: minmax(0, 34fr) minmax(0, 66fr); gap: clamp(24px, 4vw, 72px); }
+.tab-list { display: grid; align-content: start; border-top: 1px solid var(--ink); }
+.tab-list button { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 40px 1fr 18px; align-items: center; gap: 10px; padding: 22px 0; border-bottom: 1px solid var(--line); font: 400 clamp(22px, 1.9vw, 30px)/1.1 var(--serif); color: var(--mute); transition: color .3s, padding .45s var(--ease); }
+.tab-list button span:first-child { font: 500 12px var(--sans); letter-spacing: .1em; }
+.tab-list button i { width: 8px; height: 8px; background: var(--wine); transform: scale(0) rotate(45deg); transition: transform .4s var(--ease); justify-self: end; }
+.tab-list button[aria-selected="true"] { color: var(--ink); padding-left: 10px; }
+.tab-list button[aria-selected="true"] i { transform: scale(1) rotate(45deg); }
+.tab-list button:hover { color: var(--ink); }
+.tab-list button:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; }
+.panel { position: relative; background: #fff; border-radius: 6px; box-shadow: 0 0 0 1px var(--line), 0 30px 60px -40px rgba(60,20,20,.25); padding: clamp(26px, 3.2vw, 52px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; min-height: 360px; }
+.panel .sw { transition: opacity .3s, transform .45s var(--ease); }
+.panel.out .sw { opacity: 0; transform: translateY(10px); }
+.panel h3 { margin: 0; font: 400 clamp(28px, 2.4vw, 40px)/1.08 var(--serif); }
+.panel .lead { margin: 18px 0 0; color: var(--soft); }
+.panel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; align-content: start; }
+.panel li { display: flex; gap: 14px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; }
+.panel li::before { content: ""; flex: none; width: 6px; height: 6px; margin-top: .62em; background: var(--wine); transform: rotate(45deg); }
+.panel .go { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--mute); font-size: 14.5px; flex-wrap: wrap; }
+
+/* MÉTHODE */
+.meth { background: var(--ink); color: var(--cream); padding-block: clamp(80px, 9vw, 140px); }
+.meth .sec-h p { color: #B5ACA2; }
+.meth .eyebrow::before { background: #C9A2A9; }
+.steps { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 30px; }
+.steps::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 1px; background: rgba(246,241,234,.18); }
+.steps .fill { position: absolute; left: 0; top: 7px; height: 1px; width: 100%; background: #E7C6CC; transform-origin: left; transform: scaleX(var(--p, 0)); }
+.steps li { position: relative; padding-top: 44px; }
+.steps li::before { content: ""; position: absolute; left: 0; top: 0; width: 15px; height: 15px; transform: rotate(45deg); background: var(--ink); box-shadow: inset 0 0 0 1px rgba(246,241,234,.5); transition: background .4s, box-shadow .4s; }
+.steps li.on::before { background: #E7C6CC; box-shadow: none; }
+.steps .k { font: 500 12px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: #9C938A; }
+.steps h3 { margin: 12px 0 10px; font: 400 clamp(24px, 2vw, 32px)/1.1 var(--serif); }
+.steps p { margin: 0; color: #B5ACA2; font-size: 15px; max-width: 22em; }
+
+/* ÉQUIPE */
+.team { padding-block: clamp(80px, 9vw, 140px) clamp(40px, 4vw, 60px); }
+.people { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.p { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; padding: 26px; border-radius: 6px; background: #fff; box-shadow: 0 0 0 1px var(--line); transition: transform .5s var(--ease), box-shadow .4s; }
+.p:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--line), 0 24px 40px -28px rgba(60,20,20,.35); }
+.mono { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; background: var(--cream-2); box-shadow: inset 0 0 0 1px rgba(107,22,38,.25); font: 400 28px/1 var(--serif); color: var(--wine); }
+.p b { display: block; font: 400 24px/1.1 var(--serif); }
+.p div span { display: block; margin-top: 4px; color: var(--mute); font-size: 14px; }
+.p small { grid-column: 1 / -1; padding-top: 16px; border-top: 1px solid var(--line); color: var(--soft); font-size: 14.5px; }
+
+/* RENDEZ-VOUS (outil) */
+.rdv { padding-block: clamp(60px, 7vw, 110px) clamp(90px, 10vw, 150px); }
+.rdv-box { display: grid; grid-template-columns: minmax(0, 38fr) minmax(0, 62fr); border-radius: 8px; overflow: hidden; box-shadow: 0 0 0 1px var(--line), 0 40px 80px -50px rgba(60,20,20,.35); }
+.rdv-l { background: var(--wine); color: #fff; padding: clamp(28px, 3.4vw, 56px); display: grid; align-content: space-between; gap: 40px; }
+.rdv-l h2 { margin: 18px 0 0; font: 400 clamp(34px, 3.2vw, 54px)/1.05 var(--serif); }
+.rdv-l .eyebrow { color: rgba(255,255,255,.75); }
+.rdv-l .eyebrow::before { background: rgba(255,255,255,.6); }
+.recap { list-style: none; margin: 0; padding: 0; display: grid; }
+.recap li { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 12px 0; border-top: 1px solid rgba(255,255,255,.2); font-size: 15px; }
+.recap li span:first-child { color: rgba(255,255,255,.65); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; padding-top: 2px; }
+.recap li span:last-child { transition: opacity .3s; }
+.recap li span.empty { opacity: .45; }
+.rdv-r { background: #fff; padding: clamp(24px, 3vw, 48px); display: grid; grid-template-rows: auto 1fr auto; gap: 26px; min-height: 520px; }
+.stepper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.stepper div { display: grid; gap: 8px; font-size: 12.5px; color: var(--mute); }
+.stepper div i { height: 3px; background: var(--stone); position: relative; overflow: hidden; }
+.stepper div i::after { content: ""; position: absolute; inset: 0; background: var(--wine); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease); }
+.stepper div.on { color: var(--ink); font-weight: 500; }
+.stepper div.on i::after, .stepper div.done i::after { transform: none; }
+.st { display: none; align-content: start; gap: 16px; }
+.st.on { display: grid; animation: fade .5s var(--ease); }
+.st h3 { margin: 0; font: 400 clamp(24px, 2vw, 32px)/1.15 var(--serif); }
+.chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.chip { all: unset; box-sizing: border-box; cursor: pointer; padding: 16px 18px; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--line); display: grid; gap: 2px; transition: box-shadow .25s, background .25s; }
+.chip b { font-weight: 600; }
+.chip span { font-size: 13.5px; color: var(--mute); }
+.chip:hover { box-shadow: inset 0 0 0 1px rgba(107,22,38,.5); }
+.chip[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--wine); background: #FBF6F4; }
+.chip:focus-visible { outline: 2px solid var(--wine); outline-offset: 2px; }
+.chip[disabled] { opacity: .35; cursor: not-allowed; text-decoration: line-through; }
+.days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.days .chip { text-align: center; padding: 12px 6px; }
+.days .chip b { font: 400 24px/1 var(--serif); }
+.days .chip span { font-size: 12px; text-transform: capitalize; }
+.slots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.slots .chip { text-align: center; padding: 12px 6px; font-weight: 500; }
+.f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+label { display: grid; gap: 6px; font-size: 13px; color: var(--mute); }
+input, textarea { font: 16px/1.4 var(--sans); color: var(--ink); background: var(--cream); border: 1px solid transparent; border-radius: 6px; padding: 13px 14px; width: 100%; transition: border-color .25s, background .25s; }
+input:focus, textarea:focus { outline: none; border-color: var(--wine); background: #fff; }
+textarea { resize: vertical; min-height: 90px; }
+.nav-st { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding-top: 20px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.nav-st .back { all: unset; cursor: pointer; font-size: 14.5px; color: var(--mute); }
+.nav-st .back:hover { color: var(--ink); }
+.nav-st .back[hidden] { display: none; }
+.btn[disabled] { opacity: .4; cursor: not-allowed; }
+.msg { margin: 0; font-size: 14.5px; color: var(--soft); min-height: 1.4em; }
+.msg.done { color: var(--wine); font-weight: 500; }
+
+footer { background: var(--ink); color: #B5ACA2; }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px 30px; flex-wrap: wrap; padding-block: 34px max(96px, env(safe-area-inset-bottom, 0px)); font-size: 13.5px; }
+footer b { font: 400 26px/1 var(--serif); color: var(--cream); }
+
+.rv { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease), transform 1.1s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+
+@media (max-width: 1180px) {
+  .links { display: none; }
+  .hero { grid-template-columns: 1fr; min-height: 0; }
+  .h-txt { padding-block: 130px 40px; }
+  .h-vis { height: 64vw; min-height: 380px; }
+  .photo { top: 0; left: 0; right: 30%; clip-path: polygon(16% 0, 100% 0, 100% 100%, 0 100%); }
+  .vitrine { width: 34%; }
+  .band { position: static; grid-template-columns: 1fr; }
+  .ex-row { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 26px; padding-right: max(var(--g), env(safe-area-inset-right, 0px)); }
+  .ex:nth-child(3) { border-left: 0; padding-left: 0; }
+  .appr { clip-path: none; padding-left: max(var(--g), env(safe-area-inset-left, 0px)); }
+  .cab { grid-template-columns: 1fr; }
+  .cab-img { min-height: 260px; border-radius: 0; }
+  .cab-txt { grid-template-columns: 1fr; padding-left: max(var(--g), env(safe-area-inset-left, 0px)); }
+  .cab-side { padding-top: 0; }
+  .sec-h, .tabs, .rdv-box { grid-template-columns: 1fr; }
+  .sec-h p { justify-self: start; }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
+  .steps::before, .steps .fill { display: none; }
+  .people { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .nav .wrap { height: 70px; gap: 14px; }
+  .nav.solid .wrap { height: 64px; }
+  .logo { padding-right: 0; border-right: 0; }
+  .logo b { font-size: 26px; }
+  .logo small { font-size: 8.5px; letter-spacing: .26em; }
+  .nav .btn { height: 42px; padding: 0 14px; font-size: 13.5px; }
+  .nav .btn .long { display: none; }
+  .nav .btn .short { display: inline; }
+  .nav .btn { flex: none; white-space: nowrap; }
+  .nav .btn svg { display: none; }
+  .logo { min-width: 0; }
+  .logo b { overflow: hidden; text-overflow: ellipsis; }
+  .h-txt { padding-top: 110px; }
+  .h-txt .ctas .btn { width: 100%; justify-content: space-between; }
+  .h-vis { height: auto; min-height: 0; display: grid; }
+  .photo { position: relative; inset: auto; height: 96vw; clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%); }
+  @keyframes wipe { from { clip-path: polygon(18% 0, 18% 0, 0 100%, 0 100%); } }
+  .vitrine { position: relative; inset: auto; width: 100%; height: 150px; background: linear-gradient(115deg, #2A2523 0%, #3B322D 38%, #1E1A18 62%, #2D2622 100%); }
+  .vitrine::after { right: 8%; top: 10%; width: 90px; height: 90px; }
+  .frame-v { display: none; }
+  .plaque { left: 8%; right: 8%; top: 50%; transform: translateY(-50%) rotate(-6deg); }
+  .plaque .slash { display: none; }
+  .vals li { flex-direction: column; gap: 2px; }
+  .p { padding: 22px; }
+  .ex-row { grid-template-columns: 1fr; padding-block: 26px; }
+  .ex { border-left: 0; padding: 0 0 22px; border-bottom: 1px solid var(--line); grid-template-columns: 44px 1fr; column-gap: 16px; }
+  .ex svg { grid-row: span 2; width: 38px; height: 38px; }
+  .ex:last-child { border-bottom: 0; padding-bottom: 0; }
+  .panel { grid-template-columns: 1fr; }
+  .steps, .people { grid-template-columns: 1fr; }
+  .chips, .f2 { grid-template-columns: 1fr; }
+  .days { grid-template-columns: repeat(5, minmax(56px, 1fr)); overflow-x: auto; }
+  .slots { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .recap li { grid-template-columns: 90px 1fr; }
+  .rdv-r { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  h1 .l > span { transform: none; }
+  .plaque b, .plaque small, .plaque .slash { clip-path: none; }
+  .ex svg * { stroke-dashoffset: 0; }
+  .fade, .rv { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+<script defer src="/analytics.js"></script>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Accueil"><b data-azel="name" data-azel-logo>003 Cabinet</b><small>Avocats &amp; conseils</small></a>
+    <nav class="links" aria-label="Navigation principale"><a href="#cabinet">Le cabinet</a><a href="#expertises">Expertises</a><a href="#equipe">Équipe</a><a href="#methode">Méthode</a><a href="#rdv">Contact</a></nav>
+    <a class="btn" href="#rdv"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="3.5" width="13" height="12" rx="1.5"/><path d="M2.5 7.5h13M6 2v3M12 2v3"/></svg><span class="long">Prendre rendez-vous</span><span class="short">Rendez-vous</span></a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-label="Accueil">
+    <div class="h-txt wrap">
+      <span class="eyebrow fade">Conseil · Contentieux · Accompagnement</span>
+      <h1><span class="l"><span>Un accompagnement</span></span><span class="l"><span>juridique exigeant,</span></span><span class="l"><span><em>à vos côtés.</em></span></span></h1>
+      <p class="fade"><span data-azel="name">003 Cabinet</span> conseille et défend les entreprises, les dirigeants et les particuliers dans leurs enjeux juridiques, à <span data-azel="city">Paris</span> et en France.</p>
+      <div class="ctas fade">
+        <a class="btn" href="#rdv">Nous consulter <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8h14M9 2l6 6-6 6"/></svg></a>
+        <a class="btn line" href="#cabinet"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 1.5v11l9-5.5z"/></svg>Découvrir le cabinet</a>
+      </div>
+    </div>
+    <div class="h-vis" aria-hidden="true">
+      <div class="photo"><img src="facade.jpg" alt="" id="facade"></div>
+      <div class="vitrine"><span class="frame-v"></span><div class="plaque"><span class="slash"></span><b data-azel="name">003 Cabinet</b><small>Avocats &amp; conseils</small></div></div>
+    </div>
+    <div class="band">
+      <div class="ex-row" id="exRow">
+        <button class="ex" type="button" data-t="0"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6v30M12 36h20M8 12h28M22 8l-2-2h4zM8 12l-6 12h12zM36 12l-6 12h12zM2 24a6 4 0 0 0 12 0M30 24a6 4 0 0 0 12 0"/></svg><div><b>Droit des affaires</b><br><span>Conseil, structuration et contentieux.</span></div></button>
+        <button class="ex" type="button" data-t="1"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="16" cy="13" r="6"/><circle cx="30" cy="15" r="5"/><path d="M4 36c0-7 5-11 12-11s12 4 12 11M28 25c6 0 12 3 12 10"/></svg><div><b>Droit social</b><br><span>Relations de travail, dirigeants et RH.</span></div></button>
+        <button class="ex" type="button" data-t="2"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M8 38V12l12-6v32M20 14h16v24M4 38h36M12 16h4M12 22h4M12 28h4M25 20h6M25 26h6M25 32h6"/></svg><div><b>Droit immobilier</b><br><span>Opérations, baux et litiges.</span></div></button>
+        <button class="ex" type="button" data-t="3"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="22" cy="22" r="16"/><path d="M6 22h32M22 6c-6 5-6 27 0 32M22 6c6 5 6 27 0 32M9 13h26M9 31h26"/></svg><div><b>Droit international</b><br><span>Développement, contrats et contentieux.</span></div></button>
+      </div>
+      <div class="appr">
+        <div><span class="eyebrow">Notre approche</span><p class="appr-t" id="apprT">Rigueur, réactivité et vision stratégique.</p><div class="dots" id="apprD"><i class="on"></i><i></i><i></i></div></div>
+        <button type="button" id="apprB" aria-label="Principe suivant"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 9h16M11 3l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="cab" id="cabinet" aria-labelledby="cab-t">
+    <div class="cab-img rv" id="cabImg"><img src="balcon.jpg" alt="Façade en pierre et balcons en fer forgé"></div>
+    <div class="cab-txt rv" id="cabTxt">
+      <div><span class="eyebrow">Le cabinet</span><h2 id="cab-t">Une expertise reconnue au service de vos enjeux.</h2></div>
+      <div class="cab-side">
+        <p>Une approche rigoureuse, pragmatique et engagée pour sécuriser vos décisions et défendre vos intérêts, à chaque étape de vos projets.</p>
+        <ul class="vals"><li>Un interlocuteur unique <span>du premier rendez-vous au dénouement</span></li><li>Des honoraires annoncés <span>avant toute intervention</span></li><li>Un point à chaque étape <span>vous savez toujours où en est le dossier</span></li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="exp wrap" id="expertises" aria-labelledby="exp-t">
+    <div class="sec-h rv"><div><span class="eyebrow">Expertises</span><h2 id="exp-t">Quatre domaines, <em>une même exigence.</em></h2></div><p>Choisissez un domaine pour voir comment le cabinet intervient, en conseil comme en contentieux.</p></div>
+    <div class="tabs rv">
+      <div class="tab-list" role="tablist" aria-label="Domaines d'expertise" id="tabList"></div>
+      <div class="panel" id="panel" role="tabpanel"></div>
+    </div>
+  </section>
+
+  <section class="meth" id="methode" aria-labelledby="me-t">
+    <div class="wrap">
+      <div class="sec-h rv"><div><span class="eyebrow" style="color:#E7C6CC">Méthode</span><h2 id="me-t">Comment se passe un dossier.</h2></div><p>Quatre étapes, toujours les mêmes, pour que vous sachiez où vous en êtes.</p></div>
+      <ol class="steps" id="steps"><span class="fill" aria-hidden="true"></span>
+        <li><span class="k">Étape 01</span><h3>Premier échange</h3><p>Vous exposez la situation. Nous vous disons franchement si nous pouvons vous aider.</p></li>
+        <li><span class="k">Étape 02</span><h3>Analyse</h3><p>Étude des pièces, des risques et des options, avec une proposition d'honoraires.</p></li>
+        <li><span class="k">Étape 03</span><h3>Stratégie</h3><p>Une ligne claire, décidée avec vous, et un calendrier.</p></li>
+        <li><span class="k">Étape 04</span><h3>Suivi</h3><p>Un point à chaque étape importante, jusqu'au dénouement.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="team wrap" id="equipe" aria-labelledby="eq-t">
+    <div class="sec-h rv"><div><span class="eyebrow">Équipe</span><h2 id="eq-t">Les associés.</h2></div><p>Trois avocats, chacun référent d'un domaine, qui travaillent ensemble sur les dossiers transversaux.</p></div>
+    <div class="people">
+      <article class="p rv"><span class="mono">CL</span><div><b>Claire Lemaire</b><span>Associée · Droit des affaires</span></div><small>Structuration de sociétés, pactes d'associés, contentieux commercial.</small></article>
+      <article class="p rv"><span class="mono">KB</span><div><b>Karim Benali</b><span>Associé · Droit social</span></div><small>Relations collectives, ruptures, conseil aux dirigeants.</small></article>
+      <article class="p rv"><span class="mono">AV</span><div><b>Anne Vasseur</b><span>Associée · Immobilier et international</span></div><small>Baux commerciaux, opérations immobilières, contrats internationaux.</small></article>
+    </div>
+  </section>
+
+  <section class="rdv wrap" id="rdv" aria-labelledby="rdv-t">
+    <div class="rdv-box rv">
+      <div class="rdv-l">
+        <div><span class="eyebrow">Prendre rendez-vous</span><h2 id="rdv-t">Un premier échange, en quatre étapes.</h2></div>
+        <ul class="recap" id="recap">
+          <li><span>Domaine</span><span class="empty" data-k="dom">À choisir</span></li>
+          <li><span>Format</span><span class="empty" data-k="fmt">À choisir</span></li>
+          <li><span>Créneau</span><span class="empty" data-k="slot">À choisir</span></li>
+          <li><span>Contact</span><span class="empty" data-k="who">À renseigner</span></li>
+        </ul>
+      </div>
+      <div class="rdv-r">
+        <div class="stepper" id="stepper"><div class="on"><i></i>Domaine</div><div><i></i>Format</div><div><i></i>Créneau</div><div><i></i>Coordonnées</div></div>
+        <div>
+          <div class="st on" data-s="0"><h3>Pour quel sujet ?</h3><div class="chips" id="cDom"></div></div>
+          <div class="st" data-s="1"><h3>Comment souhaitez-vous échanger ?</h3><div class="chips" id="cFmt"></div></div>
+          <div class="st" data-s="2"><h3>Choisissez un jour, puis une heure.</h3><div class="days chips" id="cDay"></div><div class="slots chips" id="cSlot"></div></div>
+          <div class="st" data-s="3"><h3>Vos coordonnées</h3>
+            <div class="f2"><label>Nom<input id="fNom" autocomplete="name"></label><label>E-mail<input id="fMail" type="email" autocomplete="email"></label></div>
+            <label>En quelques mots (facultatif)<textarea id="fMsg"></textarea></label>
+          </div>
+        </div>
+        <div>
+          <div class="nav-st"><button class="back" type="button" id="back" hidden>← Retour</button><button class="btn" type="button" id="nextB" disabled>Continuer <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8h14M9 2l6 6-6 6"/></svg></button></div>
+          <p class="msg" id="msg" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><div><b data-azel="name">003 Cabinet</b><br>Avocats &amp; conseils · <span data-azel="city">Paris</span></div><div>Cabinet, associés et coordonnées fictifs.<br>Démonstration Azel 003.</div></div></footer>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* nav */
+const nav = $("#nav");
+addEventListener("scroll", () => { nav.classList.toggle("solid", scrollY > 30); if (!calm) $("#facade").style.setProperty("--py", Math.min(scrollY * .18, 140).toFixed(1) + "px"); }, { passive: true });
+
+/* notre approche : trois principes */
+const AP = ["Rigueur, réactivité et vision stratégique.", "Des honoraires clairs, annoncés avant d'agir.", "Un associé référent sur chaque dossier."];
+let ai = 0;
+const nextAp = () => {
+  ai = (ai + 1) % AP.length; const t = $("#apprT");
+  t.classList.add("out");
+  setTimeout(() => { t.textContent = AP[ai]; t.classList.remove("out"); }, calm ? 0 : 320);
+  [...$("#apprD").children].forEach((d, i) => d.classList.toggle("on", i === ai));
+};
+$("#apprB").addEventListener("click", () => { nextAp(); clearInterval(apT); });
+const apT = calm ? 0 : setInterval(nextAp, 6000);
+
+/* expertises */
+const EXP = [
+  { t: "Droit des affaires", l: "De la création de la société à la résolution des litiges entre associés ou partenaires.", i: ["Création et structuration de sociétés", "Pactes d'associés et levées de fonds", "Contrats commerciaux et conditions générales", "Contentieux commercial et recouvrement"], ref: "Claire Lemaire" },
+  { t: "Droit social", l: "Aux côtés des employeurs et des dirigeants, pour prévenir les conflits plutôt que les subir.", i: ["Contrats de travail et clauses sensibles", "Ruptures et négociations de départ", "Relations avec les représentants du personnel", "Contentieux prud'homal"], ref: "Karim Benali" },
+  { t: "Droit immobilier", l: "Sécuriser une acquisition, un bail ou un chantier, et défendre vos intérêts en cas de litige.", i: ["Baux commerciaux et professionnels", "Acquisitions et ventes d'actifs", "Copropriété et construction", "Litiges locatifs et expulsions"], ref: "Anne Vasseur" },
+  { t: "Droit international", l: "Accompagner votre développement hors de France avec des contrats solides.", i: ["Contrats de distribution et d'agence", "Implantation de filiales", "Arbitrage et médiation", "Exécution de décisions étrangères"], ref: "Anne Vasseur" },
+];
+const tl = $("#tabList"), panel = $("#panel");
+tl.innerHTML = EXP.map((e, i) => `<button type="button" role="tab" id="tab${i}" aria-selected="${i === 0}" aria-controls="panel" tabindex="${i === 0 ? 0 : -1}"><span>${String(i + 1).padStart(2, "0")}</span><span>${e.t}</span><i></i></button>`).join("");
+const fillPanel = (i) => {
+  const e = EXP[i];
+  panel.setAttribute("aria-labelledby", "tab" + i);
+  panel.innerHTML = `<div class="sw"><h3>${e.t}</h3><p class="lead">${e.l}</p></div><ul class="sw">${e.i.map((x) => `<li>${x}</li>`).join("")}</ul><div class="go sw"><span>Référent : ${e.ref}</span><a class="btn" href="#rdv" data-dom="${i}">Prendre rendez-vous <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 8h14M9 2l6 6-6 6"/></svg></a></div>`;
+  $(".go .btn", panel).addEventListener("click", () => pick("dom", i));
+};
+const selTab = (i, focus) => {
+  tl.querySelectorAll("button").forEach((b, k) => { b.setAttribute("aria-selected", k === i); b.tabIndex = k === i ? 0 : -1; if (k === i && focus) b.focus(); });
+  panel.classList.add("out");
+  setTimeout(() => { fillPanel(i); panel.classList.remove("out"); }, calm ? 0 : 220);
+};
+fillPanel(0);
+tl.querySelectorAll("button").forEach((b, i) => {
+  b.addEventListener("click", () => selTab(i));
+  b.addEventListener("keydown", (e) => { if (e.key === "ArrowDown" || e.key === "ArrowRight") { e.preventDefault(); selTab((i + 1) % 4, true); } if (e.key === "ArrowUp" || e.key === "ArrowLeft") { e.preventDefault(); selTab((i + 3) % 4, true); } });
+});
+document.querySelectorAll(".ex").forEach((b) => b.addEventListener("click", () => { selTab(+b.dataset.t); $("#expertises").scrollIntoView({ behavior: calm ? "auto" : "smooth" }); }));
+
+/* méthode : la ligne se remplit au défilement */
+const steps = $("#steps"), lis = [...steps.querySelectorAll("li")];
+const prog = () => {
+  const r = steps.getBoundingClientRect();
+  const p = calm ? 1 : Math.min(1, Math.max(0, (innerHeight * .8 - r.top) / (r.height + innerHeight * .3)));
+  steps.style.setProperty("--p", p.toFixed(3));
+  lis.forEach((li, i) => li.classList.toggle("on", p >= i / lis.length + .02));
+};
+addEventListener("scroll", prog, { passive: true }); prog();
+
+/* rendez-vous : outil en quatre étapes */
+const S = { dom: null, fmt: null, day: null, slot: null };
+const DOMS = EXP.map((e) => [e.t, e.i[0]]);
+const FMTS = [["Au cabinet", "Dans nos bureaux"], ["En visio", "Lien envoyé par e-mail"], ["Par téléphone", "Nous vous rappelons"]];
+const HOURS = ["9:30", "11:00", "14:30", "16:00"];
+const days = []; { const d = new Date(); while (days.length < 5) { d.setDate(d.getDate() + 1); if (d.getDay() % 6) days.push(new Date(d)); } }
+const full = (di, hi) => (di * 3 + hi * 5) % 7 === 0;
+const chip = (b, s, attrs = "") => `<button class="chip" type="button" aria-pressed="false" ${attrs}><b>${b}</b>${s ? `<span>${s}</span>` : ""}</button>`;
+$("#cDom").innerHTML = DOMS.map(([b, s], i) => chip(b, s, `data-v="${i}"`)).join("");
+$("#cFmt").innerHTML = FMTS.map(([b, s], i) => chip(b, s, `data-v="${i}"`)).join("");
+$("#cDay").innerHTML = days.map((d, i) => chip(d.getDate(), d.toLocaleDateString("fr-FR", { weekday: "short" }), `data-v="${i}"`)).join("");
+const drawSlots = () => { $("#cSlot").innerHTML = S.day == null ? "" : HOURS.map((h, i) => chip(h, "", `data-v="${i}" ${full(S.day, i) ? 'disabled aria-label="' + h + ', complet"' : ""}`)).join(""); bindChips("#cSlot", "slot"); };
+const label = { dom: () => DOMS[S.dom][0], fmt: () => FMTS[S.fmt][0], slot: () => `${days[S.day].toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" })} à ${HOURS[S.slot]}` };
+const setRecap = (k, v) => { const el = $(`#recap [data-k="${k}"]`); el.textContent = v; el.classList.remove("empty"); };
+let step = 0;
+const ok = () => [S.dom != null, S.fmt != null, S.slot != null, $("#fNom").value.trim() && /^\S+@\S+\.\S+$/.test($("#fMail").value.trim())][step];
+const refresh = () => {
+  document.querySelectorAll(".st").forEach((s) => s.classList.toggle("on", +s.dataset.s === step));
+  [...$("#stepper").children].forEach((d, i) => { d.classList.toggle("on", i === step); d.classList.toggle("done", i < step); });
+  $("#back").hidden = step === 0;
+  const nb = $("#nextB"); nb.disabled = !ok();
+  nb.firstChild.textContent = step === 3 ? "Demander ce rendez-vous " : "Continuer ";
+};
+function pick(k, v) {
+  S[k] = v;
+  if (k === "dom") setRecap("dom", label.dom());
+  document.querySelectorAll(`#cDom .chip`).forEach((c) => c.setAttribute("aria-pressed", k === "dom" ? +c.dataset.v === v : c.getAttribute("aria-pressed")));
+  if (k === "dom" && step === 0) refresh();
+}
+function bindChips(sel, k) {
+  document.querySelectorAll(sel + " .chip").forEach((c) => c.addEventListener("click", () => {
+    if (c.disabled) return;
+    document.querySelectorAll(sel + " .chip").forEach((x) => x.setAttribute("aria-pressed", x === c));
+    const v = +c.dataset.v;
+    if (k === "day") { S.day = v; S.slot = null; drawSlots(); const el = $('#recap [data-k="slot"]'); el.textContent = "À choisir"; el.classList.add("empty"); }
+    else { S[k] = v; if (label[k]) setRecap(k, label[k]()); }
+    refresh();
+  }));
+}
+bindChips("#cDom", "dom"); bindChips("#cFmt", "fmt"); bindChips("#cDay", "day");
+["#fNom", "#fMail"].forEach((s) => $(s).addEventListener("input", () => { const n = $("#fNom").value.trim(), m = $("#fMail").value.trim(); if (n || m) setRecap("who", [n, m].filter(Boolean).join(" · ")); refresh(); }));
+$("#back").addEventListener("click", () => { step = Math.max(0, step - 1); $("#msg").textContent = ""; refresh(); });
+$("#nextB").addEventListener("click", () => {
+  if (!ok()) return;
+  if (step < 3) { step++; refresh(); return; }
+  const m = $("#msg"); m.classList.add("done");
+  m.textContent = "Démonstration : la demande n'a pas été envoyée. Sur le vrai site, le cabinet la reçoit et confirme le créneau par e-mail.";
+});
+refresh();
+
+/* plaque : le nom gravé tient toujours dans la vitrine */
+const plq = $(".plaque b");
+const fitPlaque = () => { plq.style.fontSize = ""; const box = plq.parentElement.clientWidth * .98; let fs = parseFloat(getComputedStyle(plq).fontSize); let n = 0; while (plq.scrollWidth > box && fs > 14 && n++ < 40) { fs -= 2; plq.style.fontSize = fs + "px"; } };
+new MutationObserver(fitPlaque).observe(plq, { childList: true, characterData: true, subtree: true });
+addEventListener("resize", fitPlaque); (document.fonts ? document.fonts.ready : Promise.resolve()).then(fitPlaque); fitPlaque();
+
+/* apparitions */
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+})();
+</script>
+<script src="../azel-demo.js" data-template="cabinet" data-accent="--wine" data-accent2="--wine-2" data-on="light" defer></script>
+</body>
+</html>

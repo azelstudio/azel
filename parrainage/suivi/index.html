@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Suivi parrainage · Azel</title>
+<style>
+:root { color-scheme: dark; --void:#080808; --paper:#F3F1EB; --soft:#CFCDC6; --mute:#8A8C91; --line:rgba(243,241,235,.14); --ok:#7FB083; --warn:#E5B76A; --bad:#E58A7A; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--void); color: var(--paper); font: 15px/1.5 "Instrument Sans", "Helvetica Neue", Arial, sans-serif; }
+.wrap { max-width: 1400px; margin: 0 auto; padding: 32px clamp(16px, 3vw, 40px) 80px; }
+h1 { font-size: 28px; letter-spacing: -.03em; margin: 0 0 6px; }
+.label { font: 500 11px/1.4 ui-monospace, Menlo, monospace; letter-spacing: .13em; text-transform: uppercase; color: var(--mute); }
+.bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 22px 0; }
+input, select, textarea, button { font: inherit; color: var(--paper); background: #121315; border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; }
+button { background: var(--paper); color: var(--void); border: 0; font-weight: 600; cursor: pointer; }
+button.ghost { background: transparent; color: var(--paper); border: 1px solid var(--line); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-bottom: 28px; }
+.kpi { background: var(--void); padding: 16px 18px; } .kpi b { display: block; font-size: 26px; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+table { width: 100%; border-collapse: collapse; } th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font: 500 11px ui-monospace, Menlo, monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--mute); }
+td small { color: var(--mute); display: block; }
+.flag { color: var(--bad); font-size: 12px; }
+.money { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; padding: 4px 12px; margin-bottom: 36px; }
+#msg { color: var(--mute); } #msg.bad { color: var(--bad); }
+h2 { font-size: 18px; margin: 0 0 12px; }
+textarea { width: 100%; min-width: 180px; min-height: 38px; resize: vertical; }
+</style>
+<script defer src="/analytics.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <span class="label">Azel · interne</span>
+  <h1>Suivi des parrainages</h1>
+  <p style="color:var(--soft);max-width:60em">Rien n'est validé automatiquement. Passez une demande à « encaissé » quand le paiement complet est reçu, puis à « récompense versée » après le virement au parrain (dans les 30 jours). Un projet sur devis n'ouvre droit à 150 € / 80 € qu'à partir de 1 290 € avant réduction : en dessous, choisissez la formule correspondante ou « Sur devis (&lt; 1 290 €) ».</p>
+  <form class="bar" id="login"><input id="key" type="password" placeholder="Clé d'administration" autocomplete="current-password" style="min-width:280px"><button>Ouvrir</button><button type="button" class="ghost" id="csv" hidden>Exporter CSV</button><span id="msg" role="status"></span></form>
+  <div id="app" hidden>
+    <div class="kpis" id="kpis"></div>
+    <h2>Demandes de filleuls</h2>
+    <div class="scroll"><table><thead><tr><th>Date</th><th>Filleul</th><th>Code / parrain</th><th>Formule</th><th>Réduction</th><th>À verser</th><th>Statut</th><th>Note</th><th></th></tr></thead><tbody id="fl"></tbody></table></div>
+    <h2>Parrains inscrits</h2>
+    <div class="scroll"><table><thead><tr><th>Code</th><th>Nom</th><th>E-mail</th><th>Inscrit le</th><th>Demandes</th><th>Versé</th></tr></thead><tbody id="pl"></tbody></table></div>
+  </div>
+</div>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id), esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  let KEY = ''; try { KEY = sessionStorage.getItem('azelAdm') || ''; } catch (e) {}
+  let data = null;
+  const say = (m, bad) => { $('msg').textContent = m; $('msg').className = bad ? 'bad' : ''; };
+  const api = (opt = {}) => fetch('/api/parrainage/suivi', { ...opt, headers: { Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json' } });
+  const d = (s) => s ? new Date(s).toLocaleDateString('fr-FR') : '';
+  const eur = (n) => n ? n + ' €' : '·';
+
+  async function load() {
+    say('Chargement…');
+    const r = await api(); const j = await r.json().catch(() => ({}));
+    if (!r.ok) { say(j.message || 'Erreur ' + r.status, true); $('app').hidden = true; return; }
+    try { sessionStorage.setItem('azelAdm', KEY); } catch (e) {}
+    data = j; say(''); $('app').hidden = false; $('csv').hidden = false; render();
+  }
+  function render() {
+    const B = data.bareme, byCode = Object.fromEntries(data.parrains.map((p) => [p.code, p]));
+    const due = (f) => (B[f.offre] || {}).parrain || 0;
+    const sum = (st) => data.filleuls.filter((f) => st.includes(f.status)).reduce((a, f) => a + due(f), 0);
+    $('kpis').innerHTML = [
+      ['Parrains', data.parrains.length], ['Demandes', data.filleuls.length],
+      ['Signées', data.filleuls.filter((f) => ['signé', 'encaissé', 'récompense versée'].includes(f.status)).length],
+      ['À verser', sum(['encaissé']) + ' €'], ['Déjà versé', sum(['récompense versée']) + ' €'],
+    ].map(([k, v]) => `<div class="kpi"><span class="label">${k}</span><b>${v}</b></div>`).join('');
+    const offres = ['', ...Object.keys(B), 'Sur devis (< 1 290 €)', 'Essentiel'];
+    $('fl').innerHTML = data.filleuls.map((f) => {
+      const p = byCode[f.code] || {};
+      return `<tr data-id="${esc(f.id)}"><td>${d(f.createdAt)}</td><td>${esc(f.nom)}<small>${esc(f.email)}</small>${(f.flags || []).map((x) => `<span class="flag">${esc(x)}</span>`).join(' ')}</td>
+      <td>${esc(f.code)}<small>${esc(p.nom || 'inconnu')}</small></td>
+      <td><select data-k="offre">${offres.map((o) => `<option ${o === f.offre ? 'selected' : ''} value="${esc(o)}">${esc(o || '?')}</option>`).join('')}</select></td>
+      <td class="money">${eur((B[f.offre] || {}).filleul)}</td><td class="money">${eur(due(f))}</td>
+      <td><select data-k="status">${data.statuts.map((s) => `<option ${s === f.status ? 'selected' : ''}>${esc(s)}</option>`).join('')}</select></td>
+      <td><textarea data-k="note" rows="1">${esc(f.note)}</textarea></td><td><button type="button" class="ghost" data-save>Enregistrer</button></td></tr>`;
+    }).join('') || '<tr><td colspan="9" style="color:var(--mute)">Aucune demande pour l\'instant.</td></tr>';
+    $('pl').innerHTML = data.parrains.sort((a, b) => b.createdAt.localeCompare(a.createdAt)).map((p) => {
+      const mine = data.filleuls.filter((f) => f.code === p.code);
+      const paid = mine.filter((f) => f.status === 'récompense versée').reduce((a, f) => a + due(f), 0);
+      return `<tr><td>${esc(p.code)}</td><td>${esc(p.nom)}</td><td><a href="mailto:${esc(p.email)}">${esc(p.email)}</a></td><td>${d(p.createdAt)}</td><td>${mine.length}</td><td class="money">${eur(paid)}</td></tr>`;
+    }).join('') || '<tr><td colspan="6" style="color:var(--mute)">Aucun parrain inscrit.</td></tr>';
+  }
+  $('fl').addEventListener('click', async (e) => {
+    const b = e.target.closest('[data-save]'); if (!b) return;
+    const tr = b.closest('tr'), body = { id: tr.dataset.id };
+    tr.querySelectorAll('[data-k]').forEach((el) => body[el.dataset.k] = el.value);
+    b.disabled = true; b.textContent = '…';
+    const r = await api({ method: 'POST', body: JSON.stringify(body) }); const j = await r.json().catch(() => ({}));
+    if (!r.ok) { b.textContent = 'Erreur'; say(j.message || 'Erreur', true); b.disabled = false; return; }
+    const i = data.filleuls.findIndex((f) => f.id === body.id); data.filleuls[i] = j.filleul; render();
+  });
+  $('login').addEventListener('submit', (e) => { e.preventDefault(); KEY = $('key').value.trim(); load(); });
+  $('csv').addEventListener('click', () => {
+    const rows = [['date', 'filleul', 'email', 'code', 'parrain', 'formule', 'statut', 'a_verser', 'note']];
+    const byCode = Object.fromEntries(data.parrains.map((p) => [p.code, p]));
+    data.filleuls.forEach((f) => rows.push([f.createdAt, f.nom, f.email, f.code, (byCode[f.code] || {}).nom || '', f.offre, f.status, (data.bareme[f.offre] || {}).parrain || 0, f.note]));
+    const csv = rows.map((r) => r.map((c) => '"' + String(c ?? '').replace(/"/g, '""') + '"').join(';')).join('\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv' })); a.download = 'parrainages.csv'; a.click();
+  });
+  if (KEY) load();
+})();
+</script>
+</body>
+</html>

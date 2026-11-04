@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>004 Artisan · Bâtiment et rénovation (démonstration)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* 004 ARTISAN : entreprise fictive de bâtiment et rénovation, démonstration Azel 004.
+   Béton, lumière chaude et orange chantier. Signature : le curseur « Du plan au chantier » sur la photo d'accueil. */
+:root {
+  color-scheme: light;
+  --char: #1E1D1B;
+  --char-2: #2A2826;
+  --sand: #F1EEEA;
+  --sand-2: #E7E2DC;
+  --ink: #171614;
+  --soft: #55514C;
+  --mute: #8C867F;
+  --or: #E8671C;
+  --or-2: #CF5711;
+  --blue: #8FD0FF;
+  --line: rgba(23,22,20,.13);
+  --line-d: rgba(255,255,255,.14);
+  --sans: "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --g: clamp(16px, 6.4vw, 112px);
+  --ease: cubic-bezier(.2,.7,.1,1);
+}
+* { box-sizing: border-box; }
+html { background: var(--sand); scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); font: 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--or); outline-offset: 3px; }
+.wrap { padding-inline: max(var(--g), env(safe-area-inset-left, 0px)) max(var(--g), env(safe-area-inset-right, 0px)); }
+.eyebrow { display: inline-flex; align-items: center; gap: 16px; font: 700 11.5px/1.4 var(--sans); letter-spacing: .22em; text-transform: uppercase; }
+.eyebrow::before { content: ""; width: 34px; height: 2px; background: var(--or); }
+.btn { display: inline-flex; align-items: center; justify-content: space-between; gap: 16px; height: 54px; padding: 0 26px; border-radius: 8px; background: var(--or); color: #fff; font-weight: 600; font-size: 15.5px; border: 0; cursor: pointer; transition: background .3s, transform .3s var(--ease); white-space: nowrap; }
+.btn:hover { background: var(--or-2); transform: translateY(-2px); }
+.btn svg { width: 16px; height: 16px; transition: transform .35s var(--ease); }
+.btn:hover svg { transform: translateX(4px); }
+.btn.ghost { background: transparent; color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.55); gap: 12px; }
+.btn.ghost:hover { background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px #fff; }
+.btn.ghost svg { width: 13px; height: 13px; }
+.btn.ghost:hover svg { transform: none; }
+
+/* NAV */
+.nav { position: absolute; inset: 0 0 auto; z-index: 30; color: #fff; }
+.nav .wrap { height: 84px; display: flex; align-items: center; gap: 40px; }
+.logo { display: grid; gap: 4px; padding-right: 40px; border-right: 1px solid rgba(255,255,255,.3); }
+.logo b { font: 600 35px/1 var(--sans); letter-spacing: -.035em; white-space: nowrap; }
+.logo b .n { color: var(--or); }
+.logo small { font: 600 10px/1 var(--sans); letter-spacing: .3em; text-transform: uppercase; }
+.links { display: flex; gap: 40px; font-weight: 500; font-size: 15px; }
+.links a { position: relative; padding-block: 6px; }
+.links a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 2px; background: var(--or); transition: right .35s var(--ease); }
+.links a:hover::after, .links a.on::after { right: 0; }
+.nav .btn { margin-left: auto; height: 48px; background: rgba(30,29,27,.72); box-shadow: inset 0 0 0 1px rgba(255,255,255,.18); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); gap: 10px; }
+.nav .btn:hover { background: var(--or); transform: none; }
+.nav .btn svg { width: 17px; height: 17px; }
+.nav .btn:hover svg { transform: none; }
+.nav .btn .short { display: none; }
+
+/* HERO */
+.hero { position: relative; display: grid; grid-template-columns: minmax(0, 42fr) minmax(0, 58fr); min-height: min(100svh, 900px); background: var(--char); color: #fff; overflow: hidden; isolation: isolate; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(80% 60% at 20% 30%, #34312D, transparent 70%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.h-txt { align-self: center; padding-block: 150px 90px; display: grid; gap: 26px; justify-items: start; position: relative; z-index: 2; }
+h1 { margin: 0; font: 700 clamp(44px, 4.6vw, 80px)/1.02 var(--sans); letter-spacing: -.04em; }
+h1 .l { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+h1 .l > span { display: inline-block; transform: translateY(110%); animation: up 1.05s var(--ease) forwards; }
+h1 .l:nth-child(2) > span { animation-delay: .1s; }
+h1 .l:nth-child(3) > span { animation-delay: .2s; }
+h1 em { font-style: italic; font-weight: 800; color: var(--or); }
+@keyframes up { to { transform: none; } }
+.h-txt p { margin: 0; color: #D9D4CD; font-size: clamp(16.5px, 1.2vw, 18.5px); max-width: 30em; }
+.ctas { display: flex; gap: 22px; flex-wrap: wrap; }
+.fade { opacity: 0; animation: fade 1s .55s var(--ease) forwards; }
+@keyframes fade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* Du plan au chantier */
+.ba { position: relative; overflow: hidden; touch-action: pan-y; cursor: ew-resize; --x: 100%; }
+.ba img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 35% center; user-select: none; -webkit-user-drag: none; }
+.ba .plan { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--x)) 0 0); background: #0E2236; }
+.ba .plan img { filter: grayscale(1) invert(1) contrast(1.7) brightness(.82); mix-blend-mode: screen; opacity: .6; }
+.ba .plan::before { content: ""; position: absolute; inset: 0; z-index: 1; background-image: linear-gradient(rgba(143,208,255,.14) 1px, transparent 1px), linear-gradient(90deg, rgba(143,208,255,.14) 1px, transparent 1px), linear-gradient(rgba(143,208,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(143,208,255,.06) 1px, transparent 1px); background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px; }
+.ba .plan::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(14,34,54,.35), transparent 30%); }
+.ba svg.cotes { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; color: var(--blue); font: 500 13px var(--mono); }
+.ba svg.cotes text { fill: currentColor; letter-spacing: .06em; }
+.ba .handle { position: absolute; top: 0; bottom: 0; left: var(--x); z-index: 3; width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 18px rgba(0,0,0,.4); }
+.ba .knob { position: absolute; top: 58%; left: 50%; width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%; background: #fff; color: var(--ink); display: grid; place-items: center; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+.ba .knob svg { width: 22px; height: 22px; }
+.ba .knob:focus-visible { outline: 3px solid var(--or); outline-offset: 3px; }
+.ba .lbl { position: absolute; z-index: 3; top: 104px; padding: 7px 12px; border-radius: 999px; font: 500 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; transition: opacity .4s; }
+.ba .lbl.p { left: 22px; background: rgba(14,34,54,.85); color: var(--blue); box-shadow: inset 0 0 0 1px rgba(143,208,255,.4); }
+.ba .lbl.r { right: 22px; background: rgba(30,29,27,.72); color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+.ba .hint { position: absolute; z-index: 3; left: 50%; bottom: 26px; translate: -50% 0; padding: 9px 16px; border-radius: 999px; background: rgba(30,29,27,.78); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-size: 13px; font-weight: 500; white-space: nowrap; transition: opacity .5s; }
+.ba.used .hint { opacity: 0; }
+
+/* MÉTIERS */
+.met { background: var(--sand-2); }
+.met .wrap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding-block: 30px; }
+.m { display: grid; grid-template-columns: 52px 1fr; gap: 18px; align-items: start; padding: 4px 28px; border-left: 1px solid var(--line); transition: transform .4s var(--ease); }
+.m:first-child { border-left: 0; padding-left: 0; }
+.m svg { width: 48px; height: 48px; color: var(--ink); transition: color .3s, transform .5s var(--ease); }
+.m:hover svg { color: var(--or); transform: translateY(-3px); }
+.m b { display: block; font-weight: 600; font-size: 17.5px; letter-spacing: -.01em; }
+.m span { display: block; color: var(--soft); font-size: 14px; line-height: 1.45; margin-top: 4px; }
+
+/* RÉALISATIONS */
+.rea { display: grid; grid-template-columns: minmax(0, 76fr) minmax(0, 24fr); background: var(--sand); }
+.rea-in { padding-block: clamp(48px, 5vw, 80px); display: grid; grid-template-columns: minmax(0, 26fr) minmax(0, 74fr); gap: clamp(24px, 3vw, 48px); align-items: start; padding-right: clamp(24px, 3vw, 48px); }
+.rea-in h2 { margin: 18px 0 0; font: 700 clamp(32px, 2.9vw, 50px)/1.06 var(--sans); letter-spacing: -.04em; }
+.rea-in h2 em { font-style: italic; font-weight: 800; color: var(--or); }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.card { all: unset; box-sizing: border-box; cursor: pointer; display: grid; gap: 12px; }
+.card .im { position: relative; aspect-ratio: 16 / 10; border-radius: 8px; overflow: hidden; background: var(--sand-2); }
+.card .im img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.1s var(--ease); }
+.card:hover .im img, .card:focus-visible .im img { transform: scale(1.06); }
+.card .im .tag { position: absolute; left: 10px; top: 10px; padding: 5px 9px; border-radius: 4px; background: rgba(30,29,27,.75); color: #fff; font: 500 10.5px var(--mono); letter-spacing: .1em; }
+.card .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.card b { display: block; font-weight: 600; font-size: 16px; }
+.card small { display: block; color: var(--mute); font-size: 13px; margin-top: 2px; }
+.card i { flex: none; width: 36px; height: 36px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(23,22,20,.5); display: grid; place-items: center; transition: background .3s, color .3s, box-shadow .3s; }
+.card i svg { width: 14px; height: 14px; }
+.card:hover i { background: var(--or); color: #fff; box-shadow: none; }
+.card:focus-visible { outline: 2px solid var(--or); outline-offset: 6px; border-radius: 8px; }
+.proj { position: relative; color: #fff; background: var(--char); clip-path: polygon(24% 0, 100% 0, 100% 100%, 0 100%); padding: clamp(40px, 4vw, 70px) max(var(--g), env(safe-area-inset-right, 0px)) 40px 30%; display: grid; align-content: center; gap: 18px; overflow: hidden; isolation: isolate; }
+.proj::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(60% 50% at 80% 20%, rgba(232,103,28,.18), transparent 70%), repeating-linear-gradient(120deg, rgba(255,255,255,.03) 0 2px, transparent 2px 40px); }
+.proj .eyebrow::before { width: 2px; height: 24px; transform: rotate(20deg); }
+.proj p { margin: 0; font: 600 clamp(28px, 2.5vw, 40px)/1.08 var(--sans); letter-spacing: -.035em; }
+.proj a { width: 58px; height: 58px; border-radius: 50%; box-shadow: inset 0 0 0 1.5px #fff; display: grid; place-items: center; transition: background .3s, color .3s; }
+.proj a:hover { background: var(--or); box-shadow: none; }
+.proj a svg { width: 18px; height: 18px; }
+
+/* CHANTIER : étapes */
+.ch { background: var(--char); color: #fff; padding-block: clamp(80px, 9vw, 140px); }
+.sec-h { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; align-items: end; margin-bottom: clamp(40px, 5vw, 70px); }
+.sec-h h2 { margin: 18px 0 0; font: 700 clamp(36px, 3.8vw, 64px)/1.04 var(--sans); letter-spacing: -.045em; }
+.sec-h h2 em { font-style: italic; font-weight: 800; color: var(--or); }
+.sec-h p { margin: 0; justify-self: end; max-width: 30em; color: var(--soft); }
+.ch .sec-h p { color: #B9B3AA; }
+.track { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; list-style: none; margin: 0; padding: 0; }
+.track::before { content: ""; position: absolute; left: 0; right: 0; top: 27px; height: 2px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.25) 0 10px, transparent 10px 18px); }
+.track .bar { position: absolute; left: 0; top: 27px; height: 2px; width: 100%; background: var(--or); transform-origin: left; transform: scaleX(var(--p, 0)); }
+.track li { position: relative; display: grid; gap: 12px; align-content: start; }
+.track .ic { width: 56px; height: 56px; border-radius: 12px; background: var(--char-2); box-shadow: inset 0 0 0 1px var(--line-d); display: grid; place-items: center; transition: background .4s, box-shadow .4s; }
+.track .ic svg { width: 26px; height: 26px; }
+.track li.on .ic { background: var(--or); box-shadow: none; }
+.track .k { margin-top: 10px; font: 500 11.5px var(--mono); letter-spacing: .12em; color: #8F897F; }
+.track h3 { margin: 0; font: 700 22px/1.15 var(--sans); letter-spacing: -.02em; }
+.track p { margin: 0; color: #B9B3AA; font-size: 15px; max-width: 22em; }
+
+/* DEVIS */
+.dv { padding-block: clamp(80px, 9vw, 140px); }
+.dv-box { display: grid; grid-template-columns: minmax(0, 40fr) minmax(0, 60fr); gap: clamp(28px, 4vw, 72px); align-items: start; }
+.dv-l { position: sticky; top: 40px; display: grid; gap: 22px; }
+.dv-l h2 { margin: 0; font: 700 clamp(36px, 3.8vw, 64px)/1.04 var(--sans); letter-spacing: -.045em; }
+.dv-l h2 em { font-style: italic; font-weight: 800; color: var(--or); }
+.dv-l p { margin: 0; color: var(--soft); max-width: 28em; }
+.checks { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 10px; }
+.checks li { display: flex; gap: 12px; align-items: center; font-weight: 500; }
+.checks li::before { content: ""; width: 20px; height: 20px; flex: none; border-radius: 50%; background: var(--or) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='white' stroke-width='2'%3E%3Cpath d='M6 10.5l2.6 2.5L14 7.5'/%3E%3C/svg%3E") center / 20px no-repeat; }
+.form { background: #fff; border-radius: 12px; box-shadow: 0 0 0 1px var(--line), 0 40px 70px -50px rgba(40,25,10,.4); padding: clamp(22px, 3vw, 44px); display: grid; gap: 24px; }
+fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 12px; }
+legend { padding: 0; margin-bottom: 12px; font-weight: 700; font-size: 17px; letter-spacing: -.01em; display: flex; gap: 12px; align-items: center; }
+legend span { font: 500 11px var(--mono); color: var(--or); letter-spacing: .1em; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { all: unset; box-sizing: border-box; cursor: pointer; padding: 11px 16px; border-radius: 8px; box-shadow: inset 0 0 0 1px var(--line); font-weight: 500; font-size: 14.5px; transition: box-shadow .25s, background .25s, color .25s; }
+.chip:hover { box-shadow: inset 0 0 0 1px rgba(232,103,28,.7); }
+.chip[aria-pressed="true"] { background: var(--ink); color: #fff; box-shadow: none; }
+.chip:focus-visible { outline: 2px solid var(--or); outline-offset: 2px; }
+.range { display: grid; gap: 8px; }
+.range-top { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; color: var(--soft); }
+.range-top b { font: 700 28px/1 var(--sans); letter-spacing: -.03em; color: var(--ink); }
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--or) var(--fill, 30%), var(--sand-2) var(--fill, 30%)); outline: none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px var(--or), 0 4px 12px rgba(0,0,0,.2); cursor: pointer; }
+input[type=range]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 2px solid var(--or); cursor: pointer; }
+input[type=range]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 2px var(--or), 0 0 0 6px rgba(232,103,28,.3); }
+.f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+label.fl { display: grid; gap: 6px; font-size: 13px; color: var(--mute); }
+.fl input, .fl textarea { font: 16px/1.4 var(--sans); color: var(--ink); background: var(--sand); border: 1px solid transparent; border-radius: 8px; padding: 13px 14px; width: 100%; transition: border-color .25s, background .25s; }
+.fl input:focus, .fl textarea:focus { outline: none; border-color: var(--or); background: #fff; }
+.fl textarea { min-height: 90px; resize: vertical; }
+.drop { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 8px; border: 1.5px dashed rgba(23,22,20,.25); cursor: pointer; font-size: 14.5px; color: var(--soft); transition: border-color .25s, background .25s; }
+.drop:hover, .drop:focus-within { border-color: var(--or); background: #FFF8F3; }
+.drop svg { width: 26px; height: 26px; color: var(--or); flex: none; }
+.drop input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.drop b { color: var(--ink); }
+.send { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-top: 20px; border-top: 1px solid var(--line); }
+.send .sum { font-size: 14px; color: var(--soft); }
+.send .sum b { color: var(--ink); }
+.msg { margin: -8px 0 0; font-size: 14.5px; min-height: 1.4em; color: var(--soft); }
+.msg.ok { color: var(--or-2); font-weight: 600; }
+
+/* lightbox réalisation */
+dialog { border: 0; padding: 0; width: min(980px, calc(100vw - 32px)); max-height: calc(100svh - 32px); border-radius: 12px; background: #fff; color: var(--ink); box-shadow: 0 40px 120px rgba(0,0,0,.45); overflow: auto; }
+dialog::backdrop { background: rgba(20,19,17,.72); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+dialog[open] { animation: dlg .45s var(--ease); }
+@keyframes dlg { from { opacity: 0; transform: translateY(14px) scale(.98); } }
+.dl { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+.dl img { width: 100%; height: 100%; min-height: 320px; object-fit: cover; display: block; }
+.dl-t { padding: clamp(22px, 3vw, 40px); display: grid; gap: 18px; align-content: start; }
+.dl-t h3 { margin: 0; font: 700 30px/1.1 var(--sans); letter-spacing: -.035em; }
+.dl-t p { margin: 0; color: var(--soft); }
+.facts { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.facts div { padding: 12px 0; border-top: 1px solid var(--line); }
+.facts dt { font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.facts dd { margin: 4px 0 0; font-weight: 600; }
+.dl-x { position: absolute; right: 14px; top: 14px; width: 40px; height: 40px; border-radius: 50%; border: 0; cursor: pointer; background: rgba(255,255,255,.92); box-shadow: 0 4px 14px rgba(0,0,0,.2); font-size: 16px; }
+
+footer { background: var(--char); color: #A39D94; }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px 30px; flex-wrap: wrap; padding-block: 32px max(96px, env(safe-area-inset-bottom, 0px)); font-size: 13.5px; }
+footer b { font: 600 24px/1 var(--sans); letter-spacing: -.03em; color: #fff; }
+
+.rv { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease), transform 1.1s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+
+@media (max-width: 1180px) {
+  .links { display: none; }
+  .hero { grid-template-columns: 1fr; min-height: 0; }
+  .h-txt { padding-block: 130px 48px; }
+  .ba { height: 62vw; min-height: 340px; }
+  .ba .lbl { top: 20px; }
+  .met .wrap { grid-template-columns: 1fr 1fr; row-gap: 26px; }
+  .m:nth-child(3) { border-left: 0; padding-left: 0; }
+  .rea { grid-template-columns: 1fr; }
+  .rea-in { grid-template-columns: 1fr; padding-right: max(var(--g), env(safe-area-inset-right, 0px)); }
+  .proj { clip-path: none; padding: 40px max(var(--g), env(safe-area-inset-right, 0px)) 40px max(var(--g), env(safe-area-inset-left, 0px)); grid-template-columns: 1fr auto; align-items: center; }
+  .proj .eyebrow { grid-column: 1 / -1; }
+  .sec-h, .dv-box { grid-template-columns: 1fr; }
+  .sec-h p { justify-self: start; }
+  .dv-l { position: static; }
+  .track { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+  .track::before, .track .bar { display: none; }
+}
+@media (max-width: 640px) {
+  .nav .wrap { height: 70px; gap: 12px; }
+  .logo { padding-right: 0; border-right: 0; min-width: 0; }
+  .logo b { font-size: 26px; overflow: hidden; text-overflow: ellipsis; }
+  .logo small { font-size: 8.5px; letter-spacing: .24em; }
+  .nav .btn { height: 42px; padding: 0 14px; font-size: 13.5px; flex: none; }
+  .nav .btn svg, .nav .btn .long { display: none; }
+  .nav .btn .short { display: inline; }
+  .h-txt { padding-top: 110px; }
+  .ctas .btn { width: 100%; }
+  .ba { height: 108vw; }
+  .ba img { object-position: 40% center; }
+  .met .wrap { grid-template-columns: 1fr; }
+  .m { border-left: 0; padding: 0 0 20px; border-bottom: 1px solid var(--line); }
+  .m:last-child { border-bottom: 0; padding-bottom: 0; }
+  .cards { grid-template-columns: 1fr; }
+  .track { grid-template-columns: 1fr; }
+  .f2 { grid-template-columns: 1fr; }
+  .dl { grid-template-columns: 1fr; }
+  .dl img { min-height: 0; aspect-ratio: 16 / 10; }
+  .facts { grid-template-columns: 1fr 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  h1 .l > span { transform: none; }
+  .fade, .rv { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+<script defer src="/analytics.js"></script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Accueil"><b data-azel="name" data-azel-logo>004 Artisan</b><small>Bâtiment &amp; rénovation</small></a>
+    <nav class="links" aria-label="Navigation principale"><a href="#top" class="on">Accueil</a><a href="#metiers">Nos métiers</a><a href="#realisations">Réalisations</a><a href="#chantier">Le chantier</a><a href="#devis">Contact</a></nav>
+    <a class="btn" href="#devis"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="3.5" width="13" height="12" rx="1.5"/><path d="M2.5 7.5h13M6 2v3M12 2v3"/></svg><span class="long">Demander un devis</span><span class="short">Devis</span></a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-label="Accueil">
+    <div class="h-txt wrap">
+      <span class="eyebrow fade">Rénovation · Extension · Aménagement</span>
+      <h1><span class="l"><span>Donner vie</span></span><span class="l"><span>à vos projets</span></span><span class="l"><span><em>d'habitat</em>.</span></span></h1>
+      <p class="fade">Rénovation, extension et aménagement sur mesure à <span data-azel="city">Paris</span> et alentours. Un accompagnement rigoureux, du conseil à la livraison.</p>
+      <div class="ctas fade">
+        <a class="btn" href="#devis">Demander un devis <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 8h14M9 2l6 6-6 6"/></svg></a>
+        <a class="btn ghost" href="#realisations"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 1.5v11l9-5.5z"/></svg>Voir nos réalisations</a>
+      </div>
+    </div>
+    <div class="ba" id="ba" aria-label="Comparer le plan et la réalisation">
+      <img src="maison.jpg" alt="Extension contemporaine en pierre et béton, grandes baies vitrées éclairées" draggable="false">
+      <div class="plan" aria-hidden="true">
+        <img src="maison.jpg" alt="" draggable="false">
+        <svg class="cotes" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke="currentColor" stroke-width="1.2">
+            <path d="M420 96 H 960" stroke-dasharray="4 5"/><path d="M420 88 v16 M960 88 v16"/>
+            <path d="M380 180 V 520" stroke-dasharray="4 5"/><path d="M372 180 h16 M372 520 h16"/>
+            <rect x="470" y="200" width="420" height="300" stroke-width="1.6"/>
+            <path d="M610 200 V 500 M750 200 V 500"/>
+            <circle cx="680" cy="350" r="64" stroke-dasharray="3 6"/>
+          </g>
+          <text x="640" y="84">7,40 m</text>
+          <text x="338" y="356" transform="rotate(-90 338 356)">3,10 m</text>
+          <text x="480" y="192">BAIE COULISSANTE · 3 VANTAUX</text>
+          <text x="600" y="536">EXT. 35 m² · NIVEAU 0</text>
+        </svg>
+      </div>
+      <span class="lbl p">Plan</span><span class="lbl r">Réalisé</span>
+      <div class="handle"><span class="knob" id="knob" role="slider" tabindex="0" aria-label="Glisser entre le plan et la réalisation" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 6 3 11l5 5M14 6l5 5-5 5"/></svg></span></div>
+      <span class="hint">Faites glisser : du plan au chantier</span>
+    </div>
+  </section>
+
+  <section class="met" id="metiers" aria-label="Nos métiers">
+    <div class="wrap">
+      <div class="m rv"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 22 24 7l18 15M11 18v23h26V18M20 41V29h8v12"/></svg><div><b>Rénovation intérieure</b><span>Logement, appartement, bureau.</span></div></div>
+      <div class="m rv"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="12" width="40" height="24" rx="1"/><path d="M4 20h40M4 28h40M16 12v8M32 12v8M10 20v8M24 20v8M38 20v8M16 28v8M32 28v8"/></svg><div><b>Gros œuvre</b><span>Maçonnerie, extension, structure.</span></div></div>
+      <div class="m rv"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M24 8 42 17 24 26 6 17z"/><path d="M6 24l18 9 18-9M6 31l18 9 18-9"/></svg><div><b>Aménagement</b><span>Optimisation et agencement sur mesure.</span></div></div>
+      <div class="m rv"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="8" y="6" width="30" height="11" rx="2"/><path d="M38 11h4v12H24v6"/><rect x="21" y="29" width="6" height="14" rx="1.5"/></svg><div><b>Finitions</b><span>Peinture, revêtements, détails soignés.</span></div></div>
+    </div>
+  </section>
+
+  <section class="rea" id="realisations" aria-labelledby="rea-t">
+    <div class="rea-in wrap">
+      <div class="rv"><span class="eyebrow">Nos réalisations</span><h2 id="rea-t">Des projets concrets, des résultats <em>durables</em>.</h2></div>
+      <div class="cards" id="cards"></div>
+    </div>
+    <div class="proj"><span class="eyebrow">Votre projet</span><p>Parlons-en ensemble.</p><a href="#devis" aria-label="Décrire votre projet"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 9h16M11 3l6 6-6 6"/></svg></a></div>
+  </section>
+
+  <section class="ch" id="chantier" aria-labelledby="ch-t">
+    <div class="wrap">
+      <div class="sec-h rv"><div><span class="eyebrow">Le chantier</span><h2 id="ch-t">Un chantier propre, <em>sans surprise.</em></h2></div><p>Quatre étapes, un seul interlocuteur, et un point d'avancement à chaque fin de semaine.</p></div>
+      <ol class="track" id="track"><span class="bar" aria-hidden="true"></span>
+        <li><span class="ic"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 24s8-7.2 8-13a8 8 0 0 0-16 0c0 5.8 8 13 8 13z"/><circle cx="13" cy="11" r="3"/></svg></span><span class="k">01 · Semaine 1</span><h3>Visite</h3><p>Nous venons voir les lieux, écouter vos envies et prendre les mesures.</p></li>
+        <li><span class="ic"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h10l5 5v15H6z"/><path d="M16 3v5h5M10 14h7M10 18h7"/></svg></span><span class="k">02 · Après la visite</span><h3>Devis détaillé</h3><p>Poste par poste, avec le planning. Vous savez exactement ce que vous payez.</p></li>
+        <li><span class="ic"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 22h20M5 22V12l8-6 8 6v10M10 22v-6h6v6"/></svg></span><span class="k">03 · Selon le projet</span><h3>Chantier</h3><p>Une équipe dédiée, un chantier protégé et nettoyé chaque soir.</p></li>
+        <li><span class="ic"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 13.5 10.5 19 21 7"/></svg></span><span class="k">04 · Fin de chantier</span><h3>Livraison</h3><p>Visite de réception ensemble, et nous revenons pour les derniers réglages.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="dv wrap" id="devis" aria-labelledby="dv-t">
+    <div class="dv-box">
+      <div class="dv-l rv">
+        <span class="eyebrow">Devis gratuit</span>
+        <h2 id="dv-t">Décrivez votre projet, <em>on s'occupe du reste.</em></h2>
+        <p>Trois informations suffisent pour préparer la visite. Ajoutez des photos si vous en avez, c'est encore plus simple.</p>
+        <ul class="checks"><li>Visite et devis sans engagement</li><li>Un interlocuteur du début à la fin</li><li>Un planning écrit avant de commencer</li></ul>
+      </div>
+      <form class="form rv" id="form" novalidate>
+        <fieldset><legend><span>01</span>Type de projet</legend><div class="chips" id="cType"></div></fieldset>
+        <fieldset><legend><span>02</span>Surface concernée</legend>
+          <div class="range"><div class="range-top"><span>Environ</span><b><output id="surfO">40</output> m²</b></div><input type="range" id="surf" min="5" max="200" step="5" value="40" aria-label="Surface en mètres carrés"></div>
+        </fieldset>
+        <fieldset><legend><span>03</span>Quand souhaitez-vous commencer ?</legend><div class="chips" id="cWhen"></div></fieldset>
+        <fieldset><legend><span>04</span>Vos coordonnées</legend>
+          <div class="f2"><label class="fl">Nom<input id="fNom" autocomplete="name"></label><label class="fl">Téléphone ou e-mail<input id="fCt" autocomplete="email"></label></div>
+          <label class="fl">Votre projet en quelques mots<textarea id="fMsg" placeholder="Ex. : ouvrir la cuisine sur le séjour, refaire la salle de bain"></textarea></label>
+          <label class="drop"><svg viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="20" height="16" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m3 18 6-5 5 4 3-2 6 5"/></svg><span id="dropT"><b>Ajouter des photos</b> du lieu (facultatif)</span><input type="file" id="files" accept="image/*" multiple></label>
+        </fieldset>
+        <div class="send"><span class="sum" id="sum">Choisissez un type de projet</span><button class="btn" type="submit">Envoyer ma demande <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 8h14M9 2l6 6-6 6"/></svg></button></div>
+        <p class="msg" id="msg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><div><b data-azel="name">004 Artisan</b><br>Bâtiment &amp; rénovation · <span data-azel="city">Paris</span></div><div>Entreprise, chantiers et coordonnées fictifs.<br>Démonstration Azel 004.</div></div></footer>
+
+<dialog id="dlg" aria-labelledby="dlT"><button class="dl-x" type="button" id="dlX" aria-label="Fermer">✕</button><div class="dl"><img id="dlI" alt=""><div class="dl-t"><span class="eyebrow" id="dlE"></span><h3 id="dlT"></h3><p id="dlP"></p><dl class="facts" id="dlF"></dl><a class="btn" href="#devis" id="dlGo">Un projet similaire ? <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 8h14M9 2l6 6-6 6"/></svg></a></div></div></dialog>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* ---------- Du plan au chantier ---------- */
+const ba = $("#ba"), knob = $("#knob");
+let x = 100, dragging = false, intro = true;
+const setX = (v) => { x = Math.max(0, Math.min(100, v)); ba.style.setProperty("--x", x + "%"); knob.setAttribute("aria-valuenow", Math.round(x)); };
+const fromEv = (e) => { const r = ba.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 100; };
+ba.addEventListener("pointerdown", (e) => { dragging = true; intro = false; ba.classList.add("used"); ba.setPointerCapture(e.pointerId); setX(fromEv(e)); });
+ba.addEventListener("pointermove", (e) => { if (dragging) setX(fromEv(e)); });
+ba.addEventListener("pointerup", () => { dragging = false; });
+knob.addEventListener("keydown", (e) => { const s = e.shiftKey ? 10 : 4; if (e.key === "ArrowLeft") { e.preventDefault(); intro = false; ba.classList.add("used"); setX(x - s); } if (e.key === "ArrowRight") { e.preventDefault(); intro = false; ba.classList.add("used"); setX(x + s); } });
+/* à l'arrivée : le plan s'efface pour révéler la réalisation, puis s'arrête pour inviter à glisser */
+const play = () => {
+  if (calm) { setX(38); return; }
+  const t0 = performance.now(), D = 2200, from = 100, to = 38;
+  const tick = (now) => { if (!intro) return; const k = Math.min(1, (now - t0) / D), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; setX(from + (to - from) * e); if (k < 1) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+};
+setX(100); setTimeout(play, 700);
+
+/* ---------- réalisations ---------- */
+const REA = [
+  { img: "r1.jpg", t: "Rénovation complète", s: "Maison individuelle · 120 m²", tag: "R.01", d: "Cuisine ouverte, mur en pierre conservé et mis en lumière, sols et électricité refaits.", f: [["Surface", "120 m²"], ["Durée", "14 semaines"], ["Lots", "Gros œuvre, électricité, menuiserie"], ["Lieu", "Val-d'Oise"]] },
+  { img: "r2.jpg", t: "Extension d'habitat", s: "+ 35 m² · Île-de-France", tag: "R.02", d: "Une pièce de vie en plus, ouverte sur le jardin par trois baies coulissantes.", f: [["Surface", "35 m²"], ["Durée", "11 semaines"], ["Lots", "Fondations, maçonnerie, toiture"], ["Lieu", "Yvelines"]] },
+  { img: "r3.jpg", t: "Rénovation salle de bain", s: "Appartement · 8 m²", tag: "R.03", d: "Douche à l'italienne, grands carreaux, niche éclairée et rangements intégrés.", f: [["Surface", "8 m²"], ["Durée", "3 semaines"], ["Lots", "Plomberie, carrelage, finitions"], ["Lieu", "Paris"]] },
+];
+const arrow = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 7h12M8 2l5 5-5 5"/></svg>';
+$("#cards").innerHTML = REA.map((r, i) => `<button class="card rv" type="button" data-i="${i}" aria-label="${r.t}, voir le projet"><span class="im"><img src="${r.img}" alt="" loading="lazy"><span class="tag">${r.tag}</span></span><span class="row"><span><b>${r.t}</b><small>${r.s}</small></span><i>${arrow}</i></span></button>`).join("");
+const dlg = $("#dlg");
+document.querySelectorAll(".card").forEach((c) => c.addEventListener("click", () => {
+  const r = REA[+c.dataset.i];
+  $("#dlI").src = r.img; $("#dlI").alt = r.t; $("#dlE").textContent = r.tag + " · Réalisation"; $("#dlT").textContent = r.t; $("#dlP").textContent = r.d;
+  $("#dlF").innerHTML = r.f.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("");
+  $("#dlGo").onclick = () => { dlg.close(); pickType(+c.dataset.i); };
+  dlg.showModal();
+}));
+$("#dlX").addEventListener("click", () => dlg.close());
+dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+
+/* ---------- chantier : la ligne avance au défilement ---------- */
+const track = $("#track"), lis = [...track.querySelectorAll("li")];
+const prog = () => {
+  const r = track.getBoundingClientRect();
+  const p = calm ? 1 : Math.min(1, Math.max(0, (innerHeight * .78 - r.top) / (r.height + innerHeight * .25)));
+  track.style.setProperty("--p", p.toFixed(3));
+  lis.forEach((li, i) => li.classList.toggle("on", p >= i / lis.length + .03));
+};
+addEventListener("scroll", prog, { passive: true }); prog();
+
+/* ---------- devis ---------- */
+const TYPES = ["Rénovation complète", "Extension", "Salle de bain", "Cuisine", "Gros œuvre", "Finitions"];
+const WHEN = ["Dès que possible", "Dans 1 à 3 mois", "Dans 3 à 6 mois", "Je me renseigne"];
+const S = { type: null, when: null };
+const chips = (el, arr, k) => { el.innerHTML = arr.map((t, i) => `<button class="chip" type="button" aria-pressed="false" data-v="${i}">${t}</button>`).join(""); el.querySelectorAll(".chip").forEach((c) => c.addEventListener("click", () => { el.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", x === c)); S[k] = +c.dataset.v; sum(); })); };
+chips($("#cType"), TYPES, "type"); chips($("#cWhen"), WHEN, "when");
+function pickType(i) { const c = $("#cType").querySelectorAll(".chip")[i]; if (c) c.click(); }
+const surf = $("#surf");
+const setFill = () => { surf.style.setProperty("--fill", ((surf.value - surf.min) / (surf.max - surf.min) * 100) + "%"); $("#surfO").textContent = surf.value; sum(); };
+surf.addEventListener("input", setFill);
+function sum() { $("#sum").innerHTML = S.type == null ? "Choisissez un type de projet" : `<b>${TYPES[S.type]}</b> · ${surf.value} m²${S.when != null ? " · " + WHEN[S.when].toLowerCase() : ""}`; }
+setFill();
+$("#files").addEventListener("change", (e) => { const n = e.target.files.length; $("#dropT").innerHTML = n ? `<b>${n} photo${n > 1 ? "s" : ""} prête${n > 1 ? "s" : ""}</b> (rien n'est envoyé dans la démo)` : "<b>Ajouter des photos</b> du lieu (facultatif)"; });
+$("#form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const m = $("#msg"); m.classList.remove("ok");
+  if (S.type == null) { m.textContent = "Choisissez d'abord un type de projet."; return; }
+  if (!$("#fNom").value.trim() || !$("#fCt").value.trim()) { m.textContent = "Indiquez votre nom et un moyen de vous joindre."; (!$("#fNom").value.trim() ? $("#fNom") : $("#fCt")).focus(); return; }
+  m.classList.add("ok"); m.textContent = "Démonstration : la demande n'a pas été envoyée. Sur le vrai site, l'artisan la reçoit avec vos photos et vous rappelle pour fixer la visite.";
+});
+
+/* ---------- apparitions ---------- */
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+})();
+</script>
+<script src="../azel-demo.js" data-template="artisan" data-accent="--or" data-accent2="--or-2" data-on="light" defer></script>
+</body>
+</html>

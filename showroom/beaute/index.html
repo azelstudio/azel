@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chérie Club · Beauty studio (démonstration)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&display=swap">
+<style>
+/* CHÉRIE CLUB : beauty studio fictif, démonstration Azel 002.
+   Pop et éditorial : hero photo bord à bord, titre centré, tirages Polaroid, sticker, bandeau citron.
+   Tous les textes et le logo sont en HTML ; la teinte de la photo suit la couleur de marque. */
+:root {
+  color-scheme: light;
+  --cherry: #D9213A;
+  --cherry-2: #B5152C;
+  --cream: #FFF8EF;
+  --blush: #FFE3E0;
+  --lime: #E6F77A;
+  --ink: #1E1917;
+  --soft: #5F524E;
+  --line: rgba(30,25,23,.12);
+  --sans: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Fraunces", Georgia, serif;
+  --g: clamp(16px, 5vw, 86px);
+  --ease: cubic-bezier(.2,.7,.1,1);
+}
+* { box-sizing: border-box; }
+html { background: var(--cream); scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); font: 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--cherry); outline-offset: 3px; }
+.wrap { padding-inline: max(var(--g), env(safe-area-inset-left, 0px)) max(var(--g), env(safe-area-inset-right, 0px)); }
+.caps { font: 600 11.5px/1.3 var(--sans); letter-spacing: .3em; text-transform: uppercase; }
+.btn { display: inline-flex; align-items: center; justify-content: space-between; gap: 18px; height: 54px; padding: 0 26px; border-radius: 999px; background: var(--cherry); color: #fff; font: 600 15.5px var(--sans); border: 0; cursor: pointer; white-space: nowrap; transition: background .3s, transform .3s var(--ease), box-shadow .3s; }
+.btn:hover { background: var(--cherry-2); transform: translateY(-2px); }
+.btn svg { width: 15px; height: 15px; flex: none; transition: transform .35s var(--ease); }
+.btn:hover svg { transform: translate(2px, -2px); }
+.btn.out { background: transparent; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.75); }
+.btn.out:hover { background: rgba(255,255,255,.12); box-shadow: inset 0 0 0 1.5px #fff; }
+
+/* bandeaux défilants */
+.marq { overflow: hidden; white-space: nowrap; }
+.marq .tr { display: inline-flex; animation: marq 32s linear infinite; }
+.marq .tr > span { display: inline-flex; align-items: center; }
+@keyframes marq { to { transform: translateX(-50%); } }
+.top { background: var(--cherry); color: #fff; height: 30px; display: flex; align-items: center; font: 600 10.5px/1 var(--sans); letter-spacing: .32em; }
+.top .tr > span { gap: 26px; padding-right: 26px; }
+.lemon { background: var(--lime); height: 50px; display: flex; align-items: center; font: 700 14px/1 var(--sans); letter-spacing: .2em; }
+.lemon .tr { animation-duration: 40s; }
+.lemon .tr > span { gap: 40px; padding-right: 40px; }
+.lemon i, .top i { font-style: normal; }
+.lemon i { color: var(--cherry); font-size: 22px; }
+
+/* NAV */
+.nav { position: sticky; top: 0; z-index: 30; background: rgba(255,248,239,.94); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.nav .wrap { height: 82px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 30px; }
+.logo { justify-self: start; font: 700 clamp(28px, 2.6vw, 40px)/1 var(--serif); letter-spacing: -.045em; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.logo em { font-style: italic; font-weight: 600; color: var(--cherry); }
+.links { display: flex; gap: 44px; font: 600 15.5px var(--sans); }
+.links a { position: relative; }
+.links a::after { content: ""; position: absolute; left: 50%; right: 50%; bottom: -6px; height: 2px; border-radius: 2px; background: var(--cherry); transition: left .35s var(--ease), right .35s var(--ease); }
+.links a:hover::after { left: 0; right: 0; }
+.nav-r { justify-self: end; display: flex; align-items: center; gap: 24px; }
+.nav-r .caps { font-size: 11px; letter-spacing: .24em; color: var(--soft); white-space: nowrap; }
+.nav .btn { height: 52px; }
+.nav .btn .short { display: none; }
+
+/* HERO */
+.hero { position: relative; height: max(640px, calc(100svh - 162px)); max-height: 860px; overflow: hidden; color: #fff; isolation: isolate; background: var(--cherry); }
+.hero .bg { position: absolute; inset: 0; z-index: -3; overflow: hidden; transform: scaleX(-1) translate3d(var(--mx, 0px), var(--my, 0px), 0); transition: transform 1.2s var(--ease); background: linear-gradient(270deg, color-mix(in srgb, var(--cherry) 60%, #3a0710) 0 6%, transparent 14%); }
+.hero .bg img { position: absolute; z-index: -1; width: 118%; height: auto; left: 63%; top: 12%; transform: translate(-74%, -19%); display: block; -webkit-mask-image: linear-gradient(90deg, #000 80%, transparent 99%); mask-image: linear-gradient(90deg, #000 80%, transparent 99%); filter: saturate(1.05) contrast(1.04); }
+.hero .tint { position: absolute; inset: 0; z-index: -2; background: var(--cherry); mix-blend-mode: multiply; opacity: .5; }
+.hero .tint2 { position: absolute; inset: 0; z-index: -2; background: radial-gradient(70% 60% at 50% 55%, transparent 30%, color-mix(in srgb, var(--cherry) 70%, #000) 100%); opacity: .55; }
+.ghost { position: absolute; left: 0; right: 0; top: 4%; z-index: -1; display: flex; justify-content: space-between; padding-inline: 1.2vw; font: 900 italic clamp(90px, 15vw, 250px)/.82 var(--sans); letter-spacing: -.05em; text-transform: uppercase; color: rgba(255,255,255,.3); mix-blend-mode: soft-light; white-space: nowrap; pointer-events: none; }
+.ghost span:last-child { margin-top: .04em; }
+.h-c { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 0 16px; }
+.h-c > div { display: grid; justify-items: center; gap: 18px; transform: translateY(4%); }
+.h-c .caps { letter-spacing: .5em; font-size: 12.5px; text-shadow: 0 1px 12px rgba(0,0,0,.25); }
+h1 { margin: 0; line-height: .88; text-shadow: 0 6px 40px rgba(60,0,10,.35); }
+h1 .a { display: block; font: 800 clamp(58px, 7.6vw, 128px)/.9 var(--sans); letter-spacing: -.055em; }
+h1 .b { display: block; font: italic 500 clamp(64px, 8.6vw, 146px)/.9 var(--serif); letter-spacing: -.035em; margin-top: -.02em; }
+h1 .b em { position: relative; font-style: italic; color: var(--cherry); filter: brightness(1.15) saturate(1.1); text-shadow: 0 2px 0 rgba(255,255,255,.08); }
+h1 .b em svg { position: absolute; left: -12%; right: -6%; bottom: -.16em; width: 118%; height: .32em; overflow: visible; }
+h1 .b em svg path { fill: none; stroke: var(--cherry); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 400; stroke-dashoffset: 400; animation: draw 1.1s 1.1s var(--ease) forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+h1 .l { display: block; overflow: hidden; padding: .04em .1em .12em; margin: -.04em -.1em -.12em; }
+h1 .l > span { display: inline-block; transform: translateY(105%); animation: up 1.1s var(--ease) forwards; }
+h1 .l + .l > span { animation-delay: .14s; }
+@keyframes up { to { transform: none; } }
+.svc { display: flex; gap: 18px; align-items: center; font: 600 13px var(--sans); letter-spacing: .42em; text-transform: uppercase; margin-top: 10px; }
+.svc i { font-style: normal; font-size: 16px; letter-spacing: 0; }
+.ctas { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
+.fade { opacity: 0; animation: fade 1s .6s var(--ease) forwards; }
+@keyframes fade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* tirages */
+.pol { position: absolute; z-index: 2; padding: 10px 10px 30px; background: #FFFCF6; box-shadow: 0 30px 50px -18px rgba(40,0,10,.55), 0 2px 4px rgba(0,0,0,.15); transform: rotate(var(--r)) translate3d(var(--px, 0px), var(--py, 0px), 0); transition: transform .8s var(--ease), box-shadow .5s; cursor: pointer; opacity: 0; animation: drop 1s var(--d, .5s) var(--ease) forwards; }
+.pol img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+.pol::before { content: ""; position: absolute; z-index: 1; width: 42%; height: 26px; left: 50%; top: -12px; translate: -50% 0; transform: rotate(var(--tr, -4deg)); background: color-mix(in srgb, var(--cherry) 38%, rgba(255,255,255,.55)); box-shadow: 0 1px 2px rgba(0,0,0,.08); backdrop-filter: blur(1px); }
+.pol figcaption { position: absolute; left: 12px; bottom: 7px; font: italic 500 14px var(--serif); color: var(--soft); }
+.pol:hover { --r: 0deg !important; z-index: 4; box-shadow: 0 40px 70px -20px rgba(40,0,10,.6), 0 2px 4px rgba(0,0,0,.15); }
+@keyframes drop { from { opacity: 0; transform: rotate(var(--r)) translateY(30px) scale(.94); } to { opacity: 1; } }
+.p1 { --r: -9deg; --d: .55s; width: clamp(200px, 17vw, 290px); left: 6.4%; top: 44%; }
+.p1::before { top: auto; bottom: -6px; left: 40%; --tr: 6deg; }
+.p2 { --r: 7deg; --d: .7s; --tr: 3deg; width: clamp(190px, 15.5vw, 270px); right: 6%; top: 25%; }
+.p3 { --r: 6deg; --d: .85s; width: clamp(170px, 14vw, 240px); right: 4.6%; top: 56%; }
+.p3::before { display: none; }
+.sticker { position: absolute; z-index: 3; left: 6.8%; top: 31%; width: clamp(110px, 8.8vw, 148px); aspect-ratio: 1; border-radius: 50%; background: #F7EBB7; color: var(--ink); display: grid; place-items: center; box-shadow: 0 16px 30px -12px rgba(40,0,10,.5), inset 0 0 0 4px #F7EBB7, inset 0 0 0 5.5px rgba(30,25,23,.25); animation: spin 18s linear infinite, fade 1s .9s var(--ease) both; }
+.sticker b { font: 800 clamp(16px, 1.35vw, 23px)/.95 var(--sans); letter-spacing: -.02em; text-transform: uppercase; text-align: center; transform: rotate(-14deg); }
+@keyframes spin { from { rotate: -6deg; } 50% { rotate: 6deg; } to { rotate: -6deg; } }
+
+/* PRESTATIONS */
+.pre { padding-block: 38px clamp(70px, 8vw, 120px); background: var(--cream); }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
+.card { position: relative; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px var(--line); display: grid; grid-template-rows: auto 1fr; transition: transform .5s var(--ease), box-shadow .4s; }
+.card:hover { transform: translateY(-6px); box-shadow: 0 0 0 1px var(--line), 0 30px 50px -30px color-mix(in srgb, var(--cherry) 60%, transparent); }
+.card .im { position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
+.card .im img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s var(--ease); }
+.card:hover .im img { transform: scale(1.06); }
+.pill { position: absolute; left: 14px; top: 14px; padding: 8px 14px; border-radius: 999px; background: #F7EBB7; font: 700 11.5px var(--sans); letter-spacing: .14em; text-transform: uppercase; }
+.card .bd { padding: 22px 24px 24px; display: grid; gap: 14px; align-content: start; }
+.card h3 { margin: 0; font: italic 600 30px/1.05 var(--serif); letter-spacing: -.02em; }
+.card h3 em { color: var(--cherry); }
+.card p { margin: 0; color: var(--soft); }
+.card ul { list-style: none; margin: 0; padding: 0; display: grid; }
+.card li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); font-weight: 600; font-size: 15px; }
+.card li span { color: var(--soft); font-weight: 500; font-size: 13.5px; }
+.card .go { justify-self: start; margin-top: 4px; display: inline-flex; align-items: center; gap: 10px; font-weight: 700; color: var(--cherry); padding-bottom: 3px; border-bottom: 2px solid currentColor; }
+.sec-h { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: clamp(26px, 3vw, 44px); }
+.sec-h h2 { margin: 10px 0 0; font: 800 clamp(38px, 4.4vw, 72px)/.95 var(--sans); letter-spacing: -.05em; }
+.sec-h h2 em { font: italic 500 1.08em/1 var(--serif); letter-spacing: -.03em; color: var(--cherry); }
+.sec-h p { margin: 0; color: var(--soft); max-width: 28em; }
+.sec-h .caps { color: var(--cherry); }
+
+/* STUDIO */
+.studio { background: var(--blush); padding-block: clamp(70px, 8vw, 130px); overflow: hidden; }
+.st-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(30px, 5vw, 90px); align-items: center; }
+.st-img { position: relative; }
+.st-img img { width: 100%; aspect-ratio: 5 / 4; object-fit: cover; border-radius: 280px 280px 24px 24px; display: block; }
+.st-img .sticker { left: auto; right: -4%; top: -6%; animation: spin 18s linear infinite; }
+.st-txt { display: grid; gap: 22px; }
+.st-txt h2 { margin: 0; font: 800 clamp(36px, 4vw, 64px)/.96 var(--sans); letter-spacing: -.05em; }
+.st-txt h2 em { font: italic 500 1.08em/1 var(--serif); color: var(--cherry); letter-spacing: -.03em; }
+.st-txt p { margin: 0; color: var(--soft); font-size: 17px; max-width: 30em; }
+.rules { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 10px; counter-reset: r; }
+.rules li { counter-increment: r; display: grid; grid-template-columns: 54px 1fr; gap: 14px; align-items: center; padding: 14px 18px; border-radius: 16px; background: rgba(255,255,255,.7); font-weight: 600; }
+.rules li::before { content: "0" counter(r); width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--cherry); color: #fff; font: 700 14px var(--sans); }
+.rules li span { display: block; font-weight: 400; color: var(--soft); font-size: 14.5px; }
+
+/* RÉSERVATION */
+.book { padding-block: clamp(70px, 8vw, 130px); }
+.bk { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 20px; align-items: start; }
+.bk-main { background: #fff; border-radius: 26px; box-shadow: 0 0 0 1px var(--line); padding: clamp(22px, 3vw, 40px); display: grid; gap: 24px; }
+.bk-main h3 { margin: 0 0 12px; font: 700 16px var(--sans); display: flex; align-items: center; gap: 10px; }
+.bk-main h3 b { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--lime); font-size: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { all: unset; box-sizing: border-box; cursor: pointer; padding: 11px 18px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--line); font: 600 14.5px var(--sans); transition: background .25s, color .25s, box-shadow .25s; }
+.chip:hover { box-shadow: inset 0 0 0 1.5px var(--cherry); }
+.chip[aria-pressed="true"] { background: var(--cherry); color: #fff; box-shadow: none; }
+.chip[disabled] { opacity: .35; cursor: not-allowed; text-decoration: line-through; }
+.chip:focus-visible { outline: 2px solid var(--cherry); outline-offset: 2px; }
+.days .chip { display: grid; justify-items: center; gap: 0; min-width: 64px; padding: 10px 12px; line-height: 1.1; }
+.days .chip b { font: italic 600 22px var(--serif); }
+.days .chip span { font-size: 12px; text-transform: capitalize; }
+.f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+label { display: grid; gap: 6px; font: 600 13px var(--sans); color: var(--soft); }
+input { font: 16px/1.4 var(--sans); color: var(--ink); background: var(--cream); border: 1.5px solid transparent; border-radius: 14px; padding: 13px 14px; width: 100%; transition: border-color .25s, background .25s; }
+input:focus { outline: none; border-color: var(--cherry); background: #fff; }
+.ticket { position: sticky; top: 104px; border-radius: 26px; background: var(--cherry); color: #fff; padding: clamp(22px, 2.6vw, 34px); display: grid; gap: 18px; overflow: hidden; isolation: isolate; }
+.ticket::after { content: "✳"; position: absolute; right: -10px; bottom: -40px; z-index: -1; font-size: 180px; line-height: 1; color: rgba(255,255,255,.12); }
+.ticket .caps { color: rgba(255,255,255,.8); }
+.ticket h3 { margin: 0; font: italic 600 34px/1 var(--serif); }
+.ticket dl { margin: 0; display: grid; }
+.ticket dl div { display: grid; grid-template-columns: 96px 1fr; gap: 10px; padding: 11px 0; border-top: 1px dashed rgba(255,255,255,.4); font-size: 15px; }
+.ticket dt { color: rgba(255,255,255,.75); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; padding-top: 2px; }
+.ticket dd { margin: 0; font-weight: 600; }
+.ticket dd.empty { opacity: .55; font-weight: 400; }
+.ticket .btn { background: #fff; color: var(--cherry); width: 100%; }
+.ticket .btn:hover { background: var(--lime); color: var(--ink); }
+.ticket .btn[disabled] { opacity: .55; cursor: not-allowed; transform: none; }
+.msg { margin: 0; font-size: 14px; min-height: 1.4em; color: #fff; }
+
+
+/* AVIS (exemples) */
+.rvw { padding-block: clamp(60px, 7vw, 110px); }
+.rvw-h { display: flex; justify-content: space-between; align-items: end; gap: 24px 40px; flex-wrap: wrap; margin-bottom: clamp(26px, 3vw, 44px); }
+.rvw-h h2 { margin: 0; font: var(--rvw-hf); letter-spacing: var(--rvw-ls, -.03em); max-width: 16ch; }
+.rvw-score { display: flex; align-items: center; gap: 16px; order: 2; }
+.rvw-score b { font: var(--rvw-nf, 800 64px/1 sans-serif); letter-spacing: -.04em; }
+.rvw-score > span { display: grid; gap: 4px; }
+.rvw-score small { font-size: 13.5px; opacity: .75; }
+.rvw-st { display: inline-flex; gap: 2px; }
+.rvw-st svg { width: 17px; height: 17px; fill: #F4B400; }
+.rvw-g { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.rvw-c { margin: 0; padding: 22px; border-radius: var(--rvw-r, 16px); background: var(--rvw-bg, #fff); box-shadow: var(--rvw-sh, 0 0 0 1px rgba(0,0,0,.1)); display: grid; gap: 14px; align-content: start; }
+.rvw-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.rvw-top small { font-size: 12.5px; opacity: .6; }
+.rvw-c blockquote { margin: 0; font-size: 15.5px; line-height: 1.55; }
+.rvw-c figcaption { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 14.5px; }
+.rvw-c figcaption i { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-style: normal; background: var(--rvw-av, #eee); color: var(--rvw-avc, #222); font-weight: 700; }
+.rvw-n { margin: 16px 0 0; font-size: 12.5px; opacity: .6; }
+@media (max-width: 900px) { .rvw-g { grid-template-columns: 1fr; } .rvw-score { order: 0; } }
+
+.rvw { --rvw-hf: 800 clamp(36px, 4vw, 64px)/.96 var(--sans); --rvw-ls: -.05em; --rvw-nf: italic 600 72px/1 var(--serif); --rvw-bg: #fff; --rvw-sh: 0 0 0 1px var(--line); --rvw-r: 22px; --rvw-av: var(--blush); --rvw-avc: var(--cherry); }
+.rvw-h h2 em { font: italic 500 1.08em/1 var(--serif); color: var(--cherry); letter-spacing: -.03em; }
+.rvw-c blockquote { font: italic 500 18px/1.45 var(--serif); }
+footer { background: var(--ink); color: #BFB2AD; }
+footer .wrap { display: flex; justify-content: space-between; gap: 16px 30px; flex-wrap: wrap; padding-block: 32px max(96px, env(safe-area-inset-bottom, 0px)); font-size: 13.5px; }
+footer b { font: 700 28px/1 var(--serif); color: #fff; letter-spacing: -.04em; }
+footer b em { font-style: italic; color: var(--cherry); }
+
+.rv { opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease), transform 1.1s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+
+@media (max-width: 1180px) {
+  .links, .nav-r .caps { display: none; }
+  .nav .wrap { grid-template-columns: 1fr auto; }
+  .p1 { left: 3%; top: 54%; } .sticker { left: 3%; top: 40%; }
+  .p2 { right: 3%; top: 18%; } .p3 { right: 2%; top: 58%; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .st-grid, .bk { grid-template-columns: 1fr; }
+  .ticket { position: static; }
+}
+@media (max-width: 760px) {
+  .nav .wrap { height: 66px; }
+  .nav .btn { height: 42px; padding: 0 16px; font-size: 13.5px; gap: 10px; }
+  .nav .btn .long { display: none; }
+  .nav .btn .short { display: inline; }
+  .hero { height: auto; min-height: 0; max-height: none; padding: 54px 0 0; }
+  .hero .bg img { width: auto; height: 118%; left: 50%; top: 0; transform: translate(-74%, -6%); }
+  .ghost { top: 2%; font-size: 23vw; flex-direction: column; align-items: center; gap: 0; }
+  .ghost span:last-child { margin-top: 0; }
+  .h-c { position: relative; inset: auto; padding: 120px 16px 30px; }
+  h1 .a { font-size: clamp(48px, 15vw, 76px); }
+  h1 .b { font-size: clamp(54px, 17vw, 86px); }
+  .svc { gap: 10px; letter-spacing: .26em; font-size: 11.5px; }
+  .ctas { flex-direction: column; width: 100%; max-width: 360px; }
+  .ctas .btn { width: 100%; }
+  .pols { position: relative; height: 270px; margin-top: 8px; }
+  .p1 { width: 44%; left: 4%; top: 30px; }
+  .p2 { width: 38%; right: 6%; top: 6px; }
+  .p3 { width: 34%; right: 22%; top: 120px; }
+  .sticker { width: 96px; left: 2%; top: 4px; }
+  .cards { grid-template-columns: 1fr; }
+  .f2 { grid-template-columns: 1fr; }
+  .st-img .sticker { right: 0; top: -8%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  h1 .l > span { transform: none; }
+  h1 .b em svg path { stroke-dashoffset: 0; }
+  .fade, .rv, .pol { opacity: 1; transform: rotate(var(--r)); }
+  .sticker { opacity: 1; }
+  html { scroll-behavior: auto; }
+}
+</style>
+<script defer src="/analytics.js"></script>
+</head>
+<body>
+
+<div class="top marq" aria-hidden="true"><div class="tr" id="topTr"></div></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Accueil"><span data-azel="name" data-azel-logo>chérie<em>club.</em></span></a>
+    <nav class="links" aria-label="Navigation principale"><a href="#prestations">Nos prestations</a><a href="#studio">Le studio</a><a href="#reserver">Réserver</a></nav>
+    <div class="nav-r"><span class="caps">Beauty studio · <span data-azel="city">Paris</span></span><a class="btn" href="#reserver"><span class="long">Prendre rendez-vous</span><span class="short">RDV</span><svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12 12 3M5 3h7v7"/></svg></a></div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-label="Accueil">
+    <div class="bg" aria-hidden="true"><img src="hero_portrait_sans_texte.webp" alt=""></div>
+    <div class="tint" aria-hidden="true"></div><div class="tint2" aria-hidden="true"></div>
+    <div class="ghost" aria-hidden="true" id="ghost"><span>Chérie</span><span>Club.</span></div>
+    <div class="h-c">
+      <div>
+        <span class="caps fade">Beauty studio · <span data-azel="city">Paris</span></span>
+        <h1><span class="l a"><span>Le glow,</span></span><span class="l b"><span>c'est <em>toi.<svg viewBox="0 0 200 30" preserveAspectRatio="none" aria-hidden="true"><path d="M4 22 C 50 6, 130 4, 196 14"/></svg></em></span></span></h1>
+        <p class="svc fade">Ongles <i>✳</i> Cils <i>✳</i> Brows <i>✳</i> Skin</p>
+        <div class="ctas fade"><a class="btn" href="#reserver">Je réserve mon moment <svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12 12 3M5 3h7v7"/></svg></a><a class="btn out" href="#studio">Découvrir le studio <svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12 12 3M5 3h7v7"/></svg></a></div>
+      </div>
+    </div>
+    <div class="pols">
+      <span class="sticker" aria-hidden="true"><b>The<br>glow<br>club ✳</b></span>
+      <figure class="pol p1" data-go="0"><img src="ongles.webp" alt="Manucure nude en amande"><figcaption>nails</figcaption></figure>
+      <figure class="pol p2" data-go="1"><img src="cils.webp" alt="Extension de cils, regard en gros plan"><figcaption>lashes</figcaption></figure>
+      <figure class="pol p3" data-go="2"><img src="soin_visage.webp" alt="Application d'un masque au pinceau"><figcaption>skin</figcaption></figure>
+    </div>
+  </section>
+
+  <div class="lemon marq" aria-hidden="true"><div class="tr" id="lemTr"></div></div>
+
+  <section class="pre wrap" id="prestations" aria-labelledby="pr-t">
+    <div class="sec-h rv"><div><span class="caps">Nos prestations</span><h2 id="pr-t">Choisis ton <em>moment.</em></h2></div><p>Trois univers, une même exigence. Tarifs indicatifs, confirmés à la réservation.</p></div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section class="studio" id="studio" aria-labelledby="st-t">
+    <div class="wrap st-grid">
+      <div class="st-img rv"><img src="portrait_beaute.webp" alt="Portrait beauté, peau lumineuse"><span class="sticker" aria-hidden="true"><b>Ton<br>moment<br>✳</b></span></div>
+      <div class="st-txt rv">
+        <span class="caps" style="color:var(--cherry)">Le studio</span>
+        <h2 id="st-t">Ici, c'est <em>ton</em> heure.</h2>
+        <p><span data-azel="name">Chérie Club</span>, c'est un studio pensé comme un club : on vient pour un soin, on repart avec le sourire et l'envie de revenir.</p>
+        <ol class="rules"><li><div>Un rendez-vous, une experte<span>La même personne du début à la fin de ton soin.</span></div></li><li><div>On prend le temps<span>Pas d'enchaînement à la chaîne : ton créneau est à toi.</span></div></li><li><div>Hygiène au millimètre<span>Outils stérilisés et poste nettoyé à chaque cliente.</span></div></li></ol>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="rvw wrap" id="avis" aria-labelledby="rvw-t">
+    <div class="rvw-h rv"><div class="rvw-score"><b>4,9</b><span><span class="rvw-st" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg></span><small>Note moyenne · 127 avis</small></span></div><h2 id="rvw-t">Elles ont trouvé leur <em>glow.</em></h2></div>
+    <div class="rvw-g"><figure class="rvw-c rv"><span class="rvw-top"><span class="rvw-st" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg></span><small>il y a 1 semaine</small></span><blockquote>Mes cils n'ont jamais été aussi beaux. Le studio est trop joli et on se sent vraiment chouchoutée.</blockquote><figcaption><i>I</i>Inès K.</figcaption></figure><figure class="rvw-c rv"><span class="rvw-top"><span class="rvw-st" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg></span><small>il y a 3 semaines</small></span><blockquote>Pose gel impeccable, toujours parfaite trois semaines après. Je ne vais plus nulle part ailleurs.</blockquote><figcaption><i>M</i>Maëva R.</figcaption></figure><figure class="rvw-c rv"><span class="rvw-top"><span class="rvw-st" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg><svg viewBox="0 0 20 20"><path d="M10 1.6l2.6 5.3 5.8.8-4.2 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.6 7.7l5.8-.8z"/></svg></span><small>il y a 2 mois</small></span><blockquote>Le soin glow porte bien son nom. Ambiance douce, conseils au top, j'ai déjà repris rendez-vous.</blockquote><figcaption><i>C</i>Camille D.</figcaption></figure></div>
+    <p class="rvw-n">Avis d'exemple : sur votre site, ce sont vos vrais avis clients qui s'affichent ici.</p>
+  </section>
+  <section class="book wrap" id="reserver" aria-labelledby="bk-t">
+    <div class="sec-h rv"><div><span class="caps">Réserver</span><h2 id="bk-t">Ton moment, <em>en trois clics.</em></h2></div><p>Choisis tes soins, un jour et une heure. Le studio confirme par message.</p></div>
+    <div class="bk">
+      <div class="bk-main rv">
+        <div><h3><b>1</b>Tes soins</h3><div class="chips" id="cSoin"></div></div>
+        <div><h3><b>2</b>Ton jour</h3><div class="chips days" id="cDay"></div></div>
+        <div><h3><b>3</b>Ton heure</h3><div class="chips" id="cHour"><span style="color:var(--soft);font-size:14.5px">Choisis d'abord un jour.</span></div></div>
+        <div class="f2"><label>Prénom<input id="fNom" autocomplete="given-name"></label><label>Téléphone ou e-mail<input id="fCt" autocomplete="email"></label></div>
+      </div>
+      <aside class="ticket rv" aria-live="polite">
+        <span class="caps">Ton ticket</span>
+        <h3>Ton moment chez <span data-azel="name">Chérie Club</span></h3>
+        <dl><div><dt>Soins</dt><dd class="empty" id="tS">À choisir</dd></div><div><dt>Jour</dt><dd class="empty" id="tD">À choisir</dd></div><div><dt>Heure</dt><dd class="empty" id="tH">À choisir</dd></div></dl>
+        <button class="btn" type="button" id="go" disabled>Je réserve <svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12 12 3M5 3h7v7"/></svg></button>
+        <p class="msg" id="msg" role="status"></p>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><div><b data-azel="name">chérie<em>club.</em></b><br>Beauty studio · <span data-azel="city">Paris</span></div><div>Studio, prestations et coordonnées fictifs.<br>Démonstration Azel 002.</div></div></footer>
+
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s);
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* bandeaux */
+const rep = (txt, n) => Array(n).fill(txt).join("");
+$("#topTr").innerHTML = rep(`<span>${rep("✳ Ton moment. Tes règles. Ton glow. ", 3)}</span>`, 2);
+$("#lemTr").innerHTML = rep(`<span>${["Nails", "Lashes", "Brows", "Your time to shine", "Skin", "Glow"].map((w) => `${w} <i>✳</i>`).join(" ")}</span>`, 2);
+
+/* lettrage de fond : suit le nom de la marque */
+const ghost = $("#ghost"), nameEl = $(".logo [data-azel=name]");
+const setGhost = () => {
+  const n = nameEl.textContent.trim().replace(/\.$/, "");
+  const def = /^chérie\s*club$/i.test(n.replace(/\s+/g, " "));
+  const words = def ? ["Chérie", "Club."] : (() => { const w = n.split(/\s+/); const h = Math.ceil(w.length / 2); return [w.slice(0, h).join(" "), w.slice(h).join(" ") + "."]; })();
+  ghost.innerHTML = words.map((w) => `<span>${w.replace(/[<>&]/g, "")}</span>`).join("");
+  ghost.style.fontSize = "";
+  const max = ghost.clientWidth; let fs = parseFloat(getComputedStyle(ghost).fontSize), k = 0;
+  const wide = () => [...ghost.children].reduce((a, s) => a + s.scrollWidth, 0);
+  while (innerWidth > 760 && wide() > max * .98 && fs > 40 && k++ < 40) { fs *= .93; ghost.style.fontSize = fs + "px"; }
+};
+new MutationObserver(setGhost).observe(nameEl, { childList: true, characterData: true, subtree: true });
+(document.fonts ? document.fonts.ready : Promise.resolve()).then(setGhost); addEventListener("resize", setGhost); setGhost();
+
+/* léger parallax de la photo et des tirages */
+const hero = $(".hero"), bg = $(".hero .bg"), pols = [...document.querySelectorAll(".pol")];
+if (!calm && matchMedia("(hover: hover)").matches) hero.addEventListener("pointermove", (e) => {
+  const r = hero.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+  bg.style.setProperty("--mx", (x * 18).toFixed(1) + "px"); bg.style.setProperty("--my", (-y * 12).toFixed(1) + "px");
+  pols.forEach((p, i) => { const k = [14, 22, 18][i]; p.style.setProperty("--px", (x * k).toFixed(1) + "px"); p.style.setProperty("--py", (y * k).toFixed(1) + "px"); });
+});
+
+/* prestations */
+const P = [
+  { img: "ongles.webp", pill: "Nails & nail art", t: "Des ongles <em>qui parlent.</em>", d: "Pose, gainage, nail art : des mains soignées qui tiennent.", l: [["Pose gel ou semi-permanent", "1 h · 45 €"], ["Gainage", "1 h 15 · 55 €"], ["Nail art", "dès 5 €"]] },
+  { img: "cils.webp", pill: "Lashes & brows", t: "Un regard <em>signé.</em>", d: "Extensions, rehaussement et sourcils dessinés pour ton visage.", l: [["Extensions de cils", "2 h · 89 €"], ["Rehaussement", "1 h · 59 €"], ["Brow lift", "45 min · 45 €"]] },
+  { img: "soin_visage.webp", pill: "Skin & glow", t: "Une peau <em>qui brille.</em>", d: "Des soins visage pour un teint frais, sans artifice.", l: [["Soin glow", "1 h · 69 €"], ["Nettoyage profond", "1 h · 75 €"], ["Masque express", "30 min · 35 €"]] },
+];
+const ar = '<svg width="14" height="14" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12 12 3M5 3h7v7"/></svg>';
+$("#cards").innerHTML = P.map((p, i) => `<article class="card rv"><div class="im"><img src="${p.img}" alt="" loading="lazy"><span class="pill">${p.pill}</span></div><div class="bd"><h3>${p.t}</h3><p>${p.d}</p><ul>${p.l.map(([a, b]) => `<li>${a}<span>${b}</span></li>`).join("")}</ul><a class="go" href="#reserver" data-go="${i}">Réserver ce soin ${ar}</a></div></article>`).join("");
+
+/* réservation */
+const SOINS = ["Nails", "Lashes", "Brows", "Skin"];
+const S = { soins: new Set(), day: null, hour: null };
+const HOURS = ["10:00", "11:30", "14:00", "15:30", "17:00", "18:30"];
+const days = []; { const d = new Date(); while (days.length < 6) { d.setDate(d.getDate() + 1); if (d.getDay() !== 0) days.push(new Date(d)); } }
+const full = (di, hi) => (di * 5 + hi * 3) % 7 === 1;
+$("#cSoin").innerHTML = SOINS.map((s, i) => `<button class="chip" type="button" aria-pressed="false" data-v="${i}">${s}</button>`).join("");
+$("#cDay").innerHTML = days.map((d, i) => `<button class="chip" type="button" aria-pressed="false" data-v="${i}"><b>${d.getDate()}</b><span>${d.toLocaleDateString("fr-FR", { weekday: "short" })}</span></button>`).join("");
+const set = (id, v) => { const el = $(id); el.textContent = v || "À choisir"; el.classList.toggle("empty", !v); };
+const ok = () => S.soins.size && S.day != null && S.hour != null && $("#fNom").value.trim() && $("#fCt").value.trim();
+const upd = () => {
+  set("#tS", [...S.soins].sort().map((i) => SOINS[i]).join(" + "));
+  set("#tD", S.day == null ? "" : days[S.day].toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" }));
+  set("#tH", S.hour == null ? "" : HOURS[S.hour]);
+  $("#go").disabled = !ok();
+};
+const toggleSoin = (i, on) => { const c = $(`#cSoin .chip[data-v="${i}"]`); const v = on ?? !S.soins.has(i); v ? S.soins.add(i) : S.soins.delete(i); c.setAttribute("aria-pressed", v); upd(); };
+document.querySelectorAll("#cSoin .chip").forEach((c) => c.addEventListener("click", () => toggleSoin(+c.dataset.v)));
+const drawHours = () => {
+  $("#cHour").innerHTML = HOURS.map((h, i) => `<button class="chip" type="button" aria-pressed="false" data-v="${i}" ${full(S.day, i) ? `disabled aria-label="${h}, complet"` : ""}>${h}</button>`).join("");
+  document.querySelectorAll("#cHour .chip").forEach((c) => c.addEventListener("click", () => { if (c.disabled) return; document.querySelectorAll("#cHour .chip").forEach((x) => x.setAttribute("aria-pressed", x === c)); S.hour = +c.dataset.v; upd(); }));
+};
+document.querySelectorAll("#cDay .chip").forEach((c) => c.addEventListener("click", () => { document.querySelectorAll("#cDay .chip").forEach((x) => x.setAttribute("aria-pressed", x === c)); S.day = +c.dataset.v; S.hour = null; drawHours(); upd(); }));
+["#fNom", "#fCt"].forEach((s) => $(s).addEventListener("input", upd));
+const pick = (i) => { const map = [[0], [1, 2], [3]][i]; map.forEach((k) => toggleSoin(k, true)); };
+document.querySelectorAll("[data-go]").forEach((el) => el.addEventListener("click", () => { pick(+el.dataset.go); if (el.tagName !== "A") $("#reserver").scrollIntoView({ behavior: calm ? "auto" : "smooth" }); }));
+$("#go").addEventListener("click", () => { if (!ok()) return; $("#msg").textContent = "Démonstration : rien n'a été envoyé. Sur le vrai site, le studio reçoit ta demande et te confirme le créneau par message."; });
+upd();
+
+/* apparitions */
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+})();
+</script>
+<script src="../azel-demo.js" data-template="beaute" data-accent="--cherry" data-accent2="--cherry-2" data-on="light" defer></script>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0D0F">
+<title>Atos JJB Academy · Concept Azel Studio</title>
+<meta name="description" content="Atos JJB Academy, concept web fictif d'une académie de Jiu-Jitsu Brésilien. Démonstration Azel Studio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,100,400;0,100,500;0,100,600;0,100,700;0,125,800;1,125,800;1,125,900&display=swap">
+<link rel="preload" as="image" href="img/hero.webp" media="(min-width: 761px)">
+<style>
+/* ATOS JJB ACADEMY : académie de Jiu-Jitsu Brésilien fictive, démonstration Azel 009. */
+:root {
+  --bg: #0B0D0F; --bg-2: #111316; --ink: #F5F5F3; --muted: #A7A8AC; --line: rgba(245,245,243,.14);
+  --accent: #CD2934; --accent-2: #A91F29;
+  --display: "Archivo", "Arial Black", Impact, sans-serif;
+  --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --pad: max(5.6vw, calc((100vw - 1520px) / 2));
+  --ease: cubic-bezier(.2,.75,.15,1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html.azel-embed { scroll-behavior: auto; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.55 var(--body); font-stretch: 100%; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: fixed; left: 16px; top: -60px; z-index: 300; padding: 12px 16px; background: var(--ink); color: var(--bg); border-radius: 8px; }
+.skip:focus { top: 12px; }
+.display { margin: 0; font-family: var(--display); font-weight: 900; font-style: italic; font-stretch: 125%; text-transform: uppercase; letter-spacing: -.035em; line-height: .9; }
+.accent { color: var(--accent); }
+.kicker { font: 600 11px/1.3 var(--body); letter-spacing: .34em; text-transform: uppercase; color: #CFD0D2; }
+.kicker i { font-style: normal; color: var(--accent); margin: 0 .7em; }
+
+/* ---------- boutons ---------- */
+.btn { display: inline-flex; align-items: center; gap: 16px; min-height: 52px; padding: 0 26px; border-radius: 999px; border: 1px solid transparent; font-weight: 600; font-size: 15px; white-space: nowrap; transition: transform .35s var(--ease), background .3s, border-color .3s, color .3s; }
+.btn svg { width: 16px; height: 16px; transition: transform .35s var(--ease); }
+.btn:hover { transform: translateY(-2px); }
+.btn:hover svg { transform: translateX(3px); }
+.btn-light { background: var(--ink); color: #0B0D0F; }
+.btn-light:hover { background: #fff; }
+.btn-line { border-color: rgba(245,245,243,.7); background: rgba(11,13,15,.25); }
+.btn-line:hover { border-color: #fff; background: rgba(255,255,255,.08); }
+.btn-red { background: var(--accent); color: #fff; }
+.btn-red:hover { background: var(--accent-2); }
+
+/* ---------- barre ---------- */
+.top { position: absolute; z-index: 50; inset: 0 0 auto; height: 96px; padding: 0 var(--pad); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 28px; }
+.brand { display: inline-flex; align-items: center; justify-self: start; }
+.brand-name { position: relative; display: block; padding-left: 64px; font: italic 900 34px/.86 var(--display); font-stretch: 125%; letter-spacing: -.02em; text-transform: uppercase; white-space: nowrap; }
+.brand-name::before { content: ""; position: absolute; left: 0; top: -2px; width: 54px; height: 36px; background: linear-gradient(var(--accent), var(--accent)) 6px 0 / 15px 100% no-repeat, linear-gradient(var(--accent), var(--accent)) 30px 0 / 15px 100% no-repeat; transform: skewX(-28deg); }
+.brand-name::after { content: "Academy"; position: absolute; left: 70px; top: calc(100% + 7px); font: 600 11px/1 var(--body); font-stretch: 100%; letter-spacing: .72em; font-style: normal; }
+.brand-name.azel-has-logo { padding-left: 0; }
+.nav { display: flex; gap: clamp(28px, 3.6vw, 64px); }
+.nav a { position: relative; padding: 12px 0; font-size: 15.5px; font-weight: 500; color: #E6E6E4; transition: color .25s; }
+.nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: 0; height: 3px; background: var(--accent); transition: right .35s var(--ease); }
+.nav a:hover::after, .nav a.on::after { right: 0; }
+.nav a:hover, .nav a.on { color: #fff; }
+.top .btn { justify-self: end; min-height: 50px; }
+.burger { display: none; }
+
+/* ---------- hero ---------- */
+.hero { position: relative; isolation: isolate; height: max(720px, min(100svh, 980px)); overflow: hidden; container-type: size; }
+.scene { position: absolute; inset: 0; z-index: -3; opacity: 0; transition: opacity 1.1s ease; }
+.scene.on { opacity: 1; }
+.frame { position: absolute; right: 0; top: 0; display: block; width: max(64cqw, 80cqh * 1.6237); aspect-ratio: 1510 / 930; container-type: inline-size; will-change: transform; }
+.frame::after { content: ""; position: absolute; inset: auto 0 0 0; height: 26%; z-index: 1; background: linear-gradient(0deg, var(--bg), transparent); }
+.frame img { width: 100%; height: 100%; object-fit: cover; }
+.frame::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 22%; z-index: 1; background: linear-gradient(90deg, var(--bg), transparent); }
+.scene-alt img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.6) saturate(.8); }
+.wall { position: absolute; z-index: 1; left: 63%; top: 24%; display: grid; justify-items: center; gap: .5cqw; color: rgba(222,223,224,.74); text-shadow: 0 0 1.6cqw rgba(255,255,255,.16); filter: blur(.6px); opacity: .9; transform: perspective(50cqw) rotateY(-14deg) rotate(-2.4deg); pointer-events: none; }
+.wall b { position: relative; padding-left: 4.6cqw; font: italic 900 3.5cqw/.9 var(--display); font-stretch: 125%; text-transform: uppercase; letter-spacing: -.02em; white-space: nowrap; }
+.wall b::before { content: ""; position: absolute; left: 0; top: .02em; width: 3.8cqw; height: .86em; background: linear-gradient(var(--accent), var(--accent)) 0 0 / 1.1cqw 100% no-repeat, linear-gradient(var(--accent), var(--accent)) 1.8cqw 0 / 1.1cqw 100% no-repeat; transform: skewX(-28deg); opacity: .7; }
+.wall small { font: 600 1cqw/1 var(--body); letter-spacing: 1.1em; text-transform: uppercase; padding-left: 4cqw; }
+.veil { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(11,13,15,.9) 0%, rgba(11,13,15,.4) 30%, rgba(11,13,15,0) 50%), linear-gradient(0deg, var(--bg) 0%, rgba(11,13,15,.5) 16%, transparent 34%), linear-gradient(180deg, rgba(11,13,15,.7), transparent 18%); }
+.hero-in { position: relative; height: 100%; padding: clamp(150px, 19cqh, 190px) var(--pad) 0; }
+.hero h1 { margin: 26px 0 26px; font-size: clamp(50px, 4.9vw, 94px); }
+.hero h1 span { display: block; overflow: hidden; padding: 0 .12em .04em 0; margin-right: -.12em; }
+.hero h1 span > em { display: block; font-style: inherit; }
+.hero-txt { max-width: 34em; color: #BEBFC2; font-size: clamp(16px, 1.15vw, 19px); }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 34px; }
+.hero-low { position: absolute; left: var(--pad); right: var(--pad); bottom: clamp(70px, 11cqh, 120px); display: flex; align-items: center; justify-content: space-between; gap: 24px; z-index: 2; }
+.perks { display: flex; align-items: center; }
+.perk { display: flex; align-items: center; gap: 18px; padding-right: clamp(20px, 2.6vw, 44px); margin-right: clamp(20px, 2.6vw, 44px); border-right: 1px solid rgba(245,245,243,.3); }
+.perk:last-child { border: 0; margin: 0; padding: 0; }
+.perk svg { width: 40px; height: 40px; flex: none; color: #E7E7E5; }
+.perk b { display: block; font-size: 16px; font-weight: 600; }
+.perk small { display: block; margin-top: 4px; font-size: 13.5px; color: #B9BABD; }
+.next { display: flex; align-items: center; gap: 18px; min-width: 330px; padding: 20px 22px; border-radius: 18px; border: 1px solid rgba(245,245,243,.22); background: rgba(20,22,25,.55); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transition: background .3s, transform .4s var(--ease); }
+.next:hover { background: rgba(32,35,39,.7); transform: translateY(-3px); }
+.next > svg { width: 34px; height: 34px; flex: none; }
+.next small { display: block; font-size: 13px; color: #B9BABD; }
+.next b { display: block; margin: 5px 0 4px; font-size: 19px; font-weight: 600; letter-spacing: -.01em; }
+.next .rnd { margin-left: auto; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(245,245,243,.7); transition: background .3s, border-color .3s; }
+.next:hover .rnd { background: var(--accent); border-color: var(--accent); }
+.next .rnd svg { width: 16px; height: 16px; }
+.pager { position: absolute; right: var(--pad); bottom: 26px; display: flex; gap: 14px; z-index: 3; }
+.pager button { width: 56px; padding: 8px 0 12px; border: 0; background: none; color: #80858A; font-size: 17px; position: relative; }
+.pager button::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgba(255,255,255,.12); }
+.pager button.on { color: #fff; }
+.pager button.on::after { background: linear-gradient(90deg, #fff var(--p, 100%), rgba(255,255,255,.12) 0); }
+.belt { position: absolute; z-index: 1; left: -6vw; bottom: -5.5vw; width: min(64vw, 1100px); pointer-events: none; filter: drop-shadow(0 22px 26px rgba(0,0,0,.85)); will-change: transform; }
+.belt svg { width: 100%; height: auto; display: block; }
+
+/* arrivée séquencée */
+@keyframes up { from { transform: translateY(105%) skewX(-8deg); } to { transform: none; } }
+@keyframes fade { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes zoom { from { opacity: 0; scale: 1.08; } to { opacity: 1; scale: 1; } }
+@keyframes slide { from { opacity: 0; transform: translateX(-14vw) rotate(4deg); } to { opacity: 1; transform: none; } }
+.scene.on .frame img { animation: zoom 1.8s var(--ease) both; }
+.wall { animation: fade 1.4s .9s both; }
+.hero .kicker { animation: fade .9s .15s both; }
+.hero h1 span > em { animation: up 1s var(--ease) both; }
+.hero h1 span:nth-child(2) > em { animation-delay: .08s; }
+.hero h1 span:nth-child(3) > em { animation-delay: .18s; }
+.hero h1 span:nth-child(4) > em { animation-delay: .26s; }
+.hero-txt { animation: fade .9s .45s both; }
+.hero-ctas { animation: fade .9s .55s both; }
+.perk { animation: fade .8s both; }
+.perk:nth-child(1) { animation-delay: .7s; } .perk:nth-child(2) { animation-delay: .8s; } .perk:nth-child(3) { animation-delay: .9s; }
+.next { animation: fade .9s 1s both; }
+.belt-in { animation: slide 1.6s .35s var(--ease) both; }
+
+/* ---------- sections ---------- */
+section.blk { position: relative; padding: clamp(90px, 9vw, 140px) var(--pad); }
+.lbl { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--line); font: 600 11px/1.3 var(--body); letter-spacing: .24em; text-transform: uppercase; color: #8F9499; }
+.lbl b { color: var(--accent); font-weight: 600; }
+.h2 { font-size: clamp(46px, 6vw, 104px); }
+.head { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin: 56px 0 56px; }
+.head p { max-width: 22em; margin: 0 0 8px; color: var(--muted); }
+
+.club { background: radial-gradient(ellipse at 75% 40%, #1F2226 0, var(--bg) 60%); }
+.club-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .85fr); gap: 7%; align-items: center; margin-top: 72px; }
+.club-grid p.lead { max-width: 28em; margin: 30px 0 34px; color: #B9BABD; font-size: 18.5px; }
+.tlink { display: inline-flex; align-items: center; gap: 44px; padding-bottom: 10px; border-bottom: 1px solid var(--ink); font-weight: 600; }
+.tlink svg { width: 16px; height: 16px; transition: transform .35s var(--ease); }
+.tlink:hover svg { transform: translateX(4px); }
+.shot { position: relative; margin: 0; overflow: hidden; border-radius: 4px; }
+.shot img { width: 100%; height: clamp(380px, 40vw, 600px); object-fit: cover; filter: brightness(.78); transition: transform 1.2s var(--ease); }
+.shot:hover img { transform: scale(1.04); }
+.shot figcaption { position: absolute; left: 24px; bottom: 22px; font-size: 11px; letter-spacing: .24em; }
+.values { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 80px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.values span { padding: 24px 0; font: italic 800 clamp(18px, 1.6vw, 26px)/1 var(--display); font-stretch: 125%; text-transform: uppercase; color: #6E7378; transition: color .4s; }
+.values span b { color: var(--accent); font-style: normal; margin-right: .5em; font-size: .6em; vertical-align: .35em; }
+.values span:hover { color: var(--ink); }
+
+.cours { background: var(--bg-2); }
+.cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; perspective: 1200px; }
+.card { position: relative; height: clamp(420px, 34vw, 520px); display: flex; flex-direction: column; justify-content: space-between; padding: 24px; overflow: hidden; isolation: isolate; border: 1px solid rgba(245,245,243,.12); border-radius: 4px; transform-style: preserve-3d; transition: transform .6s var(--ease), border-color .4s; }
+.card::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, #08090B 0%, rgba(8,9,11,.2) 70%), var(--img) center / cover; filter: saturate(.55); transition: transform 1.2s var(--ease), filter .6s; }
+.card:hover { border-color: rgba(245,245,243,.35); }
+.card:hover::before { transform: scale(1.07); filter: saturate(.85); }
+.card .n { font-size: 11px; letter-spacing: .22em; color: #DDD; }
+.card strong { display: block; font: italic 900 clamp(28px, 2.35vw, 42px)/.9 var(--display); font-stretch: 125%; text-transform: uppercase; transform: translateZ(30px); }
+.card small { display: block; min-height: 3.2em; margin: 14px 0 18px; color: #D1D1D1; font-size: 14.5px; }
+.card .go { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; border: 1px solid #BBB; transition: background .3s, border-color .3s; }
+.card .go svg { width: 16px; height: 16px; }
+.card:hover .go { background: var(--accent); border-color: var(--accent); }
+
+.inter { position: relative; height: clamp(520px, 52vw, 760px); display: flex; align-items: center; padding: 0 var(--pad); overflow: hidden; isolation: isolate; }
+.inter-img { position: absolute; inset: -12% 0; z-index: -2; background: url(img/dojo.webp) center / cover; filter: brightness(.42); will-change: transform; }
+.inter::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(0,0,0,.75), transparent 85%); }
+.inter .display { font-size: clamp(50px, 7.8vw, 136px); }
+.inter-n { position: absolute; right: var(--pad); bottom: 40px; font-size: 12px; letter-spacing: .3em; color: #9A9A9A; }
+
+.plan { background: var(--bg); }
+.ctrl { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; }
+.days { display: flex; flex: 1; max-width: 860px; }
+.days button { flex: 1; height: 60px; border: 1px solid #36393D; margin-left: -1px; background: #17191C; color: #AEB1B4; font-weight: 600; transition: background .3s, color .3s; }
+.days button.on { background: var(--accent); border-color: var(--accent); color: #fff; position: relative; z-index: 1; }
+.days button:hover:not(.on) { background: #202327; color: #fff; }
+.filter { display: flex; align-items: center; gap: 12px; color: #AAA; font-size: 13px; }
+.filter select { padding: 14px 38px 14px 16px; border: 1px solid #44474B; border-radius: 4px; background: #17191C; }
+.table { border: 1px solid #303336; border-radius: 4px; overflow: hidden; }
+.tr { display: grid; grid-template-columns: 1.1fr 1.7fr 1.2fr 56px; align-items: center; gap: 10px; padding: 18px 24px; }
+.th { background: #1A1D20; font-size: 10.5px; letter-spacing: .22em; font-weight: 700; color: #7D8388; text-transform: uppercase; }
+.rows .tr { border-top: 1px solid #303336; min-height: 66px; animation: fade .5s both; transition: background .3s; }
+.rows .tr:hover { background: #15171A; }
+.rows strong { font-weight: 600; font-variant-numeric: tabular-nums; }
+.rows .dot { display: inline-block; width: 8px; height: 8px; margin-right: 12px; border-radius: 50%; background: var(--accent); }
+.rows small { color: #A6A7AA; font-size: 14px; }
+.rows a { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; border: 1px solid #6A6D6F; transition: background .3s, border-color .3s; }
+.rows a:hover { background: var(--accent); border-color: var(--accent); }
+.rows a svg { width: 14px; height: 14px; }
+.empty { padding: 30px 24px; color: #9A9DA0; border-top: 1px solid #303336; }
+.note { margin: 18px 0 0; color: #737A80; font-size: 12.5px; }
+
+.prix { background: linear-gradient(180deg, #17181B, var(--bg)); }
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.pc { position: relative; display: flex; flex-direction: column; min-height: 520px; padding: 38px 34px; border: 1px solid #36383C; border-radius: 4px; background: #131518; transition: transform .5s var(--ease), border-color .4s; }
+.pc:hover { transform: translateY(-6px); border-color: #55585D; }
+.pc.feat { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.pc .pop { position: absolute; top: 0; right: 0; padding: 9px 13px; background: var(--accent); color: #fff; font-size: 10.5px; font-weight: 700; letter-spacing: .1em; }
+.pc .pl { font-size: 12px; letter-spacing: .22em; color: #96999E; text-transform: uppercase; }
+.pc h3 { margin: 18px 0 6px; font-size: 21px; font-weight: 600; }
+.pc .amt { font: italic 900 60px/1 var(--display); font-stretch: 125%; letter-spacing: -.04em; margin: 8px 0 14px; }
+.pc .amt small { font: 400 16px var(--body); color: #A9ABAD; letter-spacing: 0; }
+.pc p { margin: 0; color: #9EA0A4; font-size: 14.5px; min-height: 3.2em; }
+.pc ul { list-style: none; margin: 24px 0 34px; padding: 0; display: grid; gap: 14px; }
+.pc li { display: flex; gap: 12px; font-size: 14px; color: #D5D5D5; }
+.pc li::before { content: ""; flex: none; width: 14px; height: 8px; margin-top: .35em; border: solid var(--accent); border-width: 0 0 2px 2px; transform: rotate(-45deg); }
+.pc .btn { margin-top: auto; justify-content: space-between; }
+
+.vie { background: #0C0E10; }
+.vie-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 18px; }
+.vie-grid figure { position: relative; margin: 0; height: clamp(360px, 33vw, 500px); overflow: hidden; border-radius: 4px; background: #15171A; }
+.vie-grid img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.62); transition: transform 1.2s var(--ease); }
+.vie-grid figure:hover img { transform: scale(1.04); }
+.vie-grid figure::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, #08090B, transparent 62%); }
+.vie-grid figcaption { position: absolute; z-index: 2; left: 30px; right: 30px; bottom: 28px; }
+.vie-grid figcaption span { font-size: 11px; letter-spacing: .22em; color: #DDD; }
+.vie-grid h3 { margin: 12px 0 0; font: italic 900 clamp(26px, 2.5vw, 38px)/.96 var(--display); font-stretch: 125%; text-transform: uppercase; max-width: 14em; }
+
+.essai { position: relative; isolation: isolate; padding: clamp(90px, 9vw, 130px) var(--pad); }
+.essai-img { position: absolute; inset: 0; z-index: -2; background: url(img/training.webp) center / cover; filter: brightness(.3); }
+.essai::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #0F1113 0%, rgba(11,13,15,.86) 55%, rgba(11,13,15,.5)); }
+.essai-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .82fr); gap: 7%; align-items: center; }
+.essai .h2 { margin-top: 22px; font-size: clamp(44px, 5vw, 88px); }
+.essai-in > div > p:last-child { max-width: 28em; margin-top: 28px; color: #B8BABC; font-size: 18px; }
+.form { display: grid; gap: 16px; padding: 36px; border: 1px solid rgba(245,245,243,.22); border-radius: 6px; background: rgba(17,19,22,.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.form h3 { margin: 0 0 4px; font-size: 24px; font-weight: 600; }
+.form label { display: grid; gap: 8px; font-size: 13px; color: #D0D1D2; }
+.form input, .form select { width: 100%; min-width: 0; padding: 14px; border: 1px solid #43474B; border-radius: 4px; background: #1D2024; }
+.form input::placeholder { color: #8E9296; }
+.form input:focus, .form select:focus { outline: none; border-color: var(--ink); }
+.form .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form .btn { justify-content: space-between; border: 0; margin-top: 6px; }
+.form .msg { min-height: 1.2em; margin: 0; font-size: 13px; color: #D9DBDD; }
+.form .msg.bad { color: #F09A9E; }
+
+.foot { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; padding: 54px var(--pad) 44px; border-top: 1px solid #2E3134; background: #080A0B; }
+.foot .brand-name { font-size: 26px; }
+.foot p { margin: 0; color: #AEB0B4; font-size: 14px; }
+.foot > span { margin-left: auto; color: #6E7377; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+
+.rv { opacity: 0; transform: translateY(32px); transition: opacity .9s ease, transform 1s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1240px) {
+  .top { grid-template-columns: 1fr auto; }
+  .nav { display: none; }
+  .burger { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(245,245,243,.4); background: rgba(11,13,15,.6); justify-self: end; grid-column: 3; }
+  .burger span { display: block; width: 20px; height: 2px; background: var(--ink); box-shadow: 0 -6px 0 var(--ink), 0 6px 0 var(--ink); }
+  .top { grid-template-columns: 1fr auto auto; }
+  .nav.open { display: flex; flex-direction: column; gap: 4px; position: absolute; top: 96px; left: 0; right: 0; padding: 18px var(--pad) 26px; background: #111316; border-top: 1px solid var(--line); box-shadow: 0 24px 40px rgba(0,0,0,.6); }
+  .nav.open a { padding: 14px 0; font-size: 18px; }
+  .perk { gap: 12px; } .perk svg { width: 32px; height: 32px; } .perk small { font-size: 12.5px; }
+  .next { min-width: 290px; }
+}
+@media (max-width: 1080px) {
+  .hero-low { flex-direction: column; align-items: flex-start; }
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .top { height: 76px; gap: 10px; }
+  .brand-name { font-size: 24px; padding-left: 46px; }
+  .brand-name::before { width: 38px; height: 26px; background-size: 11px 100%, 11px 100%; background-position: 4px 0, 21px 0; }
+  .brand-name::after { left: 50px; font-size: 8px; top: calc(100% + 5px); }
+  .top .btn { min-height: 42px; padding: 0 16px; font-size: 13px; gap: 10px; }
+  .nav.open { top: 76px; }
+  .hero { height: auto; min-height: 100svh; container-type: normal; }
+  .frame { inset: 0; width: auto; height: auto; aspect-ratio: auto; }
+  .frame::after { display: none; }
+  .frame img { object-position: 62% top; }
+  .frame::before, .wall { display: none; }
+  .veil { background: linear-gradient(90deg, rgba(8,10,12,.72), rgba(8,10,12,.12)), linear-gradient(0deg, var(--bg) 0%, rgba(11,13,15,.55) 34%, transparent 60%); }
+  .hero-in { padding: 128px 22px 210px; }
+  .hero h1 { font-size: clamp(44px, 13vw, 66px); margin: 20px 0; }
+  .kicker { font-size: 10px; letter-spacing: .24em; }
+  .hero-txt { font-size: 15.5px; }
+  .hero-ctas .btn { min-height: 48px; padding: 0 18px; font-size: 14px; }
+  .hero-low { position: static; margin-top: 40px; gap: 18px; }
+  .perks { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 10px; width: 100%; }
+  .perk { border: 0; margin: 0; padding: 0; gap: 10px; }
+  .perk:last-child { display: none; }
+  .perk svg { width: 28px; height: 28px; } .perk b { font-size: 14px; } .perk small { font-size: 12px; }
+  .next { min-width: 0; width: 100%; padding: 16px; }
+  .pager { right: 22px; bottom: 18px; } .pager button { width: 44px; font-size: 15px; }
+  .belt { width: 150vw; left: -40vw; bottom: -14vw; }
+  section.blk { padding: 84px 22px; }
+  .head { flex-direction: column; align-items: flex-start; gap: 18px; margin: 44px 0; }
+  .club-grid, .essai-in, .vie-grid { grid-template-columns: 1fr; gap: 36px; }
+  .values { grid-template-columns: 1fr 1fr; }
+  .values span { padding: 18px 0; }
+  .cards { grid-template-columns: 1fr; }
+  .card { height: 400px; }
+  .inter { padding: 0 22px; }
+  .ctrl { flex-direction: column; align-items: stretch; }
+  .days button { height: 48px; font-size: 14px; }
+  .filter { justify-content: space-between; }
+  .tr { grid-template-columns: 96px 1.3fr 1fr 34px; gap: 8px; padding: 14px 12px; }
+  .th { font-size: 9px; letter-spacing: .14em; }
+  .rows strong, .rows small { font-size: 13px; }
+  .rows .tr > strong:first-child { font-size: 12.5px; white-space: nowrap; }
+  .tr { grid-template-columns: 102px 1.2fr 1fr 32px; }
+  .rows a { width: 30px; height: 30px; }
+  .plans { grid-template-columns: 1fr; }
+  .pc { min-height: 0; padding: 30px 26px; }
+  .essai { padding: 84px 22px; }
+  .form { padding: 24px; } .form .two { grid-template-columns: 1fr; }
+  .foot { padding: 44px 22px; } .foot > span { margin-left: 0; }
+}
+
+/* Écrans peu hauts (petits portables) : le titre et la marge haute suivent la hauteur, pour ne jamais toucher la rangée basse */
+@media (min-width: 761px) and (max-height: 860px) {
+  .hero-in { padding-top: clamp(96px, 14cqh, 150px); }
+  .hero-low { bottom: clamp(40px, 7cqh, 120px); }
+  .hero h1 { margin: 18px 0 18px; font-size: min(clamp(50px, 4.9vw, 94px), 7.4cqh); }
+  .hero-ctas { margin-top: 24px; }
+}
+
+/* Téléphones : le titre se cale sur la largeur pour que PROGRESSER tienne entier */
+@media (max-width: 760px) { .hero h1 { font-size: min(50px, 9.6vw); } }
+@media (max-width: 420px) { .top .btn { display: none; } }
+
+/* Mise en scène au ralenti (vitrine de l'accueil Azel : &slow=1), environ 1,4 fois plus lent */
+.azel-slow .hero .kicker { animation-duration: 1.25s; animation-delay: .25s; }
+.azel-slow .hero h1 span > em { animation-duration: 1.4s; }
+.azel-slow .hero h1 span:nth-child(1) > em { animation-delay: .14s; }
+.azel-slow .hero h1 span:nth-child(2) > em { animation-delay: .26s; }
+.azel-slow .hero h1 span:nth-child(3) > em { animation-delay: .4s; }
+.azel-slow .hero h1 span:nth-child(4) > em { animation-delay: .52s; }
+.azel-slow .hero-txt { animation-duration: 1.25s; animation-delay: .85s; }
+.azel-slow .hero-ctas { animation-duration: 1.25s; animation-delay: 1.05s; }
+.azel-slow .wall { animation-duration: 1.9s; animation-delay: 1.3s; }
+.azel-slow .perk { animation-duration: 1.1s; }
+.azel-slow .next { animation-duration: 1.25s; animation-delay: 1.45s; }
+.azel-slow .belt-in { animation-duration: 2.2s; animation-delay: .6s; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .rv { opacity: 1; transform: none; }
+}
+</style>
+<script defer src="/analytics.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+
+<header class="top">
+  <a class="brand" href="#accueil" aria-label="Accueil"><span class="brand-name" data-azel="name" data-azel-logo>Atos JJB</span></a>
+  <nav class="nav" id="nav" aria-label="Navigation principale">
+    <a href="#club" class="on">Le club</a><a href="#cours">Cours</a><a href="#planning">Planning</a><a href="#tarifs">Tarifs</a><a href="#vie">Actualités</a>
+  </nav>
+  <button class="burger" type="button" aria-controls="nav" aria-expanded="false" aria-label="Ouvrir le menu"><span></span></button>
+  <a class="btn btn-light" href="#essai">Essai gratuit <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+</header>
+
+<main id="contenu">
+<section class="hero" id="accueil" aria-labelledby="h-hero">
+  <div class="scene on" data-scene="0">
+    <picture class="frame" id="frame">
+      <source media="(max-width: 760px)" srcset="img/hero-m.webp">
+      <img src="img/hero.webp" alt="" width="1510" height="930" fetchpriority="high">
+      <div class="wall" aria-hidden="true"><b data-azel="name">Atos JJB</b><small>Academy</small></div>
+    </picture>
+  </div>
+  <div class="scene scene-alt" data-scene="1"><img src="img/dojo.webp" alt="" loading="lazy"></div>
+  <div class="scene scene-alt" data-scene="2"><img src="img/training.webp" alt="" loading="lazy"></div>
+  <div class="veil"></div>
+
+  <div class="hero-in">
+    <p class="kicker">Jiu-Jitsu Brésilien <i>•</i> <span data-azel="city">Paris</span></p>
+    <h1 class="display" id="h-hero"><span><em>Le JJB</em></span><span><em>pour</em></span><span class="accent"><em>progresser</em></span><span class="accent"><em>vraiment.</em></span></h1>
+    <p class="hero-txt">Un club de Jiu-Jitsu Brésilien pour tous les niveaux.<br>Technique, condition physique et état d'esprit.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-light" href="#essai">Réserver un essai gratuit <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+      <a class="btn btn-line" href="#planning">Voir le planning</a>
+    </div>
+
+    <div class="hero-low">
+      <div class="perks">
+        <div class="perk"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 15h13M24 15h13M3 21h13M24 21h13"/><rect x="16" y="12" width="8" height="12" rx="1.5"/><path d="M17.5 24l-5 10M22.5 24l5 10"/></svg><span><b>Tous niveaux</b><small>Débutant à compétiteur</small></span></div>
+        <div class="perk"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="20" cy="13" r="5.5"/><path d="M9 33c0-6 5-10 11-10s11 4 11 10"/><circle cx="8.5" cy="16" r="3.6"/><path d="M2 30c0-4 3-7 7-7"/><circle cx="31.5" cy="16" r="3.6"/><path d="M38 30c0-4-3-7-7-7"/></svg><span><b>Encadrement qualifié</b><small>Apprentissage progressif</small></span></div>
+        <div class="perk"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 5h16v9a8 8 0 0 1-16 0z"/><path d="M12 8H6c0 6 3 9 7 9M28 8h6c0 6-3 9-7 9"/><path d="M20 22v6M14 34h12M16 28h8v6h-8z"/></svg><span><b>Esprit de club</b><small>Respect, rigueur, progression</small></span></div>
+      </div>
+      <a class="next" href="#planning" id="next">
+        <svg viewBox="0 0 34 34" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="28" height="25" rx="3"/><path d="M3 13h28M10 3v6M24 3v6"/><path d="M9 18h2M16 18h2M23 18h2M9 24h2M16 24h2M23 24h2" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <span><small>Prochain cours</small><b id="nextWhen">Ce soir · 19h30</b><small id="nextWhat">JJB Gi · Tous niveaux</small></span>
+        <span class="rnd"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h11M9 4l4 4-4 4"/></svg></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="belt" id="belt" aria-hidden="true"><div class="belt-in">
+    <svg viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2E33"/><stop offset=".18" stop-color="#15181B"/><stop offset=".55" stop-color="#090B0D"/><stop offset=".9" stop-color="#131619"/><stop offset="1" stop-color="#2B2F33"/></linearGradient>
+        <linearGradient id="bs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".6"/><stop offset=".25" stop-color="#000" stop-opacity="0"/><stop offset=".75" stop-color="#fff" stop-opacity=".03"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient>
+        <pattern id="bw" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 6 6 0M-1 1l2-2M5 7l2-2" stroke="#fff" stroke-opacity=".07" stroke-width="1"/></pattern>
+        <linearGradient id="br" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset=".5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".35"/></linearGradient>
+      </defs>
+      <g transform="rotate(-6 800 160)">
+        <rect x="-80" y="96" width="1600" height="138" rx="14" fill="url(#bg)"/>
+        <rect x="-80" y="96" width="1600" height="138" rx="14" fill="url(#bw)"/>
+        <g stroke="#fff" stroke-opacity=".08" stroke-width="1.4" stroke-dasharray="5 4"><path d="M-80 108h1588M-80 222h1588"/><path d="M-80 126h1588M-80 144h1588M-80 162h1588M-80 180h1588M-80 198h1588" stroke-opacity=".035"/></g>
+        <rect x="1060" y="96" width="220" height="138" fill="var(--accent, #CD2934)"/>
+        <rect x="1060" y="96" width="220" height="138" fill="url(#br)"/>
+        <g fill="#F2F0EA" opacity=".92"><rect x="1190" y="96" width="12" height="138"/><rect x="1212" y="96" width="12" height="138"/><rect x="1234" y="96" width="12" height="138"/></g>
+        <path d="M1062 100v130M1278 100v130" stroke="#000" stroke-opacity=".35" stroke-width="3"/>
+        <g transform="translate(560 140) skewX(-28)" fill="#C9CBCE" opacity=".55"><rect x="0" y="0" width="16" height="50"/><rect x="26" y="0" width="16" height="50"/></g>
+        <rect x="-80" y="96" width="1600" height="138" rx="14" fill="url(#bs)"/>
+      </g>
+    </svg>
+  </div></div>
+
+  <div class="pager" role="group" aria-label="Changer de vue">
+    <button type="button" class="on" data-go="0" aria-pressed="true">01</button><button type="button" data-go="1" aria-pressed="false">02</button><button type="button" data-go="2" aria-pressed="false">03</button>
+  </div>
+</section>
+
+<section class="blk club" id="club" aria-labelledby="h-club">
+  <div class="lbl rv"><b>01 / Le club</b><span>Tout commence sur le tatami</span></div>
+  <div class="club-grid">
+    <div class="rv">
+      <p class="kicker" style="color:#8F9499">Une autre idée de la progression</p>
+      <h2 class="display h2" id="h-club" style="margin-top:22px">Plus qu'un<br>sport. <span class="accent">Une<br>discipline.</span></h2>
+      <p class="lead">La progression n'est pas une promesse. C'est un travail collectif, séance après séance, avec des professeurs qui connaissent votre jeu.</p>
+      <a class="tlink" href="#cours">Découvrir les cours <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h11M9 4l4 4-4 4"/></svg></a>
+    </div>
+    <figure class="shot rv"><img src="img/discipline.webp" width="900" height="800" loading="lazy" alt="Deux pratiquants de Jiu-Jitsu Brésilien s'entraînent au sol"><figcaption>Concentration · Technique · Respect</figcaption></figure>
+  </div>
+  <div class="values rv"><span><b>01</b>Apprendre</span><span><b>02</b>Répéter</span><span><b>03</b>Maîtriser</span><span><b>04</b>Transmettre</span></div>
+</section>
+
+<section class="blk cours" id="cours" aria-labelledby="h-cours">
+  <div class="lbl rv"><b>02 / Les cours</b><span>Choisissez votre parcours</span></div>
+  <div class="head rv"><h2 class="display h2" id="h-cours">Votre terrain<br><span class="accent">de progression.</span></h2><p>Que vous découvriez le JJB ou prépariez une compétition, avancez à votre rythme.</p></div>
+  <div class="cards">
+    <a class="card rv" href="#planning" data-disc="Gi" style="--img:url(img/discipline.webp)"><span class="n">01 / Technique</span><span><strong>JJB Gi</strong><small>Précision, contrôle et maîtrise avec kimono.</small><span class="go"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h11M9 4l4 4-4 4"/></svg></span></span></a>
+    <a class="card rv" href="#planning" data-disc="No-Gi" style="--img:url(img/training.webp)"><span class="n">02 / Intensité</span><span><strong>No-Gi</strong><small>Un jeu plus rapide, des transitions explosives.</small><span class="go"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h11M9 4l4 4-4 4"/></svg></span></span></a>
+    <a class="card rv" href="#planning" data-disc="Débutants" style="--img:url(img/dojo.webp)"><span class="n">03 / Fondations</span><span><strong>Débutants</strong><small>Découvrir les bases dans un cadre bienveillant.</small><span class="go"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h11M9 4l4 4-4 4"/></svg></span></span></a>
+    <a class="card rv" href="#planning" data-disc="Compétition" style="--img:url(img/detail.webp)"><span class="n">04 / Performance</span><span><strong>Compétition</strong><small>Affiner votre jeu et préparer vos objectifs.</small><span class="go"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h11M9 4l4 4-4 4"/></svg></span></span></a>
+  </div>
+</section>
+
+<section class="inter" aria-label="Une pratique collective">
+  <div class="inter-img" id="interImg" aria-hidden="true"></div>
+  <div class="rv"><p class="kicker">Le tatami n'est que le début</p><p class="display" style="margin-top:22px">Le respect<br><span class="accent">se gagne.</span><br>La technique<br>se travaille.</p></div>
+  <span class="inter-n" aria-hidden="true"><span data-azel="name">Atos JJB</span> / 003</span>
+</section>
+
+<section class="blk plan" id="planning" aria-labelledby="h-plan">
+  <div class="lbl rv"><b>03 / Planning</b><span>Un entraînement pour chacun</span></div>
+  <div class="head rv"><h2 class="display h2" id="h-plan">Chaque séance<br><span class="accent">vous fait avancer.</span></h2><p>Choisissez un jour et une discipline : le planning se met à jour.</p></div>
+  <div class="ctrl rv">
+    <div class="days" role="group" aria-label="Jour de la semaine" id="days"></div>
+    <label class="filter">Discipline <select id="disc"><option value="all">Toutes</option><option value="Gi">JJB Gi</option><option value="No-Gi">No-Gi</option><option value="Débutants">Débutants</option><option value="Compétition">Compétition</option></select></label>
+  </div>
+  <div class="table rv"><div class="tr th"><span>Horaire</span><span>Cours</span><span>Niveau</span><span></span></div><div class="rows" id="rows" aria-live="polite"></div></div>
+  <p class="note">Horaires d'exemple.</p>
+</section>
+
+<section class="blk prix" id="tarifs" aria-labelledby="h-prix">
+  <div class="lbl rv"><b>04 / Formules</b><span>Progresser à votre rythme</span></div>
+  <div class="head rv"><h2 class="display h2" id="h-prix">Le bon rythme.<br><span class="accent">Votre rythme.</span></h2><p>Des abonnements lisibles, du premier cours à la compétition. Kimono de prêt pour l'essai.</p></div>
+  <div class="plans" id="plans"></div>
+</section>
+
+<section class="blk vie" id="vie" aria-labelledby="h-vie">
+  <div class="lbl rv"><b>05 / Vie du club</b><span>Au-delà du combat</span></div>
+  <div class="head rv"><h2 class="display h2" id="h-vie">Une équipe.<br><span class="accent">Un état d'esprit.</span></h2></div>
+  <div class="vie-grid">
+    <figure class="rv"><img src="img/dojo.webp" alt="La salle d'entraînement, tatamis et grandes fenêtres" loading="lazy"><figcaption><span>Le club / La salle</span><h3>Votre place est déjà sur le tatami.</h3></figcaption></figure>
+    <figure class="rv"><img src="img/detail.webp" alt="Écusson brodé sur la manche d'un kimono noir" loading="lazy"><figcaption><span>Le club / La discipline</span><h3>Les détails font la différence.</h3></figcaption></figure>
+  </div>
+</section>
+
+<section class="essai" id="essai" aria-labelledby="h-essai">
+  <div class="essai-img" aria-hidden="true"></div>
+  <div class="essai-in">
+    <div class="rv"><p class="kicker">La suite commence ici</p><h2 class="display h2" id="h-essai">Le premier pas<br>se fait <span class="accent">sur<br>le tatami.</span></h2><p>Envie de commencer ? Venez faire un cours d'essai à <span data-azel="city">Paris</span>. Aucune expérience nécessaire.</p></div>
+    <form class="form rv" id="form" novalidate>
+      <h3>Demander un cours d'essai</h3>
+      <label>Votre nom <input name="nom" autocomplete="name" placeholder="Prénom et nom" maxlength="80" required></label>
+      <label>Votre e-mail <input name="email" type="email" autocomplete="email" placeholder="vous@exemple.fr" maxlength="160" required></label>
+      <div class="two">
+        <label>Votre niveau <select name="niveau"><option>Débutant</option><option>Intermédiaire</option><option>Avancé</option></select></label>
+        <label>Formule souhaitée <select name="formule" id="planSel"><option>À découvrir</option></select></label>
+      </div>
+      <label>Cours visé <select name="cours" id="coursSel"><option>Peu importe</option></select></label>
+      <button class="btn btn-light" type="submit">Envoyer ma demande <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h11M9 4l4 4-4 4"/></svg></button>
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <a class="brand" href="#accueil" aria-label="Retour en haut"><span class="brand-name" data-azel="name">Atos JJB</span></a>
+  <p>Technique. Progression. Respect.</p>
+  <span>Concept web fictif · Démonstration Azel Studio</span>
+</footer>
+
+<script>
+/* Tout le contenu modifiable du club est ici : textes courts, planning, formules. */
+const CLUB = {
+  planning: [
+    ["Lun", "18:00", "Débutants", "Tous niveaux"], ["Lun", "19:30", "Gi", "Intermédiaire"],
+    ["Mar", "12:30", "No-Gi", "Tous niveaux"], ["Mar", "19:30", "Compétition", "Avancé"],
+    ["Mer", "18:00", "Débutants", "Tous niveaux"], ["Mer", "19:30", "Gi", "Tous niveaux"], ["Mer", "20:45", "No-Gi", "Avancé"],
+    ["Jeu", "12:30", "Gi", "Tous niveaux"], ["Jeu", "19:30", "No-Gi", "Intermédiaire"],
+    ["Ven", "18:00", "Débutants", "Tous niveaux"], ["Ven", "19:30", "Gi", "Tous niveaux"],
+    ["Sam", "10:00", "Gi", "Tous niveaux"], ["Sam", "11:30", "Compétition", "Avancé"],
+  ],
+  dureeMin: 75,
+  formules: [
+    { id: "Essentiel", n: "01", titre: "1 séance / semaine", prix: 49, texte: "La découverte, les bases et une progression régulière.", points: ["Un cours par semaine", "Groupes de niveaux", "Suivi de progression"] },
+    { id: "Club", n: "02", titre: "Accès illimité", prix: 69, texte: "Pour faire du JJB un vrai rendez-vous avec vous-même.", points: ["Tous les cours collectifs", "Gi et No-Gi", "Open mat du samedi"], vedette: "Le plus choisi" },
+    { id: "Compétition", n: "03", titre: "Préparation complète", prix: 89, texte: "Un encadrement plus poussé pour vos objectifs sportifs.", points: ["Accès illimité", "Préparation spécifique", "Suivi des compétitions"] },
+  ],
+};
+
+(() => {
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 8h11M9 4l4 4-4 4"/></svg>';
+  const DAYS = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"], FULL = { Lun: "Lundi", Mar: "Mardi", Mer: "Mercredi", Jeu: "Jeudi", Ven: "Vendredi", Sam: "Samedi" };
+  const label = (d) => (d === "Gi" ? "JJB Gi" : d);
+  const hh = (t) => t.replace(":", "h");
+  const end = (t) => { const [h, m] = t.split(":").map(Number), x = h * 60 + m + CLUB.dureeMin; return String(Math.floor(x / 60)).padStart(2, "0") + "h" + String(x % 60).padStart(2, "0"); };
+
+  /* Menu mobile */
+  const burger = $(".burger"), nav = $("#nav");
+  burger.addEventListener("click", () => { const o = nav.classList.toggle("open"); burger.setAttribute("aria-expanded", o); burger.setAttribute("aria-label", o ? "Fermer le menu" : "Ouvrir le menu"); });
+  $$("#nav a").forEach((a) => a.addEventListener("click", () => { nav.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); }));
+
+  /* Prochain cours, calculé depuis le planning et l'heure réelle */
+  (() => {
+    const now = new Date(), js = now.getDay(), mins = now.getHours() * 60 + now.getMinutes();
+    for (let k = 0; k < 8; k++) {
+      const jd = (js + k) % 7; if (jd === 0) continue; const d = DAYS[jd - 1];
+      const list = CLUB.planning.filter((r) => r[0] === d).sort((a, b) => a[1].localeCompare(b[1]));
+      const hit = list.find((r) => k > 0 || +r[1].slice(0, 2) * 60 + +r[1].slice(3) > mins);
+      if (hit) { $("#nextWhen").textContent = (k === 0 ? (+hit[1].slice(0, 2) >= 17 ? "Ce soir" : "Aujourd'hui") : k === 1 ? "Demain" : FULL[d]) + " · " + hh(hit[1]); $("#nextWhat").textContent = label(hit[2]) + " · " + hit[3]; $("#next").dataset.day = d; break; }
+    }
+  })();
+
+  /* Planning filtrable */
+  let day = $("#next").dataset.day || "Mer";
+  const days = $("#days");
+  DAYS.forEach((d) => { const b = document.createElement("button"); b.type = "button"; b.textContent = d; b.dataset.d = d; b.setAttribute("aria-pressed", d === day); if (d === day) b.classList.add("on"); days.append(b); });
+  const render = () => {
+    const f = $("#disc").value, rows = $("#rows"); rows.replaceChildren();
+    const list = CLUB.planning.filter((r) => r[0] === day && (f === "all" || r[2] === f));
+    if (!list.length) { const e = document.createElement("div"); e.className = "empty"; e.textContent = "Pas de cours de ce type le " + FULL[day].toLowerCase() + ". Essayez un autre jour."; rows.append(e); return; }
+    list.forEach((r, i) => {
+      const el = document.createElement("div"); el.className = "tr"; el.style.animationDelay = i * 60 + "ms";
+      el.innerHTML = `<strong>${hh(r[1])} – ${end(r[1])}</strong><strong><span class="dot"></span>${label(r[2])}</strong><small>${r[3]}</small><a href="#essai" aria-label="Essayer le cours ${label(r[2])} du ${FULL[r[0]].toLowerCase()} à ${hh(r[1])}">${arrow}</a>`;
+      el.querySelector("a").addEventListener("click", () => { $("#coursSel").value = `${FULL[r[0]]} ${hh(r[1])} · ${label(r[2])}`; });
+      rows.append(el);
+    });
+  };
+  days.addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; day = b.dataset.d; $$("button", days).forEach((x) => { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", x === b); }); render(); });
+  $("#disc").addEventListener("change", render);
+  $$(".card[data-disc]").forEach((c) => c.addEventListener("click", () => { $("#disc").value = c.dataset.disc; render(); }));
+  render();
+  CLUB.planning.forEach((r) => { const o = document.createElement("option"); o.textContent = `${FULL[r[0]]} ${hh(r[1])} · ${label(r[2])}`; $("#coursSel").append(o); });
+
+  /* Formules */
+  $("#plans").innerHTML = CLUB.formules.map((p) => `<article class="pc rv${p.vedette ? " feat" : ""}">${p.vedette ? `<span class="pop">${p.vedette}</span>` : ""}<p class="pl">${p.n} / ${p.id}</p><h3>${p.titre}</h3><div class="amt">${p.prix} € <small>/ mois</small></div><p>${p.texte}</p><ul>${p.points.map((x) => `<li>${x}</li>`).join("")}</ul><a class="btn ${p.vedette ? "btn-red" : "btn-line"}" href="#essai" data-plan="${p.id}">Choisir ${p.id} ${arrow}</a></article>`).join("");
+  CLUB.formules.forEach((p) => { const o = document.createElement("option"); o.textContent = p.id; $("#planSel").append(o); });
+  $$("[data-plan]").forEach((a) => a.addEventListener("click", () => { $("#planSel").value = a.dataset.plan; }));
+
+  /* Formulaire : rien n'est envoyé dans ce concept, et on le dit */
+  $("#form").addEventListener("submit", (e) => {
+    e.preventDefault(); const f = e.currentTarget, msg = $("#msg");
+    const okName = f.nom.value.trim().length > 1, okMail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(f.email.value.trim());
+    f.nom.setAttribute("aria-invalid", !okName); f.email.setAttribute("aria-invalid", !okMail);
+    if (!okName || !okMail) { msg.className = "msg bad"; msg.textContent = !okName ? "Indiquez votre nom." : "Indiquez une adresse e-mail valide."; (okName ? f.email : f.nom).focus(); return; }
+    msg.className = "msg"; msg.textContent = "Dans ce concept, la demande n'est pas envoyée. Sur le site du club, elle arrive directement dans sa boîte mail.";
+  });
+
+  /* Vues du hero (01 / 02 / 03) */
+  const scenes = $$(".scene"), pager = $$(".pager button");
+  const go = (i) => { scenes.forEach((s) => s.classList.toggle("on", +s.dataset.scene === i)); pager.forEach((b) => { const on = +b.dataset.go === i; b.classList.toggle("on", on); b.setAttribute("aria-pressed", on); }); };
+  pager.forEach((b) => b.addEventListener("click", () => go(+b.dataset.go)));
+
+  /* Apparitions */
+  const io = "IntersectionObserver" in window && !reduce ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px", threshold: .08 }) : null;
+  $$(".rv").forEach((el) => (io ? io.observe(el) : el.classList.add("in")));
+
+  /* Section active dans le menu */
+  const links = $$("#nav a");
+  if ("IntersectionObserver" in window) { const so = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) links.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id)); }), { rootMargin: "-35% 0px -55% 0px" }); $$("main section[id]").forEach((s) => so.observe(s)); }
+
+  if (reduce) return;
+  /* Parallaxe douce : la photo descend, la ceinture glisse */
+  const frame = $("#frame"), belt = $("#belt"), inter = $("#interImg"), hero = $(".hero");
+  let t = 0;
+  const onScroll = () => {
+    t = 0; const y = scrollY, h = hero.offsetHeight;
+    if (y < h * 1.2) { frame.style.transform = `translate3d(0, ${y * .22}px, 0)`; belt.style.transform = `translate3d(${y * .18}px, ${y * -.06}px, 0) rotate(${y * -.008}deg)`; }
+    const r = inter.parentElement.getBoundingClientRect(); if (r.bottom > 0 && r.top < innerHeight) inter.style.transform = `translate3d(0, ${(r.top + r.height / 2 - innerHeight / 2) * -.12}px, 0)`;
+  };
+  addEventListener("scroll", () => { if (!t) t = requestAnimationFrame(onScroll); }, { passive: true }); onScroll();
+  /* Profondeur légère sur les cartes de cours (souris uniquement) */
+  if (matchMedia("(hover: hover) and (pointer: fine)").matches) $$(".card").forEach((c) => {
+    c.addEventListener("pointermove", (e) => { const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; c.style.transform = `rotateY(${x * 7}deg) rotateX(${y * -7}deg)`; });
+    c.addEventListener("pointerleave", () => { c.style.transform = ""; });
+  });
+})();
+</script>
+<script src="../azel-demo.js" data-template="sport" data-accent="--accent" data-accent2="--accent-2" data-on="light" data-hold="4200" defer></script>
+</body>
+</html>
