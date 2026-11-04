@@ -4,13 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="description" content="Showroom Azel Studio : des sites animés à voir en démonstration réelle, à personnaliser avec votre nom, votre couleur et votre logo.">
+<meta name="description" content="Essayez nos exemples de sites pour artisans, commerces et indépendants. Azel Studio adapte votre site et le met en ligne. Sites dès 490 €.">
 <script defer src="/analytics.js"></script>
-</head>
-<body>
-<title>Azel Showroom</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Showroom Azel Studio : des créations web haut de gamme, à voir en démonstration réelle et à faire réaliser pour votre activité.">
+<script src="/showroom/artisan-config.js"></script>
+<title>Exemples de sites internet à essayer | Azel Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -328,7 +325,35 @@ footer.sr-foot a:hover { color: var(--paper); }
   .perso .phone .frame-in { width: 100%; height: 100%; }
   .trial-order { width: 100%; justify-content: space-between; }
 }
+.perso-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; justify-content: space-between; }
+.reset-look { border: 0; padding: 8px 0; background: transparent; color: var(--soft); font: inherit; font-size: 13px; cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+.reset-look:hover { color: var(--paper); }
+.artisan-fields { display: grid; gap: 14px; }
+.artisan-fields h3 { margin: 12px 0 0; font-size: 21px; font-weight: 600; letter-spacing: -.03em; }
+.artisan-fields .fields .row { grid-template-columns: 110px minmax(0, 1fr); }
+.artisan-fields input { font-size: 15px; }
+#draftStatus { min-height: 2.8em; }
+@media (max-width: 640px) { .artisan-fields .fields .row { grid-template-columns: 1fr; } }
+.perso-options { border-block-end: 1px solid var(--line); }
+.perso-options summary { display: flex; align-items: center; gap: 12px; justify-content: space-between; padding-block: 14px; cursor: pointer; font-size: 14px; color: var(--soft); list-style: none; }
+.perso-options summary::-webkit-details-marker { display: none; }
+.perso-options summary::after { content: "+"; font-size: 20px; }
+.perso-options[open] > summary::after { content: "−"; }
+.perso-options summary span { margin-left: auto; font-size: 11px; color: var(--mute); }
+.perso-options .fields { margin-block: 8px 16px; }
+.perso-options .option-note { margin-block: 0 18px; }
+#draftStatus:empty { display: none; }
 </style>
+<link rel="canonical" href="https://azelstudio.fr/showroom/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Azel Studio">
+<meta property="og:title" content="Exemples de sites internet à essayer | Azel Studio">
+<meta property="og:description" content="Essayez nos exemples de sites pour artisans, commerces et indépendants. Azel Studio adapte votre site et le met en ligne. Sites dès 490 €.">
+<meta property="og:url" content="https://azelstudio.fr/showroom/">
+<meta property="og:image" content="https://azelstudio.fr/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
 
 <header class="nav">
   <div class="wrap">
@@ -351,7 +376,7 @@ footer.sr-foot a:hover { color: var(--paper); }
       <span class="label">Inspirez-vous. Imaginez votre vision.</span>
       <h1 id="srTitle"><span>Des idées qui donnent envie.</span> <span>Des sites dès 490 €.</span></h1>
       <div class="intro-foot">
-        <p>Chaque création tourne ici pour de vrai. Ouvrez-la, voyez-la avec le nom de votre entreprise, puis faites-la réaliser par Azel Studio.</p>
+        <p>Essayez un vrai site, avec votre nom si vous le souhaitez. Azel l’adapte à votre activité et le met en ligne. Le site livré vous appartient.</p>
         <span class="label" id="srCount"></span>
       </div>
       <div class="filters" id="filters" role="group" aria-label="Filtrer par activité"></div>
@@ -393,6 +418,32 @@ const fw = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-wi
 let LIST = [];
 const SHARE = { url: "", name: "", t: null };
 const ME = { name: "", city: "", color: "", logo: "" };
+let ARTISAN = AzelArtisan.normalize();
+const DRAFT_KEY = "azel.artisan.draft.v1", DRAFT_AGE = 30 * 24 * 60 * 60 * 1000;
+let draftStatus = "", savedFormula = "";
+const loadArtisanDraft = () => {
+  const params = new URLSearchParams(location.search);
+  const explicit = ["nom", "ville", "c", ...AzelArtisan.fields.map((f) => f.param)].some((k) => params.has(k));
+  if (explicit) { ARTISAN = AzelArtisan.read(params); draftStatus = "Aperçu ouvert depuis un lien personnalisé."; return; }
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY); if (!raw) return;
+    const d = JSON.parse(raw);
+    if (d.version !== 1 || !Number.isFinite(d.at) || Date.now() - d.at > DRAFT_AGE || d.at > Date.now()) { localStorage.removeItem(DRAFT_KEY); return; }
+    ME.name = AzelArtisan.clean(d.me?.name, 32); ME.city = AzelArtisan.clean(d.me?.city, 28);
+    ME.color = /^[a-f0-9]{6}$/i.test(d.me?.color || "") ? d.me.color : "";
+    ME.logo = typeof d.me?.logo === "string" && /^data:image\/(png|jpeg|svg\+xml|webp);base64,/i.test(d.me.logo) && d.me.logo.length < 1600000 ? d.me.logo : "";
+    ARTISAN = AzelArtisan.normalize(d.fields); savedFormula = d.formula;
+    draftStatus = "Votre brouillon a été retrouvé sur cet appareil.";
+  } catch { draftStatus = "Le brouillon n’a pas pu être restauré. Vous pouvez continuer à personnaliser."; }
+};
+const saveArtisanDraft = () => {
+  if (cur?.id !== "artisan") return;
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify({ version: 1, at: Date.now(), me: ME, fields: ARTISAN, formula: document.querySelector('input[name="formula"]:checked')?.value }));
+    draftStatus = "Brouillon enregistré sur cet appareil pour 30 jours, logo compris.";
+  } catch { draftStatus = "L’enregistrement sur cet appareil est indisponible. Votre aperçu reste utilisable."; }
+  const status = $("#draftStatus"); if (status) status.textContent = draftStatus;
+};
 
 const demoUrl = (t, extra = {}) => {
   const q = new URLSearchParams({ embed: "1", tour: "1", ...extra });
@@ -454,6 +505,8 @@ const renderCollection = () => {
 /* ---------- fiche ---------- */
 let cur = null;
 const renderFiche = (t, mode) => {
+  const enteringArtisan = t.id === "artisan" && cur?.id !== "artisan";
+  if (enteringArtisan) loadArtisanDraft();
   cur = t;
   const o = OFFERS[t.offer];
   $("#vFiche").innerHTML = `
@@ -461,37 +514,45 @@ const renderFiche = (t, mode) => {
     <div class="f-copy">
       <div class="crumbs"><a href="#collection">Nos créations</a><span class="label">/ ${esc(t.sector)}</span></div>
       <h1>${esc(t.name)}</h1>
-      <p>Essayez ce thème avec votre entreprise. L’aperçu se met à jour avec vos choix.</p>
+      <p>Parcourez ce site gratuitement. S’il vous plaît, Azel l’adapte à votre activité et s’occupe de la mise en ligne.</p>
     </div>
   </div>
 
   <section class="wrap perso" id="fPerso" aria-labelledby="persoTitle">
     <div class="perso-form rv">
       <h2 id="persoTitle">À votre image.</h2>
-      <p>Nom, couleurs, logo : faites l’essai ici. Nous adapterons ensuite les textes et les photos avec vous.</p>
+      <p>Essayez avec votre nom si vous le souhaitez. Pour les textes, les photos et la mise en ligne, on s’en occupe avec vous.</p>
       <div class="fields">
         <div class="row"><label for="meName">Entreprise</label><input id="meName" type="text" maxlength="32" autocomplete="organization" placeholder="Le nom de votre entreprise"></div>
+      </div>
+      <p class="privacy">Vous pouvez aussi demander ce site sans rien personnaliser.</p>
+      <details class="perso-options" id="visualOptions">
+        <summary>Ville, couleurs et logo <span>Facultatif</span></summary>
+        <div class="fields">
         <div class="row"><label for="meCity">Ville</label><input id="meCity" type="text" maxlength="28" autocomplete="address-level2" placeholder="Facultatif"></div>
         ${t.colors ? `<div class="row tall"><span class="lbl-c"><label id="lblCol">Couleur</label></span><div class="swatch-row" role="group" aria-labelledby="lblCol">${t.colors.map(([n, h], i) => `<button type="button" class="sw" style="--c:#${esc(h)}" data-hex="${esc(h)}" data-name="${esc(n)}" aria-pressed="${i === 0}" aria-label="${esc(n)}"></button>`).join("")}<span class="sw pick" id="swPick" title="Votre couleur"><input type="color" id="mePick" value="#${esc(t.colors[0][1])}" aria-label="Choisir votre couleur"></span><span class="sw-name" id="swName">${esc(t.colors[0][0])}</span></div></div>` : ""}
         <div class="row tall"><label for="meLogo">Logo</label><div class="logo-row"><label class="logo-btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 11V2M4 6l4-4 4 4M2 11v3h12v-3"/></svg><span id="logoL">Ajouter votre logo</span><input type="file" id="meLogo" accept="image/png,image/jpeg,image/svg+xml,image/webp"></label><img class="logo-prev" id="logoPrev" alt="Votre logo" hidden><button type="button" class="logo-x" id="logoX" hidden>Retirer</button></div></div>
       </div>
-      <p class="privacy">Votre logo reste sur votre appareil : il n'est envoyé nulle part.</p>
+      <p class="privacy option-note">Votre logo reste sur votre appareil : il n'est envoyé nulle part.</p>
+      </details>
+      ${t.id === "artisan" ? `<details class="perso-options" id="businessOptions"><summary>Textes et coordonnées <span>Facultatif</span></summary><div class="artisan-fields"><p class="privacy">Vous pouvez faire l’essai ici, ou nous laisser adapter ces éléments après votre demande.</p><div class="fields">${AzelArtisan.fields.map((f) => `<div class="row"><label for="artisan-${f.key}">${f.label}</label><input id="artisan-${f.key}" data-artisan-field="${f.key}" type="${f.type || "text"}" maxlength="${f.max}" placeholder="${esc(f.placeholder)}" autocomplete="${f.key === "phone" ? "tel" : f.key === "email" ? "email" : "off"}"></div>`).join("")}</div></div></details><p class="privacy" id="draftStatus" role="status"></p>` : ""}
+      <div class="perso-tools"><button type="button" id="resetLook" class="reset-look">Réinitialiser</button></div>
       <div class="mine" id="mine" aria-live="polite"></div>
       <div class="share" id="share">
         <div class="share-row">
           <button class="btn line" type="button" id="shareBtn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 9.5 9.5 6.5M7 4.5l1.3-1.3a2.6 2.6 0 0 1 3.7 3.7L10.7 8.2M9 11.5l-1.3 1.3a2.6 2.6 0 0 1-3.7-3.7L5.3 7.8"/></svg><span>Partager mon aperçu</span></button>
           <a class="share-mail" id="shareMail" href="#">Envoyer par e-mail</a>
         </div>
-        <p class="share-hint" id="shareHint">Montrez-le à un associé ou à un proche : le lien ouvre le site avec votre nom, votre ville et votre couleur. Le logo n'est pas inclus.</p>
+        <p class="share-hint" id="shareHint">Montrez-le à un associé ou à un proche : le lien ouvre le site avec votre nom, votre ville et votre couleur. ${t.id === "artisan" ? "Le lien inclut aussi les textes et coordonnées renseignés." : ""} Le logo n'est pas inclus.</p>
       </div>
     </div>
     <div class="stage">
       <div class="stage-bar">
         <div class="seg" role="group" aria-label="Affichage"><button type="button" data-view="desk" aria-pressed="true">Ordinateur</button><button type="button" data-view="mob" aria-pressed="false">Mobile</button></div>
         <a class="full-demo" id="fullDemo" href="${esc(t.demo)}" target="_blank" rel="noopener">Plein écran ${up}</a>
+      <a class="btn lg trial-order" href="#fOffer" data-go="offer">Demander ce site ${fw}</a>
       </div>
       <div class="stage-box" id="stageBox" data-view="desk">${winHTML(t, "votre aperçu")}<div class="phone-zone">${phoneHTML(t)}</div></div>
-      <a class="btn lg trial-order" href="#fOffer" data-go="offer">Demander ce site ${fw}</a>
     </div>
   </section>
 
@@ -499,7 +560,7 @@ const renderFiche = (t, mode) => {
 
   <section class="wrap offer" id="fOffer" aria-labelledby="offerTitle">
     <div class="offer-head rv"><div><span class="label">L'offre</span><h2 id="offerTitle" style="margin-top:12px">Ce site, réalisé pour vous.</h2></div>
-      <p style="margin:0;color:var(--soft);max-width:30em">Prix de départ. Le devis final dépend du périmètre retenu ensemble. Pas de rendez-vous obligatoire.</p></div>
+      <p style="margin:0;color:var(--soft);max-width:30em">Aperçu gratuit, puis devis précis avant la réalisation. Vous choisissez une direction ; Azel adapte le site et prend en charge sa mise en ligne.</p></div>
     <div class="offer-grid rv">
       <div class="formula" id="formula"></div>
       <div class="alts"><span class="label" style="padding:0 4px">Choisir la formule</span>
@@ -516,17 +577,21 @@ const renderFiche = (t, mode) => {
     e.preventDefault();
     $("#fOffer").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
   }));
+  if (t.id === "artisan") {
+    AzelArtisan.fields.forEach((field) => {
+      const input = $("#artisan-" + field.key); input.value = ARTISAN[field.key];
+      input.addEventListener("input", () => { ARTISAN[field.key] = AzelArtisan.clean(input.value, field.max); pushAll(); renderFormula(); });
+    });
+    $("#draftStatus").textContent = draftStatus;
+    if (savedFormula) { const radio = [...document.querySelectorAll('input[name="formula"]')].find((r) => r.value === savedFormula); if (radio) radio.checked = true; savedFormula = ""; }
+  }
   $("#meName").value = ME.name; $("#meCity").value = ME.city;
-  let tm;
   ["#meName", "#meCity"].forEach((s) => $(s).addEventListener("input", () => {
-    clearTimeout(tm);
-    tm = setTimeout(() => {
-      ME.name = $("#meName").value.trim().replace(/\s+/g, " ");
-      ME.city = $("#meCity").value.trim().replace(/\s+/g, " ");
-      $("#mine").textContent = ME.name ? `Voici ${t.name} avec le nom ${ME.name}.` : "";
-      personalise();
-      renderFormula();
-    }, 450);
+    ME.name = $("#meName").value.trim().replace(/\s+/g, " ");
+    ME.city = $("#meCity").value.trim().replace(/\s+/g, " ");
+    $("#mine").textContent = ME.name ? `Voici ${t.name} avec le nom ${ME.name}.` : "";
+    pushAll();
+    renderFormula();
   }));
   const sws = [...document.querySelectorAll("#fPerso .sw[data-hex]")], pick = $("#swPick");
   const setColor = (hex, label, btn) => {
@@ -539,13 +604,16 @@ const renderFiche = (t, mode) => {
   if ($("#mePick")) $("#mePick").addEventListener("input", (e) => setColor(e.target.value.slice(1), "Votre couleur", null));
   if (ME.color && sws.length) { const m = sws.find((s) => s.dataset.hex.toLowerCase() === ME.color.toLowerCase()); setColor(ME.color, m ? m.dataset.name : "Votre couleur", m || null); }
   const showLogo = () => { const on = !!ME.logo; $("#logoPrev").hidden = !on; $("#logoX").hidden = !on; if (on) $("#logoPrev").src = ME.logo; $("#logoL").textContent = on ? "Changer de logo" : "Ajouter votre logo"; };
+  let logoVersion = 0;
   $("#meLogo").addEventListener("change", (e) => {
+    const version = ++logoVersion;
     const f = e.target.files[0]; if (!f) return;
     if (f.size > 1.1e6) { $("#mine").textContent = "Ce fichier est un peu lourd : choisissez une image de moins de 1 Mo."; return; }
     const rd = new FileReader();
     rd.onload = () => {
+      if (version !== logoVersion) return;
       ME.logo = rd.result; showLogo(); pushAll(); renderFormula();
-      const im = new Image(); im.onload = () => { const hx = logoColor(im); if (hx && sws.length) { setColor(hx, "Tirée de votre logo", null); if ($("#mePick")) $("#mePick").value = "#" + hx; } }; im.src = rd.result;
+      const im = new Image(); im.onload = () => { if (version !== logoVersion) return; const hx = logoColor(im); if (hx && sws.length) { setColor(hx, "Tirée de votre logo", null); if ($("#mePick")) $("#mePick").value = "#" + hx; } }; im.src = rd.result;
       $("#mine").textContent = "Votre logo est en place dans l'aperçu.";
     };
     rd.readAsDataURL(f);
@@ -561,10 +629,27 @@ const renderFiche = (t, mode) => {
     try { await navigator.clipboard.writeText(url); flash("Lien copié. Collez-le dans un message ou un e-mail."); }
     catch (e) { window.prompt("Copiez ce lien :", url); }
   });
-  $("#logoX").addEventListener("click", () => { ME.logo = ""; $("#meLogo").value = ""; showLogo(); pushAll(); renderFormula(); });
+  $("#logoX").addEventListener("click", () => { logoVersion++; ME.logo = ""; $("#meLogo").value = ""; showLogo(); pushAll(); renderFormula(); });
+  $("#resetLook").addEventListener("click", () => {
+    logoVersion++;
+    ME.name = ""; ME.city = ""; ME.color = ""; ME.logo = "";
+    $("#meName").value = ""; $("#meCity").value = ""; $("#meLogo").value = "";
+    sws.forEach((s, i) => s.setAttribute("aria-pressed", String(i === 0)));
+    if (pick) { pick.classList.remove("has"); pick.removeAttribute("aria-pressed"); }
+    if (t.colors) { $("#mePick").value = "#" + t.colors[0][1]; $("#swName").textContent = t.colors[0][0]; }
+    if (t.id === "artisan") { ARTISAN = AzelArtisan.normalize(); AzelArtisan.fields.forEach((f) => { $("#artisan-" + f.key).value = ""; }); }
+    showLogo(); pushAll(); renderFormula();
+    if (t.id === "artisan") {
+      try { localStorage.removeItem(DRAFT_KEY); draftStatus = "Brouillon effacé de cet appareil."; }
+      catch { draftStatus = "L’effacement du brouillon est indisponible dans ce navigateur."; }
+      $("#draftStatus").textContent = draftStatus;
+      if (location.search) history.replaceState(null, "", location.pathname + location.hash);
+    }
+    $("#mine").textContent = "L’aperçu d’origine est rétabli. Vous pouvez recommencer.";
+  });
   showLogo();
   document.querySelectorAll('input[name="formula"]').forEach((r) => r.addEventListener("change", renderFormula));
-  renderFormula();
+  renderFormula(false);
   fit($("#vFiche"));
   personalise();
   if (mode === "mobile" || matchMedia("(max-width: 640px)").matches) setView("mob", false);
@@ -592,8 +677,11 @@ const personalise = () => {
 /* couleur et logo envoyés en direct aux aperçus, sans recharger */
 const pushLook = (f) => {
   const w = f && f.contentWindow; if (!w) return;
-  if (ME.color) w.postMessage({ azel: "color", hex: ME.color }, "*");
-  w.postMessage({ azel: "logo", src: ME.logo || null }, "*");
+  w.postMessage({ azel: "color", hex: ME.color }, location.origin);
+  w.postMessage({ azel: "logo", src: ME.logo || null }, location.origin);
+  w.postMessage({ azel: "name", value: ME.name }, location.origin);
+  w.postMessage({ azel: "city", value: ME.city }, location.origin);
+  if (cur?.id === "artisan") w.postMessage({ azel: "artisan", value: ARTISAN }, location.origin);
 };
 const pushAll = () => document.querySelectorAll("#stageBox iframe").forEach(pushLook);
 /* couleur dominante d'un logo (la plus saturée parmi les pixels opaques) */
@@ -613,7 +701,7 @@ const logoColor = (img) => {
     return best.slice(0, 3).map((v) => Math.round(v / best[3]).toString(16).padStart(2, "0")).join("");
   } catch (e) { return ""; }
 };
-const renderFormula = () => {
+const renderFormula = (persist = true) => {
   const t = cur;
   const k = (document.querySelector('input[name="formula"]:checked') || {}).value || t.offer;
   const o = OFFERS[k];
@@ -623,13 +711,14 @@ const renderFormula = () => {
     <ul>${o.inc.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
     <div class="facts"><div><b>Délai indicatif</b>${esc(o.delay)}</div><div><b>Ensuite</b>Vous recevez un devis précis, puis on adapte textes, photos et couleurs ensemble.</div></div>
     <a class="btn lg" id="order" href="/#devis">Faire réaliser ce site par Azel ${up}</a>
-    <p class="note">Sans rendez-vous obligatoire. La création choisie et vos informations sont jointes à votre demande.</p>`;
+    <p class="note">Votre site vous appartient. Adaptation et mise en ligne selon le devis ; nom de domaine, hébergement et maintenance restent distincts. Vos choix sont joints à votre demande.</p>`;
   const lines = [`Demande depuis le Showroom Azel`, `Création : ${t.name} (${t.num}, ${t.sector})`, `Formule souhaitée : ${o.name}, à partir de ${o.price}`, `Entreprise : ${ME.name || "non précisée"}${ME.city ? ", " + ME.city : ""}`, ...(ME.color ? [`Couleur choisie : #${ME.color.toUpperCase()}`] : []), ...(ME.logo ? ["Logo : à m'envoyer (testé dans l'aperçu)"] : [])].join("\n");
   /* Tout ce que le visiteur a personnalisé part avec sa demande : concept, nom, ville, couleur, lien vers son aperçu. */
   const look = new URLSearchParams();
   if (ME.name) look.set("nom", ME.name);
   if (ME.city) look.set("ville", ME.city);
   if (ME.color) look.set("c", ME.color.toUpperCase());
+  if (t.id === "artisan") AzelArtisan.write(look, ARTISAN);
   const apercu = new URL(t.demo + (look.toString() ? "?" + look : ""), location.href).href;
   const q = new URLSearchParams({ sr: t.id, concept: `${t.name} (${t.num}, ${t.sector})`, f: o.name, apercu });
   look.forEach((v, k) => q.set(k, v));
@@ -638,6 +727,7 @@ const renderFormula = () => {
   SHARE.url = apercu; SHARE.name = ME.name; SHARE.t = t;
   $("#fullDemo").href = apercu;
   const subj = `Aperçu de site : ${t.name}${ME.name ? " pour " + ME.name : ""}`;
+  if (persist !== false) saveArtisanDraft();
   $("#shareMail").href = "mailto:?subject=" + encodeURIComponent(subj) + "&body=" + encodeURIComponent(`Regarde à quoi pourrait ressembler ${ME.name ? "le site de " + ME.name : "notre site"} :\n${apercu}\n\nAperçu préparé avec le showroom Azel Studio.`);
 };
 
@@ -656,7 +746,7 @@ const route = () => {
   $("#navShowroom").setAttribute("aria-current", t ? "false" : "page");
   if (t || h !== "collection") window.scrollTo(0, 0);
   if (t) { document.title = `${t.name} · Showroom Azel Studio`; renderFiche(t, m[2]); }
-  else { document.title = "Azel Showroom"; renderCollection(); }
+  else { document.title = "Exemples de sites internet à essayer | Azel Studio"; renderCollection(); }
   requestAnimationFrame(() => {
     arm();
     if (!t && h === "collection") $("#collection").scrollIntoView({ block: "start" });

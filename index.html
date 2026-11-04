@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Azel Studio · Votre futur site. Essayez-le. On le réalise.</title>
-<meta name="description" content="Azel Studio crée des sites sur mesure pour les indépendants, commerces et entreprises. Explorez nos créations, essayez-les avec votre entreprise, on les réalise. Sites dès 490 €.">
+<title>Création de sites internet dans le Val-d’Oise | Azel Studio</title>
+<meta name="description" content="Azel Studio crée votre site internet dans le Val-d’Oise et partout en France. Aperçu gratuit, adaptation et mise en ligne. Sites dès 490 €.">
 <link rel="canonical" href="https://azelstudio.fr/">
 <meta name="theme-color" content="#080808">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Azel Studio">
-<meta property="og:title" content="Azel Studio · Votre futur site. Essayez-le. On le réalise.">
-<meta property="og:description" content="Explorez nos créations, essayez-les avec votre entreprise, on les réalise. Sites dès 490 €.">
+<meta property="og:title" content="Création de sites internet dans le Val-d’Oise | Azel Studio">
+<meta property="og:description" content="Azel Studio crée votre site internet dans le Val-d’Oise et partout en France. Aperçu gratuit, adaptation et mise en ligne. Sites dès 490 €.">
 <meta property="og:url" content="https://azelstudio.fr/">
 <meta property="og:image" content="https://azelstudio.fr/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -1039,6 +1039,19 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
   .pr-fig strong { font-size: clamp(48px, 13vw, 76px); }
   .pr-fig .label { letter-spacing: .06em; font-size: 10px; }
 }
+/* Trois avantages concrets, sur les filets et la grille du site. */
+.why-azel { margin-top: clamp(40px, 5vw, 72px); padding-top: 28px; border-top: 1px solid var(--line); }
+.why-head { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 48px; align-items: end; margin-bottom: 32px; }
+.why-head h2 { margin: 0; font: 600 clamp(28px, 3.2vw, 48px)/1.04 var(--display); letter-spacing: -.045em; }
+.why-head p { margin: 0; color: var(--soft); font-size: 17px; max-width: 31em; }
+.why-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 44px); }
+.why-proof { display: flex; flex-direction: column; align-items: start; gap: 14px; border-top: 1px solid var(--line); padding-top: 20px; min-width: 0; }
+.why-proof h3 { margin: 0; font-size: clamp(21px, 1.8vw, 26px); line-height: 1.18; font-weight: 600; letter-spacing: -.025em; }
+.why-proof p { margin: 0 0 6px; color: var(--soft); font-size: 15px; line-height: 1.6; }
+.why-proof a { display: inline-flex; align-items: center; gap: 8px; margin-top: auto; padding-block: 8px; font-size: 13px; font-weight: 500; text-decoration: underline; text-underline-offset: 4px; }
+.why-proof a svg { width: 12px; height: 12px; flex: none; }
+.why-proof a:hover { color: var(--soft); }
+@media (max-width: 760px) { .why-head, .why-grid { grid-template-columns: minmax(0, 1fr); } .why-head { gap: 16px; margin-bottom: 24px; } .why-proof { gap: 10px; padding-top: 18px; } }
 </style>
 <script>
 (function () {
@@ -1103,6 +1116,38 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
 })();
 </script>
 <script defer src="/analytics.js"></script>
+<script src="/showroom/artisan-config.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://azelstudio.fr/#organization",
+      "name": "Azel Studio",
+      "url": "https://azelstudio.fr/",
+      "email": "contact@azelstudio.fr",
+      "telephone": "+33619438978",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Montmagny",
+        "postalCode": "95360",
+        "addressCountry": "FR"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://azelstudio.fr/#website",
+      "name": "Azel Studio",
+      "url": "https://azelstudio.fr/",
+      "inLanguage": "fr-FR",
+      "publisher": {
+        "@id": "https://azelstudio.fr/#organization"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <header class="nav">
@@ -1193,11 +1238,11 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       <div class="sec-meta"><span class="label">Le showroom Azel</span><span class="label">9 créations à essayer</span></div>
       <div class="srw-head">
         <h2 id="srw-title">Imaginez votre entreprise ici<i class="kvf-dot" aria-hidden="true"></i></h2>
-        <div class="srw-side"><p>Découvrez nos créations, explorez les sites et personnalisez votre préféré avec votre nom, votre logo et vos couleurs.</p><a class="btn lg" href="showroom/">Explorer les créations <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></div>
+        <div class="srw-side"><p>Essayez les sites, avec votre nom si vous le souhaitez. Choisissez une direction : nous adaptons le site à votre activité et nous nous occupons de sa mise en ligne.</p><a class="btn lg" href="showroom/">Explorer les créations <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></div>
       </div>
       <ol class="srw-steps">
         <li><span>01</span><b>Choisissez un univers</b><em>Parcourez les sites et ouvrez celui qui vous plaît.</em></li>
-        <li><span>02</span><b>Mettez-y votre marque</b><em>Votre nom, votre logo, vos couleurs : l'aperçu change aussitôt.</em></li>
+        <li><span>02</span><b>Projetez-vous</b><em>Essayez avec votre nom, ou parcourez simplement le site.</em></li>
         <li><span>03</span><b>On le réalise</b><em>Nous l'adaptons à votre activité et le mettons en ligne.</em></li>
       </ol>
     </div>
@@ -1223,7 +1268,29 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
           <small>Design sur mesure inclus, dans les limites de chaque formule.</small>
         </div>
       </div>
-      <p class="idee-sign kv-rv" aria-label="Le showroom vous inspire. Le sur-mesure vous appartient."><span>Le showroom vous inspire.</span> <span>Le sur-mesure vous appartient.</span></p>
+      <section class="why-azel" id="pourquoi-azel" aria-labelledby="why-title">
+        <div class="why-head"><h2 id="why-title">Pourquoi Azel.</h2><p>Vous voyez votre futur site. Nous l’adaptons et le mettons en ligne. Il vous appartient.</p></div>
+        <div class="why-grid">
+          <article class="why-proof">
+            <span class="label" aria-hidden="true">01</span>
+            <h3>Vous voyez avant de décider.</h3>
+            <p>Parcourez de vrais sites de démonstration. L’aperçu est gratuit, avant votre accord pour la réalisation.</p>
+            <a href="showroom/">Essayer une création <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
+          </article>
+          <article class="why-proof">
+            <span class="label" aria-hidden="true">02</span>
+            <h3>On s’occupe de la réalisation.</h3>
+            <p>Vous présentez votre activité et fournissez vos contenus. Azel adapte votre site et prend en charge sa mise en ligne, selon le devis.</p>
+            <a href="#approche">Voir les quatre étapes <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
+          </article>
+          <article class="why-proof">
+            <span class="label" aria-hidden="true">03</span>
+            <h3>Votre site vous appartient.</h3>
+            <p>Vous achetez votre site. Nom de domaine, hébergement et maintenance restent distincts et sont précisés dans le devis.</p>
+            <a href="#offres">Voir les offres et les modalités <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
+          </article>
+        </div>
+      </section>
     </div>
   </section>
 
@@ -1407,7 +1474,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
         <div class="sec-meta"><span class="label">04 · Offres et budgets</span><span class="label">Tarifs de départ, devis précis après l'échange</span></div>
         <div class="ofc-head">
           <h2 id="of-title" class="split">Des prix clairs,<br>dès le départ.</h2>
-          <p>Trois formules, un prix de départ affiché. Le devis précis arrive après un premier échange, sans engagement.</p>
+          <p>Trois formules pour un site qui vous appartient. Aperçu gratuit, puis devis précis avant la réalisation. Azel prend en charge l’adaptation et la mise en ligne selon le périmètre convenu.</p>
         </div>
         <div class="ofc-grid">
           <article class="ofc">
@@ -1415,7 +1482,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
             <div class="ofc-price"><span>À partir de</span><strong>490 €</strong></div>
             <p class="ofc-promise">Une première présence en ligne soignée, sur une seule page.</p>
             <ul><li>Une page qui présente l'activité</li><li>Design adapté aux ordinateurs et mobiles</li><li>Formulaire de contact simple</li><li>Mise en ligne selon les modalités convenues</li></ul>
-            <div class="ofc-design"><b>Design sur mesure inclus</b>Un site adapté à votre identité et à votre activité. Aucun modèle imposé.</div>
+            <div class="ofc-design"><b>Design adapté à votre activité</b>À partir d’une création du showroom ou de votre propre idée. Adaptation et mise en ligne prises en charge selon le devis.</div>
             <span class="ofc-delay">Délai indicatif : 1 à 3 semaines</span>
             <a class="btn ofx-cta" href="#contact" data-offer="Essentiel">Choisir Essentiel <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
           </article>
@@ -1424,7 +1491,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
             <div class="ofc-price"><span>À partir de</span><strong>790 €</strong></div>
             <p class="ofc-promise">Plusieurs pages pour présenter chaque prestation et gagner en crédibilité.</p>
             <ul><li>Site de plusieurs pages</li><li>Design personnalisé</li><li>Mise en valeur de vos prestations</li><li>Formulaire de contact ou de demande de devis</li></ul>
-            <div class="ofc-design"><b>Design sur mesure inclus</b>Un site adapté à votre identité et à votre activité. Aucun modèle imposé.</div>
+            <div class="ofc-design"><b>Design adapté à votre activité</b>À partir d’une création du showroom ou de votre propre idée. Adaptation et mise en ligne prises en charge selon le devis.</div>
             <span class="ofc-delay">Délai précisé dans le devis</span>
             <a class="btn ofx-cta" href="#contact" data-offer="Vitrine">Choisir Vitrine <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
           </article>
@@ -1433,7 +1500,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
             <div class="ofc-price"><span>À partir de</span><strong>1 290 €</strong></div>
             <p class="ofc-promise">Le site, avec ce qui fait gagner du temps à votre activité.</p>
             <ul><li>Réservation en ligne</li><li>Paiement</li><li>Formulaires avancés</li><li>Connexion à vos outils existants</li></ul>
-            <div class="ofc-design"><b>Design sur mesure inclus</b>Un site adapté à votre identité et à votre activité. Aucun modèle imposé.</div>
+            <div class="ofc-design"><b>Design adapté à votre activité</b>À partir d’une création du showroom ou de votre propre idée. Adaptation et mise en ligne prises en charge selon le devis.</div>
             <span class="ofc-delay">Périmètre défini après échange</span>
             <a class="btn ofx-cta" href="#contact" data-offer="Site et outil">Choisir Site et outil <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
           </article>
@@ -1446,7 +1513,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
         <p class="ofc-note">Les formules se distinguent par le nombre de pages, les fonctionnalités et l'accompagnement. À prévoir en plus : nom de domaine, hébergement et maintenance, précisés dans le devis.</p>
         <details class="ofx-cond">
           <summary><span>Ce qui est inclus, ce qui dépend du devis</span><i aria-hidden="true"></i></summary>
-          <dl><div><dt>Prix annoncés</dt><dd>Ce sont des prix de départ. Le devis final dépend du périmètre retenu ensemble.</dd></div><div><dt>Nom de domaine</dt><dd>Non inclus d'office. Modalités précisées dans le devis.</dd></div><div><dt>Hébergement</dt><dd>Non inclus d'office. Modalités précisées dans le devis.</dd></div><div><dt>Maintenance et suivi</dt><dd>Proposés séparément. Modalités précisées dans le devis.</dd></div><div><dt>Modifications après livraison</dt><dd>Modalités précisées dans le devis.</dd></div><div><dt>Frais récurrents</dt><dd>Selon les choix d'hébergement et de suivi, précisés dans le devis.</dd></div><div><dt>Délais</dt><dd>Indicatifs, communiqués dans le devis selon le projet.</dd></div></dl>
+          <dl><div><dt>Aperçu et réalisation</dt><dd>L’aperçu est gratuit. Le périmètre et le prix de la réalisation sont précisés dans le devis avant votre accord.</dd></div><div><dt>Votre site</dt><dd>Vous achetez votre site. Les modalités de livraison sont précisées dans le devis ; hébergement et maintenance sont des services distincts.</dd></div><div><dt>Prix annoncés</dt><dd>Ce sont des prix de départ. Le devis final dépend du périmètre retenu ensemble.</dd></div><div><dt>Nom de domaine</dt><dd>Non inclus d'office. Modalités précisées dans le devis.</dd></div><div><dt>Hébergement</dt><dd>Non inclus d'office. Modalités précisées dans le devis.</dd></div><div><dt>Maintenance et suivi</dt><dd>Proposés séparément. Modalités précisées dans le devis.</dd></div><div><dt>Modifications après livraison</dt><dd>Modalités précisées dans le devis.</dd></div><div><dt>Frais récurrents</dt><dd>Selon les choix d'hébergement et de suivi, précisés dans le devis.</dd></div><div><dt>Délais</dt><dd>Indicatifs, communiqués dans le devis selon le projet.</dd></div></dl>
         </details>
       </div>
     </div>
@@ -1479,7 +1546,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
     <div class="wrap" id="devis">
       <div class="cs-head">
         <div><p class="label cs-invite">Et maintenant, à vous.</p><h2 id="cs-sheet-title"><span>Parlons</span><span>concret.</span></h2></div>
-        <div class="cs-side"><p>Une idée, un site à repenser ? Quelques informations suffisent pour commencer. Je vous répondrai personnellement par e-mail.</p><span class="cs-fine">Aperçu gratuit · Sans engagement</span></div>
+        <div class="cs-side"><p>Un site vous plaît, ou vous avez votre propre idée ? Dites-moi l’essentiel. Je vous répondrai personnellement pour cadrer l’aperçu, l’adaptation et la mise en ligne.</p><span class="cs-fine">Aperçu gratuit · Devis avant réalisation</span></div>
       </div>
       <form class="cs-form" id="ctForm" novalidate>
         <input type="hidden" name="access_key" value="24874dfa-3e2e-4286-8078-adc1f0334c1c">
@@ -2074,6 +2141,12 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       ['Showroom : lien vers l’aperçu', apercu],
       ['Showroom : logo', logo ? 'testé dans l’aperçu, à demander au client (non transmis)' : 'aucun'],
     ].filter(([, v]) => v);
+    if (sr === 'artisan') {
+      const fields = AzelArtisan.read(qs);
+      const emailInput = document.getElementById('f-mail');
+      if (!emailInput.value && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) emailInput.value = fields.email;
+      AzelArtisan.fields.forEach((f) => { if (fields[f.key]) data.push(['Showroom : ' + f.label, fields[f.key]]); });
+    }
     const box = document.getElementById('csLookData');
     data.forEach(([k, v]) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = v; box.append(i); });
 
@@ -2083,6 +2156,11 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       (couleur ? `<span><i class="sw" style="background:${couleur}"></i> ${couleur}</span>` : '') +
       (apercu ? `<a href="${esc(apercu)}" target="_blank" rel="noopener">Revoir l'aperçu ↗</a>` : '') +
       `<button type="button" id="csLookClear">Retirer</button>`;
+    if (sr === 'artisan') {
+      const fields = AzelArtisan.read(qs), summary = document.createElement('span');
+      summary.textContent = AzelArtisan.fields.filter((f) => fields[f.key]).map((f) => f.label + ' : ' + fields[f.key]).join(' · ');
+      if (summary.textContent) look.append(summary);
+    }
     look.hidden = false;
     document.getElementById('csLookClear').addEventListener('click', () => { box.replaceChildren(); look.hidden = true; });
     form.addEventListener('reset', () => setTimeout(() => { box.replaceChildren(); look.hidden = true; }));

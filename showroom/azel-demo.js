@@ -35,6 +35,14 @@
   const hsl2rgb = ([h, s, l]) => { if (!s) return [l, l, l]; const q2 = l < .5 ? l * (1 + s) : l + s - l * s, p2 = 2 * l - q2; const t = (x) => { x = (x + 1) % 1; return x < 1 / 6 ? p2 + (q2 - p2) * 6 * x : x < .5 ? q2 : x < 2 / 3 ? p2 + (q2 - p2) * (2 / 3 - x) * 6 : p2; }; return [t(h + 1 / 3), t(h), t(h - 1 / 3)]; };
   const css = (rgb) => "#" + rgb.map((c) => Math.round(Math.max(0, Math.min(1, c)) * 255).toString(16).padStart(2, "0")).join("");
   const contrast = (a2, b2) => { const x = lum(a2), y = lum(b2); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
+  const originalAccent = new Map([accent, accent2].filter(Boolean).map((key) => [key, {
+    value: document.documentElement.style.getPropertyValue(key),
+    priority: document.documentElement.style.getPropertyPriority(key)
+  }]));
+  const resetColor = () => originalAccent.forEach(({ value, priority }, key) => {
+    if (value) document.documentElement.style.setProperty(key, value, priority);
+    else document.documentElement.style.removeProperty(key);
+  });
   const applyColor = (hex) => {
     if (!accent || !/^[0-9a-f]{6}$/i.test(hex || "")) return;
     let hsl = rgb2hsl(hex2rgb(hex));
@@ -49,8 +57,9 @@
   const applyLogo = (src) => {
     if (!document.getElementById("azel-logo-css")) { const st = document.createElement("style"); st.id = "azel-logo-css"; st.textContent = ".azel-has-logo::after,.azel-has-logo::before{display:none!important}"; document.head.appendChild(st); }
     document.querySelectorAll("[data-azel-logo]").forEach((el) => {
-      if (!("orig" in el.dataset)) el.dataset.orig = el.textContent.trim();
+      if (!("orig" in el.dataset)) el.dataset.orig = el.dataset.origName || el.textContent.trim();
       if (!src) { el.textContent = el.dataset.orig; el.classList.remove("azel-has-logo"); return; }
+      if (el.classList.contains("azel-has-logo") && el.querySelector("img")?.getAttribute("src") === src) return;
       const im = new Image(); im.src = src; im.alt = el.dataset.orig; im.decoding = "async";
       im.style.cssText = "display:block;height:1.25em;width:auto;max-width:min(240px,46vw);object-fit:contain;object-position:left center";
       el.replaceChildren(im); el.classList.add("azel-has-logo");
@@ -58,8 +67,10 @@
   };
   addEventListener("message", (e) => {
     if (e.source !== parent || !e.data || typeof e.data !== "object") return;
-    if (e.data.azel === "color") applyColor(String(e.data.hex || "").replace("#", ""));
+    if (e.data.azel === "color") { const hex = String(e.data.hex || "").replace("#", ""); if (hex) applyColor(hex); else resetColor(); }
     if (e.data.azel === "name") applyName(clean(String(e.data.value || ""), 32));
+    if (e.data.azel === "city") applyCity(clean(String(e.data.value || ""), 28));
+    if (e.data.azel === "artisan" && id === "artisan") applyArtisan(e.data.value);
     if (e.data.azel === "logo") { const s = e.data.src; applyLogo(typeof s === "string" && s.startsWith("data:image/") && s.length < 1.6e6 ? s : null); }
   });
 
@@ -72,11 +83,39 @@
     });
   };
 
+  const applyCity = (v) => {
+    document.querySelectorAll('[data-azel="city"]').forEach((el) => {
+      if (!("origCity" in el.dataset)) el.dataset.origCity = el.textContent;
+      el.textContent = v || el.dataset.origCity;
+    });
+  };
+
+  const artisanOriginals = new Map();
+  const applyArtisan = (data) => {
+    if (!window.AzelArtisan || id !== "artisan") return;
+    const values = AzelArtisan.normalize(data);
+    document.querySelectorAll("[data-azel-artisan]").forEach((el) => {
+      if (!artisanOriginals.has(el)) artisanOriginals.set(el, el.innerHTML);
+      const key = el.dataset.azelArtisan, value = values[key] || "";
+      if (key === "phone" || key === "email") {
+        const valid = key === "email" ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) : /^[+()\d. -]{6,30}$/.test(value) && value.replace(/\D/g, "").length >= 6;
+        el.hidden = !value; el.textContent = value;
+        if (valid) el.setAttribute("href", key === "email" ? "mailto:" + encodeURIComponent(value) : "tel:" + value.replace(/[^+\d]/g, ""));
+        else el.removeAttribute("href");
+      } else {
+        if (value) el.textContent = value; else el.innerHTML = artisanOriginals.get(el);
+        if (key === "tagline") el.toggleAttribute("data-custom-tagline", !!value);
+        if (key.startsWith("service")) { const detail = el.nextElementSibling; if (detail) detail.hidden = !!value && value !== artisanOriginals.get(el); }
+      }
+    });
+  };
+
   const apply = () => {
     if (q.get("slow") === "1") document.documentElement.classList.add("azel-slow");
     applyColor(q.get("c") || "");
-    if (name) document.querySelectorAll('[data-azel="name"]').forEach((el) => { el.textContent = name; });
-    if (city) document.querySelectorAll('[data-azel="city"]').forEach((el) => { el.textContent = city; });
+    applyName(name);
+    applyCity(city);
+    if (id === "artisan" && window.AzelArtisan) applyArtisan(AzelArtisan.read(q));
     if (embedded) { document.documentElement.classList.add("azel-embed"); if (q.get("tour") === "1") tour(); }
     else bar();
   };
@@ -120,6 +159,7 @@
     if (city) s.set("ville", city);
     const c = (q.get("c") || "").replace("#", "");
     if (/^[0-9a-f]{6}$/i.test(c)) s.set("c", c);
+    if (id === "artisan" && window.AzelArtisan) AzelArtisan.write(s, AzelArtisan.read(q));
     return s.toString() ? "?" + s : "";
   };
 

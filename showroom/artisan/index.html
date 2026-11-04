@@ -265,6 +265,11 @@ footer b { font: 600 24px/1 var(--sans); letter-spacing: -.03em; color: #fff; }
   .fade, .rv { opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
+.m span[hidden] { display: none; }
+h1[data-custom-tagline] { overflow-wrap: anywhere; }
+.artisan-contacts { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+.artisan-contacts:has(a:not([hidden])) { margin-block: 18px; }
+.artisan-contacts a { text-decoration: underline; text-underline-offset: 4px; overflow-wrap: anywhere; }
 </style>
 <script defer src="/analytics.js"></script>
 </head>
@@ -282,7 +287,7 @@ footer b { font: 600 24px/1 var(--sans); letter-spacing: -.03em; color: #fff; }
   <section class="hero" aria-label="Accueil">
     <div class="h-txt wrap">
       <span class="eyebrow fade">Rénovation · Extension · Aménagement</span>
-      <h1><span class="l"><span>Donner vie</span></span><span class="l"><span>à vos projets</span></span><span class="l"><span><em>d'habitat</em>.</span></span></h1>
+      <h1 data-azel-artisan="tagline"><span class="l"><span>Donner vie</span></span><span class="l"><span>à vos projets</span></span><span class="l"><span><em>d'habitat</em>.</span></span></h1>
       <p class="fade">Rénovation, extension et aménagement sur mesure à <span data-azel="city">Paris</span> et alentours. Un accompagnement rigoureux, du conseil à la livraison.</p>
       <div class="ctas fade">
         <a class="btn" href="#devis">Demander un devis <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 8h14M9 2l6 6-6 6"/></svg></a>
@@ -315,10 +320,10 @@ footer b { font: 600 24px/1 var(--sans); letter-spacing: -.03em; color: #fff; }
 
   <section class="met" id="metiers" aria-label="Nos métiers">
     <div class="wrap">
-      <div class="m rv"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 22 24 7l18 15M11 18v23h26V18M20 41V29h8v12"/></svg><div><b>Rénovation intérieure</b><span>Logement, appartement, bureau.</span></div></div>
-      <div class="m rv"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="12" width="40" height="24" rx="1"/><path d="M4 20h40M4 28h40M16 12v8M32 12v8M10 20v8M24 20v8M38 20v8M16 28v8M32 28v8"/></svg><div><b>Gros œuvre</b><span>Maçonnerie, extension, structure.</span></div></div>
-      <div class="m rv"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M24 8 42 17 24 26 6 17z"/><path d="M6 24l18 9 18-9M6 31l18 9 18-9"/></svg><div><b>Aménagement</b><span>Optimisation et agencement sur mesure.</span></div></div>
-      <div class="m rv"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="8" y="6" width="30" height="11" rx="2"/><path d="M38 11h4v12H24v6"/><rect x="21" y="29" width="6" height="14" rx="1.5"/></svg><div><b>Finitions</b><span>Peinture, revêtements, détails soignés.</span></div></div>
+      <div class="m rv"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 22 24 7l18 15M11 18v23h26V18M20 41V29h8v12"/></svg><div><b data-azel-artisan="service1">Rénovation intérieure</b><span>Logement, appartement, bureau.</span></div></div>
+      <div class="m rv"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="12" width="40" height="24" rx="1"/><path d="M4 20h40M4 28h40M16 12v8M32 12v8M10 20v8M24 20v8M38 20v8M16 28v8M32 28v8"/></svg><div><b data-azel-artisan="service2">Gros œuvre</b><span>Maçonnerie, extension, structure.</span></div></div>
+      <div class="m rv"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M24 8 42 17 24 26 6 17z"/><path d="M6 24l18 9 18-9M6 31l18 9 18-9"/></svg><div><b data-azel-artisan="service3">Aménagement</b><span>Optimisation et agencement sur mesure.</span></div></div>
+      <div class="m rv"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="8" y="6" width="30" height="11" rx="2"/><path d="M38 11h4v12H24v6"/><rect x="21" y="29" width="6" height="14" rx="1.5"/></svg><div><b data-azel-artisan="service4">Finitions</b><span>Peinture, revêtements, détails soignés.</span></div></div>
     </div>
   </section>
 
@@ -348,6 +353,7 @@ footer b { font: 600 24px/1 var(--sans); letter-spacing: -.03em; color: #fff; }
         <span class="eyebrow">Devis gratuit</span>
         <h2 id="dv-t">Décrivez votre projet, <em>on s'occupe du reste.</em></h2>
         <p>Trois informations suffisent pour préparer la visite. Ajoutez des photos si vous en avez, c'est encore plus simple.</p>
+        <div class="artisan-contacts" aria-label="Coordonnées de l’entreprise"><a data-azel-artisan="phone" hidden></a><a data-azel-artisan="email" hidden></a></div>
         <ul class="checks"><li>Visite et devis sans engagement</li><li>Un interlocuteur du début à la fin</li><li>Un planning écrit avant de commencer</li></ul>
       </div>
       <form class="form rv" id="form" novalidate>
@@ -450,6 +456,7 @@ const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersec
 document.querySelectorAll(".rv").forEach((el) => io.observe(el));
 })();
 </script>
+<script src="../artisan-config.js"></script>
 <script src="../azel-demo.js" data-template="artisan" data-accent="--or" data-accent2="--or-2" data-on="light" defer></script>
 </body>
 </html>
