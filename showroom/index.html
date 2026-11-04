@@ -305,7 +305,9 @@ footer.sr-foot a:hover { color: var(--paper); }
 .perso h2 { font-size: clamp(30px, 3vw, 44px); }
 .perso-form { gap: 18px; }
 .perso > .stage { position: sticky; top: calc(var(--navh) + 24px); }
-.full-demo { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; padding-block: 10px; color: var(--soft); }
+.full-demo { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 10px 16px; border: 1px solid var(--soft); border-radius: 999px; background: var(--panel); color: var(--paper); font-size: 14px; font-weight: 600; transition: background .2s, color .2s; }
+.full-demo:hover { background: var(--paper); color: var(--void); }
+.full-demo:focus-visible { outline: 2px solid var(--paper); outline-offset: 4px; }
 .full-demo svg { width: 13px; height: 13px; }
 .trial-order { justify-self: end; }
 #fPerso, #fOffer, .perso-form { scroll-margin-top: calc(var(--navh) + 20px); }
@@ -524,13 +526,13 @@ const renderFiche = (t, mode) => {
       <p>Essayez avec votre nom si vous le souhaitez. Pour les textes, les photos et la mise en ligne, on s’en occupe avec vous.</p>
       <div class="fields">
         <div class="row"><label for="meName">Entreprise</label><input id="meName" type="text" maxlength="32" autocomplete="organization" placeholder="Le nom de votre entreprise"></div>
+        ${t.colors ? `<div class="row tall"><span class="lbl-c"><label id="lblCol">Couleur</label></span><div class="swatch-row" role="group" aria-labelledby="lblCol">${t.colors.map(([n, h], i) => `<button type="button" class="sw" style="--c:#${esc(h)}" data-hex="${esc(h)}" data-name="${esc(n)}" aria-pressed="${i === 0}" aria-label="${esc(n)}"></button>`).join("")}<span class="sw pick" id="swPick" title="Votre couleur"><input type="color" id="mePick" value="#${esc(t.colors[0][1])}" aria-label="Choisir votre couleur"></span><span class="sw-name" id="swName">${esc(t.colors[0][0])}</span></div></div>` : ""}
       </div>
       <p class="privacy">Vous pouvez aussi demander ce site sans rien personnaliser.</p>
       <details class="perso-options" id="visualOptions">
-        <summary>Ville, couleurs et logo <span>Facultatif</span></summary>
+        <summary>Ville et logo <span>Facultatif</span></summary>
         <div class="fields">
         <div class="row"><label for="meCity">Ville</label><input id="meCity" type="text" maxlength="28" autocomplete="address-level2" placeholder="Facultatif"></div>
-        ${t.colors ? `<div class="row tall"><span class="lbl-c"><label id="lblCol">Couleur</label></span><div class="swatch-row" role="group" aria-labelledby="lblCol">${t.colors.map(([n, h], i) => `<button type="button" class="sw" style="--c:#${esc(h)}" data-hex="${esc(h)}" data-name="${esc(n)}" aria-pressed="${i === 0}" aria-label="${esc(n)}"></button>`).join("")}<span class="sw pick" id="swPick" title="Votre couleur"><input type="color" id="mePick" value="#${esc(t.colors[0][1])}" aria-label="Choisir votre couleur"></span><span class="sw-name" id="swName">${esc(t.colors[0][0])}</span></div></div>` : ""}
         <div class="row tall"><label for="meLogo">Logo</label><div class="logo-row"><label class="logo-btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 11V2M4 6l4-4 4 4M2 11v3h12v-3"/></svg><span id="logoL">Ajouter votre logo</span><input type="file" id="meLogo" accept="image/png,image/jpeg,image/svg+xml,image/webp"></label><img class="logo-prev" id="logoPrev" alt="Votre logo" hidden><button type="button" class="logo-x" id="logoX" hidden>Retirer</button></div></div>
       </div>
       <p class="privacy option-note">Votre logo reste sur votre appareil : il n'est envoyé nulle part.</p>
