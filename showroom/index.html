@@ -93,6 +93,9 @@ header.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; 
 .filters button[aria-pressed="true"] { background: var(--paper); color: var(--void); box-shadow: none; }
 .filters button span { font: 500 11px/1 var(--mono); margin-left: 6px; opacity: .6; }
 .lib { overflow-x: clip; overflow-y: visible; padding-top: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px) clamp(14px, 1.6vw, 22px); padding-bottom: clamp(64px, 8vw, 120px); }
+body:not(.in-fiche) .wrap { max-width: 1480px; }
+.lib .frame::before { opacity: .16; }
+.lib .card:hover .frame::before, .lib .card:focus-within .frame::before { opacity: .36; }
 .card { display: grid; gap: 14px; align-content: start; min-width: 0; }
 .card-vis { position: relative; display: block; border-radius: 14.5px; overflow: hidden; background: #141517; box-shadow: 0 0 0 1px var(--line); aspect-ratio: 16 / 10; transition: box-shadow .5s var(--ease), transform .6s var(--ease); }
 .card-vis .frame-in { width: 1440px; height: 900px; pointer-events: none; transition: transform 1.2s var(--ease); }
@@ -352,11 +355,121 @@ footer.sr-foot a:hover { color: var(--paper); }
 <link rel="canonical" href="https://azelstudio.fr/showroom/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Azel Studio">
+<meta property="og:locale" content="fr_FR">
 <meta property="og:title" content="Exemples de sites internet à essayer | Azel Studio">
 <meta property="og:description" content="Essayez nos exemples de sites pour artisans, commerces et indépendants. Azel Studio adapte votre site et le met en ligne. Sites dès 490 €.">
 <meta property="og:url" content="https://azelstudio.fr/showroom/">
 <meta property="og:image" content="https://azelstudio.fr/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://azelstudio.fr/showroom/#webpage",
+      "url": "https://azelstudio.fr/showroom/",
+      "name": "Des idées qui donnent envie. Des sites dès 490 €.",
+      "description": "Concepts de démonstration réalisés par Azel Studio. Entreprises et contenus fictifs, distincts des projets clients. Personnalisation facultative.",
+      "inLanguage": "fr-FR",
+      "isPartOf": {
+        "@id": "https://azelstudio.fr/#website"
+      },
+      "publisher": {
+        "@id": "https://azelstudio.fr/#organization"
+      },
+      "mainEntity": {
+        "@id": "https://azelstudio.fr/showroom/#creations"
+      }
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://azelstudio.fr/showroom/#creations",
+      "name": "Créations du showroom Azel Studio",
+      "numberOfItems": 10,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Ligne A",
+          "url": "https://azelstudio.fr/showroom/depart/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Chérie Club",
+          "url": "https://azelstudio.fr/showroom/beaute/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "003 Cabinet",
+          "url": "https://azelstudio.fr/showroom/cabinet/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "004 Artisan",
+          "url": "https://azelstudio.fr/showroom/artisan/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Kova",
+          "url": "https://azelstudio.fr/showroom/kova/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Concept 01",
+          "url": "https://azelstudio.fr/showroom/galerie/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Koko",
+          "url": "https://azelstudio.fr/showroom/ramen/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "name": "Auréa",
+          "url": "https://azelstudio.fr/showroom/immo/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "name": "Atos JJB",
+          "url": "https://azelstudio.fr/showroom/sport/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "name": "Aube",
+          "url": "https://azelstudio.fr/showroom/apiculture/"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "https://azelstudio.fr/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Showroom",
+          "item": "https://azelstudio.fr/showroom/"
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -382,11 +495,63 @@ footer.sr-foot a:hover { color: var(--paper); }
       <h1 id="srTitle"><span>Des idées qui donnent envie.</span> <span>Des sites dès 490 €.</span></h1>
       <div class="intro-foot">
         <p>Essayez un vrai site, avec votre nom si vous le souhaitez. Azel l’adapte à votre activité et le met en ligne. Le site livré vous appartient.</p>
-        <span class="label" id="srCount"></span>
+        <span class="label" id="srCount">10 créations disponibles</span>
       </div>
       <div class="filters" id="filters" role="group" aria-label="Filtrer par activité"></div>
     </div>
-    <div class="wrap collection" id="collection"></div>
+    <!-- Catalogue statique synchronisé avec templates.json ; remplacé par les aperçus interactifs au chargement. -->
+    <div class="wrap lib" id="collection">
+      <article class="card rv">
+        <div class="frame" style="--c1:#1F5BFF;--c2:#9DB8FF;animation-delay:0.0s"><a class="card-vis" href="depart/" aria-label="Ouvrir Ligne A"><img src="/sr-depart.jpg" alt="Aperçu de la création Ligne A" loading="lazy" width="640" height="400"><span class="open">Ouvrir la création <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></a></div>
+        <div class="card-head"><h2>Ligne A</h2><span class="badge live">Auto-école</span></div>
+        <div class="card-foot"><a class="explore" href="depart/">Explorer <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></div>
+      </article>
+      <article class="card rv">
+        <div class="frame" style="--c1:#D9213A;--c2:#E6F77A;animation-delay:-1.3s"><a class="card-vis" href="beaute/" aria-label="Ouvrir Chérie Club"><img src="/sr-beaute.jpg" alt="Aperçu de la création Chérie Club" loading="lazy" width="640" height="400"><span class="open">Ouvrir la création <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></a></div>
+        <div class="card-head"><h2>Chérie Club</h2><span class="badge live">Beauté</span></div>
+        <div class="card-foot"><a class="explore" href="beaute/">Explorer <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></div>
+      </article>
+      <article class="card rv">
+        <div class="frame" style="--c1:#6B1626;--c2:#E3D8C8;animation-delay:-2.6s"><a class="card-vis" href="cabinet/" aria-label="Ouvrir 003 Cabinet"><img src="/sr-cabinet.jpg" alt="Aperçu de la création 003 Cabinet" loading="lazy" width="640" height="400"><span class="open">Ouvrir la création <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></a></div>
+        <div class="card-head"><h2>003 Cabinet</h2><span class="badge live">Cabinet</span></div>
+        <div class="card-foot"><a class="explore" href="cabinet/">Explorer <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></div>
+      </article>
+      <article class="card rv">
+        <div class="frame" style="--c1:#E8671C;--c2:#F1EEEA;animation-delay:-3.9s"><a class="card-vis" href="artisan/" aria-label="Ouvrir 004 Artisan"><img src="/sr-artisan.jpg" alt="Aperçu de la création 004 Artisan" loading="lazy" width="640" height="400"><span class="open">Ouvrir la création <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></a></div>
+        <div class="card-head"><h2>004 Artisan</h2><span class="badge live">Artisan</span></div>
+        <div class="card-foot"><a class="explore" href="artisan/">Explorer <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></div>
+      </article>
+      <article class="card rv">
+        <div class="frame" style="--c1:#E85C3A;--c2:#EEE8DE;animation-delay:-5.2s"><a class="card-vis" href="kova/" aria-label="Ouvrir Kova"><img src="/sr-kova.jpg" alt="Aperçu de la création Kova" loading="lazy" width="640" height="400"><span class="open">Ouvrir la création <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></a></div>
+        <div class="card-head"><h2>Kova</h2><span class="badge live">Marque</span></div>
+        <div class="card-foot"><a class="explore" href="kova/">Explorer <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></div>
+      </article>
+      <article class="card rv">
+        <div class="frame" style="--c1:#D9DCE1;--c2:#6F7480;animation-delay:-6.5s"><a class="card-vis" href="galerie/" aria-label="Ouvrir Concept 01"><img src="/sr-galerie.jpg" alt="Aperçu de la création Concept 01" loading="lazy" width="640" height="400"><span class="open">Ouvrir la création <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></a></div>
+        <div class="card-head"><h2>Concept 01</h2><span class="badge live">Galerie</span></div>
+        <div class="card-foot"><a class="explore" href="galerie/">Explorer <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></div>
+      </article>
+      <article class="card rv">
+        <div class="frame" style="--c1:#F5DE51;--c2:#EA3B2B;animation-delay:-7.8s"><a class="card-vis" href="ramen/" aria-label="Ouvrir Koko"><img src="/sr-ramen.jpg" alt="Aperçu de la création Koko" loading="lazy" width="640" height="400"><span class="open">Ouvrir la création <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></a></div>
+        <div class="card-head"><h2>Koko</h2><span class="badge live">Restaurant</span></div>
+        <div class="card-foot"><a class="explore" href="ramen/">Explorer <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></div>
+      </article>
+      <article class="card rv">
+        <div class="frame" style="--c1:#D8B27D;--c2:#152331;animation-delay:-9.1s"><a class="card-vis" href="immo/" aria-label="Ouvrir Auréa"><img src="/sr-immo.jpg" alt="Aperçu de la création Auréa" loading="lazy" width="640" height="400"><span class="open">Ouvrir la création <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></a></div>
+        <div class="card-head"><h2>Auréa</h2><span class="badge live">Immobilier</span></div>
+        <div class="card-foot"><a class="explore" href="immo/">Explorer <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></div>
+      </article>
+      <article class="card rv">
+        <div class="frame" style="--c1:#CD2934;--c2:#F5F5F3;animation-delay:-10.4s"><a class="card-vis" href="sport/" aria-label="Ouvrir Atos JJB"><img src="/sr-sport.jpg" alt="Aperçu de la création Atos JJB" loading="lazy" width="640" height="400"><span class="open">Ouvrir la création <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></a></div>
+        <div class="card-head"><h2>Atos JJB</h2><span class="badge live">Sport</span></div>
+        <div class="card-foot"><a class="explore" href="sport/">Explorer <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></div>
+      </article>
+      <article class="card rv">
+        <div class="frame" style="--c1:#F4D77C;--c2:#294D3B;animation-delay:-11.7s"><a class="card-vis" href="apiculture/" aria-label="Ouvrir Aube"><img src="/sr-apiculture.webp" alt="Aperçu de la création Aube" loading="lazy" width="640" height="400"><span class="open">Ouvrir la création <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></a></div>
+        <div class="card-head"><h2>Aube</h2><span class="badge live">Apiculture</span></div>
+        <div class="card-foot"><a class="explore" href="apiculture/">Explorer <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></div>
+      </article>
+    </div>
     <div class="wrap elsewhere">
       <h3>Votre activité n'est pas encore dans la collection ?</h3>
       <a class="btn lg" href="/#contact">Parler de mon projet <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
@@ -397,7 +562,7 @@ footer.sr-foot a:hover { color: var(--paper); }
 
 <footer class="wrap sr-foot">
   <span>© 2026 Azel Studio · Les créations présentées sont des démonstrations : entreprises et contenus fictifs.</span>
-  <span><a href="/">Le studio</a> · <a href="/mentions-legales.html">Mentions légales</a></span>
+  <span><a href="/">Le studio</a> · <a href="/site-internet-artisan/">Site pour artisan</a> · <a href="/questions-frequentes/">Questions fréquentes</a> · <a href="/mentions-legales.html">Mentions légales</a></span>
 </footer>
 
 <script>
@@ -766,6 +931,8 @@ const renderFormula = (persist = true) => {
   if(t.id === "apiculture")AzelApiculture.write(look,BEE);
   const apercu = new URL(t.demo + (look.toString() ? "?" + look : ""), location.href).href;
   const q = new URLSearchParams({ sr: t.id, concept: `${t.name} (${t.num}, ${t.sector})`, f: o.name, apercu });
+  // Code public de la page métier, sans identifiant de visiteur.
+  if (new URLSearchParams(location.search).get("origine") === "page-artisan") q.set("origine", "page-artisan");
   look.forEach((v, k) => q.set(k, v));
   if (ME.logo) q.set("logo", "1");
   $("#order").href = "../?" + q + "#devis";
