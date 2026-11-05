@@ -2,6 +2,7 @@
   'use strict';
   const $ = (s, scope = document) => scope.querySelector(s);
   const money = cents => new Intl.NumberFormat('fr-FR', {style:'currency',currency:'EUR'}).format(cents/100);
+  const motion = window.AzelBeeMotion;
   const HONEY = {
     printemps: {name:'Fleurs de printemps',prices:{250:650,500:1150},advice:'Le miel de fleurs de printemps : une saveur florale et généreuse, parfaite sur une tartine.'},
     acacia: {name:'Acacia',prices:{250:750,500:1350},advice:'L’acacia : une saveur douce et délicate pour commencer votre découverte.'},
@@ -50,16 +51,24 @@
   const quantity = $('#quantity');
   const setQuantity = value => { quantity.value = bounded(value); $('#less').disabled = Number(quantity.value) <= 1; $('#more').disabled = Number(quantity.value) >= 12; refreshPrice(); };
   const CHARACTERS = {
-    printemps: {headline:'Floral.\nGénéreux.\nTout simplement.',description:'Le miel de fleurs de printemps, pour les tartines du matin et les petits plaisirs de tous les jours.',profile:'Une note florale',pairing:'Sur une tartine'},
-    acacia: {headline:'La douceur,\ntout en\ndélicatesse.',description:'Le miel d’acacia, une saveur douce et discrète à apprécier à la cuillère ou pour accompagner un fromage blanc.',profile:'Une note délicate',pairing:'Avec un fromage blanc'},
-    foret: {headline:'Un miel ambré.\nDu caractère.\nDe la profondeur.',description:'Le miel de forêt, une saveur plus soutenue pour les palais curieux et les associations gourmandes.',profile:'Une note plus intense',pairing:'Avec un fromage affiné'}
+    printemps: {note:'Floral et généreux',headline:'Floral.\nGénéreux.\nTout simplement.',description:'Le miel de fleurs de printemps, pour les tartines du matin et les petits plaisirs de tous les jours.',profile:'Une note florale',pairing:'Sur une tartine'},
+    acacia: {note:'Doux et délicat',headline:'La douceur,\ntout en\ndélicatesse.',description:'Le miel d’acacia, une saveur douce et discrète à apprécier à la cuillère ou pour accompagner un fromage blanc.',profile:'Une note délicate',pairing:'Avec un fromage blanc'},
+    foret: {note:'Ambré et intense',headline:'Un miel ambré.\nDu caractère.\nDe la profondeur.',description:'Le miel de forêt, une saveur plus soutenue pour les palais curieux et les associations gourmandes.',profile:'Une note plus intense',pairing:'Avec un fromage affiné'}
   };
-  let presentedHoney = null;
+  let presentedHoney = null, lastPrice = null;
   function refreshPrice() {
     const id=choice('honey'),honey=HONEY[id],character=CHARACTERS[id];
-    $('#add-price').textContent = money(honey.prices[choice('weight')] * bounded(quantity.value));
+    motion?.resetAdded();
+    const nextPrice = money(honey.prices[choice('weight')] * bounded(quantity.value));
+    $('#add-price').textContent = nextPrice;
+    if (lastPrice !== null && lastPrice !== nextPrice) motion?.priceChanged();
+    lastPrice = nextPrice;
+    if ($('#poster-flavor-note').textContent !== character.note) $('#poster-flavor-note').textContent = character.note;
+    const fromPrice='Dès '+money(honey.prices[250]);
+    if ($('#poster-price').textContent !== fromPrice) $('#poster-price').textContent = fromPrice;
     $('#chosen-honey').textContent=honey.name;$('#honey-character').textContent=character.headline;$('#honey-description').textContent=character.description;$('#honey-profile').textContent=character.profile;$('#honey-pairing').textContent=character.pairing;
-    $('.hero-pot').dataset.honey=id;$('.hero-pot .pot-variety').textContent=honey.name;
+    const changeHero=()=>{$('.hero-pot').dataset.honey=id;$('.hero-pot .pot-variety').textContent=honey.name;};
+    if (motion && presentedHoney !== null && presentedHoney !== id) motion.swapHoney(changeHero); else changeHero();
     document.querySelectorAll('[data-hero-honey]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.heroHoney===id)));
     document.querySelectorAll('.collection-item').forEach(item=>{item.querySelector('.collection-action').firstChild.textContent=item.dataset.collection===id?'Choisi ':'Choisir ';});
     if (presentedHoney !== id) {
@@ -78,6 +87,7 @@
   const total = () => selection().reduce((a,x) => a+HONEY[x.honey].prices[x.weight]*x.quantity,0);
   function resetPrepared() { $('#request-output').hidden = true; $('#request-status').textContent = ''; $('#copy-status').textContent = ''; }
   function renderCart() {
+    motion?.resetAdded();
     const list=$('#order-lines'); list.replaceChildren();
     if (!cart.size) { const p=document.createElement('p');p.className='empty';p.textContent='Votre sélection attend ses premiers pots.';list.append(p); }
     for (const [key,item] of cart) {
@@ -94,15 +104,17 @@
   $('#add').disabled=false;
   $('#add').addEventListener('click',()=>{
     const honey=choice('honey'),weight=choice('weight'),key=honey+'-'+weight,n=bounded(quantity.value),old=cart.get(key)?.quantity||0;
+    if(old>=24){motion?.resetAdded();$('#add-status').textContent='Votre sélection contient déjà 24 pots de ce miel dans ce format.';return;}
     cart.set(key,{honey,weight,quantity:Math.min(24,old+n)});renderCart();
     $('#add-status').textContent=`${HONEY[honey].name}, ${weight} g : ${cart.get(key).quantity} pot${cart.get(key).quantity>1?'s':''} dans votre sélection.`;
+    motion?.added();
   });
   $('#less').addEventListener('click',()=>setQuantity(Number(quantity.value)-1));$('#more').addEventListener('click',()=>setQuantity(Number(quantity.value)+1));quantity.addEventListener('input',refreshPrice);quantity.addEventListener('change',()=>setQuantity(quantity.value));
   document.querySelectorAll('input[name="honey"],input[name="weight"]').forEach(i=>i.addEventListener('change',()=>{refreshPrice();$('#add-status').textContent='';}));
   $('#clear').addEventListener('click',()=>{cart.clear();renderCart();$('#add-status').textContent='Votre sélection a été vidée.';});
   document.querySelectorAll('[data-taste]').forEach(button=>button.addEventListener('click',()=>{
     const id=button.dataset.taste;document.querySelectorAll('[data-taste]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
-    $(`input[name="honey"][value="${id}"]`).checked=true;refreshPrice();$('#taste-result').textContent=HONEY[id].advice;$('#taste-link').firstChild.textContent=`Découvrir ${HONEY[id].name.toLowerCase()} `;
+    $(`input[name="honey"][value="${id}"]`).checked=true;refreshPrice();$('#taste-result').textContent=HONEY[id].advice;$('#taste-link').firstChild.textContent=`Découvrir ${HONEY[id].name.toLowerCase()} `;motion?.adviceChanged();
   }));
   const fieldError = (input, message) => { input.setAttribute('aria-invalid',String(!!message));$('#'+input.id+'-error').textContent=message; };
   for(const id of ['buyer-name','buyer-email']) $('#'+id).addEventListener('input',()=>fieldError($('#'+id),''));
@@ -128,7 +140,9 @@
     if(config.headline){$('#hero-title').textContent=config.headline;$('#hero-title').dataset.custom='';}
     else{$('#hero-title').innerHTML=defaultHeadline;$('#hero-title').removeAttribute('data-custom');}
     $('[data-bee="pickup"]').textContent=config.pickup||defaultPickup;
-    document.body.dataset.labelStyle=config.label||'maison';
+    const nextLabel=config.label||'maison',labelChanged=document.body.dataset.labelStyle&&document.body.dataset.labelStyle!==nextLabel;
+    document.body.dataset.labelStyle=nextLabel;
+    if(labelChanged)motion?.labelStyleChanged();
     scheduleLabels();
     if(!lastConfig||config.featured!==lastConfig.featured)$(`input[name="honey"][value="${config.featured||'printemps'}"]`).checked=true;
     if(!lastConfig||config.format!==lastConfig.format)$(`input[name="weight"][value="${config.format||'250'}"]`).checked=true;

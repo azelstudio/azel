@@ -126,3 +126,43 @@ body[data-label-style=epuree] .pot-caption{display:none}
 @media(max-width:360px){.poster-field{min-height:340px}.poster-jar{padding-top:42px}.poster-jar .hero-pot{width:185px}.poster-flavors{gap:10px}.poster-flavors button{font-size:11px;gap:6px}.poster-caption{gap:16px}.hero .poster-caption h1{font-size:32px}.hero .poster-caption h1[data-custom]{font-size:28px}.poster-caption .hero-actions .button{min-width:190px}.poster-caption .hero-actions{gap:8px}}
 
 @media(max-width:760px){html.azel-embed .nav-row{min-height:64px}html.azel-embed .brand>span{font-size:26px}html.azel-embed .poster{padding-top:8px}html.azel-embed .poster-field{min-height:330px}html.azel-embed .poster-jar{padding-top:42px}html.azel-embed .poster-jar .hero-pot{width:190px}}
+
+/* Printed harvests: a single material sequence, with quiet state feedback. */
+:root{--motion-ease:cubic-bezier(.16,1,.3,1)}
+.poster-jar .hero-pot{animation:none}
+.poster-brand{transform:translate3d(0,var(--word-drift,0px),0)}
+.poster-jar{transform:translate3d(var(--pointer-x,0px),calc(var(--jar-drift,0px) + var(--pointer-y,0px)),0) rotate(var(--pointer-roll,0deg))}
+.poster-detail{position:absolute;left:0;bottom:36px;display:flex;flex-direction:column;gap:10px;font-size:13px;line-height:1.5;color:var(--accent);max-width:220px}
+#poster-flavor-note{font:400 23px/1.2 var(--display);text-wrap:balance}#poster-price{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.poster-flavors button{position:relative}.poster-flavors button[aria-pressed=true]{border-bottom-color:var(--rule)}
+.poster-flavors button::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .38s var(--motion-ease)}
+.poster-flavors button[aria-pressed=true]::after{transform:scaleX(1)}
+.pot-caption{display:flex;align-items:center;justify-content:center;gap:7px;max-width:100%;white-space:nowrap}
+.pot-caption::before,.pot-caption::after{content:'';display:block;width:10px;height:1px;background:currentColor;opacity:.5;flex:none}
+.pot-label{transition:color .24s var(--motion-ease)}
+#add-label{display:inline-flex;align-items:center;gap:10px;min-width:0}.add-tick{display:none;width:18px;height:18px}
+#add[data-added] .add-tick{display:block}#add[data-added]{background:var(--forest);border-color:var(--forest)}
+.collection-photo{transition:background-color .3s var(--motion-ease)}
+.collection-photo .pot{transition:transform .42s var(--motion-ease)}
+.collection-action svg,.quiet-link svg,.button>svg{transition:transform .24s var(--motion-ease)}
+.story-landscape{overflow:clip}
+html[data-bee-motion=on] .story-landscape>img{transform:translate3d(0,var(--story-shift,0px),0) scale(1.08)}
+@media(hover:hover) and (pointer:fine){
+ .collection-item:hover .collection-photo .pot{transform:translate3d(0,-5px,0) rotate(-2deg)}
+ .collection-item:hover .collection-action svg,.quiet-link:hover svg,.button:hover>svg{transform:translateX(4px)}
+ .poster-jar{transition:transform .32s var(--motion-ease)}
+}
+@media(max-width:1100px) and (min-width:761px){.poster-detail{max-width:190px;font-size:12px}#poster-flavor-note{font-size:20px}}
+@media(max-width:760px){
+ .poster-detail{position:static;flex-direction:row;align-items:center;justify-content:space-between;max-width:none;gap:16px;margin-top:12px;padding-block:0 2px;font-size:12px}
+ #poster-flavor-note{font-size:17px}#poster-price{font-size:12px;white-space:nowrap}
+}
+@media(prefers-reduced-motion:reduce){
+ .poster-brand,.poster-jar,.story-landscape>img{transform:none!important}
+ .poster-jar .hero-pot{transform:rotate(-6deg)}
+ .poster-flavors button::after,.pot-label,.collection-photo,.collection-photo .pot,.collection-action svg,.quiet-link svg,.button>svg{transition:none}
+ .collection-item:hover .collection-photo .pot,.collection-item:hover .collection-action svg,.quiet-link:hover svg,.button:hover>svg{transform:none}
+}
+@media(prefers-reduced-motion:reduce){.poster-jar{transition:none}}
+.poster-flavors button>span{font-size:11px}
+html[data-bee-motion=off] .poster-jar,html[data-bee-motion=off] .poster-flavors button::after,html[data-bee-motion=off] .pot-label,html[data-bee-motion=off] .collection-photo,html[data-bee-motion=off] .collection-photo .pot,html[data-bee-motion=off] .collection-action svg,html[data-bee-motion=off] .quiet-link svg,html[data-bee-motion=off] .button,html[data-bee-motion=off] .button>svg{transition:none}
