@@ -87,12 +87,19 @@ header.nav.solid { background: rgba(8,8,8,.78); -webkit-backdrop-filter: blur(16
 .mark { position: relative; z-index: 2; width: clamp(300px, 55vh, 640px); aspect-ratio: 1; translate: 6% 26.6%; margin-right: calc(-1 * clamp(20px, 4vw, 60px)); }
 .float { position: absolute; inset: 0; }
 .vwrap { position: absolute; inset: 0; opacity: 0; animation: reveal 1.6s .1s var(--ease) forwards; }
-.vwrap video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+.vwrap .hero-poster, .vwrap video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
   -webkit-mask-image: radial-gradient(closest-side, #000 80%, transparent 100%); mask-image: radial-gradient(closest-side, #000 80%, transparent 100%); }
+.vwrap video { display: none; pointer-events: none; }
+.vwrap.is-playing video { display: block; }
+.vwrap.is-playing .hero-poster { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .vwrap.is-playing video { display: none; }
+  .vwrap.is-playing .hero-poster { visibility: visible; }
+}
 @keyframes reveal { from { opacity: 0; filter: brightness(.25); transform: scale(1.05); } to { opacity: 1; filter: none; transform: none; } }
 .piece { position: absolute; overflow: hidden; border-radius: 6.5% / 6.5%; opacity: 0; will-change: left, top, width, height; }
 .mark.is-morphing .piece { opacity: 1; }
-.mark.is-morphing #vid { opacity: 0; }
+.mark.is-morphing .vwrap { visibility: hidden; }
 .piece img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .piece.big { left: 25.1%; top: 39.1%; width: 34.9%; height: 34.3%; border-radius: 12px; }
 .piece.small { left: 59.7%; top: 21.5%; width: 18.9%; height: 17.6%; border-radius: 10px; }
@@ -1430,7 +1437,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
 
         <div class="mark" id="mark" aria-hidden="true">
           <div class="float" id="float">
-            <div class="vwrap"><video id="vid" src="symbole.mp4" poster="poster.jpg" autoplay muted loop playsinline preload="auto"></video></div>
+            <div class="vwrap"><img class="hero-poster" src="poster.jpg" alt="" width="880" height="880" fetchpriority="high"><video id="vid" src="symbole.mp4" poster="poster.jpg" muted loop playsinline preload="auto" disablepictureinpicture disableremoteplayback></video></div>
             <div class="piece small" id="small"><img src="sq-small.jpg" alt=""></div>
             <div class="bubble" id="bubble" aria-hidden="true">Essayer<br>Atos JJB</div><div class="piece big" id="big"><img src="sq-big.jpg" alt=""><div class="proj" id="proj"><div class="mk-bar" aria-hidden="true"><i></i><i></i><i></i><span class="mk-url"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2.5" y="5.5" width="7" height="5" rx="1"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5"/></svg><b id="mkUrl">atosjjb.fr</b></span></div><div class="mk-view" id="mkView"><img src="sr-sport-l.jpg" alt=""><iframe id="projLive" data-src="showroom/sport/?embed=1&amp;tour=1&amp;slow=1&amp;hold=5500" title="Démonstration Atos JJB" tabindex="-1" aria-hidden="true"></iframe></div></div><div class="kv-tags" id="kvTags"><span class="kv-sig">Azel Studio / Showroom</span></div></div>
           </div>
@@ -1873,9 +1880,32 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 (() => {
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const reduce = motion.matches;
   const vid = document.getElementById('vid');
-  if (reduce) { vid.removeAttribute('autoplay'); vid.pause(); } else { vid.play?.().catch(() => {}); }
+  const videoWrap = vid.closest('.vwrap');
+  let playAttempt = 0;
+  const showPoster = () => videoWrap.classList.remove('is-playing');
+  const stopLogo = () => { ++playAttempt; vid.pause(); showPoster(); };
+  const playLogo = () => {
+    if (motion.matches || document.hidden) return;
+    const request = ++playAttempt;
+    try {
+      vid.play()?.catch(() => { if (request === playAttempt) showPoster(); });
+    } catch { showPoster(); }
+  };
+  // Safari peut refuser l'autoplay, notamment en mode économie d'énergie.
+  // La vidéo décorative n'est rendue que lorsqu'elle joue réellement.
+  vid.muted = true;
+  vid.defaultMuted = true;
+  vid.controls = false;
+  vid.addEventListener('playing', () => {
+    if (!vid.paused && !motion.matches && !document.hidden) videoWrap.classList.add('is-playing');
+  });
+  ['pause', 'waiting', 'emptied', 'error', 'ended'].forEach(event => vid.addEventListener(event, showPoster));
+  document.addEventListener('visibilitychange', () => document.hidden ? stopLogo() : playLogo());
+  motion.addEventListener('change', () => motion.matches ? stopLogo() : playLogo());
+  if (reduce) stopLogo(); else playLogo();
 
   // Relief léger à la souris, coupé dès que l'on scrolle
   const float = document.getElementById('float');
@@ -2151,7 +2181,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
 
 
   // Relance la vidéo quand on revient en haut
-  ScrollTrigger.create({ trigger: '#hero', start: 'top top', end: 'top+=2 top', onLeaveBack: () => vid.play?.().catch(() => {}) });
+  ScrollTrigger.create({ trigger: '#hero', start: 'top top', end: 'top+=2 top', onLeaveBack: playLogo });
 
   // Les déclencheurs sont recalculés dans l'ordre de la page : ceux situés après la section figée (réalisations)
   // tiennent compte de sa hauteur, sinon les animations plus bas (offres, approche) se jouent trop tôt.
