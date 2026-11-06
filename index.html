@@ -91,6 +91,8 @@ header.nav.solid { background: rgba(8,8,8,.78); -webkit-backdrop-filter: blur(16
   -webkit-mask-image: radial-gradient(closest-side, #000 80%, transparent 100%); mask-image: radial-gradient(closest-side, #000 80%, transparent 100%); }
 @keyframes reveal { from { opacity: 0; filter: brightness(.25); transform: scale(1.05); } to { opacity: 1; filter: none; transform: none; } }
 .piece { position: absolute; overflow: hidden; border-radius: 6.5% / 6.5%; opacity: 0; will-change: left, top, width, height; }
+.mark.is-morphing .piece { opacity: 1; }
+.mark.is-morphing #vid { opacity: 0; }
 .piece img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 .piece.big { left: 25.1%; top: 39.1%; width: 34.9%; height: 34.3%; border-radius: 12px; }
 .piece.small { left: 59.7%; top: 21.5%; width: 18.9%; height: 17.6%; border-radius: 10px; }
@@ -1988,10 +1990,8 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
     scrollTrigger: { trigger: hero, start: 'top top', end: () => '+=' + Math.round(innerHeight * 1.5), scrub: .7, pin: true, anticipatePin: 1, invalidateOnRefresh: true }
   });
 
-  tl.set('.piece', { opacity: 1 }, 0)
-    .set('#vid', { opacity: 0 }, 0.001)
-    // le grand carré grandit dès le premier pixel de scroll et recouvre le titre
-    .to(big, { left: B('left'), top: B('top'), width: B('width'), height: B('height'), borderRadius: 16, duration: .62, ease: 'power2.inOut' }, 0)
+  // le grand carré grandit dès le premier pixel de scroll et recouvre le titre
+  tl.to(big, { left: B('left'), top: B('top'), width: B('width'), height: B('height'), borderRadius: 16, duration: .62, ease: 'power2.inOut' }, 0)
     .to(metal, { opacity: 0, duration: .22 }, .1)
     .fromTo(proj, { opacity: 0, scale: 1.12 }, { opacity: 1, scale: 1, duration: .5, ease: 'power2.out' }, .1)
     .to('#title .l', { yPercent: -22, opacity: 0, stagger: .025, duration: .13, ease: 'power2.in' }, 0)
@@ -2003,6 +2003,19 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
     // la légende arrive en cascade pendant la fin du mouvement
     .fromTo('#cap .c', { opacity: 0, y: 22 }, { opacity: 1, y: 0, stagger: .05, duration: .2, ease: 'power2.out' }, .44)
     .to({}, { duration: .2 });
+
+  // Une seule représentation du logo à la fois, même au retour exact à zéro.
+  // Suivre l'animation rendue, car le lissage continue après l'arrêt du scroll.
+  let logoInMotion = false;
+  const syncLogoLayers = () => {
+    const moving = tl.progress() > 0;
+    if (moving === logoInMotion) return;
+    logoInMotion = moving;
+    mark.classList.toggle('is-morphing', moving);
+  };
+  tl.eventCallback('onUpdate', syncLogoLayers);
+  ScrollTrigger.addEventListener('refresh', syncLogoLayers);
+  syncLogoLayers();
 
   // Survol du projet, seulement quand le cadre est en place
   const bubble = document.getElementById('bubble');
