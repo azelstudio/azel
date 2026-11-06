@@ -704,7 +704,6 @@ const renderFiche = (t, mode) => {
   if (enteringArtisan) loadArtisanDraft();
   if(t.id === "apiculture" && cur?.id !== "apiculture") loadBeeDraft();
   cur = t;
-  const o = OFFERS[t.offer];
   $("#vFiche").innerHTML = `
   <div class="wrap f-hero" id="fHero">
     <div class="f-copy">
@@ -761,7 +760,7 @@ const renderFiche = (t, mode) => {
     <div class="offer-grid rv">
       <div class="formula" id="formula"></div>
       <div class="alts"><span class="label" style="padding:0 4px">Choisir la formule</span>
-        ${[t.offer, ...(t.alts || [])].map((k, i) => `<label class="alt"><input type="radio" name="formula" value="${k}"${i === 0 ? " checked" : ""}><div><b>${esc(OFFERS[k].name)}${i === 0 ? " · conseillée" : ""}</b><span>${esc(OFFERS[k].line)}</span></div><span class="p">Dès ${esc(OFFERS[k].price)}</span></label>`).join("")}
+        ${["essentiel", "vitrine", "outil"].map((k, i) => `<label class="alt"><input type="radio" name="formula" value="${k}"${i === 0 ? " checked" : ""}><div><b>${esc(OFFERS[k].name)}</b><span>${esc(OFFERS[k].line)}</span></div><span class="p">Dès ${esc(OFFERS[k].price)}</span></label>`).join("")}
         <p class="extra">À prévoir en plus : nom de domaine, hébergement et maintenance (modalités précisées dans le devis).</p></div>
     </div>
   </section>
@@ -912,7 +911,7 @@ const logoColor = (img) => {
 };
 const renderFormula = (persist = true) => {
   const t = cur;
-  const k = (document.querySelector('input[name="formula"]:checked') || {}).value || t.offer;
+  const k = (document.querySelector('input[name="formula"]:checked') || {}).value || "essentiel";
   const o = OFFERS[k];
   $("#formula").innerHTML = `
     <div class="formula-top"><div><span class="label">Création ${esc(t.name)} · formule ${esc(o.name)}</span><h3>${esc(o.kind)} pour ${esc(ME.name || "votre entreprise")}</h3></div>
@@ -920,7 +919,7 @@ const renderFormula = (persist = true) => {
     <ul>${o.inc.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
     <div class="facts"><div><b>Délai indicatif</b>${esc(o.delay)}</div><div><b>Ensuite</b>Vous recevez un devis précis, puis on adapte textes, photos et couleurs ensemble.</div></div>
     <a class="btn lg" id="order" href="/#devis">Faire réaliser ce site par Azel ${up}</a>
-    <p class="note">Votre site vous appartient. Adaptation et mise en ligne selon le devis ; nom de domaine, hébergement et maintenance restent distincts. Vos choix sont joints à votre demande.</p>`;
+    <p class="note">Votre site vous appartient. Adaptation et mise en ligne selon le devis. Le nom de domaine, l’hébergement et la maintenance restent distincts. Vos choix sont joints à votre demande. Les réservations, paiements et formulaires avancés montrés dans la démo nécessitent un périmètre adapté.</p>`;
   const lines = [`Demande depuis le Showroom Azel`, `Création : ${t.name} (${t.num}, ${t.sector})`, `Formule souhaitée : ${o.name}, à partir de ${o.price}`, `Entreprise : ${ME.name || "non précisée"}${ME.city ? ", " + ME.city : ""}`, ...(ME.color ? [`Couleur choisie : #${ME.color.toUpperCase()}`] : []), ...(ME.logo ? ["Logo : à m'envoyer (testé dans l'aperçu)"] : [])].join("\n");
   /* Tout ce que le visiteur a personnalisé part avec sa demande : concept, nom, ville, couleur, lien vers son aperçu. */
   const look = new URLSearchParams();
