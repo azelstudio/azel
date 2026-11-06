@@ -40,6 +40,8 @@
       return button;
     });
     group.append(...buttons, status);
-    figure.after(group);
+    const toolbar = figure.parentElement.querySelector('.case-visual-bar');
+    if (toolbar) toolbar.append(group);
+    else figure.after(group);
   });
 })();

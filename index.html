@@ -274,15 +274,27 @@ figure { margin: 0; }
 .cl-pin { position: relative; overflow: hidden; }
 .cl-track { --case-width: min(68vw, 980px); --case-inset: max(var(--gutter), env(safe-area-inset-left, 0px), calc((100% - var(--wrap-max)) / 2 + var(--gutter))); display: flex; align-items: stretch; gap: clamp(20px, 2vw, 32px); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-inline: var(--case-inset) max(var(--gutter), env(safe-area-inset-right, 0px), calc(100% - var(--case-width) - var(--case-inset))); scroll-padding-inline: var(--case-inset); }
 .cl-track::-webkit-scrollbar { display: none; }
-.case { flex: 0 0 var(--case-width); scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px 32px; align-items: stretch; padding: clamp(16px, 1.6vw, 24px); border-radius: 16px; background: #111214; box-shadow: inset 0 0 0 1px var(--line); }
+.case { flex: 0 0 var(--case-width); scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); grid-template-rows: auto 1fr; gap: 24px 32px; align-items: start; padding: 0; }
 .case-shot { margin: 0; aspect-ratio: 16 / 10; border-radius: 10px; overflow: hidden; background: #000; }
-.case-shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s var(--ease); }
-.case:hover .case-shot img { transform: scale(1.025); }
-.case-txt { min-width: 0; display: grid; grid-template-rows: auto auto auto auto 1fr auto; row-gap: 12px; align-content: start; }
-.case-n { font: 500 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
-.case h3 { margin: 0; font: 600 clamp(26px, 2.2vw, 36px)/1.08 var(--display); letter-spacing: -.04em; }
+.case-shot img { width: 100%; height: 100%; object-fit: contain; object-position: left top; display: block; }
+.case-heading { grid-column: 2; grid-row: 1; display: grid; gap: 8px; min-width: 0; }
+.case-visual { grid-column: 1; grid-row: 1 / span 2; }
+.case-txt { grid-column: 2; grid-row: 2; min-width: 0; display: grid; grid-template-rows: auto auto auto 1fr; gap: 20px; align-content: start; }
+.case-outcome { margin: 0; max-width: 24ch; font: 500 clamp(20px, 1.7vw, 25px)/1.25 var(--display); letter-spacing: -.025em; text-wrap: balance; }
+.case-highlights { margin: 0; padding: 0; list-style: none; display: grid; align-content: start; gap: 8px; color: var(--soft); font-size: 15px; line-height: 1.5; }
+.case-highlights li { padding-left: 16px; position: relative; }
+.case-highlights li::before { content: ""; position: absolute; left: 0; top: .65em; width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
+.case-details { border-top: 1px solid var(--line); }
+.case-details summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 48px; cursor: pointer; list-style: none; color: var(--soft); font-size: 14px; }
+.case-details summary::-webkit-details-marker { display: none; }
+.case-details summary::after { content: "+"; font: 400 22px/1 var(--display); }
+.case-details[open] summary::after { content: "−"; }
+.case-details summary:hover { color: var(--paper); }
+.case-details summary:focus-visible { outline: 2px solid var(--paper); outline-offset: 4px; border-radius: 4px; }
+.case-details-content { display: grid; gap: 20px; padding: 4px 0 20px; }
+.case h3 { margin: 0; font: 600 clamp(25px, 2.1vw, 32px)/1.08 var(--display); letter-spacing: -.04em; }
 .case-meta { margin: 0; color: var(--soft); font-size: 14.5px; }
-.case-block { display: grid; gap: 8px; align-content: start; border-top: 1px solid var(--line); padding-top: 16px; }
+.case-block { display: grid; gap: 8px; align-content: start; }
 .case-block p { margin: 0; font-size: 15px; color: var(--soft); line-height: 1.55; }
 .case-block ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
 .case-block li { display: flex; gap: 12px; font-size: 14.5px; line-height: 1.45; }
@@ -294,10 +306,10 @@ figure { margin: 0; }
 /* Les quatre dossiers partagent leurs lignes : hauteur naturelle, repères alignés.
    Le repli flex ci-dessus garde des cartes égales sans prise en charge de subgrid. */
 @supports (grid-template-rows: subgrid) {
-  .cl-track { display: grid; grid-auto-flow: column; grid-auto-columns: var(--case-width); grid-template-rows: repeat(6, auto); row-gap: 12px; }
-  .case { grid-row: 1 / span 6; grid-template-rows: subgrid; row-gap: 12px; }
+  .cl-track { display: grid; grid-auto-flow: column; grid-auto-columns: var(--case-width); grid-template-rows: repeat(5, auto); row-gap: 20px; }
+  .case { grid-row: 1 / span 5; grid-template-rows: subgrid; row-gap: 20px; }
   .case-visual { grid-column: 1; grid-row: 1 / -1; }
-  .case-txt { grid-column: 2; grid-row: 1 / -1; grid-template-rows: subgrid; }
+  .case-txt { grid-column: 2; grid-row: 2 / -1; grid-template-rows: subgrid; }
 }
 
 /* Laboratoire : discret, plus petit, image en retrait */
@@ -307,13 +319,16 @@ figure { margin: 0; }
   .cl-intro h2 { grid-column: 1 / -1; }
   .cl-nav { grid-column: 1 / -1; justify-self: start; }
   .cl-track { --case-width: 80vw; }
-  .case { grid-template-columns: 1fr; }
+  .case { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; }
+  .case-heading { grid-column: 1; grid-row: 1; }
+  .case-visual { grid-column: 1; grid-row: 2; }
+  .case-txt { grid-column: 1; grid-row: 3; }
 }
 @media (max-width: 760px) {
   .cl-arrow { display: none; }
   .cl-track { --case-width: 86vw; }
-  .case { padding: 12px; }
-  .case-txt { padding-inline: 4px; }
+  .case { padding: 0; }
+  .case-outcome { max-width: 28ch; }
   .case-block li, .case-block p { font-size: 14px; }
 }
 
@@ -625,9 +640,8 @@ figure { margin: 0; }
 .ofx-cond summary:hover { opacity: .7; }
 
 /* ---------- Blocs interactifs (dossiers, labo) : une seule réponse, l'image se rapproche ---------- */
-.case { transition: box-shadow var(--t-mid) ease; }
-.case:hover { box-shadow: inset 0 0 0 1px rgba(243,241,235,.28); }
-.case-shot img, .lab-img img { transition: transform 1s var(--e-out), filter var(--t-slow) ease; }
+
+.lab-img img { transition: transform 1s var(--e-out), filter var(--t-slow) ease; }
 
 /* ---------- Champs de formulaire ---------- */
 .cs-fld { position: relative; }
@@ -859,30 +873,26 @@ html[data-az-intro] #azIntro { display: block; animation: azIntroSafety 0s linea
 
 @supports (grid-template-rows: subgrid) {
   @media (max-width: 1080px) {
-    .cl-track { grid-template-rows: repeat(7, auto); }
-    .case { grid-row: 1 / span 7; }
-    .case-visual { grid-column: 1; grid-row: 1; }
-    .case-txt { grid-column: 1; grid-row: 2 / span 6; }
+    .cl-track { grid-template-rows: repeat(6, auto); }
+    .case { grid-row: 1 / span 6; grid-template-rows: subgrid; }
+    .case-heading { grid-column: 1; grid-row: 1; }
+    .case-visual { grid-column: 1; grid-row: 2; }
+    .case-txt { grid-column: 1; grid-row: 3 / span 4; }
   }
 }
 
-/* ===== Halo animé autour des projets (même effet que le showroom) ===== */
+/* Captures clients sur un cadre sobre, distinct des concepts du showroom. */
 @property --ha { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
-.case-shot { position: relative; isolation: isolate; overflow: visible; padding: 1.5px; background: conic-gradient(from var(--ha), var(--c1, #F3F1EB) 0%, transparent 22%, var(--c2, #8A8C91) 50%, transparent 72%, var(--c1, #F3F1EB) 100%); animation: caseSpin 7s linear infinite; }
-.case-shot::before { content: ""; position: absolute; inset: -14px; z-index: -1; border-radius: 26px; background: inherit; filter: blur(26px); opacity: .15; transition: opacity .6s var(--ease); }
-.case:hover .case-shot::before { opacity: .3; }
-.case-shot img { border-radius: 8.5px; }
 @keyframes caseSpin { to { --ha: 360deg; } }
-.case:nth-child(1) .case-shot { --c1: #2F6BFF; --c2: #7FB4FF; animation-delay: 0s; }
-.case:nth-child(2) .case-shot { --c1: #D8B23E; --c2: #5E8C6A; animation-delay: -1.7s; }
-.case:nth-child(3) .case-shot { --c1: #9CB7A4; --c2: #E9DCC4; animation-delay: -3.4s; }
-.case:nth-child(4) .case-shot { --c1: #E0432B; --c2: #C9A46A; animation-delay: -5.1s; }
-@media (prefers-reduced-motion: reduce) { .case-shot { animation: none; } }
+.case-shot { border: 1px solid rgba(243,241,235,.2); border-radius: 12px; background: #111214; }
+.case-shot img { border-radius: 11px; }
+.case-visual-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 44px; margin-bottom: 12px; }
+.case-visual-label { color: var(--soft); font-size: 13px; }
 .case-visual { min-width: 0; align-self: start; }
 .case-shot[data-before] img, .case:hover .case-shot[data-before] img { object-fit: contain; object-position: left top; transform: none; background: #080808; }
 .case-compare-note { margin: 10px 0 0; color: var(--soft); font-size: 14px; line-height: 1.4; }
-.case-compare { display: flex; gap: 8px; margin-top: 14px; }
-.case-compare button { min-height: 44px; min-width: 74px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--soft); font: 500 13px var(--display); cursor: pointer; }
+.case-compare { display: flex; flex-shrink: 0; gap: 4px; }
+.case-compare button { min-height: 44px; min-width: 68px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--soft); font: 500 13px var(--display); cursor: pointer; }
 .case-compare button[aria-pressed="true"] { background: var(--paper); color: var(--void); border-color: var(--paper); }
 .case-compare button:hover { border-color: var(--soft); }
 .case-compare button:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; }
@@ -1480,7 +1490,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
   <section class="works" id="realisations" aria-labelledby="cl-title">
     <div class="cl-stage" id="clStage">
     <div class="wrap cl-intro">
-      <span class="label">01 · Projets clients</span>
+      <span class="label">Projets clients</span>
       <h2 id="cl-title">Ils nous ont fait confiance.</h2>
       <div class="cl-nav" aria-hidden="false">
         <span class="cl-count"><b id="clNow">01</b> / 04</span>
@@ -1491,46 +1501,78 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
     <div class="cl-pin" id="clPin">
       <div class="cl-track" id="clTrack">
         <article class="case" aria-label="Abdelhakim Taleb">
-          <div class="case-visual"><figure class="case-shot" id="taleb-comparison" data-before="taleb-before.png" data-before-alt="Premier écran de l’ancien site Abdelhakim Taleb, avant la refonte" data-after="taleb-home.jpg" data-after-alt="Site Abdelhakim Taleb après la refonte par Azel Studio"><img src="taleb-home.jpg" alt="Page d'accueil du site Abdelhakim Taleb après la refonte" loading="lazy" style="object-position:left top"></figure><p class="case-compare-note">Comparaison du premier écran</p></div>
-          <div class="case-txt">
-            <span class="case-n">01 / 04</span>
+          <div class="case-heading">
             <h3>Abdelhakim Taleb</h3>
-            <p class="case-meta">Kinésiologue et préparateur mental · Sannois (95)</p>
+            <p class="case-meta">Kinésiologie et préparation mentale · Sannois</p>
+          </div>
+          <div class="case-visual"><div class="case-visual-bar"><span class="case-visual-label">La refonte</span></div><figure class="case-shot" id="taleb-comparison" data-before="taleb-before.png" data-before-alt="Premier écran de l’ancien site Abdelhakim Taleb, avant la refonte" data-after="taleb-home.jpg" data-after-alt="Site Abdelhakim Taleb après la refonte par Azel Studio"><img src="taleb-home.jpg" alt="Page d'accueil du site Abdelhakim Taleb après la refonte" loading="lazy" style="object-position:left top"></figure><p class="case-compare-note">Comparaison du premier écran</p></div>
+          <div class="case-txt">
+            <p class="case-outcome">Réserver sa séance, directement sur le site.</p>
+            <ul class="case-highlights"><li>Une identité centrée sur le praticien</li><li>Les avis Google mis en avant</li></ul>
+            <details class="case-details">
+              <summary>Détails du projet</summary>
+              <div class="case-details-content">
             <div class="case-block"><span class="label">Le contexte</span><p>L'ancien site reposait sur une photo de banque d'images et des couleurs disparates. Il ne disait rien de la personne ni de son approche.</p></div>
             <div class="case-block"><span class="label">Ce que j'ai réalisé</span><ul><li>Refonte complète, identité sobre et chaleureuse</li><li>Vraie photo du praticien</li><li>Avis Google mis en avant</li><li>Réservation et paiement des séances en ligne</li></ul></div>
+              </div>
+            </details>
             <a class="case-site" href="https://abdelhakim-taleb.fr/" target="_blank" rel="noopener">Voir le site publié <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
           </div>
         </article>
         <article class="case" aria-label="Acciseo">
-          <div class="case-visual"><figure class="case-shot"><img src="acciseo-home.jpg" alt="Page d'accueil du site Acciseo" loading="lazy" style="object-position:left top"></figure></div>
-          <div class="case-txt">
-            <span class="case-n">02 / 04</span>
+          <div class="case-heading">
             <h3>Acciseo</h3>
-            <p class="case-meta">Récupération de TICPE pour les transporteurs routiers</p>
+            <p class="case-meta">Remboursement TICPE · Transporteurs</p>
+          </div>
+          <div class="case-visual"><div class="case-visual-bar"><span class="case-visual-label">Le site publié</span></div><figure class="case-shot"><img src="acciseo-home.jpg" alt="Page d'accueil du site Acciseo" loading="lazy" style="object-position:left top"></figure><p class="case-compare-note">Aperçu du site</p></div>
+          <div class="case-txt">
+            <p class="case-outcome">Estimer son remboursement avant de prendre contact.</p>
+            <ul class="case-highlights"><li>Un simulateur adapté à la flotte et à la région</li><li>Un parcours pour comprendre et vérifier ses droits</li></ul>
+            <details class="case-details">
+              <summary>Détails du projet</summary>
+              <div class="case-details-content">
             <div class="case-block"><span class="label">Le contexte</span><p>Un sujet technique et peu connu des transporteurs. Le site devait l'expliquer simplement et donner envie de vérifier ce qu'on peut récupérer.</p></div>
             <div class="case-block"><span class="label">Ce que j'ai réalisé</span><ul><li>Simulateur qui estime le remboursement selon la flotte et la région</li><li>Page de diagnostic qui compare le dû et le reçu</li><li>Vidéo de présentation et animations</li><li>Formulaire relié à la boîte mail professionnelle</li></ul></div>
+              </div>
+            </details>
             <a class="case-site" href="https://www.acciseo.fr/" target="_blank" rel="noopener">Voir le site publié <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
           </div>
         </article>
         <article class="case" aria-label="TMG Programmation">
-          <div class="case-visual"><figure class="case-shot"><img src="tmg-home.jpg" alt="Page d'accueil du site TMG Programmation" loading="lazy" style="object-position:left top"></figure></div>
-          <div class="case-txt">
-            <span class="case-n">03 / 04</span>
+          <div class="case-heading">
             <h3>TMG Programmation</h3>
-            <p class="case-meta">Diagnostic et programmation auto à domicile · Seine-Saint-Denis et Île-de-France</p>
+            <p class="case-meta">Programmation auto à domicile · Île-de-France</p>
+          </div>
+          <div class="case-visual"><div class="case-visual-bar"><span class="case-visual-label">Le site publié</span></div><figure class="case-shot"><img src="tmg-home.jpg" alt="Page d'accueil du site TMG Programmation" loading="lazy" style="object-position:left top"></figure><p class="case-compare-note">Aperçu du site</p></div>
+          <div class="case-txt">
+            <p class="case-outcome">Comprendre le service et joindre le technicien.</p>
+            <ul class="case-highlights"><li>Les prestations et la zone d’intervention dès l’arrivée</li><li>Un accès WhatsApp sur toutes les pages</li></ul>
+            <details class="case-details">
+              <summary>Détails du projet</summary>
+              <div class="case-details-content">
             <div class="case-block"><span class="label">Le contexte</span><p>Un technicien qui se déplace avec son atelier mobile. Ses clients doivent comprendre tout de suite ce qu'il fait, où il intervient et comment le joindre.</p></div>
             <div class="case-block"><span class="label">Ce que j'ai réalisé</span><ul><li>Service, zone et intervention à domicile annoncés dès l’arrivée</li><li>Contact WhatsApp en un geste, sur toutes les pages</li><li>Parcours Services, Fonctionnement, Zone, Contact</li></ul></div>
+              </div>
+            </details>
             <a class="case-site" href="https://tmg-auto.fr/" target="_blank" rel="noopener">Voir le site publié <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
           </div>
         </article>
         <article class="case" aria-label="NARAH Partners">
-          <div class="case-visual"><figure class="case-shot"><img src="narah-home.jpg" alt="Page d'accueil du site NARAH Partners" loading="lazy" style="object-position:left top"></figure></div>
-          <div class="case-txt">
-            <span class="case-n">04 / 04</span>
+          <div class="case-heading">
             <h3>NARAH Partners</h3>
-            <p class="case-meta">Conseil en recrutement · Consultante indépendante</p>
+            <p class="case-meta">Conseil en recrutement · Indépendante</p>
+          </div>
+          <div class="case-visual"><div class="case-visual-bar"><span class="case-visual-label">Le projet</span></div><figure class="case-shot"><img src="narah-home.jpg" alt="Page d'accueil du site NARAH Partners" loading="lazy" style="object-position:left top"></figure><p class="case-compare-note">Aperçu du site</p></div>
+          <div class="case-txt">
+            <p class="case-outcome">Trouver le bon accompagnement en recrutement.</p>
+            <ul class="case-highlights"><li>Deux offres présentées dès la page d’accueil</li><li>Une prise de rendez-vous accessible en un clic</li></ul>
+            <details class="case-details">
+              <summary>Détails du projet</summary>
+              <div class="case-details-content">
             <div class="case-block"><span class="label">Le contexte</span><p>Une consultante qui recrute des profils techniques rares, après dix ans en grands groupes. Elle voulait un site à la hauteur de son parcours, sans le ton froid des cabinets.</p></div>
             <div class="case-block"><span class="label">Ce que j'ai réalisé</span><ul><li>Page d'accueil construite autour de deux offres claires</li><li>Repères chiffrés de son parcours</li><li>Prise de rendez-vous en un clic</li><li>Version mobile soignée</li></ul></div>
+              </div>
+            </details>
           </div>
         </article>
       </div>
