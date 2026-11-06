@@ -35,7 +35,10 @@
   const hsl2rgb = ([h, s, l]) => { if (!s) return [l, l, l]; const q2 = l < .5 ? l * (1 + s) : l + s - l * s, p2 = 2 * l - q2; const t = (x) => { x = (x + 1) % 1; return x < 1 / 6 ? p2 + (q2 - p2) * 6 * x : x < .5 ? q2 : x < 2 / 3 ? p2 + (q2 - p2) * (2 / 3 - x) * 6 : p2; }; return [t(h + 1 / 3), t(h), t(h - 1 / 3)]; };
   const css = (rgb) => "#" + rgb.map((c) => Math.round(Math.max(0, Math.min(1, c)) * 255).toString(16).padStart(2, "0")).join("");
   const contrast = (a2, b2) => { const x = lum(a2), y = lum(b2); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
-  const originalAccent = new Map([accent, accent2].filter(Boolean).map((key) => [key, {
+  const toneKeys = id === "depart" ? ["--night", "--night-2", "--hero-glow", "--on-night-muted", "--on-night-body", "--sign-glow", "--road", "--road-edge", "--road-stop", "--road-label"] : [];
+  const toneValues = new Map(toneKeys.map((key) => [key, getComputedStyle(document.documentElement).getPropertyValue(key).trim()]));
+  const extraToneKeys = id === "depart" ? ["--night-rgb", "--sign-glow-rgb"] : [];
+  const originalAccent = new Map([accent, accent2, ...toneKeys, ...extraToneKeys].filter(Boolean).map((key) => [key, {
     value: document.documentElement.style.getPropertyValue(key),
     priority: document.documentElement.style.getPropertyPriority(key)
   }]));
@@ -51,6 +54,16 @@
     const root = document.documentElement.style;
     root.setProperty(accent, css(hsl2rgb(hsl)));
     if (accent2) root.setProperty(accent2, css(hsl2rgb([hsl[0], hsl[1], Math.max(0, hsl[2] - .08)])));
+    if (id === "depart") {
+      const delta = hsl[0] - rgb2hsl(hex2rgb("1F5BFF"))[0];
+      toneValues.forEach((value, key) => {
+        if (!/^#[0-9a-f]{6}$/i.test(value)) return;
+        const [h, s, l] = rgb2hsl(hex2rgb(value.slice(1)));
+        const rgb = hsl2rgb([(h + delta + 1) % 1, s * Math.min(1, hsl[1] / .08), l]);
+        root.setProperty(key, css(rgb));
+        if (key === "--night" || key === "--sign-glow") root.setProperty(key + "-rgb", rgb.map((c) => Math.round(c * 255)).join(","));
+      });
+    }
   };
 
   /* ---------- logo ---------- */

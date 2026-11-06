@@ -32,6 +32,7 @@
   --display: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
   --gutter: clamp(16px, 3.9vw, 56px);
+  --wrap-max: 1600px;
   --ease: cubic-bezier(.2,.7,.1,1);
   --navh: 84px;
 }
@@ -40,7 +41,7 @@ html, body { background: var(--void); }
 body { color: var(--paper); font: 16px/1.55 var(--display); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
 :focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; border-radius: 2px; }
-.wrap { padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); max-width: 1600px; margin: 0 auto; }
+.wrap { padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); max-width: var(--wrap-max); margin: 0 auto; }
 .label { font: 500 11px/1.4 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
 
 /* NAV */
@@ -269,17 +270,17 @@ figure { margin: 0; }
 .cl-arrow:hover { background: var(--paper); color: var(--void); box-shadow: none; }
 .cl-arrow:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; }
 .cl-pin { position: relative; overflow: hidden; }
-.cl-track { display: flex; align-items: flex-start; gap: clamp(20px, 2vw, 32px); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)) max(var(--gutter), env(safe-area-inset-right, 0px)); scroll-padding-inline: max(var(--gutter), env(safe-area-inset-left, 0px)); }
+.cl-track { --case-width: min(68vw, 980px); --case-inset: max(var(--gutter), env(safe-area-inset-left, 0px), calc((100% - var(--wrap-max)) / 2 + var(--gutter))); display: flex; align-items: stretch; gap: clamp(20px, 2vw, 32px); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-inline: var(--case-inset) max(var(--gutter), env(safe-area-inset-right, 0px), calc(100% - var(--case-width) - var(--case-inset))); scroll-padding-inline: var(--case-inset); }
 .cl-track::-webkit-scrollbar { display: none; }
-.case { flex: 0 0 min(68vw, 980px); scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: clamp(24px, 3vw, 48px); align-items: start; padding: clamp(16px, 1.6vw, 24px); border-radius: 16px; background: #111214; box-shadow: inset 0 0 0 1px var(--line); }
+.case { flex: 0 0 var(--case-width); scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px 32px; align-items: stretch; padding: clamp(16px, 1.6vw, 24px); border-radius: 16px; background: #111214; box-shadow: inset 0 0 0 1px var(--line); }
 .case-shot { margin: 0; aspect-ratio: 16 / 10; border-radius: 10px; overflow: hidden; background: #000; }
 .case-shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s var(--ease); }
 .case:hover .case-shot img { transform: scale(1.025); }
-.case-txt { padding: clamp(4px, 1vw, 16px) clamp(0px, 1vw, 12px) 8px 0; display: grid; gap: 10px; align-content: start; }
+.case-txt { min-width: 0; display: grid; grid-template-rows: auto auto auto auto 1fr auto; row-gap: 12px; align-content: start; }
 .case-n { font: 500 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mute); }
-.case h3 { margin: 6px 0 0; font: 600 clamp(28px, 2.7vw, 44px)/1 var(--display); letter-spacing: -.04em; }
-.case-meta { margin: 0 0 8px; color: var(--soft); font-size: 14.5px; }
-.case-block { display: grid; gap: 8px; border-top: 1px solid var(--line); padding-top: 14px; margin-top: 6px; }
+.case h3 { margin: 0; font: 600 clamp(26px, 2.2vw, 36px)/1.08 var(--display); letter-spacing: -.04em; }
+.case-meta { margin: 0; color: var(--soft); font-size: 14.5px; }
+.case-block { display: grid; gap: 8px; align-content: start; border-top: 1px solid var(--line); padding-top: 16px; }
 .case-block p { margin: 0; font-size: 15px; color: var(--soft); line-height: 1.55; }
 .case-block ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
 .case-block li { display: flex; gap: 12px; font-size: 14.5px; line-height: 1.45; }
@@ -288,18 +289,29 @@ figure { margin: 0; }
 .cl-bar::before { content: ""; position: absolute; left: max(var(--gutter), env(safe-area-inset-left, 0px)); right: max(var(--gutter), env(safe-area-inset-right, 0px)); top: 0; height: 1px; background: var(--line); }
 .cl-bar i { position: absolute; left: max(var(--gutter), env(safe-area-inset-left, 0px)); top: 0; height: 1px; width: 0; background: var(--paper); }
 
+/* Les quatre dossiers partagent leurs lignes : hauteur naturelle, repères alignés.
+   Le repli flex ci-dessus garde des cartes égales sans prise en charge de subgrid. */
+@supports (grid-template-rows: subgrid) {
+  .cl-track { display: grid; grid-auto-flow: column; grid-auto-columns: var(--case-width); grid-template-rows: repeat(6, auto); row-gap: 12px; }
+  .case { grid-row: 1 / span 6; grid-template-rows: subgrid; row-gap: 12px; }
+  .case-visual { grid-column: 1; grid-row: 1 / -1; }
+  .case-txt { grid-column: 2; grid-row: 1 / -1; grid-template-rows: subgrid; }
+}
+
 /* Laboratoire : discret, plus petit, image en retrait */
 .lab { margin-top: clamp(80px, 9vw, 140px); }
 
 @media (max-width: 1080px) {
   .cl-intro h2 { grid-column: 1 / -1; }
   .cl-nav { grid-column: 1 / -1; justify-self: start; }
-  .case { grid-template-columns: 1fr; flex-basis: 80vw; }
+  .cl-track { --case-width: 80vw; }
+  .case { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
   .cl-arrow { display: none; }
-  .case { flex-basis: 86vw; padding: 12px; }
-  .case-txt { padding: 4px 4px 8px; }
+  .cl-track { --case-width: 86vw; }
+  .case { padding: 12px; }
+  .case-txt { padding-inline: 4px; }
   .case-block li, .case-block p { font-size: 14px; }
 }
 
@@ -836,6 +848,16 @@ html[data-az-intro] #azIntro { display: block; animation: azIntroSafety 0s linea
   .xi-p { grid-column: 2; grid-row: 2; }
   .xi-t, .xi.major .xi-t { font-size: 28px; }
 }
+
+@supports (grid-template-rows: subgrid) {
+  @media (max-width: 1080px) {
+    .cl-track { grid-template-rows: repeat(7, auto); }
+    .case { grid-row: 1 / span 7; }
+    .case-visual { grid-column: 1; grid-row: 1; }
+    .case-txt { grid-column: 1; grid-row: 2 / span 6; }
+  }
+}
+
 /* ===== Halo animé autour des projets (même effet que le showroom) ===== */
 @property --ha { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
 .case-shot { position: relative; isolation: isolate; overflow: visible; padding: 1.5px; background: conic-gradient(from var(--ha), var(--c1, #F3F1EB) 0%, transparent 22%, var(--c2, #8A8C91) 50%, transparent 72%, var(--c1, #F3F1EB) 100%); animation: caseSpin 7s linear infinite; }
@@ -848,8 +870,8 @@ html[data-az-intro] #azIntro { display: block; animation: azIntroSafety 0s linea
 .case:nth-child(3) .case-shot { --c1: #9CB7A4; --c2: #E9DCC4; animation-delay: -3.4s; }
 .case:nth-child(4) .case-shot { --c1: #E0432B; --c2: #C9A46A; animation-delay: -5.1s; }
 @media (prefers-reduced-motion: reduce) { .case-shot { animation: none; } }
-.case-visual { min-width: 0; }
-.case-shot[data-before] img { object-fit: contain; object-position: left top; transform: none; background: #080808; }
+.case-visual { min-width: 0; align-self: start; }
+.case-shot[data-before] img, .case:hover .case-shot[data-before] img { object-fit: contain; object-position: left top; transform: none; background: #080808; }
 .case-compare-note { margin: 10px 0 0; color: var(--soft); font-size: 14px; line-height: 1.4; }
 .case-compare { display: flex; gap: 8px; margin-top: 14px; }
 .case-compare button { min-height: 44px; min-width: 74px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--soft); font: 500 13px var(--display); cursor: pointer; }
@@ -857,7 +879,7 @@ html[data-az-intro] #azIntro { display: block; animation: azIntroSafety 0s linea
 .case-compare button:hover { border-color: var(--soft); }
 .case-compare button:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; }
 .compare-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.case-site { justify-self: start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--soft); font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
+.case-site { align-self: end; justify-self: start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--soft); font-size: 13px; text-decoration: underline; text-underline-offset: 4px; }
 .case-site svg { width: 13px; height: 13px; flex: none; }
 @media (max-width: 99999px) {
   .xi-in { padding-left: 54px; grid-template-columns: 1fr; }
@@ -1245,7 +1267,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       "itemListElement": [
         {
           "@type": "Offer",
-          "name": "Essentiel — à partir de 490 €",
+          "name": "Essentiel à partir de 490 €",
           "url": "https://azelstudio.fr/#offres",
           "description": "Prix de départ. Devis avant réalisation. Nom de domaine, hébergement et maintenance distincts.",
           "priceSpecification": {
@@ -1270,7 +1292,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
         },
         {
           "@type": "Offer",
-          "name": "Vitrine — à partir de 790 €",
+          "name": "Vitrine à partir de 790 €",
           "url": "https://azelstudio.fr/#offres",
           "description": "Prix de départ. Devis avant réalisation. Nom de domaine, hébergement et maintenance distincts.",
           "priceSpecification": {
@@ -1295,7 +1317,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
         },
         {
           "@type": "Offer",
-          "name": "Site et outil — à partir de 1290 €",
+          "name": "Site et outil à partir de 1290 €",
           "url": "https://azelstudio.fr/#offres",
           "description": "Prix de départ. Devis avant réalisation. Nom de domaine, hébergement et maintenance distincts.",
           "priceSpecification": {
@@ -1336,7 +1358,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       },
       "offers": {
         "@type": "Offer",
-        "name": "SEO et GEO — sur devis",
+        "name": "SEO et GEO sur devis",
         "url": "https://azelstudio.fr/#visibilite",
         "description": "Accompagnement distinct de la création du site, sur devis. Périmètre et suivi définis ensemble."
       }
@@ -1357,6 +1379,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       <a href="#showroom">Exemples</a>
       <a href="#approche">Approche</a>
       <a href="#offres">Offres</a>
+      <a href="#parrainage">Parrainage</a>
     </nav>
     <div class="nav-right">
       <a class="nav-sr" href="showroom/">Showroom</a>
@@ -1468,7 +1491,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
           </div>
         </article>
         <article class="case" aria-label="Acciseo">
-          <figure class="case-shot"><img src="acciseo-home.jpg" alt="Page d'accueil du site Acciseo" loading="lazy" style="object-position:left top"></figure>
+          <div class="case-visual"><figure class="case-shot"><img src="acciseo-home.jpg" alt="Page d'accueil du site Acciseo" loading="lazy" style="object-position:left top"></figure></div>
           <div class="case-txt">
             <span class="case-n">02 / 04</span>
             <h3>Acciseo</h3>
@@ -1479,18 +1502,18 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
           </div>
         </article>
         <article class="case" aria-label="TMG Programmation">
-          <figure class="case-shot"><img src="tmg-home.jpg" alt="Page d'accueil du site TMG Programmation" loading="lazy" style="object-position:left top"></figure>
+          <div class="case-visual"><figure class="case-shot"><img src="tmg-home.jpg" alt="Page d'accueil du site TMG Programmation" loading="lazy" style="object-position:left top"></figure></div>
           <div class="case-txt">
             <span class="case-n">03 / 04</span>
             <h3>TMG Programmation</h3>
             <p class="case-meta">Diagnostic et programmation auto à domicile · Seine-Saint-Denis et Île-de-France</p>
             <div class="case-block"><span class="label">Le contexte</span><p>Un technicien qui se déplace avec son atelier mobile. Ses clients doivent comprendre tout de suite ce qu'il fait, où il intervient et comment le joindre.</p></div>
-            <div class="case-block"><span class="label">Ce que j'ai réalisé</span><ul><li>Message clair dès l'arrivée : service, zone, intervention à domicile</li><li>Contact WhatsApp en un geste, sur toutes les pages</li><li>Parcours Services, Fonctionnement, Zone, Contact</li></ul></div>
+            <div class="case-block"><span class="label">Ce que j'ai réalisé</span><ul><li>Service, zone et intervention à domicile annoncés dès l’arrivée</li><li>Contact WhatsApp en un geste, sur toutes les pages</li><li>Parcours Services, Fonctionnement, Zone, Contact</li></ul></div>
             <a class="case-site" href="https://tmg-auto.fr/" target="_blank" rel="noopener">Voir le site publié <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
           </div>
         </article>
         <article class="case" aria-label="NARAH Partners">
-          <figure class="case-shot"><img src="narah-home.jpg" alt="Page d'accueil du site NARAH Partners" loading="lazy" style="object-position:left top"></figure>
+          <div class="case-visual"><figure class="case-shot"><img src="narah-home.jpg" alt="Page d'accueil du site NARAH Partners" loading="lazy" style="object-position:left top"></figure></div>
           <div class="case-txt">
             <span class="case-n">04 / 04</span>
             <h3>NARAH Partners</h3>
@@ -1523,7 +1546,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
             <li><span class="ap-dot"></span><span class="ap-when">04</span><h3>Votre site est en ligne</h3><p>On vérifie le site sur ordinateur et mobile, puis on le publie. Votre site vous appartient.</p></li>
           </ol>
         </div>
-        <p class="ap-foot"><strong>Essentiel : 1 à 3 semaines</strong> après validation de l’aperçu et réception des contenus. Pour les autres projets, le délai est fixé dans le devis.</p>
+        <p class="ap-foot"><strong>Essentiel en 1 à 3 semaines</strong> après validation de l’aperçu et réception des contenus. Pour les autres projets, le délai est fixé dans le devis.</p>
       </div>
     </div>
   </section>
@@ -1543,7 +1566,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
             <p class="ofc-promise">Une première présence en ligne soignée, sur une seule page.</p>
             <ul><li>Une page qui présente l'activité</li><li>Design adapté aux ordinateurs et mobiles</li><li>Formulaire de contact simple</li><li>Mise en ligne selon les modalités convenues</li></ul>
             <div class="ofc-design"><b>Design adapté à votre activité</b>À partir d’une création du showroom ou de votre propre idée. Adaptation et mise en ligne prises en charge selon le devis.</div>
-            <span class="ofc-delay">Délai indicatif : 1 à 3 semaines</span>
+            <span class="ofc-delay">Délai indicatif de 1 à 3 semaines</span>
             <a class="btn ofx-cta" href="#contact" data-offer="Essentiel">Choisir Essentiel <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
           </article>
           <article class="ofc is-dark">
@@ -1566,15 +1589,15 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
           </article>
         </div>
         <div class="ofc-more">
-          <p><b>Sur mesure.</b> Outil métier, portail client, intégrations : sur devis, après une étude de faisabilité.</p>
+          <p><b>Sur mesure.</b> Outil métier, portail client et intégrations sur devis, après une étude de faisabilité.</p>
           <a class="btn line ofx-cta" href="#contact" data-offer="Sur mesure">Parler de mon projet <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
         </div>
         <p class="ofc-ownership"><strong>Votre site vous appartient.</strong> Vous achetez votre site, vous ne le louez pas. L’hébergement et la maintenance sont des services distincts.</p>
-        <p class="ofc-note">Les formules se distinguent par le nombre de pages, les fonctionnalités et l'accompagnement. À prévoir en plus : nom de domaine, hébergement et maintenance, précisés dans le devis.</p>
-        <p class="ofc-note"><a href="/questions-frequentes/" style="text-decoration:underline;text-underline-offset:3px">Prix, délais, livraison : les réponses à vos questions</a></p>
+        <p class="ofc-note">Les formules se distinguent par le nombre de pages, les fonctionnalités et l'accompagnement. Le nom de domaine, l’hébergement et la maintenance sont à prévoir en plus. Ils sont précisés dans le devis.</p>
+        <p class="ofc-note"><a href="/questions-frequentes/" style="text-decoration:underline;text-underline-offset:3px">Les réponses à vos questions sur les prix, les délais et la livraison</a></p>
         <details class="ofx-cond">
           <summary><span>Ce qui est inclus, ce qui dépend du devis</span><i aria-hidden="true"></i></summary>
-          <dl><div><dt>Aperçu et réalisation</dt><dd>L’aperçu est gratuit. Le périmètre et le prix de la réalisation sont précisés dans le devis avant votre accord.</dd></div><div><dt>Votre site</dt><dd>Vous achetez votre site. Les modalités de livraison sont précisées dans le devis ; hébergement et maintenance sont des services distincts.</dd></div><div><dt>Prix annoncés</dt><dd>Ce sont des prix de départ. Le devis final dépend du périmètre retenu ensemble.</dd></div><div><dt>Nom de domaine</dt><dd>Non inclus d'office. Modalités précisées dans le devis.</dd></div><div><dt>Hébergement</dt><dd>Non inclus d'office. Modalités précisées dans le devis.</dd></div><div><dt>Maintenance et suivi</dt><dd>Proposés séparément. Modalités précisées dans le devis.</dd></div><div><dt>Modifications après livraison</dt><dd>Modalités précisées dans le devis.</dd></div><div><dt>Frais récurrents</dt><dd>Selon les choix d'hébergement et de suivi, précisés dans le devis.</dd></div><div><dt>Délais</dt><dd>Indicatifs, communiqués dans le devis selon le projet.</dd></div></dl>
+          <dl><div><dt>Aperçu et réalisation</dt><dd>L’aperçu est gratuit. Le périmètre et le prix de la réalisation sont précisés dans le devis avant votre accord.</dd></div><div><dt>Votre site</dt><dd>Vous achetez votre site. Les modalités de livraison sont précisées dans le devis. L’hébergement et la maintenance sont des services distincts.</dd></div><div><dt>Prix annoncés</dt><dd>Ce sont des prix de départ. Le devis final dépend du périmètre retenu ensemble.</dd></div><div><dt>Nom de domaine</dt><dd>Non inclus d'office. Modalités précisées dans le devis.</dd></div><div><dt>Hébergement</dt><dd>Non inclus d'office. Modalités précisées dans le devis.</dd></div><div><dt>Maintenance et suivi</dt><dd>Proposés séparément. Modalités précisées dans le devis.</dd></div><div><dt>Modifications après livraison</dt><dd>Modalités précisées dans le devis.</dd></div><div><dt>Frais récurrents</dt><dd>Selon les choix d'hébergement et de suivi, précisés dans le devis.</dd></div><div><dt>Délais</dt><dd>Indicatifs, communiqués dans le devis selon le projet.</dd></div></dl>
         </details>
         <section class="visibility-service" id="visibilite" aria-labelledby="visibility-title">
           <div class="visibility-intro">
@@ -1585,7 +1608,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
             </div>
           </div>
           <details class="visibility-details">
-            <summary>Google et IA : ce que nous améliorons <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 1v12M1 7h12"/></svg></summary>
+            <summary>Ce que nous améliorons pour Google et les IA <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 1v12M1 7h12"/></svg></summary>
             <div class="visibility-grid">
               <div><h4>Être trouvé sur Google</h4><p>Le SEO vise à rendre vos services plus faciles à trouver dans les recherches de vos futurs clients. Nous améliorons les contenus, les titres et la structure de vos pages pour aider Google à les comprendre.</p></div>
               <div><h4>Être compris par les moteurs IA</h4><p>Le GEO vise à rendre votre activité plus facile à identifier et à citer dans les réponses d’outils comme ChatGPT. Nous organisons vos informations, vos services et vos réponses aux questions des clients de façon claire et cohérente.</p></div>
@@ -1594,10 +1617,10 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
             <p class="visibility-limit">Le travail vise à améliorer votre visibilité. Aucune position sur Google ni recommandation par une IA ne peut être garantie.</p>
           </details>
         </section>
-        <details class="extra-services" id="services-complementaires"><summary>Services complémentaires : outils, automatisations et assistant <span aria-hidden="true">+</span></summary><section class="xi-sec" id="expertises" aria-labelledby="xp-title">
+        <details class="extra-services" id="services-complementaires"><summary>Les services complémentaires <span aria-hidden="true">+</span></summary><section class="xi-sec" id="expertises" aria-labelledby="xp-title">
     <div class="wrap xi-grid">
       <div class="xi-intro">
-        <div class="sx-head"><h2 id="xp-title">Des besoins complémentaires ?</h2><p>Outils, automatisations et assistant : des services étudiés séparément, selon vos besoins.</p></div>
+        <div class="sx-head"><h2 id="xp-title">Des besoins complémentaires ?</h2><p>Outils, automatisations et assistant sont étudiés séparément, selon vos besoins.</p></div>
       </div>
       <div class="xi-list" id="xiList">
         <div class="xi-fam" data-fam="0">
@@ -1624,7 +1647,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
                 <span class="xi-ic" aria-hidden="true"></span>
               </button>
               <div class="xi-body" id="xi-02" role="region" aria-label="Refonte et design"><div class="xi-in">
-                <p class="xi-d">On garde ce qui fonctionne et on repense le reste : interface, parcours, direction artistique.</p>
+                <p class="xi-d">On garde ce qui fonctionne et on repense l’interface, les parcours et la direction artistique.</p>
                 <ul class="xi-apps"><li>Refonte de site</li><li>Interfaces et parcours utilisateur</li><li>Direction artistique web</li><li>Maquettes ordinateur et mobile</li></ul>
                 
               </div></div>
@@ -1662,7 +1685,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
             </li>
           </ol>
         </div>
-        <p class="xi-explore">En exploration : tri automatique de documents, recherche documentaire assistée. Pas encore proposés comme prestations.</p>
+        <p class="xi-explore">Le tri automatique de documents et la recherche documentaire assistée sont encore à l’étude. Ils ne sont pas encore proposés comme prestations.</p>
 
         <!-- AZEL / AUTOMATIONS : l'assistant, service complémentaire -->
         <div class="aza" id="automations">
@@ -1687,6 +1710,24 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
     </div>
   </section>
 
+  <section class="pr" id="parrainage" aria-labelledby="pr-title">
+    <div class="wrap">
+      <div class="pr-grid">
+        <h2 id="pr-title">Une recommandation<br><span>qui rapporte.</span></h2>
+        <div class="pr-side"><p>Un proche a besoin d’un site ? Avec le parrainage Azel, il économise et vous êtes récompensé une fois son projet réglé.</p></div>
+      </div>
+      <div class="pr-figs">
+        <div class="pr-fig"><span class="label">Pour vous</span><strong>150 €</strong><span>Jusqu'à 150 € par virement</span></div>
+        <div class="pr-fig"><span class="label">Pour votre proche</span><strong>−80 €</strong><span>Jusqu'à 80 € de réduction</span></div>
+      </div>
+      <div class="pr-ctas">
+        <a class="btn lg" href="parrainage/#inscription">Je deviens parrain <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
+        <a class="btn line lg" href="parrainage/#conditions">Barème et conditions</a>
+        <small>Selon l’offre choisie. Essentiel non éligible. Chaque vente est vérifiée à la main. La récompense est versée sous 30 jours après encaissement définitif.</small>
+      </div>
+    </div>
+  </section>
+
   <section class="cs-sheet" id="contact" aria-labelledby="cs-sheet-title">
     <div class="wrap" id="devis">
       <div class="cs-head">
@@ -1700,7 +1741,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
         <input type="hidden" id="f-need" name="besoin" value="Création de site">
         <input type="hidden" id="f-offer" name="offre" value="">
         <input type="hidden" id="f-idee" name="point_de_depart" value="">
-        <p class="cs-offer" id="csOffer" hidden>Format choisi dans les offres : <b id="csOfferName"></b> <button type="button" id="csOfferClear">Retirer</button></p>
+        <p class="cs-offer" id="csOffer" hidden>Format choisi dans les offres <b id="csOfferName"></b> <button type="button" id="csOfferClear">Retirer</button></p>
           <p class="cs-offer cs-look" id="csLook" hidden></p><div id="csLookData" hidden></div><div class="cs-row"><div class="cs-rt">01 / Vos coordonnées</div>
           <div class="cs-inputs">
             <div class="cs-fld"><label for="f-name">Votre nom *</label><input id="f-name" aria-describedby="f-name-msg" name="nom" placeholder="Comment vous appelez-vous ?" autocomplete="name" required><p class="cs-msg" id="f-name-msg" aria-live="polite"></p></div>
@@ -1750,7 +1791,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       <div class="azc-ttl"><h2 id="azcTitle">Essayez l'assistant Azel</h2><p id="azcSub">Une démonstration de ce que votre futur site pourrait proposer.</p></div>
       <button type="button" class="azc-x" id="azcClose" aria-label="Fermer la démonstration"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3l8 8M11 3l-8 8"/></svg></button>
     </header>
-    <div class="azc-sim"><i></i>Simulation : réponses prévues à l'avance, rien n'est envoyé ni enregistré.</div>
+    <div class="azc-sim"><i></i>Cette simulation utilise des réponses prévues à l’avance. Rien n’est envoyé ni enregistré.</div>
     <div class="azc-log" id="azcLog" role="log" aria-live="polite" aria-relevant="additions"></div>
     <div class="azc-sugg" id="azcSugg" role="group" aria-label="Suggestions"></div>
     <form class="azc-form" id="azcForm" autocomplete="off">
@@ -1769,7 +1810,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       <a class="brand" href="#top" aria-label="Azel Studio, retour en haut"><svg viewBox="0 0 30 30" aria-hidden="true"><rect x="0" y="10.5" width="19.5" height="19.5" rx="1.6" fill="#F3F1EB"/><rect x="19.5" y="0" width="10.5" height="10.5" rx="1.1" fill="#F3F1EB"/></svg><span><b>AZEL</b> STUDIO</span></a>
       <p class="cs-claim">De bonnes idées méritent<br>une meilleure présence.</p>
     </div>
-    <div class="cs-foot-bottom"><span>© 2026 Azel Studio · Montmagny, Val-d’Oise</span><span><a href="https://wa.me/33619438978?text=Bonjour%2C%20je%20viens%20du%20site%20Azel%20Studio%20et%20j%27aimerais%20parler%20de%20mon%20projet." target="_blank" rel="noopener">WhatsApp</a> · <a href="#expertises">Services complémentaires</a> · <a id="parrainage" href="parrainage/">Parrainage</a> · <a href="/questions-frequentes/">Questions fréquentes</a> · <a href="/mentions-legales.html">Mentions légales</a> · <a href="/mentions-legales.html#confidentialite">Confidentialité</a></span><a href="#top">Retour en haut ↑</a></div>
+    <div class="cs-foot-bottom"><span>© 2026 Azel Studio · Montmagny, Val-d’Oise</span><span><a href="https://wa.me/33619438978?text=Bonjour%2C%20je%20viens%20du%20site%20Azel%20Studio%20et%20j%27aimerais%20parler%20de%20mon%20projet." target="_blank" rel="noopener">WhatsApp</a> · <a href="#expertises">Services complémentaires</a> · <a href="parrainage/">Parrainage</a> · <a href="/questions-frequentes/">Questions fréquentes</a> · <a href="/mentions-legales.html">Mentions légales</a> · <a href="/mentions-legales.html#confidentialite">Confidentialité</a></span><a href="#top">Retour en haut ↑</a></div>
   </div>
 </footer>
 
