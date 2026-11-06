@@ -17,6 +17,7 @@
   --gutter: clamp(16px, 3.9vw, 56px); --ease: cubic-bezier(.2,.7,.1,1); --navh: 84px;
 }
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { margin: 0; background: var(--void); }
 body { color: var(--paper); font: 16px/1.55 var(--display); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 a { color: inherit; text-decoration: none; }
@@ -103,6 +104,33 @@ section.block .wrap { padding-block: clamp(58px, 6.4vw, 102px) 0; }
 .linkbox .btn { height: 44px; padding: 0 18px; }
 .result-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .result p { color: var(--soft); font-size: 14.5px; }
+
+
+@media(max-width:480px) { .hero h1 { font-size:min(12vw,48px); } }
+
+/* Recommandations professionnelles, mêmes règles et mêmes récompenses. */
+.partner-grid { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:40px 64px; border-top:1px solid var(--line); padding-top:28px; }
+.partner-copy h2 { margin-top:0; }
+.partner-copy > p { margin-top:24px; max-width:48ch; color:var(--soft); font-size:17px; }
+.partner-copy .btn { margin-top:26px; }
+.partner-points { margin:28px 0 0; }
+.partner-points > div { display:grid; gap:6px; padding:18px 0; border-top:1px solid var(--line); }
+.partner-points dt { font-weight:600; }
+.partner-points dd { margin:0; color:var(--soft); font-size:15px; max-width:48ch; }
+.partner-sim { align-self:start; display:grid; gap:20px; }
+.partner-sim h3 { font:600 24px/1.2 var(--display); letter-spacing:-.025em; }
+.partner-controls { display:grid; gap:18px; }
+.partner-controls label { display:block; color:var(--soft); font-size:14px; margin-bottom:8px; }
+.partner-controls select, .partner-controls input { width:100%; min-height:50px; border:1px solid #575852; border-radius:8px; padding:12px; background:#111214; color:var(--paper); font:inherit; }
+.partner-sim output { font:600 clamp(48px,6vw,80px)/1 var(--display); letter-spacing:-.035em; font-variant-numeric:tabular-nums; }
+.partner-sim output[data-invalid] { font:400 15px/1.5 var(--display); letter-spacing:0; color:var(--bad); }
+.partner-sim .sim-note { color:var(--soft); font-size:14px; max-width:46ch; }
+.partner-sim .sim-terms { color:var(--soft); font-size:13px; text-decoration:underline; text-underline-offset:4px; }
+.share-kit { display:grid; gap:12px; border-top:1px solid var(--line); padding-top:22px; }
+.share-kit label { font-weight:600; }
+.share-kit textarea { width:100%; min-height:220px; resize:vertical; border:1px solid #575852; border-radius:8px; padding:14px; background:#111214; color:var(--soft); font:400 14px/1.6 var(--display); }
+.copy-feedback { min-height:1.5em; }
+@media(max-width:960px) { .partner-grid { grid-template-columns:1fr; } .partner-sim { border-top:1px solid var(--line); padding-top:28px; } }
 
 /* CONDITIONS */
 .cond { margin-top: clamp(36px, 4vw, 56px); border-top: 1px solid var(--line); }
@@ -210,6 +238,33 @@ footer .wrap { padding-block: clamp(80px, 9vw, 140px) 32px; }
     </div>
   </section>
 
+  <section class="block" id="partenaires" aria-labelledby="h-partners">
+    <div class="wrap">
+      <div class="partner-grid">
+        <div class="partner-copy">
+          <h2 id="h-partners">Vos clients ont parfois besoin d’un site.</h2>
+          <p>Imprimeur, photographe ou graphiste, vous accompagnez déjà des professionnels. Présentez-leur Azel quand ils cherchent un site. Nous prenons le relais pour étudier le projet, préparer le devis et réaliser le site.</p>
+          <dl class="partner-points">
+            <div><dt>Un lien à réutiliser</dt><dd>Votre lien personnel sert à présenter Azel à plusieurs nouveaux clients. Le code doit être communiqué dès leur première demande.</dd></div>
+            <div><dt>Une récompense pour chaque projet éligible</dt><dd>100 € pour une Vitrine, 150 € pour un Site et outil ou un projet spécifique éligible. La récompense intervient après paiement intégral et validation.</dd></div>
+            <div><dt>Le client y gagne aussi</dt><dd>50 € ou 80 € de réduction selon la formule. Les montants et les conditions restent ceux du programme de parrainage.</dd></div>
+          </dl>
+          <a class="btn" href="#inscription">Obtenir mon lien partenaire</a>
+        </div>
+        <div class="partner-sim" role="group" aria-labelledby="simTitle">
+          <h3 id="simTitle">Simulez vos récompenses.</h3>
+          <div class="partner-controls">
+            <div><label for="partnerOffer">Formule recommandée</label><select id="partnerOffer"><option value="100">Vitrine, dès 790 €</option><option value="150">Site et outil, dès 1 290 €</option></select></div>
+            <div><label for="partnerCount">Nombre de projets éligibles réglés</label><input id="partnerCount" type="number" min="0" max="20" step="1" value="1" inputmode="numeric" aria-describedby="simNote"></div>
+          </div>
+          <output id="partnerReward" for="partnerOffer partnerCount" aria-live="polite">100 €</output>
+          <p class="sim-note" id="simNote">Simulation, pas un revenu garanti. Chaque projet doit remplir les conditions du programme. La récompense est versée après paiement intégral et validation, dans le délai prévu.</p>
+          <a class="sim-terms" href="#conditions">Lire les conditions de versement</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="block" id="inscription" aria-labelledby="h-join">
     <div class="wrap">
       <div class="sec-meta"><span class="label">03 · Inscription</span><span class="label">Gratuit, sans engagement</span></div>
@@ -233,6 +288,12 @@ footer .wrap { padding-block: clamp(80px, 9vw, 140px) 32px; }
             <div class="code" id="rCode"></div>
             <div class="linkbox"><input id="rLink" readonly aria-label="Votre lien de parrainage"><button class="btn" type="button" id="rCopy">Copier le lien</button></div>
             <div class="result-actions"><button class="btn line" type="button" id="rShare" hidden>Partager</button></div>
+            <div class="share-kit">
+              <label for="rMessage">Un message prêt à adapter</label>
+              <textarea id="rMessage" readonly aria-describedby="copyFeedback"></textarea>
+              <button class="btn line" type="button" id="rCopyMessage">Copier le message</button>
+              <p class="copy-feedback" id="copyFeedback" role="status" aria-live="polite"></p>
+            </div>
             <p>Gardez ce code : votre proche peut aussi le saisir lui-même dans le formulaire de demande. Nous vous écrirons quand une vente sera confirmée.</p>
           </div>
         </div>
@@ -289,17 +350,32 @@ footer .wrap { padding-block: clamp(80px, 9vw, 140px) 32px; }
       if (!r.ok || !d.code) { say(d.message || 'L\'inscription n\'a pas abouti. Réessayez dans un instant.', true); return; }
       document.getElementById('rCode').textContent = d.code;
       document.getElementById('rLink').value = d.lien;
+      document.getElementById('rMessage').value = `Bonjour,\n\nJe vous recommande Azel Studio pour votre projet de site. Vous pouvez découvrir un aperçu gratuit et sans engagement avant de décider de sa réalisation.\n\nMon lien permet de bénéficier du programme de parrainage selon la formule choisie et ses conditions.\n${d.lien}`;
       form.hidden = true; document.getElementById('pResult').hidden = false;
-      if (navigator.share) { const s = document.getElementById('rShare'); s.hidden = false; s.onclick = () => navigator.share({ title: 'Azel Studio', text: 'Je te recommande Azel pour ton site : avec mon lien, tu as une réduction sur ton devis.', url: d.lien }).catch(() => {}); }
+      if (navigator.share) { const s = document.getElementById('rShare'); s.hidden = false; s.onclick = () => navigator.share({ title: 'Azel Studio', text: 'Je vous recommande Azel Studio pour votre site. Découvrez le programme de parrainage et les offres éligibles avec mon lien.', url: d.lien }).catch(() => {}); }
     } catch (err) {
       say('L\'inscription en ligne n\'est pas encore active. Écrivez à contact@azelstudio.fr pour recevoir votre code.', true);
     } finally { btn.disabled = false; btn.querySelector('.t').textContent = 'Obtenir mon code'; }
   });
-  document.getElementById('rCopy').addEventListener('click', async (e) => {
-    const inp = document.getElementById('rLink');
-    try { await navigator.clipboard.writeText(inp.value); } catch (err) { inp.select(); document.execCommand && document.execCommand('copy'); }
-    e.currentTarget.textContent = 'Lien copié';
-  });
+  const copy = async (id, button, done) => {
+    const input = document.getElementById(id), feedback = document.getElementById('copyFeedback');
+    if (!input.value) return;
+    try {
+      await navigator.clipboard.writeText(input.value);
+      button.textContent = done; feedback.textContent = done + '. Vous pouvez le partager.';
+    } catch {
+      input.focus(); input.select(); feedback.textContent = 'Le texte est sélectionné. Copiez-le avec le menu de votre appareil.';
+    }
+  };
+  document.getElementById('rCopy').addEventListener('click', (e) => copy('rLink', e.currentTarget, 'Lien copié'));
+  document.getElementById('rCopyMessage').addEventListener('click', (e) => copy('rMessage', e.currentTarget, 'Message copié'));
+  const count = document.getElementById('partnerCount'), offer = document.getElementById('partnerOffer'), reward = document.getElementById('partnerReward');
+  const simulate = () => {
+    const value = count.valueAsNumber, valid = Number.isInteger(value) && value >= 0 && value <= 20;
+    count.setAttribute('aria-invalid', String(!valid)); reward.toggleAttribute('data-invalid', !valid);
+    reward.textContent = valid ? new Intl.NumberFormat('fr-FR', { style:'currency', currency:'EUR', maximumFractionDigits:0 }).format(value * Number(offer.value)) : 'Choisissez un nombre entier de 0 à 20.';
+  };
+  count.addEventListener('input', simulate); offer.addEventListener('change', simulate);
 })();
 </script>
 </body>
