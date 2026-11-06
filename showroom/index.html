@@ -92,6 +92,9 @@ header.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; 
 .filters button:hover { color: var(--paper); box-shadow: inset 0 0 0 1px var(--paper); }
 .filters button[aria-pressed="true"] { background: var(--paper); color: var(--void); box-shadow: none; }
 .filters button span { font: 500 11px/1 var(--mono); margin-left: 6px; opacity: .6; }
+.filter-select { display: none; align-items: center; gap: 12px; }
+.filter-select label { font-size: 14px; color: var(--soft); flex: none; }
+.filter-select select { width: 100%; min-width: 0; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line-2); border-radius: 10px; background: var(--panel); color: var(--paper); font: 500 14px/1.4 var(--ui); }
 .lib { overflow-x: clip; overflow-y: visible; padding-top: 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px) clamp(14px, 1.6vw, 22px); padding-bottom: clamp(64px, 8vw, 120px); }
 body:not(.in-fiche) .wrap { max-width: 1480px; }
 .lib .frame::before { opacity: .16; }
@@ -208,7 +211,7 @@ body:not(.in-fiche) .wrap { max-width: 1480px; }
 .fields .row + .row { border-top: 1px solid var(--line); }
 .fields label { font: 500 11px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
 .fields input { width: 100%; border: 0; background: transparent; outline: none; font-size: 18px; font-weight: 500; padding: 16px 0; }
-.fields input::placeholder { color: #5F6166; }
+.fields input::placeholder { color: var(--mute); }
 .mine { font-size: 14px; color: var(--ok); min-height: 22px; }
 .fields .row.tall { padding-block: 14px; align-items: start; }
 .fields .row.tall label { padding-top: 10px; }
@@ -219,6 +222,7 @@ body:not(.in-fiche) .wrap { max-width: 1480px; }
 .sw.pick { background: conic-gradient(#ff5d5d, #ffd25d, #6dff8f, #5dc8ff, #b45dff, #ff5d5d); overflow: hidden; }
 .sw.pick input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 .sw.pick.has { background: var(--c); }
+.sw.pick:focus-within { outline: 2px solid var(--paper); outline-offset: 4px; }
 .sw-name { font-size: 14px; color: var(--soft); margin-left: 4px; }
 .logo-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
 .logo-btn { position: relative; display: inline-flex; align-items: center; gap: 10px; height: 42px; padding: 0 16px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line-2); font-size: 14.5px; font-weight: 500; cursor: pointer; transition: box-shadow .3s, background .3s; }
@@ -241,11 +245,12 @@ body:not(.in-fiche) .wrap { max-width: 1480px; }
 
 .offer { border-top: 1px solid var(--line); padding-block: clamp(56px, 7vw, 100px); display: grid; gap: 36px; }
 .offer-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
-.offer-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px; }
+.offer-options { scroll-margin-top: calc(var(--navh) + 18px + env(safe-area-inset-top, 0px)); }
+.offer-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 16px; }
 .formula { border-radius: 20px; background: var(--paper); color: var(--void); padding: clamp(24px, 3vw, 40px); display: grid; gap: 22px; align-content: start; }
 .formula .label { color: #6A6C70; }
 .formula-top { display: flex; justify-content: space-between; align-items: start; gap: 20px; flex-wrap: wrap; }
-.formula h3 { margin: 6px 0 0; font-size: clamp(26px, 2.4vw, 36px); line-height: 1.02; letter-spacing: -.04em; }
+.formula h3 { margin: 6px 0 0; font-size: clamp(26px, 2.4vw, 36px); line-height: 1.02; letter-spacing: -.04em; overflow-wrap: anywhere; }
 .formula .amount { text-align: right; }
 .formula .amount span { display: block; font-size: 13px; color: #5A5C60; }
 .formula .amount b { font-size: clamp(34px, 3.4vw, 50px); letter-spacing: -.04em; font-variant-numeric: tabular-nums; line-height: 1; }
@@ -256,6 +261,16 @@ body:not(.in-fiche) .wrap { max-width: 1480px; }
 .formula .facts b { display: block; color: var(--void); font-size: 13px; margin-bottom: 2px; }
 .formula .btn { background: var(--void); color: var(--paper); width: 100%; justify-content: space-between; }
 .formula .note { margin: 0; font-size: 13px; color: #5A5C60; }
+.formula .scope { margin: 0; font-size: 17px; line-height: 1.45; color: #303237; }
+.formula .boundary { margin: 0; font-size: 14px; line-height: 1.5; color: #4A4C51; }
+.formula-details { border-top: 1px solid rgba(8,8,8,.14); border-bottom: 1px solid rgba(8,8,8,.14); }
+.formula-details summary { min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; list-style: none; font-size: 14px; font-weight: 600; }
+.formula-details summary::-webkit-details-marker { display: none; }
+.formula-details summary svg { width: 14px; height: 14px; flex: none; }
+.formula-details[open] summary svg path:last-child { display: none; }
+.formula-details summary:focus-visible { outline-color: #080808; }
+.formula-details > ul { padding: 8px 0 20px; }
+.formula-details .facts { padding-bottom: 20px; }
 .alts { display: grid; gap: 12px; align-content: start; }
 .alt { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 20px; border-radius: 16px; background: var(--panel); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; transition: box-shadow .2s, background .2s; }
 .alt:hover { box-shadow: inset 0 0 0 1px var(--line-2); }
@@ -264,6 +279,7 @@ body:not(.in-fiche) .wrap { max-width: 1480px; }
 .alt span { font-size: 13.5px; color: var(--mute); }
 .alt .p { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .alt:has(input:checked) { background: var(--raise); box-shadow: inset 0 0 0 1.5px var(--paper); }
+.alt:has(input:focus-visible) { outline: 2px solid var(--paper); outline-offset: 3px; }
 .extra { font-size: 13px; color: var(--mute); padding: 4px 4px 0; margin: 0; }
 
 footer.sr-foot { border-top: 1px solid var(--line); padding-block: 28px 40px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--mute); }
@@ -279,9 +295,17 @@ footer.sr-foot a:hover { color: var(--paper); }
 }
 @media (max-width: 640px) {
   :root { --navh: 62px; }
-  .nav-links a:not(.btn) { display: none; }
+  .nav-links > a:not(.btn) { display: none; }
   .brand .tag { display: none; }
   .nav-links .btn { height: 40px; padding: 0 16px; font-size: 13px; }
+  .filters { display: none; }
+  .filter-select { display: flex; }
+  .alt { padding: 14px; gap: 10px; }
+  .alt b { font-size: 15px; }
+  .alt span { font-size: 13px; }
+  .alt { min-height: 56px; }
+  .alt .description { display: none; }
+  .formula { gap: 18px; }
   .formula ul, .formula .facts { grid-template-columns: minmax(0, 1fr); }
   .formula-top { flex-direction: column; }
   .formula .amount { text-align: left; }
@@ -470,20 +494,23 @@ footer.sr-foot a:hover { color: var(--paper); }
   ]
 }
 </script>
+<link rel="stylesheet" href="/mobile-nav.css">
+<script defer src="/mobile-nav.js"></script>
 </head>
 <body>
 
-<header class="nav">
+<header class="nav nav-showroom">
   <div class="wrap">
     <a class="brand" href="#showroom" aria-label="Showroom Azel Studio">
       <svg viewBox="0 0 30 30" aria-hidden="true"><rect x="0" y="10.5" width="19.5" height="19.5" rx="1.6" fill="#F3F1EB"/><rect x="19.5" y="0" width="10.5" height="10.5" rx="1.1" fill="#F3F1EB"/></svg>
-      <span><b>AZEL</b> STUDIO</span><span class="tag">SHOWROOM</span>
+      <span><b>AZEL</b><span class="brand-studio"> STUDIO</span></span><span class="tag">SHOWROOM</span>
     </a>
     <nav class="nav-links" aria-label="Navigation">
       <a href="#collection" id="navShowroom" aria-current="page">Nos créations</a>
       <a href="/#offres">Offres</a>
       <a href="/">Le studio</a>
       <a class="btn" href="/#contact">Contact</a>
+      <details class="mobile-menu" data-mobile-menu><summary aria-label="Menu de navigation"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 6h14M3 14h14"/></svg><span class="menu-label">Menu</span></summary><nav aria-label="Rubriques du site"><a href="#collection">Toutes les créations</a><a href="/#realisations">Projets clients</a><a href="/#offres">Offres et tarifs</a><a href="/parrainage/">Parrainage</a><a href="/">Le studio</a></nav></details>
     </nav>
   </div>
 </header>
@@ -498,6 +525,8 @@ footer.sr-foot a:hover { color: var(--paper); }
         <span class="label" id="srCount">10 créations disponibles</span>
       </div>
       <div class="filters" id="filters" role="group" aria-label="Filtrer par activité"></div>
+      <div class="filter-select" id="filterSelect" hidden><label for="sectorSelect">Votre activité</label><select id="sectorSelect"><option value="tous">Toutes les activités</option></select></div>
+      <p class="visually-hidden" id="filterStatus" role="status"></p>
     </div>
     <!-- Catalogue statique synchronisé avec templates.json ; remplacé par les aperçus interactifs au chargement. -->
     <div class="wrap lib" id="collection">
@@ -670,10 +699,18 @@ const renderCollection = () => {
   const live = LIST.filter((t) => t.status === "live"), soon = LIST.filter((t) => t.status !== "live");
   $("#srCount").textContent = `${live.length} création${live.length > 1 ? "s" : ""} disponible${live.length > 1 ? "s" : ""}${soon.length ? ` · ${soon.length} en préparation` : ""}`;
   const sectors = [...new Set(LIST.map((t) => t.sector.split(" · ")[0]))];
-  $("#filters").innerHTML = [["tous", "Toutes", LIST.length], ...sectors.map((x) => [x, x, LIST.filter((t) => t.sector.startsWith(x)).length])]
-    .map(([v, l, n]) => `<button type="button" data-f="${esc(v)}" aria-pressed="${FILTER === v}">${esc(l)}<span>${n}</span></button>`).join("");
-  document.querySelectorAll("#filters button").forEach((b) => b.addEventListener("click", () => { FILTER = b.dataset.f; renderCollection(); }));
+  const filters = [["tous", "Toutes", LIST.length], ...sectors.map((x) => [x, x, LIST.filter((t) => t.sector.startsWith(x)).length])];
+  $("#filters").innerHTML = filters.map(([v, l, n]) => `<button type="button" data-f="${esc(v)}" aria-pressed="${FILTER === v}">${esc(l)}${n > 1 ? `<span>${n}</span>` : ""}</button>`).join("");
+  $("#sectorSelect").innerHTML = filters.map(([v, l]) => `<option value="${esc(v)}">${v === "tous" ? "Toutes les activités" : esc(l)}</option>`).join("");
+  $("#sectorSelect").value = FILTER;
+  $("#filterSelect").hidden = false;
+  document.querySelectorAll("#filters button").forEach((b) => b.addEventListener("click", () => {
+    const restore = document.activeElement === b;
+    FILTER = b.dataset.f; renderCollection();
+    if (restore) [...document.querySelectorAll("#filters button")].find((button) => button.dataset.f === FILTER)?.focus({ preventScroll: true });
+  }));
   const shown = LIST.filter((t) => FILTER === "tous" || t.sector.startsWith(FILTER));
+  $("#filterStatus").textContent = `${shown.length} création${shown.length > 1 ? "s" : ""} affichée${shown.length > 1 ? "s" : ""}`;
   $("#collection").className = "wrap lib";
   const glow = (t, i) => { const g = t.glow || [(t.palette || [])[2] || "#F3F1EB", (t.palette || [])[1] || "#8A8C91"]; return `--c1:${esc(g[0])};--c2:${esc(g[1])};animation-delay:${-i * 1.3}s`; };
   $("#collection").innerHTML = shown.map((t, i) => t.status === "live" ? `
@@ -757,12 +794,12 @@ const renderFiche = (t, mode) => {
   <section class="wrap offer" id="fOffer" aria-labelledby="offerTitle">
     <div class="offer-head rv"><div><span class="label">L'offre</span><h2 id="offerTitle" style="margin-top:12px">Ce site, réalisé pour vous.</h2></div>
       <p style="margin:0;color:var(--soft);max-width:30em">Aperçu gratuit, puis devis précis avant la réalisation. Vous choisissez une direction ; Azel adapte le site et prend en charge sa mise en ligne.</p></div>
-    <div class="offer-grid rv">
+    <div class="offer-options" id="offerOptions"><div class="offer-grid rv">
+      <div class="alts" role="radiogroup" aria-labelledby="formulaChoiceTitle"><span class="label" id="formulaChoiceTitle" style="padding:0 4px">Choisir la formule</span>
+        ${["essentiel", "vitrine", "outil"].map((k, i) => `<label class="alt"><input type="radio" name="formula" value="${k}" aria-describedby="formula-line-${k}"${i === 0 ? " checked" : ""}><div><b>${esc(OFFERS[k].name)}</b><span class="description" id="formula-line-${k}">${esc(OFFERS[k].line)}</span></div><span class="p">Dès ${esc(OFFERS[k].price)}</span></label>`).join("")}
+        <p class="extra">Nom de domaine, hébergement et maintenance en plus.</p></div>
       <div class="formula" id="formula"></div>
-      <div class="alts"><span class="label" style="padding:0 4px">Choisir la formule</span>
-        ${["essentiel", "vitrine", "outil"].map((k, i) => `<label class="alt"><input type="radio" name="formula" value="${k}"${i === 0 ? " checked" : ""}><div><b>${esc(OFFERS[k].name)}</b><span>${esc(OFFERS[k].line)}</span></div><span class="p">Dès ${esc(OFFERS[k].price)}</span></label>`).join("")}
-        <p class="extra">À prévoir en plus : nom de domaine, hébergement et maintenance (modalités précisées dans le devis).</p></div>
-    </div>
+    </div></div>
   </section>
   `;
 
@@ -771,7 +808,9 @@ const renderFiche = (t, mode) => {
   document.querySelectorAll("#vFiche [data-view]").forEach((b) => b.addEventListener("click", () => setView(b.dataset.view, b.closest(".f-acts"))));
   document.querySelectorAll('#vFiche [data-go="offer"]').forEach((a) => a.addEventListener("click", (e) => {
     e.preventDefault();
-    $("#fOffer").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    const target = matchMedia("(max-width: 960px)").matches ? $("#offerOptions") : $("#fOffer");
+    target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    if (e.detail === 0) document.querySelector('input[name="formula"]:checked')?.focus({ preventScroll: true });
   }));
   if (t.id === "artisan") {
     AzelArtisan.fields.forEach((field) => {
@@ -913,13 +952,18 @@ const renderFormula = (persist = true) => {
   const t = cur;
   const k = (document.querySelector('input[name="formula"]:checked') || {}).value || "essentiel";
   const o = OFFERS[k];
+  const detailsOpen = $("#formulaDetails")?.open === true;
   $("#formula").innerHTML = `
-    <div class="formula-top"><div><span class="label">Création ${esc(t.name)} · formule ${esc(o.name)}</span><h3>${esc(o.kind)} pour ${esc(ME.name || "votre entreprise")}</h3></div>
+    <div class="formula-top"><div><span class="label">Création ${esc(t.name)}</span><h3>${esc(o.name)} pour ${esc(ME.name || "votre entreprise")}</h3></div>
       <div class="amount"><span>À partir de</span><b>${esc(o.price)}</b></div></div>
-    <ul>${o.inc.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
-    <div class="facts"><div><b>Délai indicatif</b>${esc(o.delay)}</div><div><b>Ensuite</b>Vous recevez un devis précis, puis on adapte textes, photos et couleurs ensemble.</div></div>
-    <a class="btn lg" id="order" href="/#devis">Faire réaliser ce site par Azel ${up}</a>
-    <p class="note">Votre site vous appartient. Adaptation et mise en ligne selon le devis. Le nom de domaine, l’hébergement et la maintenance restent distincts. Vos choix sont joints à votre demande. Les réservations, paiements et formulaires avancés montrés dans la démo nécessitent un périmètre adapté.</p>`;
+    <p class="scope">${esc(o.line)}</p>
+    ${k !== "outil" ? '<p class="boundary">Les réservations, paiements et formulaires avancés montrés dans la démo nécessitent un périmètre adapté.</p>' : '<p class="boundary">Le périmètre des fonctionnalités est défini après échange et précisé dans le devis.</p>'}
+    <details class="formula-details" id="formulaDetails"${detailsOpen ? " open" : ""}><summary>Contenu et délai <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 7h10"/><path d="M7 2v10"/></svg></summary>
+      <ul>${o.inc.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
+      <div class="facts"><div><b>Délai indicatif</b>${esc(o.delay)}</div><div><b>Ensuite</b>Vous recevez un devis précis, puis on adapte textes, photos et couleurs ensemble.</div></div>
+    </details>
+    <a class="btn lg" id="order" href="/#devis">Demander un devis ${up}</a>
+    <p class="note">Votre site vous appartient. Adaptation et mise en ligne selon le devis. Le nom de domaine, l’hébergement et la maintenance restent distincts. Vos choix sont joints à votre demande.</p>`;
   const lines = [`Demande depuis le Showroom Azel`, `Création : ${t.name} (${t.num}, ${t.sector})`, `Formule souhaitée : ${o.name}, à partir de ${o.price}`, `Entreprise : ${ME.name || "non précisée"}${ME.city ? ", " + ME.city : ""}`, ...(ME.color ? [`Couleur choisie : #${ME.color.toUpperCase()}`] : []), ...(ME.logo ? ["Logo : à m'envoyer (testé dans l'aperçu)"] : [])].join("\n");
   /* Tout ce que le visiteur a personnalisé part avec sa demande : concept, nom, ville, couleur, lien vers son aperçu. */
   const look = new URLSearchParams();
@@ -964,6 +1008,7 @@ const route = () => {
   });
 };
 addEventListener("hashchange", route);
+$("#sectorSelect").addEventListener("change", (event) => { FILTER = event.target.value; renderCollection(); });
 $("#navShowroom").addEventListener("click", (e) => {
   if (location.hash === "#collection") { e.preventDefault(); $("#collection").scrollIntoView({ block: "start" }); }
 });

@@ -245,7 +245,7 @@ figure { margin: 0; }
 .of-band { background: var(--paper); color: #111214; --line-l: rgba(17,18,20,.14); }
 .of-band .wrap { padding-block: clamp(80px, 9vw, 140px); }
 .of-band .sec-meta { border-color: var(--line-l); }
-.of-band .label { color: #6E7076; }
+.of-band .label { color: #5A5C60; }
 
 @media (max-width: 1080px) {
   .ap-steps { grid-template-columns: repeat(2, minmax(0,1fr)); row-gap: 48px; }
@@ -634,8 +634,8 @@ figure { margin: 0; }
 .cs-fld input, .cs-fld textarea { caret-color: #0C0D0F; transition: border-color var(--t-fast), box-shadow var(--t-mid) var(--e-out); }
 .cs-fld input:hover:not(:focus), .cs-fld textarea:hover:not(:focus) { border-bottom-color: #6E7074; }
 .cs-fld input:focus, .cs-fld textarea:focus { border-bottom-color: #0C0D0F; box-shadow: 0 1px 0 #0C0D0F; }
-.cs-fld input::placeholder, .cs-fld textarea::placeholder { color: #8E8F8D; transition: opacity var(--t-fast); }
-.cs-fld input:focus::placeholder, .cs-fld textarea:focus::placeholder { opacity: .45; }
+.cs-fld input::placeholder, .cs-fld textarea::placeholder { color: #65676B; transition: opacity var(--t-fast); }
+.cs-fld input:focus::placeholder, .cs-fld textarea:focus::placeholder { opacity: 1; }
 .cs-fld.err label { color: var(--danger-l); }
 .cs-fld.err input, .cs-fld.err textarea { border-bottom-color: var(--danger-l); box-shadow: 0 1px 0 var(--danger-l); }
 .cs-fld.ok input, .cs-fld.ok textarea { border-bottom-color: #5E7F63; }
@@ -667,8 +667,8 @@ html[data-az-intro] #azIntro { display: block; animation: azIntroSafety 0s linea
 .ofc-head h2 { margin: 0; font-size: clamp(40px, 5vw, 80px); line-height: .95; font-weight: 600; letter-spacing: -.05em; }
 .ofc-head p { margin: 0; color: #4A4B4F; font-size: 17px; max-width: 32em; }
 .ofc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
-.ofc { display: grid; grid-template-rows: auto auto auto 1fr auto auto; gap: 18px; padding: 30px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px rgba(17,18,20,.1); color: #111214; transition: transform .35s var(--ease), box-shadow .35s; }
-.ofc:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px rgba(17,18,20,.18), 0 24px 50px rgba(17,18,20,.08); }
+.ofc { display: grid; grid-template-rows: auto auto auto 1fr auto auto; gap: 18px; padding: 30px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px rgba(17,18,20,.1); color: #111214; transition: box-shadow .35s; }
+.ofc:hover { box-shadow: inset 0 0 0 1px rgba(17,18,20,.18), 0 24px 50px rgba(17,18,20,.08); }
 .ofc.is-dark { background: #111214; color: var(--paper); box-shadow: none; }
 .ofc-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
 .ofc-name { font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
@@ -686,12 +686,16 @@ html[data-az-intro] #azIntro { display: block; animation: azIntroSafety 0s linea
 .ofc-delay { font-size: 13px; color: #6E7076; }
 .ofc.is-dark .ofc-delay { color: #8A8C91; }
 .ofc .btn { justify-content: space-between; width: 100%; background: #111214; color: var(--paper); }
+.ofc .btn:not(.line):hover { background: #292B2F; color: var(--paper); }
+.ofc .btn:not(.line):active { background: #080808; color: var(--paper); }
 .ofc.is-dark .btn { background: var(--paper); color: #111214; }
+.ofc.is-dark .btn:not(.line):hover { background: #FFFFFF; color: #111214; }
+.ofc.is-dark .btn:not(.line):active { background: #DDDAD3; color: #111214; }
 .ofc-more { margin-top: 14px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; padding: 22px 26px; border-radius: 16px; box-shadow: inset 0 0 0 1px rgba(17,18,20,.14); }
 .ofc-more p { margin: 0; font-size: 15.5px; color: #33353A; }
 .ofc-more b { color: #111214; }
 .ofc-more .btn.line { color: #111214; box-shadow: inset 0 0 0 1px rgba(17,18,20,.3); background: transparent; }
-.ofc-note { margin: 16px 0 0; font-size: 13.5px; color: #6E7076; }
+.ofc-note { margin: 16px 0 0; font-size: 13.5px; color: #5A5C60; }
 @media (max-width: 960px) { .ofc-head { grid-template-columns: 1fr; } .ofc-grid { grid-template-columns: 1fr; } }
 
 /* ===== EN BREF ===== */
@@ -806,9 +810,11 @@ html[data-az-intro] #azIntro { display: block; animation: azIntroSafety 0s linea
 .ofc-design { display: grid; gap: 4px; padding: 12px 14px; border-radius: 12px; background: rgba(17,18,20,.05); font-size: 13.5px; line-height: 1.4; color: #4A4B4F; }
 .ofc-design b { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #111214; }
 .ofc-design b::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #E85C3A; }
+.ofc-shared { margin-top: 16px; }
+@media (max-width: 640px) { .ofc { padding: 24px; gap: 16px; } }
 .ofc.is-dark .ofc-design { background: rgba(243,241,235,.07); color: #CFCDC6; }
 .ofc.is-dark .ofc-design b { color: var(--paper); }
-.cs-hint { margin: 10px 0 0; font-size: 13.5px; color: #6E7076; }
+.cs-hint { margin: 10px 0 0; font-size: 13.5px; color: #5A5C60; }
 
 /* ===== RYTHME COMMUN DES SECTIONS : même en-tête, mêmes marges, mêmes grilles ===== */
 .sx-head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 40px; align-items: end; margin: 34px 0 44px; }
@@ -970,7 +976,7 @@ html[data-az-intro] #azIntro { display: block; animation: azIntroSafety 0s linea
 .azc-form { display: flex; gap: 8px; margin: 0 14px; padding: 6px 6px 6px 16px; border-radius: 999px; background: #17181B; box-shadow: inset 0 0 0 1px var(--line); }
 .azc-form:focus-within { box-shadow: inset 0 0 0 1px rgba(243,241,235,.4); }
 .azc-form input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--paper); font: 400 15px var(--display); outline: none; }
-.azc-form input::placeholder { color: #6E7076; }
+.azc-form input::placeholder { color: var(--mute); }
 .azc-send { all: unset; box-sizing: border-box; cursor: pointer; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--paper); color: #111214; flex: none; transition: transform .25s var(--ease); }
 .azc-send:hover { transform: translateX(2px); }
 .azc-send svg { width: 15px; height: 15px; }
@@ -1366,13 +1372,15 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
   ]
 }
 </script>
+<link rel="stylesheet" href="/mobile-nav.css">
+<script defer src="/mobile-nav.js"></script>
 </head>
 <body>
-<header class="nav">
+<header class="nav nav-home">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Azel Studio, accueil">
       <svg viewBox="0 0 30 30" aria-hidden="true"><rect x="0" y="10.5" width="19.5" height="19.5" rx="1.6" fill="#F3F1EB"/><rect x="19.5" y="0" width="10.5" height="10.5" rx="1.1" fill="#F3F1EB"/></svg>
-      <span><b>AZEL</b> STUDIO</span>
+      <span><b>AZEL</b><span class="brand-studio"> STUDIO</span></span>
     </a>
     <nav class="links" aria-label="Navigation principale">
       <a href="#realisations">Réalisations</a>
@@ -1385,6 +1393,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       <a class="nav-sr" href="showroom/">Showroom</a>
       <a class="btn" href="#contact" aria-label="Discutons de votre projet"><span class="long">Discutons de votre projet</span><span class="short">Contact</span>
         <svg class="ico-go" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg><svg class="ico-msg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M2.5 3.5h11v7.5h-6l-3.5 2.5V11h-1.5z"/></svg></a>
+      <details class="mobile-menu" data-mobile-menu><summary aria-label="Menu de navigation"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M3 6h14M3 14h14"/></svg><span class="menu-label">Menu</span></summary><nav aria-label="Rubriques du site"><a href="/showroom/">Toutes les créations</a><a href="#realisations">Projets clients</a><a href="#offres">Offres et tarifs</a><a href="#approche">Comment ça se passe</a><a href="#parrainage">Parrainage</a></nav></details>
     </div>
   </div>
 </header>
@@ -1565,7 +1574,6 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
             <div class="ofc-price"><span>À partir de</span><strong>490 €</strong></div>
             <p class="ofc-promise">Une première présence en ligne soignée, sur une seule page.</p>
             <ul><li>Une page qui présente l'activité</li><li>Design adapté aux ordinateurs et mobiles</li><li>Formulaire de contact simple</li><li>Mise en ligne selon les modalités convenues</li></ul>
-            <div class="ofc-design"><b>Design adapté à votre activité</b>À partir d’une création du showroom ou de votre propre idée. Adaptation et mise en ligne prises en charge selon le devis.</div>
             <span class="ofc-delay">Délai indicatif de 1 à 3 semaines</span>
             <a class="btn ofx-cta" href="#contact" data-offer="Essentiel">Choisir Essentiel <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
           </article>
@@ -1574,7 +1582,6 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
             <div class="ofc-price"><span>À partir de</span><strong>790 €</strong></div>
             <p class="ofc-promise">Plusieurs pages pour présenter chaque prestation et gagner en crédibilité.</p>
             <ul><li>Site de plusieurs pages</li><li>Design personnalisé</li><li>Mise en valeur de vos prestations</li><li>Formulaire de contact ou de demande de devis</li></ul>
-            <div class="ofc-design"><b>Design adapté à votre activité</b>À partir d’une création du showroom ou de votre propre idée. Adaptation et mise en ligne prises en charge selon le devis.</div>
             <span class="ofc-delay">Délai précisé dans le devis</span>
             <a class="btn ofx-cta" href="#contact" data-offer="Vitrine">Choisir Vitrine <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
           </article>
@@ -1583,11 +1590,11 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
             <div class="ofc-price"><span>À partir de</span><strong>1 290 €</strong></div>
             <p class="ofc-promise">Le site, avec ce qui fait gagner du temps à votre activité.</p>
             <ul><li>Réservation en ligne</li><li>Paiement</li><li>Formulaires avancés</li><li>Connexion à vos outils existants</li></ul>
-            <div class="ofc-design"><b>Design adapté à votre activité</b>À partir d’une création du showroom ou de votre propre idée. Adaptation et mise en ligne prises en charge selon le devis.</div>
             <span class="ofc-delay">Périmètre défini après échange</span>
             <a class="btn ofx-cta" href="#contact" data-offer="Site et outil">Choisir Site et outil <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
           </article>
         </div>
+        <div class="ofc-design ofc-shared"><b>Dans chaque formule, un design adapté à votre activité</b>À partir d’une création du showroom ou de votre propre idée. Adaptation et mise en ligne prises en charge selon le devis.</div>
         <div class="ofc-more">
           <p><b>Sur mesure.</b> Outil métier, portail client et intégrations sur devis, après une étude de faisabilité.</p>
           <a class="btn line ofx-cta" href="#contact" data-offer="Sur mesure">Parler de mon projet <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
@@ -1939,7 +1946,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
     }
   };
   openLinkedServices(); addEventListener('hashchange', openLinkedServices);
-  document.querySelectorAll('details').forEach(d => d.addEventListener('toggle', () => {
+  document.querySelectorAll('details:not([data-mobile-menu])').forEach(d => d.addEventListener('toggle', () => {
     if (window.ScrollTrigger) requestAnimationFrame(() => ScrollTrigger.refresh());
   }));
 
@@ -2082,7 +2089,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
   const ofWrap = document.querySelector('#ofBand .wrap');
   const ofSide = () => Math.round(parseFloat(getComputedStyle(ofWrap).paddingLeft) * .5);
   gsap.fromTo('#ofBand', { clipPath: () => `inset(72px ${ofSide()}px 0px ${ofSide()}px round 28px)` }, { clipPath: 'inset(0px 0px 0px 0px round 0px)', ease: 'none', scrollTrigger: { trigger: '#offres', start: 'top 92%', end: 'top 30%', scrub: .5, invalidateOnRefresh: true } });
-  gsap.from('.ofc', { y: 50, opacity: 0, duration: .9, ease: 'power3.out', stagger: .08, scrollTrigger: { trigger: '.ofc-grid', start: 'top 85%', once: true } });
+  gsap.fromTo('.ofc', { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: .9, ease: 'power3.out', stagger: .08, scrollTrigger: { trigger: '.ofc-grid', start: 'top 85%', once: true } });
 
 
   // Relance la vidéo quand on revient en haut
