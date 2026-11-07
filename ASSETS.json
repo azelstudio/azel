@@ -1,0 +1,323 @@
+{
+  "assets": [
+    {
+      "file": "public/brand/arrow-up-right.svg",
+      "bytes": 146,
+      "sha256": "33a650ad7629972fe8178cdf689e9478bf2a709d0b4cbcf5763578a966273c1d"
+    },
+    {
+      "file": "public/brand/azel-symbol-black.svg",
+      "bytes": 198,
+      "sha256": "ee8f33c76a204cc13234efca94c98020262199c9cd12c82a689f24d63e759813"
+    },
+    {
+      "file": "public/brand/azel-symbol-ivory.svg",
+      "bytes": 198,
+      "sha256": "47f3466fa9508c24e1ce38b38a604067ae83c1c8b39a80b938a36e855fe3e80e"
+    },
+    {
+      "file": "public/brand/azel-symbol-metal.svg",
+      "bytes": 455,
+      "sha256": "0a58e17e510a081a8bd884e3fd572f2057d0bf7c077b333349c7a9ca13a61df9"
+    },
+    {
+      "file": "public/brand/azel-symbol-olive.svg",
+      "bytes": 198,
+      "sha256": "0abcfbbc832390217b5ca811a2abe503d1e9cc94460e948f720bce8c7adc9363"
+    },
+    {
+      "file": "public/brand/cursor.svg",
+      "bytes": 160,
+      "sha256": "a019082f4ecfd2bbb25889a6f559598b42272a6ba083da6d5f19a2b4697420a1"
+    },
+    {
+      "file": "public/brand/favicon.svg",
+      "bytes": 262,
+      "sha256": "d9384ee9b667e1fe855ff26fdfbc4f3c6aa47afa72ea4a09c2657a791265d456"
+    },
+    {
+      "file": "public/brand/palette.json",
+      "bytes": 153,
+      "sha256": "34a71813fd477739092cc4bbe68c64541152e0afca14c13622337450f99f5e1e"
+    },
+    {
+      "file": "public/brand/poster.jpg",
+      "bytes": 30436,
+      "sha256": "126af1dd44e8a2fa7da7096c73d6a16783996673695b4eaf831009eda93a7a4d",
+      "width": 880,
+      "height": 880
+    },
+    {
+      "file": "public/brand/sq-big.jpg",
+      "bytes": 17176,
+      "sha256": "27494ee33d4d76314d8cb7d3b01ae552c1cd6f9b9e0d785a8fee81a43e047947",
+      "width": 307,
+      "height": 302
+    },
+    {
+      "file": "public/brand/sq-small.jpg",
+      "bytes": 6108,
+      "sha256": "fd008f49fc98bb6878cd3f2df062516c24b3217b2a3bbb3ffa986229f72b6992",
+      "width": 167,
+      "height": 155
+    },
+    {
+      "file": "public/brand/symbole.mp4",
+      "bytes": 213417,
+      "sha256": "156f87789d2b0d5e521e226c07f78317cc7bdce4be786b6cf0f0d9b9a1f6f4d1"
+    },
+    {
+      "file": "public/fonts/instrument-sans.woff2",
+      "bytes": 30092,
+      "sha256": "2ee17598a98d8a59e4df8152d015bec9ab8e4d5672cc0ab42bef806b568e3971"
+    },
+    {
+      "file": "public/fonts/instrument-serif.ttf",
+      "bytes": 70012,
+      "sha256": "498efd461f6ddfcb7a111bf9a565709d2085d48201d501ead960d93e84ffbb88"
+    },
+    {
+      "file": "public/keyframes/01-signature.png",
+      "bytes": 1732642,
+      "sha256": "8fac86be8e9a2b6c4319bbc2311d6c7cebe4c64add50292c227c5d52dcb7cbf2",
+      "width": 941,
+      "height": 1672
+    },
+    {
+      "file": "public/keyframes/02-showroom.png",
+      "bytes": 1977629,
+      "sha256": "3f985a43c563d06a1d2d03d3001441fd7ecf6c753439a8a11f301aa967d88328",
+      "width": 941,
+      "height": 1672
+    },
+    {
+      "file": "public/keyframes/03-personnalisation.png",
+      "bytes": 1801408,
+      "sha256": "08e71de251081f30b31b7aef54155537855daa5560abe9737e50868bb58cbbdd",
+      "width": 941,
+      "height": 1672
+    },
+    {
+      "file": "public/keyframes/04-propriete.png",
+      "bytes": 1673333,
+      "sha256": "63a9074f11d6a33784ad1a4ea7b8c151c873a9ab0b2146e04317ebc60d7e3432",
+      "width": 941,
+      "height": 1672
+    },
+    {
+      "file": "public/screens/apiculture-desktop.png",
+      "bytes": 264673,
+      "sha256": "d1bf67069e4d2849f7c196a8ba390ff0cf3c9b071b8f2c3675b7a37e7fbc558b",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "public/screens/apiculture-mobile.png",
+      "bytes": 119463,
+      "sha256": "ee52a781b1c9165a5abbcd5288b038d659dfd073489b69e10bca91465859cb71",
+      "width": 430,
+      "height": 932
+    },
+    {
+      "file": "public/screens/depart-desktop.png",
+      "bytes": 982900,
+      "sha256": "51f9aadff815618e288a710c3e2625cd6f59513fb6a876f1a3f5d0e8f5151eed",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "public/screens/depart-mobile.png",
+      "bytes": 284921,
+      "sha256": "6a9cae7236edcb4a2e288a6d06ea9cd020c8663559b33fd77d183e42b4ecfac8",
+      "width": 430,
+      "height": 932
+    },
+    {
+      "file": "public/screens/personnalisation-reelle.png",
+      "bytes": 670685,
+      "sha256": "0812bec649acb0e585d2290ba8038a67e5b39d0ba7dafe2e28589efc3888ccc7",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "public/screens/pilates-clay.png",
+      "bytes": 1415497,
+      "sha256": "2e396fee4e17fda37542674a33d47b819af080ed0c3cd0d247e154d7f0162850",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "public/screens/pilates-ink.png",
+      "bytes": 1415572,
+      "sha256": "6859fd2f24b562c85300d8d9b3763d3423ba928e1d94d96691850299c3c41af0",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "public/screens/pilates-mobile.png",
+      "bytes": 204006,
+      "sha256": "f8b5c3d03bf4d3cf9e44ae67fa2ca02ac6bfd3bdbb67549b1bb5fd426b6dde48",
+      "width": 430,
+      "height": 932
+    },
+    {
+      "file": "public/screens/pilates-name.png",
+      "bytes": 1415487,
+      "sha256": "e20c8020060665ae5bc87229117fa4e4645c1fb1be38ff67561ec2aa7fda2882",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "public/screens/pilates-olive.png",
+      "bytes": 1415726,
+      "sha256": "ea4e84ecf889352ce20b017fedbe2cb8da8fed570e3288ad399f8e0b923bb41a",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "public/screens/pilates-plum.png",
+      "bytes": 1415649,
+      "sha256": "42017b045b710d6c1496586218b5fc83b85634384ab312f34ab0c6083dd6750a",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "public/screens/ramen-desktop.png",
+      "bytes": 378072,
+      "sha256": "0dfa6b5127a135284c3e81f68fe37abcc939450b76e9e0f3b51a0e118a3a77a6",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "public/screens/ramen-mobile.png",
+      "bytes": 162599,
+      "sha256": "37adb1e17b97ee00dcf794d3e72959c7c6233f04e62ca71e23d022c8b4d05804",
+      "width": 430,
+      "height": 932
+    },
+    {
+      "file": "public/screens/showroom-desktop.png",
+      "bytes": 531756,
+      "sha256": "862e3b546a95597a83d1645f0ce31a50997b122e0ae257b6086b93e34e3d7692",
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "file": "public/screens/showroom-mobile.png",
+      "bytes": 179966,
+      "sha256": "9abcc022353b4265b57a2124628d612b9342e99ba0a8373b2b418bb2394dffa5",
+      "width": 430,
+      "height": 932
+    },
+    {
+      "file": "public/sfx/muted-confirm.wav",
+      "bytes": 26924,
+      "sha256": "eb7d9a7c5bf4cb98f716a4f3b9049cfc554240644269695a1e6b553bf3f2fb78"
+    },
+    {
+      "file": "public/sfx/soft-sweep.wav",
+      "bytes": 59564,
+      "sha256": "4dff95208dca34295bcb09582c7a889e392884e62bbdb5aeb6a5015fae5d3d78"
+    },
+    {
+      "file": "public/sfx/sonic-logo.wav",
+      "bytes": 172844,
+      "sha256": "c19c2e349af0da6bfbe88ccd9d51c90fb79b0119a35f49efbe1940fb6f9e2b84"
+    },
+    {
+      "file": "public/sfx/tactile-click.wav",
+      "bytes": 13484,
+      "sha256": "1f0d803782f71c5da5978128c5b37aa3f9fad021539fee63f9993b6689097029"
+    },
+    {
+      "file": "public/showroom/sr-apiculture.webp",
+      "bytes": 14754,
+      "sha256": "df60667a71167f8f67814bf84aaa83b997019d7b809be342b86e7169761e8c1d",
+      "width": 640,
+      "height": 400
+    },
+    {
+      "file": "public/showroom/sr-artisan.jpg",
+      "bytes": 44019,
+      "sha256": "f488613d136277cdbd36064540b2278b1db6b933758bd29dbefe9ae161f14a78",
+      "width": 640,
+      "height": 400
+    },
+    {
+      "file": "public/showroom/sr-beaute.jpg",
+      "bytes": 45877,
+      "sha256": "ebe90d4899bbfd40c4897111bb02230048a092b7685d1ad9913f0dc657428cd8",
+      "width": 640,
+      "height": 400
+    },
+    {
+      "file": "public/showroom/sr-cabinet.jpg",
+      "bytes": 38589,
+      "sha256": "18bd63613493acdf7adc50e6cfb4a530cdc9a24fb00ecc8ec1314b3295833b0a",
+      "width": 640,
+      "height": 400
+    },
+    {
+      "file": "public/showroom/sr-depart.jpg",
+      "bytes": 43157,
+      "sha256": "3d61aa99b1fd82fefde1f0f4bc0ad1f0a55909b85fa085a5395800b51a9db13c",
+      "width": 640,
+      "height": 400
+    },
+    {
+      "file": "public/showroom/sr-galerie.jpg",
+      "bytes": 20263,
+      "sha256": "93e5d9e4d80bdbbe83c87cd0bc4e8c34b1ae2613dcd73521643a5cb3de1f593f",
+      "width": 640,
+      "height": 400
+    },
+    {
+      "file": "public/showroom/sr-immo.jpg",
+      "bytes": 51837,
+      "sha256": "0da89f3c721c2b4f227654bac2f776ca8a12d57b6f962197c2a730425487b5a2",
+      "width": 640,
+      "height": 400
+    },
+    {
+      "file": "public/showroom/sr-kova.jpg",
+      "bytes": 35355,
+      "sha256": "df555ce5d123c277401d735274ebe07121d9cdbecd359486698a08b16e0def25",
+      "width": 640,
+      "height": 400
+    },
+    {
+      "file": "public/showroom/sr-pilates.webp",
+      "bytes": 96604,
+      "sha256": "c968879fbd9a77fb634894f5f31995ddfb7131e7c98afa97520b974ac7b020a9",
+      "width": 1280,
+      "height": 800
+    },
+    {
+      "file": "public/showroom/sr-ramen.jpg",
+      "bytes": 40130,
+      "sha256": "a168376a7cfbbca53360329fb1fe696b83edaf82c5f0fab79a35b5dceb2e7d0a",
+      "width": 640,
+      "height": 400
+    },
+    {
+      "file": "public/showroom/sr-sport-l.jpg",
+      "bytes": 102534,
+      "sha256": "85698bcb7725c13411a67753509159851bec8c35a915bbc80132edacc38ff82e",
+      "width": 1200,
+      "height": 725
+    },
+    {
+      "file": "public/showroom/sr-sport.jpg",
+      "bytes": 42450,
+      "sha256": "99644bc447095956dcd59ea01d23fff63da1d64abad25c1badbd24a22ebc84d5",
+      "width": 640,
+      "height": 400
+    }
+  ],
+  "counts": {
+    "public_assets": 49,
+    "generated_keyframes": 4,
+    "actual_screenshots": 15,
+    "synthetic_sfx": 4
+  }
+}

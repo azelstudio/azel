@@ -1,0 +1,107 @@
+[
+  {
+    "file": "public/screens/pilates-olive.png",
+    "path": "/showroom/pilates-classique/?embed=1",
+    "width": 1600,
+    "height": 1000,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/pilates-name.png",
+    "path": "/showroom/pilates-classique/?embed=1&nom=Studio%20Lumi%C3%A8re&ville=Paris",
+    "width": 1600,
+    "height": 1000,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/pilates-ink.png",
+    "path": "/showroom/pilates-classique/?embed=1&nom=Studio%20Lumi%C3%A8re&ville=Paris&style=ink",
+    "width": 1600,
+    "height": 1000,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/pilates-clay.png",
+    "path": "/showroom/pilates-classique/?embed=1&nom=Studio%20Lumi%C3%A8re&ville=Paris&style=terracotta",
+    "width": 1600,
+    "height": 1000,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/pilates-plum.png",
+    "path": "/showroom/pilates-classique/?embed=1&nom=Studio%20Lumi%C3%A8re&ville=Paris&style=plum",
+    "width": 1600,
+    "height": 1000,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/pilates-mobile.png",
+    "path": "/showroom/pilates-classique/?embed=1&nom=Studio%20Lumi%C3%A8re&ville=Paris",
+    "width": 430,
+    "height": 932,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/depart-desktop.png",
+    "path": "/showroom/depart/?embed=1&nom=Ligne%20A",
+    "width": 1600,
+    "height": 1000,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/depart-mobile.png",
+    "path": "/showroom/depart/?embed=1&nom=Ligne%20A",
+    "width": 430,
+    "height": 932,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/ramen-desktop.png",
+    "path": "/showroom/ramen/?embed=1",
+    "width": 1600,
+    "height": 1000,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/ramen-mobile.png",
+    "path": "/showroom/ramen/?embed=1",
+    "width": 430,
+    "height": 932,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/apiculture-desktop.png",
+    "path": "/showroom/apiculture/?embed=1",
+    "width": 1600,
+    "height": 1000,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/apiculture-mobile.png",
+    "path": "/showroom/apiculture/?embed=1",
+    "width": 430,
+    "height": 932,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/showroom-desktop.png",
+    "path": "/showroom/",
+    "width": 1600,
+    "height": 1000,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/showroom-mobile.png",
+    "path": "/showroom/",
+    "width": 430,
+    "height": 932,
+    "kind": "Actual local website screenshot, no form submitted"
+  },
+  {
+    "file": "public/screens/personnalisation-reelle.png",
+    "path": "/showroom/?nom=Studio%20Lumi%C3%A8re&ville=Paris#pilates-classique",
+    "width": 1600,
+    "height": 1000,
+    "kind": "Actual local website screenshot, no form submitted"
+  }
+]

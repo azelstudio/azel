@@ -1,0 +1,41 @@
+Tu es le directeur artistique et motion designer de la vidéo Azel Studio. Tu travailles dans le dossier de ce pack, séparé du site internet.
+
+MISSION
+Produis un film produit très soigné avec Remotion. Je veux voir le produit prendre vie, des interactions UX lisibles et une vraie direction de mouvement. Le livrable principal est un MP4 de 24 secondes en 1080 × 1920 à 30 fps. Décline ensuite en 15 secondes, 4:5 et 16:9.
+
+COMMENCE PAR LIRE
+README.md
+CLAUDE.md
+docs/DIRECTION_ARTISTIQUE.md
+docs/STORYBOARD.md
+docs/MOTION_SPEC.md
+docs/COPY_ET_VARIANTES.md
+ASSETS.json
+
+LE PROJET EXISTE DÉJÀ
+Conserve les versions Remotion alignées. Lance npm ci puis npm run check. Inspecte les sources et les rendus de contrôle. Améliore la direction et les animations à partir de cette base, sans la remplacer par un diaporama de quatre PNG. Les captures, le symbole, les champs, les textes et les contrôles doivent rester des calques indépendants.
+
+DIRECTION
+Noir profond, ivoire chaud, métal satiné, Instrument Sans. La couleur vient des créations du showroom. Fenêtres en profondeur contenue, grands titres courts, curseur crédible, clics synchronisés, changements de nom puis de palette visiblement liés aux contrôles. Les mouvements racontent un usage. Le visiteur doit comprendre que le site s’adapte à son activité et qu’Azel prend en charge sa réalisation.
+
+HISTOIRE
+Votre futur site.
+Essayez-le.
+Votre nom.
+Vos couleurs.
+Sur tous les écrans.
+Il vous appartient.
+Voyez le vôtre.
+azelstudio.fr
+
+QUALITÉ ATTENDUE
+Une accroche lisible dès l’ouverture, un vrai rythme, des fenêtres qui ont un poids, des transformations précises, des pauses de lecture et une fin qui tient assez longtemps pour mémoriser l’adresse. Utilise des images locales et des éléments typographiques rendus en code. Anime réellement le curseur, le champ, les choix de palette et la vue mobile. Garde l’identité d’Azel et la silhouette exacte du symbole.
+
+VÉRIFICATION
+Rends au moins une image représentative de chaque scène dans chaque format. Regarde les images produites. Corrige les chevauchements, les textes trop petits, les déformations et les éléments hors zone sûre. Vérifie aussi les limites entre scènes, le dernier écran et la version courte. Produis un MP4 réel et contrôle sa durée, sa résolution et sa piste audio. Indique clairement ce qui a été rendu et ce qui reste seulement configuré.
+
+RÈGLES PRODUIT
+Les sites du showroom sont des concepts fictifs. Ne pas les présenter comme des clients ou des preuves de conversion. Ne pas inventer de chiffres, témoignages, notes, garantie Google, site final instantané, réservations fonctionnelles ou espace client déjà livré. L’aperçu est gratuit, la réalisation fait l’objet d’un devis. Le client reste propriétaire du site livré. Aucun abonnement obligatoire n’est annoncé dans ce film.
+
+LIVRAISON
+Donne les MP4, le code, les assets, un poster, un bref relevé de validation et la commande de reproduction. Ne publie rien sur le site ou sur les réseaux. N’utilise aucune musique commerciale sans licence. Ne demande aucun mot de passe ou token.

@@ -1,0 +1,19 @@
+{
+  "keyframes": {
+    "source": "Generated with OpenAI image generation for Azel, 2026-11-07",
+    "files": {
+      "01-signature.png": "exec-10c0eef2-38ed-4982-9fa8-c4d1e9bb82f6.png",
+      "02-showroom.png": "exec-b3c9e98f-7659-45aa-aeec-be2ac49edcfe.png",
+      "03-personnalisation.png": "exec-08f09da7-cb4c-40d2-979c-2cebf78fbe45.png",
+      "04-propriete.png": "exec-c93bbd5e-ffdd-4836-bdd1-1a3ee29b7553.png"
+    }
+  },
+  "showroom": {
+    "source": "Actual local Azel showroom thumbnails",
+    "note": "Concepts fictifs, ne pas les présenter comme des clients."
+  },
+  "brand": {
+    "source": "Existing Azel files at /workspace/azel",
+    "commit": "7a7aad9dad070268903135785ef9b9dd0396eb1c"
+  }
+}

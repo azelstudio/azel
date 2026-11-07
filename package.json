@@ -1,0 +1,31 @@
+{
+  "name": "azel-motion-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Azel Studio product film production kit",
+  "scripts": {
+    "studio": "remotion studio src/index.tsx",
+    "check": "tsc --noEmit",
+    "render": "remotion render src/index.tsx AzelFilmVertical renders/Azel-24s-1080x1920.mp4 --codec h264 --crf 18 --pixel-format yuv420p",
+    "render:short": "remotion render src/index.tsx AzelShortVertical renders/Azel-15s-1080x1920.mp4 --codec h264 --crf 18 --pixel-format yuv420p",
+    "render:feed": "remotion render src/index.tsx AzelFilmFeed renders/Azel-24s-1080x1350.mp4 --codec h264 --crf 18 --pixel-format yuv420p",
+    "render:wide": "remotion render src/index.tsx AzelFilmWide renders/Azel-24s-1920x1080.mp4 --codec h264 --crf 18 --pixel-format yuv420p",
+    "preview": "remotion render src/index.tsx AzelFilmVertical renders/Azel-preview.mp4 --scale 0.5 --codec h264 --crf 22 --pixel-format yuv420p",
+    "stills": "node scripts/render-stills.mjs",
+    "format": "prettier --write src scripts"
+  },
+  "dependencies": {
+    "@remotion/bundler": "4.0.541",
+    "@remotion/cli": "4.0.541",
+    "@remotion/renderer": "4.0.541",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "remotion": "4.0.541"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.10",
+    "@types/react-dom": "19.1.9",
+    "prettier": "^3.6.2",
+    "typescript": "5.8.3"
+  }
+}
