@@ -753,7 +753,10 @@ html[data-az-intro] #azIntro { display: block; animation: azIntroSafety 0s linea
 .sr-live img { position: absolute; inset: 0; border-radius: 0 !important; }
 .sr-live iframe { position: absolute; left: 0; top: 0; width: 1440px; height: 900px; border: 0; transform-origin: 0 0; pointer-events: none; opacity: 0; transition: opacity .8s var(--ease); }
 .sr-live iframe.on { opacity: 1; }
-.sr-sleep .sr-live iframe { display: none; }
+@media (max-width:760px), (pointer:coarse), (prefers-reduced-motion:reduce) {
+  .sr-im { animation: none; }
+  .sr-im::before { display: none; filter: none; opacity: 0; }
+}
 .sr-im::before { opacity: .14; }
 .sr-go { position: absolute; right: 12px; top: 12px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: rgba(8,8,8,.62); color: var(--paper); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); box-shadow: inset 0 0 0 1px rgba(243,241,235,.2); transition: background .3s, color .3s; }
 .sr-go svg { width: 13px; height: 13px; }
@@ -1224,6 +1227,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
 <script src="/showroom/artisan-config.js"></script>
 <script src="/showroom/apiculture/config.js"></script>
 <script src="/showroom/pilates-classique/config.js"></script>
+<script src="/preview-lifecycle.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1489,7 +1493,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       </div>
     </div>
     <div class="srw-rail kv-rv">
-      <div class="srw-track" id="srwTrack"><a class="sr-card" href="showroom/#apiculture" style="--c1:#F4D77C;--c2:#294D3B;--d:-2s"><span class="sr-im"><span class="sr-live"><img src="sr-apiculture.webp" alt="Aperçu Aube, site pour apiculteur" loading="lazy" width="640" height="400"><iframe data-src="showroom/apiculture/?embed=1&amp;tour=1" title="Démonstration Aube" tabindex="-1" loading="lazy"></iframe></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Aube</b><span>Apiculture</span></span></a><a class="sr-card" href="showroom/#sport" style="--c1:#CD2934;--c2:#F5F5F3;--d:-7.7s"><span class="sr-im"><span class="sr-live"><img src="sr-sport.jpg" alt="Aperçu de la création Atos JJB" loading="lazy" width="640" height="400"><iframe data-src="showroom/sport/?embed=1&amp;tour=1" title="Démonstration Atos JJB" tabindex="-1" loading="lazy"></iframe></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Atos JJB</b><span>Sport</span></span></a><a class="sr-card" href="showroom/#depart" style="--c1:#1F5BFF;--c2:#9DB8FF;--d:0.0s"><span class="sr-im"><span class="sr-live"><img src="sr-depart.jpg" alt="Aperçu de la création Ligne A" loading="lazy" width="640" height="400"><iframe data-src="showroom/depart/?embed=1&amp;tour=1" title="Démonstration Ligne A" tabindex="-1" loading="lazy"></iframe></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Ligne A</b><span>Auto-école</span></span></a><a class="sr-card" href="showroom/#beaute" style="--c1:#D9213A;--c2:#E6F77A;--d:-1.1s"><span class="sr-im"><span class="sr-live"><img src="sr-beaute.jpg" alt="Aperçu de la création Chérie Club" loading="lazy" width="640" height="400"><iframe data-src="showroom/beaute/?embed=1&amp;tour=1" title="Démonstration Chérie Club" tabindex="-1" loading="lazy"></iframe></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Chérie Club</b><span>Beauté</span></span></a><a class="sr-card" href="showroom/#cabinet" style="--c1:#6B1626;--c2:#E3D8C8;--d:-2.2s"><span class="sr-im"><span class="sr-live"><img src="sr-cabinet.jpg" alt="Aperçu de la création 003 Cabinet" loading="lazy" width="640" height="400"><iframe data-src="showroom/cabinet/?embed=1&amp;tour=1" title="Démonstration 003 Cabinet" tabindex="-1" loading="lazy"></iframe></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>003 Cabinet</b><span>Conseil</span></span></a><a class="sr-card" href="showroom/#artisan" style="--c1:#E8671C;--c2:#F1EEEA;--d:-3.3000000000000003s"><span class="sr-im"><span class="sr-live"><img src="sr-artisan.jpg" alt="Aperçu de la création 004 Artisan" loading="lazy" width="640" height="400"><iframe data-src="showroom/artisan/?embed=1&amp;tour=1" title="Démonstration 004 Artisan" tabindex="-1" loading="lazy"></iframe></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>004 Artisan</b><span>Bâtiment</span></span></a><a class="sr-card" href="showroom/#kova" style="--c1:#E85C3A;--c2:#EEE8DE;--d:-4.4s"><span class="sr-im"><span class="sr-live"><img src="sr-kova.jpg" alt="Aperçu de la création Kova" loading="lazy" width="640" height="400"><iframe data-src="showroom/kova/?embed=1&amp;tour=1" title="Démonstration Kova" tabindex="-1" loading="lazy"></iframe></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Kova</b><span>Marque & e-commerce</span></span></a><a class="sr-card" href="showroom/#galerie" style="--c1:#D9DCE1;--c2:#6F7480;--d:-5.5s"><span class="sr-im"><span class="sr-live"><img src="sr-galerie.jpg" alt="Aperçu de la création Concept 01" loading="lazy" width="640" height="400"><iframe data-src="showroom/galerie/?embed=1&amp;tour=1" title="Démonstration Concept 01" tabindex="-1" loading="lazy"></iframe></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Concept 01</b><span>Galerie & studio</span></span></a><a class="sr-card" href="showroom/#ramen" style="--c1:#F5DE51;--c2:#EA3B2B;--d:-6.6000000000000005s"><span class="sr-im"><span class="sr-live"><img src="sr-ramen.jpg" alt="Aperçu de la création Koko" loading="lazy" width="640" height="400"><iframe data-src="showroom/ramen/?embed=1&amp;tour=1" title="Démonstration Koko" tabindex="-1" loading="lazy"></iframe></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Koko</b><span>Restaurant</span></span></a><a class="sr-card" href="showroom/#immo" style="--c1:#D8B27D;--c2:#152331;--d:-7.2s"><span class="sr-im"><span class="sr-live"><img src="sr-immo.jpg" alt="Aperçu de la création Auréa" loading="lazy" width="640" height="400"><iframe data-src="showroom/immo/?embed=1&amp;tour=1" title="Démonstration Auréa" tabindex="-1" loading="lazy"></iframe></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Auréa</b><span>Immobilier</span></span></a></div>
+      <div class="srw-track" id="srwTrack"><a class="sr-card" href="showroom/#apiculture" style="--c1:#F4D77C;--c2:#294D3B;--d:-2s"><span class="sr-im"><span class="sr-live" data-preview-src="showroom/apiculture/?embed=1&amp;tour=1" data-preview-title="Démonstration Aube"><img src="sr-apiculture.webp" alt="Aperçu Aube, site pour apiculteur" loading="lazy" width="640" height="400"></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Aube</b><span>Apiculture</span></span></a><a class="sr-card" href="showroom/#sport" style="--c1:#CD2934;--c2:#F5F5F3;--d:-7.7s"><span class="sr-im"><span class="sr-live" data-preview-src="showroom/sport/?embed=1&amp;tour=1" data-preview-title="Démonstration Atos JJB"><img src="sr-sport.jpg" alt="Aperçu de la création Atos JJB" loading="lazy" width="640" height="400"></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Atos JJB</b><span>Sport</span></span></a><a class="sr-card" href="showroom/#depart" style="--c1:#1F5BFF;--c2:#9DB8FF;--d:0.0s"><span class="sr-im"><span class="sr-live" data-preview-src="showroom/depart/?embed=1&amp;tour=1" data-preview-title="Démonstration Ligne A"><img src="sr-depart.jpg" alt="Aperçu de la création Ligne A" loading="lazy" width="640" height="400"></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Ligne A</b><span>Auto-école</span></span></a><a class="sr-card" href="showroom/#beaute" style="--c1:#D9213A;--c2:#E6F77A;--d:-1.1s"><span class="sr-im"><span class="sr-live" data-preview-src="showroom/beaute/?embed=1&amp;tour=1" data-preview-title="Démonstration Chérie Club"><img src="sr-beaute.jpg" alt="Aperçu de la création Chérie Club" loading="lazy" width="640" height="400"></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Chérie Club</b><span>Beauté</span></span></a><a class="sr-card" href="showroom/#cabinet" style="--c1:#6B1626;--c2:#E3D8C8;--d:-2.2s"><span class="sr-im"><span class="sr-live" data-preview-src="showroom/cabinet/?embed=1&amp;tour=1" data-preview-title="Démonstration 003 Cabinet"><img src="sr-cabinet.jpg" alt="Aperçu de la création 003 Cabinet" loading="lazy" width="640" height="400"></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>003 Cabinet</b><span>Conseil</span></span></a><a class="sr-card" href="showroom/#artisan" style="--c1:#E8671C;--c2:#F1EEEA;--d:-3.3000000000000003s"><span class="sr-im"><span class="sr-live" data-preview-src="showroom/artisan/?embed=1&amp;tour=1" data-preview-title="Démonstration 004 Artisan"><img src="sr-artisan.jpg" alt="Aperçu de la création 004 Artisan" loading="lazy" width="640" height="400"></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>004 Artisan</b><span>Bâtiment</span></span></a><a class="sr-card" href="showroom/#kova" style="--c1:#E85C3A;--c2:#EEE8DE;--d:-4.4s"><span class="sr-im"><span class="sr-live" data-preview-src="showroom/kova/?embed=1&amp;tour=1" data-preview-title="Démonstration Kova"><img src="sr-kova.jpg" alt="Aperçu de la création Kova" loading="lazy" width="640" height="400"></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Kova</b><span>Marque & e-commerce</span></span></a><a class="sr-card" href="showroom/#galerie" style="--c1:#D9DCE1;--c2:#6F7480;--d:-5.5s"><span class="sr-im"><span class="sr-live" data-preview-src="showroom/galerie/?embed=1&amp;tour=1" data-preview-title="Démonstration Concept 01"><img src="sr-galerie.jpg" alt="Aperçu de la création Concept 01" loading="lazy" width="640" height="400"></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Concept 01</b><span>Galerie & studio</span></span></a><a class="sr-card" href="showroom/#ramen" style="--c1:#F5DE51;--c2:#EA3B2B;--d:-6.6000000000000005s"><span class="sr-im"><span class="sr-live" data-preview-src="showroom/ramen/?embed=1&amp;tour=1" data-preview-title="Démonstration Koko"><img src="sr-ramen.jpg" alt="Aperçu de la création Koko" loading="lazy" width="640" height="400"></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Koko</b><span>Restaurant</span></span></a><a class="sr-card" href="showroom/#immo" style="--c1:#D8B27D;--c2:#152331;--d:-7.2s"><span class="sr-im"><span class="sr-live" data-preview-src="showroom/immo/?embed=1&amp;tour=1" data-preview-title="Démonstration Auréa"><img src="sr-immo.jpg" alt="Aperçu de la création Auréa" loading="lazy" width="640" height="400"></span><span class="sr-go" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></span></span><span class="sr-meta"><b>Auréa</b><span>Immobilier</span></span></a></div>
     </div>
     <div class="wrap srw-foot kv-rv">
       <span class="label">Faites glisser pour découvrir les dix créations</span>
@@ -2030,6 +2034,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
 
   if (reduce || !window.gsap || !window.ScrollTrigger) return;
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
 
   const mark = document.getElementById('mark');
   const big = document.getElementById('big');
@@ -2088,6 +2093,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
     if (moving === logoInMotion) return;
     logoInMotion = moving;
     mark.classList.toggle('is-morphing', moving);
+    if (moving) stopLogo(); else playLogo();
   };
   tl.eventCallback('onUpdate', syncLogoLayers);
   ScrollTrigger.addEventListener('refresh', syncLogoLayers);
@@ -2121,15 +2127,35 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       Object.assign(live.style, { width: (w / k) + 'px', height: (h / k) + 'px', transform: 'scale(' + k + ')' });
     };
     new ResizeObserver(fit).observe(box); fit();
-    // affichée dès que la page de la démo est prête, pour voir son ouverture au ralenti en entier
-    const reveal = () => { let n = 0; const t = setInterval(() => { const d = live.contentDocument; if ((d && d.body && d.readyState !== 'loading') || ++n > 80) { clearInterval(t); if (live.src) { live.classList.add('on'); push(); } } }, 50); };
-    const wake = () => { if (!live.src && isLive()) { live.src = live.dataset.src + query(); reveal(); } };
+    let wakeTimer = 0;
+    const visible = () => {
+      const r = box.getBoundingClientRect();
+      return !document.hidden && isLive() && r.width > 0 && r.bottom > 0 && r.top < innerHeight;
+    };
+    const sleep = () => {
+      clearTimeout(wakeTimer); wakeTimer = 0;
+      live.classList.remove('on');
+      if (live.getAttribute('src')) live.removeAttribute('src');
+    };
+    live.addEventListener('load', () => {
+      if (live.getAttribute('src') && visible()) { live.classList.add('on'); push(); }
+    });
+    const wake = () => {
+      clearTimeout(wakeTimer);
+      if (!visible()) { sleep(); return; }
+      if (!live.getAttribute('src')) wakeTimer = setTimeout(() => {
+        wakeTimer = 0;
+        if (visible() && !live.getAttribute('src')) live.src = live.dataset.src + query();
+      }, 300);
+    };
     addEventListener('scroll', wake, { passive: true });
-    new IntersectionObserver(([e]) => { if (!e.isIntersecting && live.src) { live.classList.remove('on'); live.removeAttribute('src'); } }, { rootMargin: '200px 0px' }).observe(big);
+    addEventListener('pagehide', sleep); addEventListener('pageshow', wake);
+    document.addEventListener('visibilitychange', wake);
+    new IntersectionObserver(wake).observe(box);
   }
   // Essai rapide : nom et couleur changent la démo en direct, puis suivent le visiteur dans le showroom
   function query() { const n = tryName.value.trim(); const p = new URLSearchParams(); if (n) p.set('nom', n); if (tryColor !== 'CD2934') p.set('c', tryColor); const t = p.toString(); return t ? '&' + t : ''; }
-  function push() { const w = live && live.src && live.contentWindow; if (!w) return; w.postMessage({ azel: 'name', value: tryName.value.trim() }, '*'); w.postMessage({ azel: 'color', hex: tryColor }, '*'); }
+  function push() { const w = live && live.src && live.contentWindow; if (!w) return; w.postMessage({ azel: 'name', value: tryName.value.trim() }, location.origin); w.postMessage({ azel: 'color', hex: tryColor }, location.origin); }
   const tryName = document.getElementById('tryName'), tryGo = document.getElementById('tryGo'), mkUrl = document.getElementById('mkUrl');
   let tryColor = 'CD2934';
   const slug = (v) => v.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '').slice(0, 24);
@@ -2207,22 +2233,10 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
 </script>
 
 <script>
-/* Rail du showroom : chaque carte charge sa création en miniature quand elle approche de l'écran, et la fait défiler toute seule */
+/* Les aperçus décoratifs ont un budget commun et sont libérés hors écran. */
 (() => {
-  const lives = [...document.querySelectorAll(".sr-live")];
-  const fit = () => lives.forEach((l) => { const f = l.querySelector("iframe"); if (f) f.style.transform = `scale(${l.clientWidth / 1440})`; });
-  addEventListener("resize", fit); fit();
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  const io = new IntersectionObserver((es) => es.forEach((e) => {
-    if (!e.isIntersecting) return;
-    const f = e.target.querySelector("iframe");
-    if (f && !f.src) { f.addEventListener("load", () => setTimeout(() => f.classList.add("on"), 400), { once: true }); f.src = f.dataset.src; fit(); }
-    io.unobserve(e.target);
-  }), { rootMargin: "200px 300px" });
-  lives.forEach((l) => io.observe(l));
-  /* Hors écran, les miniatures se mettent en pause : elles ne consomment plus rien pendant la lecture du reste de la page */
-  const rail = document.getElementById("srwTrack");
-  if (rail) new IntersectionObserver(([e]) => rail.classList.toggle("sr-sleep", !e.isIntersecting), { rootMargin: "400px 0px" }).observe(rail);
+  const rail = document.getElementById('srwTrack');
+  if (rail) AzelPreviews.mount(rail);
 })();
 </script>
 

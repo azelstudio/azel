@@ -9,6 +9,7 @@
 <script src="/showroom/artisan-config.js"></script>
 <script src="/showroom/apiculture/config.js"></script>
 <script src="/showroom/pilates-classique/config.js"></script>
+<script src="/preview-lifecycle.js"></script>
 <title>Exemples de sites internet à essayer | Azel Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,7 +60,7 @@ header.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; 
 .brand b { font-weight: 700; }
 .brand .tag { font: 500 11px/1 var(--mono); letter-spacing: .14em; color: var(--mute); padding-left: 12px; border-left: 1px solid var(--line-2); }
 .nav-links { display: flex; align-items: center; gap: 30px; font-size: 14px; font-weight: 500; color: #BDBBB5; }
-.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--paper); }
+.nav-links a:not(.btn):hover, .nav-links a[aria-current="page"] { color: var(--paper); }
 
 /* CADRES : la démo réelle tourne dedans (iframe), à l'échelle */
 .win { position: relative; border-radius: 12px; overflow: hidden; background: #141517; box-shadow: 0 0 0 1px var(--line-2), 0 50px 110px rgba(0,0,0,.6); }
@@ -102,7 +103,12 @@ body:not(.in-fiche) .wrap { max-width: 1480px; }
 .lib .card:hover .frame::before, .lib .card:focus-within .frame::before { opacity: .36; }
 .card { display: grid; gap: 14px; align-content: start; min-width: 0; }
 .card-vis { position: relative; display: block; border-radius: 14.5px; overflow: hidden; background: #141517; box-shadow: 0 0 0 1px var(--line); aspect-ratio: 16 / 10; transition: box-shadow .5s var(--ease), transform .6s var(--ease); }
-.card-vis .frame-in { width: 1440px; height: 900px; pointer-events: none; transition: transform 1.2s var(--ease); }
+.card-vis .frame-in { width: 1440px; height: 900px; pointer-events: none; opacity: 0; transition: opacity .4s var(--ease); }
+.card-vis .frame-in.on { opacity: 1; }
+@media (max-width:760px), (pointer:coarse), (prefers-reduced-motion:reduce) {
+  .lib .frame { animation: none; }
+  .lib .frame::before { display: none; filter: none; opacity: 0; }
+}
 .card-vis img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 .card-vis::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8,8,8,.55), transparent 45%); opacity: 0; transition: opacity .4s var(--ease); }
 .card-vis .open svg { width: 14px; height: 14px; }
@@ -687,29 +693,46 @@ const demoUrl = (t, extra = {}) => {
   if(t.id === "pilates-classique")AzelPilates.write(q,PILATES);
   return `${t.demo}${t.demo.includes("?") ? "&" : "?"}${q}`;
 };
-const winHTML = (t, label) => `<div class="win"><div class="chrome"><i></i><i></i><i></i><span>${esc(label)}</span></div><div class="vp"><iframe class="frame-in" title="Démonstration ${esc(t.name)}, ordinateur" loading="lazy" tabindex="-1" src="${esc(demoUrl(t))}"></iframe></div></div>`;
-const phoneHTML = (t) => `<div class="phone-holder"><div class="phone"><div class="screen"><iframe class="frame-in" title="Démonstration ${esc(t.name)}, mobile" loading="lazy" tabindex="-1" src="${esc(demoUrl(t))}"></iframe></div></div></div>`;
+const winHTML = (t, label) => `<div class="win"><div class="chrome"><i></i><i></i><i></i><span>${esc(label)}</span></div><div class="vp"><iframe class="frame-in" title="Démonstration ${esc(t.name)}, ordinateur" loading="lazy" tabindex="0"></iframe></div></div>`;
+const phoneHTML = (t) => `<div class="phone-holder"><div class="phone"><div class="screen"><iframe class="frame-in" title="Démonstration ${esc(t.name)}, mobile" loading="lazy" tabindex="0"></iframe></div></div></div>`;
 
 /* mise à l'échelle des cadres */
 const fit = (root = document) => {
-  root.querySelectorAll(".win .vp, .card-vis").forEach((vp) => { const f = $("iframe", vp); if (f) f.style.transform = `scale(${vp.clientWidth / 1440})`; });
-  root.querySelectorAll(".phone-holder").forEach((h) => { const k = h.clientWidth / 410; $(".phone", h).style.transform = `scale(${k})`; h.style.height = 864 * k + "px"; });
+  const changes = [];
+  root.querySelectorAll('.win .vp').forEach(vp => {
+    const f = $('iframe', vp), width = vp.clientWidth;
+    if (f && width) changes.push([f, 'transform', `scale(${width / 1440})`]);
+  });
+  root.querySelectorAll('.phone-holder').forEach(holder => {
+    const phone = $('.phone', holder); if (!phone) return;
+    if (innerWidth <= 640) { changes.push([phone, 'transform', ''], [holder, 'height', '']); return; }
+    const width = holder.clientWidth; if (!width) return;
+    const k = width / 410; changes.push([phone, 'transform', `scale(${k})`], [holder, 'height', (864 * k) + 'px']);
+  });
+  changes.forEach(([element, key, value]) => { if (element.style[key] !== value) element.style[key] = value; });
 };
-new ResizeObserver(() => fit()).observe(document.body);
+let fitFrame = 0;
+addEventListener('resize', () => {
+  if (!fitFrame) fitFrame = requestAnimationFrame(() => { fitFrame = 0; fit(); });
+}, {passive: true});
+document.fonts?.ready.then(() => fit());
 
 /* ---------- collection ---------- */
 let FILTER = "tous";
 /* aperçus vidéo : ne jouent que visibles à l'écran, jamais en mouvement réduit */
-let prevIO = null;
+let prevIO = null, collectionPreviews = null;
+const poster = t => t.cover || (t.id === "apiculture" ? "/sr-apiculture.webp" : "/sr-" + t.id + ".jpg");
 const watchPreviews = () => {
+  prevIO?.disconnect(); prevIO = null;
   const vids = document.querySelectorAll("#collection video.prev");
   if (!vids.length) return;
   if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
-  if (prevIO) prevIO.disconnect();
   prevIO = new IntersectionObserver((es) => es.forEach((e) => { const v = e.target; if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause(); }), { threshold: .25 });
   vids.forEach((v) => prevIO.observe(v));
 };
 const renderCollection = () => {
+  collectionPreviews?.destroy(); collectionPreviews = null;
+  io.disconnect();
   const live = LIST.filter((t) => t.status === "live"), soon = LIST.filter((t) => t.status !== "live");
   $("#srCount").textContent = `${live.length} création${live.length > 1 ? "s" : ""} disponible${live.length > 1 ? "s" : ""}${soon.length ? ` · ${soon.length} en préparation` : ""}`;
   const sectors = [...new Set(LIST.map((t) => t.sector.split(" · ")[0]))];
@@ -729,8 +752,8 @@ const renderCollection = () => {
   const glow = (t, i) => { const g = t.glow || [(t.palette || [])[2] || "#F3F1EB", (t.palette || [])[1] || "#8A8C91"]; return `--c1:${esc(g[0])};--c2:${esc(g[1])};animation-delay:${-i * 1.3}s`; };
   $("#collection").innerHTML = shown.map((t, i) => t.status === "live" ? `
     <article class="card rv${t.featured ? " feat" : ""}">
-      <div class="frame" style="${glow(t, i)}"><a class="card-vis" href="#${esc(t.id)}" aria-label="Ouvrir ${esc(t.name)}">
-        ${t.cover ? `<img src="${esc(t.cover)}" alt="" loading="lazy">` : `<iframe class="frame-in" title="Aperçu ${esc(t.name)}" loading="lazy" tabindex="-1" src="${esc(demoUrl(t))}"></iframe>`}
+      <div class="frame" style="${glow(t, i)}"><a class="card-vis" href="#${esc(t.id)}" aria-label="Ouvrir ${esc(t.name)}"${t.cover ? "" : ` data-preview-src="${esc(demoUrl(t))}" data-preview-title="Aperçu ${esc(t.name)}"`}>
+        <img src="${esc(poster(t))}" alt="" loading="lazy" width="1280" height="800">
         <span class="open">Ouvrir la création ${fw}</span>
       </a></div>
       <div class="card-head"><h2>${t.featured ? `<span class="feat-k">Création ${esc(t.num)} · en vedette</span>` : ""}${esc(t.name)}</h2><span class="badge live">${esc(t.sector.split(" · ")[0])}</span></div>
@@ -746,6 +769,7 @@ const renderCollection = () => {
     </article>`).join("");
   watchPreviews();
   fit($("#collection"));
+  collectionPreviews = AzelPreviews.mount($("#collection"));
 };
 
 /* ---------- fiche ---------- */
@@ -930,14 +954,25 @@ const renderFiche = (t, mode) => {
   document.querySelectorAll('input[name="formula"]').forEach((r) => r.addEventListener("change", renderFormula));
   renderFormula(false);
   fit($("#vFiche"));
-  personalise();
   if (mode === "mobile" || matchMedia("(max-width: 640px)").matches) setView("mob", false);
+  personalise();
   if (mode === "style") setTimeout(goPerso, 250);
 };
 
+const activateStage = () => {
+  const box = $('#stageBox'); if (!box) return;
+  const selector = box.dataset.view === 'mob' ? '.phone iframe' : '.win iframe';
+  const selected = $(selector, box);
+  box.querySelectorAll('iframe').forEach(frame => {
+    if (frame !== selected) { if (frame.getAttribute('src')) frame.removeAttribute('src'); return; }
+    const url = frame.dataset.previewUrl;
+    if (url && frame.getAttribute('src') !== url) frame.src = url;
+  });
+};
 const setView = (v, scroll) => {
   const box = $("#stageBox");
   box.dataset.view = v;
+  activateStage();
   document.querySelectorAll("#fPerso .seg [data-view]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.view === v)));
   fit(box);
   if (scroll && matchMedia("(max-width: 960px)").matches) box.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
@@ -951,7 +986,8 @@ const personalise = () => {
   if (ME.name) extra.nom = ME.name;
   if (ME.city) extra.ville = ME.city;
   if (ME.color) extra.c = ME.color;
-  document.querySelectorAll("#stageBox iframe").forEach((f) => { f.onload = () => pushLook(f); f.src = demoUrl(cur, extra); });
+  document.querySelectorAll("#stageBox iframe").forEach((f) => { f.onload = () => pushLook(f); f.dataset.previewUrl = demoUrl(cur, extra); });
+  activateStage();
 };
 /* couleur et logo envoyés en direct aux aperçus, sans recharger */
 const pushLook = (f) => {
@@ -1027,6 +1063,9 @@ const arm = () => { if (reduce) return; document.querySelectorAll(".rv").forEach
 
 /* ---------- routage : #depart (fiche), #depart-mobile (aperçu mobile), #depart-style (personnalisation) ---------- */
 const route = () => {
+  collectionPreviews?.destroy(); collectionPreviews = null;
+  prevIO?.disconnect(); prevIO = null;
+  io.disconnect();
   const h = location.hash.slice(1);
   const m = h.match(/^(.+?)(?:-(mobile|style))?$/);
   const t = m && LIST.find((x) => x.id === m[1] && x.status === "live");
@@ -1035,8 +1074,8 @@ const route = () => {
   document.body.classList.toggle("in-fiche", !!t);
   $("#navShowroom").setAttribute("aria-current", t ? "false" : "page");
   if (t || h !== "collection") window.scrollTo(0, 0);
-  if (t) { document.title = `${t.name} · Showroom Azel Studio`; renderFiche(t, m[2]); }
-  else { document.title = "Exemples de sites internet à essayer | Azel Studio"; renderCollection(); }
+  if (t) { $("#collection").replaceChildren(); document.title = `${t.name} · Showroom Azel Studio`; renderFiche(t, m[2]); }
+  else { $("#vFiche").replaceChildren(); cur = null; document.title = "Exemples de sites internet à essayer | Azel Studio"; renderCollection(); }
   requestAnimationFrame(() => {
     arm();
     if (!t && h === "collection") $("#collection").scrollIntoView({ block: "start" });
