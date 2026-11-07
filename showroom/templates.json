@@ -613,6 +613,68 @@
         "#F4D77C",
         "#294D3B"
       ]
+    },
+    {
+      "id": "pilates-classique",
+      "num": "011",
+      "name": "Atelier Pilates",
+      "sector": "Pilates · Studio classique",
+      "concept": "Le Pilates classique dans un cadre éditorial et architectural",
+      "line": "Une photographie immersive, une présentation des cours et quatre ambiances pour imaginer le site de votre studio.",
+      "fits": "Studios de Pilates classique, enseignement privé et cours en petits groupes",
+      "palette": [
+        "#F0ECE3",
+        "#273126",
+        "#8B9273"
+      ],
+      "tags": [
+        "Quatre ambiances",
+        "Cours et studio",
+        "Réservation externe"
+      ],
+      "demo": "pilates-classique/",
+      "cover": "/sr-pilates.webp",
+      "status": "live",
+      "offer": "vitrine",
+      "alts": [
+        "essentiel"
+      ],
+      "highlights": [
+        {
+          "t": "Votre studio, votre identité",
+          "x": "Le nom, la ville et une année de création facultative se retrouvent dans l’aperçu."
+        },
+        {
+          "t": "Quatre ambiances complètes",
+          "x": "Olive, encre, terre ou prune. Les fonds et les textes changent ensemble, avec un accent personnalisable."
+        },
+        {
+          "t": "Votre réservation existante",
+          "x": "Le bouton peut ouvrir le lien public fourni par le studio. Sans lien, la démonstration ne réserve aucune séance."
+        },
+        {
+          "t": "Des contenus organisés",
+          "x": "Textes et médias sont séparés de la présentation pour faciliter les adaptations. Aucun espace d’administration n’est encore fourni."
+        }
+      ],
+      "colors": [
+        [
+          "Sauge",
+          "8B9273"
+        ],
+        [
+          "Ambre",
+          "B8875B"
+        ],
+        [
+          "Bleu ardoise",
+          "8199A1"
+        ]
+      ],
+      "glow": [
+        "#8B9273",
+        "#273126"
+      ]
     }
   ]
 }

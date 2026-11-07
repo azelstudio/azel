@@ -1223,6 +1223,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
 <script defer src="/analytics.js"></script>
 <script src="/showroom/artisan-config.js"></script>
 <script src="/showroom/apiculture/config.js"></script>
+<script src="/showroom/pilates-classique/config.js"></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -2408,7 +2409,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
   if (lab && !msg.value) msg.value = lab.slice(0, 1300) + "\n\nCe que j'aimerais ajouter : ";
 
   if (sr) {
-    const concept = cl(qs.get('concept'), 80) || sr, nom = cl(qs.get('nom'), 32), ville = cl(qs.get('ville'), 28), formule = cl(qs.get('f'), 30);
+    const concept = cl(qs.get('concept'), 80) || sr, nom = cl(qs.get('nom'), sr === 'pilates-classique' ? 62 : 32), ville = cl(qs.get('ville'), sr === 'pilates-classique' ? 48 : 28), formule = cl(qs.get('f'), 30);
     const c = (qs.get('c') || '').replace('#', ''), couleur = /^[0-9a-f]{6}$/i.test(c) ? '#' + c.toUpperCase() : '';
     const logo = qs.get('logo') === '1';
     /* le lien vers l'aperçu n'est accepté que s'il pointe vers le showroom de ce site */
@@ -2430,6 +2431,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       AzelArtisan.fields.forEach((f) => { if (fields[f.key]) data.push(['Showroom : ' + f.label, fields[f.key]]); });
     }
     if(sr === 'apiculture'){const fields=AzelApiculture.read(qs);AzelApiculture.fields.forEach(f=>{if(fields[f.key])data.push(['Showroom : '+f.label,fields[f.key]]);});}
+    if(sr === 'pilates-classique'){const fields=AzelPilates.read(qs);AzelPilates.fields.forEach(f=>{if(fields[f.key])data.push(['Showroom : '+f.label,fields[f.key]]);});}
     const box = document.getElementById('csLookData');
     data.forEach(([k, v]) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = k; i.value = v; box.append(i); });
 
@@ -2445,6 +2447,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       if (summary.textContent) look.append(summary);
     }
     if(sr === 'apiculture'){const fields=AzelApiculture.read(qs),summary=document.createElement('span');summary.textContent=AzelApiculture.fields.filter(f=>fields[f.key]).map(f=>f.label+' : '+fields[f.key]).join(' · ');if(summary.textContent)look.append(summary);}
+    if(sr === 'pilates-classique'){const fields=AzelPilates.read(qs),summary=document.createElement('span');summary.textContent=AzelPilates.fields.filter(f=>fields[f.key]).map(f=>f.key==='booking'?'Réservation externe renseignée':f.label+' '+(f.key==='style'?f.options.find(o=>o[0]===fields.style)[1]:fields[f.key])).join(' · ');if(summary.textContent)look.append(summary);}
     look.hidden = false;
     document.getElementById('csLookClear').addEventListener('click', () => { box.replaceChildren(); look.hidden = true; });
     form.addEventListener('reset', () => setTimeout(() => { box.replaceChildren(); look.hidden = true; }));

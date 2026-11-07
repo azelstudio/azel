@@ -1,0 +1,69 @@
+/* AZEL PILATES V1 — HERO APPROUVÉE : plein cadre, texte sur espace sombre à gauche. */
+.loading-scrim{display:none!important}
+.hero {
+  position:relative; isolation:isolate; min-height:clamp(670px,80svh,890px);
+  display:block; overflow:hidden; background:#1D251E; color:#F8F4EC;
+}
+.hero-media, .hero-media-inner { position:absolute;inset:0;width:100%;height:100%; }
+.hero-media { z-index:0; background:#1D251E; }
+.hero-picture { width:100%;height:100%;object-fit:cover;object-position:center center;
+  transform:scale(1.025); animation:azelHeroBreathe 18s ease-in-out infinite alternate;
+  transition:opacity .4s ease;will-change:transform; }
+.hero-media::after { content:"";pointer-events:none;position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(13,23,16,.76) 0%,rgba(13,23,16,.42) 35%,rgba(13,23,16,.02) 71%),
+             linear-gradient(0deg,rgba(7,15,9,.38),transparent 24%); }
+.hero-copy { position:relative;z-index:3;width:min(58%,900px);min-height:inherit;max-width:940px;
+  padding:clamp(55px,9vh,105px) 24px 38px var(--page); overflow:visible;
+  display:flex;flex-direction:column;justify-content:center; }
+.hero-copy::before { display:none; }
+.hero-index {margin-bottom:clamp(43px,8vh,85px); color:#E7E5DB;}
+.hero h1 { font-size:clamp(64px,6.65vw,112px);line-height:1.02;letter-spacing:-.069em;
+  max-width:760px;text-shadow:0 2px 24px rgba(0,0,0,.1);}
+.hero h1 em { color:#F6F0E3; }
+.hero-lead{color:#EAEAE2;max-width:440px;font-size:clamp(13px,1.08vw,16px);margin-top:30px;line-height:1.65}
+.hero-actions{margin-top:33px;gap:30px;}
+.hero .btn-dark {background:#F5F0E7;color:#202820;min-width:205px;}
+.hero .btn-dark:hover{background:#D7DCC9;color:#1C241D;}
+.hero .text-link{color:#F5F0E7;border-color:rgba(245,240,231,.6)}
+.hero-bottom{padding-top:clamp(55px,8vh,90px);color:#F4F0E4;}
+.hero .ornament-line { background:rgba(255,255,255,.45); }
+.hero-stamp{top:32px;right:var(--page);background:rgba(248,244,236,.88)}
+.hero-photo-label{z-index:4;bottom:24px;left:auto;right:var(--page);max-width:260px;gap:18px;}
+@keyframes azelHeroBreathe { 0% {transform:scale(1.025) translate3d(0,0,0)} 100% {transform:scale(1.065) translate3d(-.5%,.15%,0)} }
+@media(max-width:1100px){
+ .hero-copy{width:min(67%,800px)}
+ .hero h1{font-size:clamp(57px,6.7vw,85px)}
+ .hero-photo-label{display:none}
+}
+@media(max-width:690px){
+ .hero{min-height:750px;}
+ .hero-media,.hero-media-inner{height:100%;}
+ .hero-picture{object-position:74% center;}
+ .hero-media::after{background:linear-gradient(180deg,rgba(11,20,14,.75) 0%,rgba(11,20,14,.64) 47%,rgba(11,20,14,.05) 84%),linear-gradient(90deg,rgba(11,20,14,.22),transparent)}
+ .hero-copy{width:100%;min-height:750px;padding:58px var(--page) 34px;justify-content:flex-start;}
+ .hero-index{margin-bottom:48px;}
+ .hero h1{font-size:clamp(49px,12.1vw,75px);max-width:490px;}
+ .hero-lead{max-width:330px;margin-top:22px;font-size:14px}
+ .hero-actions{gap:20px;margin-top:29px;}
+ .hero-bottom{margin-top:auto;padding-top:80px;}
+ .hero-stamp{display:none;}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero-picture{animation:none;transform:none;will-change:auto;transition:none;}
+}
+
+/* Sur téléphone, la photographie entière reste lisible sous le texte. */
+@media(min-width:691px) and (max-width:1100px){
+ .hero-picture{object-fit:contain;object-position:center bottom;animation:none;transform:none;will-change:auto;mask-image:linear-gradient(180deg,transparent calc(100% - 56.28vw),#000 calc(100% - 56.28vw + 72px))}
+ .hero-media::after{background:linear-gradient(90deg,rgba(13,23,16,.76),rgba(13,23,16,.3) 50%,transparent 78%),linear-gradient(180deg,#1D251E,transparent 42%)}
+}
+@media(max-width:690px){
+ .hero{min-height:0;background:#171F18}
+ .hero-media{position:relative;height:auto;aspect-ratio:1672/941}
+ .hero-media::after{background:linear-gradient(180deg,rgba(23,31,24,.7),transparent 32%)}
+ .hero-picture{object-fit:contain;object-position:center;animation:none;transform:none;will-change:auto}
+ .hero-copy{min-height:0;padding-top:42px;padding-bottom:32px;justify-content:flex-start}
+ .hero-index{margin-bottom:32px}.hero h1{font-size:clamp(43px,11.5vw,65px);line-height:1.06}
+ .hero-lead{font-size:15px;line-height:1.6;margin-top:22px}.hero-actions{gap:18px;margin-top:24px;flex-wrap:wrap}
+ .hero-bottom{display:none}
+}

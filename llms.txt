@@ -23,6 +23,8 @@ Azel Studio est le nom commercial de Yacine Bali, entrepreneur individuel. Le st
 - [Showroom de démonstration](https://azelstudio.fr/showroom/): concepts fictifs à essayer, avec personnalisation facultative. Les entreprises et contenus des démos sont fictifs.
 - [Ils nous ont fait confiance](https://azelstudio.fr/#realisations): projets clients, présentés séparément des concepts du showroom.
 
+- [Atelier Pilates](https://azelstudio.fr/showroom/#pilates-classique): concept de studio de Pilates classique avec quatre ambiances et lien de réservation externe facultatif. Visuels générés, marque fictive et démonstration non affiliée.
+
 ## Questions avant de commander
 
 - [Questions fréquentes](https://azelstudio.fr/questions-frequentes/): prix, aperçu gratuit, propriété du site, frais récurrents, délais et activité du studio.

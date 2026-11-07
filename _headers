@@ -37,5 +37,8 @@
 /showroom/apiculture/*
   X-Robots-Tag: noindex
 
+/showroom/pilates-classique/*
+  X-Robots-Tag: noindex
+
 /apercu/*
   X-Robots-Tag: noindex, nofollow
