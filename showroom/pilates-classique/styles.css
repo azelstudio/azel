@@ -56,6 +56,9 @@ body.customizing{overflow:hidden}
 .course-card{transition:transform .3s var(--motion-ease)}
 .section-text{font-size:16px;line-height:1.7}
 .course-content p{font-size:15px;line-height:1.6}
+.course-image{aspect-ratio:3/2}
+[data-azel-id="services.cours-duo"] .course-image img{object-position:50% 65%}
+[data-azel-id="services.cours-collectif"] .course-image img{object-position:50% 65%}
 .showroom-ribbon{font-size:10px;line-height:1.4;letter-spacing:.1em}
 .ribbon-right{opacity:.8}
 .hero-index,.hero-photo-label,.section-number,.section-detail,.eyebrow,.method-caption span,.principles span,.course-count,.inverse-eyebrow,.closing-head,.closing-bottom{font-size:11px;line-height:1.5;letter-spacing:.12em}
