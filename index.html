@@ -367,72 +367,6 @@ figure { margin: 0; }
   .ofx-cond dl div { grid-template-columns: 1fr; gap: 4px; }
 }
 
-/* ===== 03 EXPERTISES · index éditorial : porcelaine, 35 / 65, lignes typographiques ===== */
-.xi-sec { background: #F3F1EB; color: #111214; --ll: rgba(17,18,20,.14); --lm: #6B6D72; }
-.xi-grid { display: grid; grid-template-columns: minmax(0, 35fr) minmax(0, 65fr); column-gap: clamp(32px, 5vw, 96px); padding-block: clamp(88px, 10vw, 150px); }
-.xi-intro { position: sticky; top: 120px; align-self: start; display: grid; gap: 22px; }
-.xi-intro .label { color: var(--lm); }
-.xi-intro h2 { margin: 0; font: 600 clamp(30px, 3vw, 50px)/1.02 var(--display); letter-spacing: -.045em; text-wrap: balance; }
-.xi-intro h2 span { font-weight: 400; color: #5E6066; }
-.xi-intro p { margin: 0; color: #4A4C51; font-size: 15.5px; max-width: 26em; }
-/* le symbole Azel suit la famille ouverte : carrés réunis pour la présence, petit carré détaché pour les solutions */
-
-.xi-list { min-width: 0; }
-.xi-fam + .xi-fam { margin-top: clamp(40px, 4.5vw, 64px); }
-.xi-famhead { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding-bottom: 14px; border-bottom: 1px solid #111214; }
-.xi-famname { font: 600 13px/1.2 var(--display); letter-spacing: .02em; }
-.xi-famnote { font: 500 11px/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--lm); }
-.xi-rows { list-style: none; margin: 0; padding: 0; }
-.xi { border-bottom: 1px solid var(--ll); }
-.xi-head { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: grid; grid-template-columns: 44px minmax(0, 1fr) minmax(0, .9fr) 28px; align-items: baseline; column-gap: 20px; padding-block: clamp(18px, 1.8vw, 26px); }
-.xi-head:focus-visible { outline: 2px solid #111214; outline-offset: 4px; }
-.xi-n { font: 500 11px var(--mono); letter-spacing: .1em; color: var(--lm); }
-.xi-t { font: 600 clamp(24px, 2.4vw, 38px)/1.05 var(--display); letter-spacing: -.04em; transition: transform .6s var(--ease); }
-.xi.major .xi-t { font-size: clamp(28px, 2.7vw, 42px); }
-.xi-p { font-size: 15px; line-height: 1.4; color: #4A4C51; align-self: center; }
-.xi-ic { position: relative; width: 16px; height: 16px; align-self: center; justify-self: end; transition: transform .5s var(--ease); }
-.xi-ic::before, .xi-ic::after { content: ""; position: absolute; left: 0; top: 7.3px; width: 16px; height: 1.4px; background: #111214; transition: transform .45s var(--ease); }
-.xi-ic::after { transform: rotate(90deg); }
-.xi.open .xi-ic::after { transform: rotate(0); }
-@media (hover: hover) { .xi-head:hover .xi-t { transform: translateX(10px); } .xi-head:hover .xi-ic { transform: rotate(90deg); } }
-.xi.open .xi-t { transform: translateX(10px); }
-.xi-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
-.xi.open .xi-body { grid-template-rows: 1fr; }
-.xi-in { overflow: hidden; min-height: 0; padding-left: 64px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .8fr); column-gap: 20px; }
-.xi-in > * { opacity: 0; transform: translateY(10px); transition: opacity .35s ease, transform .5s var(--ease); }
-.xi.open .xi-in > * { opacity: 1; transform: none; }
-.xi.open .xi-in > :nth-child(2) { transition-delay: .08s; }
-.xi.open .xi-in > :nth-child(3) { transition-delay: .14s; }
-.xi-d { margin: 0 0 26px; font-size: 16px; line-height: 1.55; color: #2C2E32; max-width: 32em; }
-.xi-apps { list-style: none; margin: 0 0 26px; padding: 0; display: grid; gap: 6px; align-content: start; }
-.xi-apps li { display: flex; gap: 10px; font-size: 14.5px; color: #2C2E32; }
-.xi-apps li::before { content: ""; flex: none; width: 5px; height: 5px; margin-top: .55em; background: #111214; }
-.xi-cta { grid-column: 1 / -1; justify-self: start; display: inline-flex; align-items: center; gap: 12px; margin: 0 0 28px; font-weight: 600; font-size: 15px; padding-bottom: 5px; border-bottom: 1px solid #111214; }
-.xi-cta svg { width: 13px; height: 13px; transition: transform .3s var(--ease); }
-.xi-cta:hover svg { transform: translate(3px,-3px); }
-.xi-cta:focus-visible { outline: 2px solid #111214; outline-offset: 3px; }
-.xi-explore { margin: 28px 0 0; font-size: 13.5px; color: var(--lm); max-width: 52em; }
-
-@media (max-width: 1080px) {
-  .xi-grid { grid-template-columns: 1fr; row-gap: 48px; }
-  .xi-intro { position: static; }
-}
-/* Mobile : titres plus compacts, promesse sous le titre, détails ouverts au toucher */
-@media (max-width: 760px) {
-  .xi-grid { padding-block: 72px 80px; }
-  .xi-head { grid-template-columns: 30px minmax(0, 1fr) 20px; row-gap: 6px; padding-block: 18px; }
-  .xi-t, .xi.major .xi-t { font-size: clamp(26px, 8.4vw, 36px); }
-  .xi.major .xi-t { font-size: clamp(30px, 9.6vw, 42px); }
-  .xi-p { grid-column: 2 / 3; grid-row: 2; font-size: 14.5px; }
-  .xi-ic { grid-column: 3; grid-row: 1; }
-  .xi.open .xi-t, .xi-head:hover .xi-t { transform: none; }
-  .xi-in { padding-left: 50px; grid-template-columns: 1fr; }
-  .xi-d { margin-bottom: 16px; font-size: 15px; }
-  .xi-apps { margin-bottom: 20px; }
-  .xi-famhead { flex-direction: column; gap: 4px; }
-}
-@media (prefers-reduced-motion: reduce) { .xi-in > * { opacity: 1; transform: none; } }
-
 /* Offres : onglets en ligne, panneau en deux étages */
 .ofx-cta { justify-self: start; margin-top: 26px; }
 @media (max-width: 760px) {
@@ -481,7 +415,7 @@ figure { margin: 0; }
 .cs-sheet .wrap { padding-block: clamp(36px, 3.5vw, 48px) clamp(48px, 5vw, 72px); }
 .cs-rule { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 17px; border-bottom: 1px solid #C9C9C4; font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #6D6E70; }
 .cs-head { display: grid; grid-template-columns: 1fr minmax(0, 360px); gap: 45px; align-items: end; padding-block: clamp(48px, 5vw, 72px) 44px; }
-.cs-head h2 { margin: 0; font: 650 clamp(52px, 6.8vw, 112px)/.92 var(--display); letter-spacing: -.07em; text-transform: uppercase; }
+.cs-head h2 { margin: 0; font: 650 clamp(52px, 6.8vw, 112px)/1.04 var(--display); letter-spacing: -.07em; text-transform: uppercase; }
 .cs-head h2 span { display: block; }
 .cs-side p { margin: 0 0 20px; font-size: 18px; line-height: 1.48; letter-spacing: -.02em; color: #54565B; }
 .cs-fine, .cs-rt { font: 500 11px/1.4 var(--mono); letter-spacing: .13em; text-transform: uppercase; color: #5E6062; }
@@ -934,91 +868,6 @@ html[data-az-intro] #azIntro { display: block; animation: azIntroSafety 0s linea
 .xi-head { padding-block: clamp(16px, 1.5vw, 22px); }
 @media (max-width: 760px) { .srw-head h2, .idee-grid h2, .pr-grid h2, .of-left h2, .ofc-head h2 { font-size: clamp(36px, 10.5vw, 48px); } .sx-head h2, .cl-intro h2 { font-size: clamp(28px, 8vw, 36px); } #expertises .xi-intro { margin-bottom: 0; } }
 
-/* ===== AZEL / AUTOMATIONS : la mascotte, une seule fois, dans les expertises ===== */
-.aza { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); column-gap: clamp(32px, 6vw, 112px); align-items: start; margin-top: clamp(72px, 8vw, 128px); padding-top: clamp(36px, 3.6vw, 52px); border-top: 1px solid #111214; }
-.aza-txt { max-width: 34em; }
-.aza-lbl { display: block; font: 500 11px/1.3 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--lm); }
-.aza-h { margin: 22px 0 0; font: 600 clamp(30px, 3.2vw, 52px)/1.02 var(--display); letter-spacing: -.045em; color: #111214; text-wrap: balance; }
-.aza-p { margin: 20px 0 0; font-size: 16.5px; line-height: 1.55; color: #4A4C51; max-width: 30em; }
-.aza-act { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 32px; }
-.aza-btn { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; gap: 18px; height: 52px; padding: 0 24px 0 26px; border-radius: 999px; background: #111214; color: #F3F1EB; font: 600 14.5px var(--display); transition: transform .25s var(--ease), background .25s; }
-.aza-btn svg { width: 14px; height: 14px; transition: transform .35s var(--ease); }
-.aza-btn:hover { background: #26272B; } .aza-btn:hover svg { transform: translate(3px, -3px); }
-.aza-btn:focus-visible { outline: 2px solid #111214; outline-offset: 4px; }
-.aza-fine { font-size: 13px; color: var(--lm); max-width: 24em; }
-.aza-fig { position: relative; margin: 0; margin-top: clamp(-24px, -1vw, 0px); justify-self: center; width: min(100%, 410px); padding-bottom: 34px; opacity: 0; transform: translateY(28px) scale(.97); transition: opacity 1.2s ease, transform 1.4s var(--ease); }
-.aza-fig.in { opacity: 1; transform: none; }
-.aza-float { position: relative; z-index: 1; animation: azaFloat 6.5s ease-in-out infinite alternate; }
-.aza-float img { width: 100%; height: auto; display: block; transition: transform .9s var(--ease); transform-origin: 50% 60%; }
-.aza-shadow { position: absolute; left: 26%; right: 26%; bottom: 8px; height: 14px; border-radius: 50%; background: radial-gradient(closest-side, rgba(17,18,20,.15), rgba(17,18,20,0)); animation: azaShadow 6.5s ease-in-out infinite alternate; }
-@keyframes azaFloat { from { transform: translateY(0); } to { transform: translateY(-7px); } }
-@keyframes azaShadow { from { transform: scaleX(1); opacity: 1; } to { transform: scaleX(.9); opacity: .75; } }
-@media (max-width: 760px) {
-  .aza { grid-template-columns: 1fr; row-gap: 8px; }
-  .aza-fig { order: -1; width: min(64vw, 268px); justify-self: end; margin-right: -4px; }
-    .aza-btn { width: 100%; justify-content: space-between; }
-}
-@media (prefers-reduced-motion: reduce) { .aza-fig { opacity: 1; transform: none; transition: none; } .aza-float, .aza-shadow { animation: none; } .aza-float img { transition: none; } }
-
-/* ===== Démo de l'assistant : modale ===== */
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.azc { padding: 0; border: 0; background: transparent; color: var(--paper); width: min(440px, calc(100vw - 32px)); max-width: none; height: min(660px, calc(100dvh - 48px)); max-height: none; overflow: visible; }
-.azc::backdrop { background: rgba(4,4,5,.62); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
-.azc[open] { animation: azcIn .42s var(--ease) both; }
-.azc[open]::backdrop { animation: azcFade .42s ease both; }
-.azc.closing { animation: azcOut .22s ease both; }
-.azc.closing::backdrop { animation: azcFade .22s ease reverse both; }
-@keyframes azcIn { from { opacity: 0; transform: translateY(14px) scale(.985); } to { opacity: 1; transform: none; } }
-@keyframes azcOut { to { opacity: 0; transform: translateY(8px) scale(.99); } }
-@keyframes azcFade { from { opacity: 0; } to { opacity: 1; } }
-.azc-win { height: 100%; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto auto auto; border-radius: 22px; background: #0E0F11; box-shadow: 0 0 0 1px rgba(243,241,235,.12), 0 40px 90px -30px rgba(0,0,0,.8); overflow: hidden; }
-.azc-head { display: flex; align-items: center; gap: 14px; padding: 18px 18px 14px 18px; border-bottom: 1px solid var(--line); }
-.azc-avatar { width: 46px; height: auto; flex: none; }
-.azc-ttl { min-width: 0; flex: 1; }
-.azc-ttl h2 { margin: 0; font: 600 18px/1.2 var(--display); letter-spacing: -.02em; }
-.azc-ttl p { margin: 3px 0 0; font-size: 13px; line-height: 1.35; color: var(--mute); }
-.azc-x { all: unset; box-sizing: border-box; cursor: pointer; flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; color: var(--soft); box-shadow: inset 0 0 0 1px var(--line); transition: color .25s, box-shadow .25s; }
-.azc-x svg { width: 13px; height: 13px; }
-.azc-x:hover { color: var(--paper); box-shadow: inset 0 0 0 1px rgba(243,241,235,.4); }
-.azc-x:focus-visible, .azc-send:focus-visible, .azc-chip:focus-visible, .azc-cta:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; }
-.azc-sim { display: flex; align-items: center; gap: 8px; padding: 9px 18px; font: 500 10.5px/1.4 var(--mono); letter-spacing: .06em; color: #8F9196; border-bottom: 1px solid var(--line); }
-.azc-sim i { width: 6px; height: 6px; border-radius: 50%; background: #C9A15A; flex: none; }
-.azc-log { overflow-y: auto; overscroll-behavior: contain; padding: 18px 18px 8px; display: flex; flex-direction: column; gap: 10px; scrollbar-width: thin; scrollbar-color: #2A2B2F transparent; }
-.azc-m { max-width: 84%; padding: 11px 14px; border-radius: 16px; font-size: 14.5px; line-height: 1.45; animation: azcMsg .34s var(--ease) both; overflow-wrap: anywhere; }
-.azc-m.bot { align-self: flex-start; background: #1A1B1E; border-bottom-left-radius: 6px; color: #E9E7E1; }
-.azc-m.me { align-self: flex-end; background: var(--paper); color: #111214; border-bottom-right-radius: 6px; }
-.azc-m b { font-weight: 600; color: var(--paper); }
-.azc-m.note { align-self: stretch; max-width: none; background: transparent; padding: 4px 2px; font: 500 11px/1.45 var(--mono); letter-spacing: .04em; color: #8F9196; text-align: center; }
-.azc-m.typing { display: inline-flex; gap: 4px; padding: 14px; }
-.azc-m.typing span { width: 6px; height: 6px; border-radius: 50%; background: #6E7076; animation: azcDot 1s ease-in-out infinite; }
-.azc-m.typing span:nth-child(2) { animation-delay: .15s; } .azc-m.typing span:nth-child(3) { animation-delay: .3s; }
-@keyframes azcMsg { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-@keyframes azcDot { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
-.azc-sugg { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 18px 12px; }
-.azc-sugg:empty { display: none; }
-.azc-chip { all: unset; box-sizing: border-box; cursor: pointer; padding: 8px 13px; border-radius: 999px; font-size: 13.5px; color: var(--paper); box-shadow: inset 0 0 0 1px rgba(243,241,235,.24); transition: background .25s, box-shadow .25s; animation: azcMsg .34s var(--ease) both; }
-.azc-chip:hover { background: rgba(243,241,235,.08); box-shadow: inset 0 0 0 1px rgba(243,241,235,.45); }
-.azc-form { display: flex; gap: 8px; margin: 0 14px; padding: 6px 6px 6px 16px; border-radius: 999px; background: #17181B; box-shadow: inset 0 0 0 1px var(--line); }
-.azc-form:focus-within { box-shadow: inset 0 0 0 1px rgba(243,241,235,.4); }
-.azc-form input { flex: 1; min-width: 0; border: 0; background: transparent; color: var(--paper); font: 400 15px var(--display); outline: none; }
-.azc-form input::placeholder { color: var(--mute); }
-.azc-send { all: unset; box-sizing: border-box; cursor: pointer; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--paper); color: #111214; flex: none; transition: transform .25s var(--ease); }
-.azc-send:hover { transform: translateX(2px); }
-.azc-send svg { width: 15px; height: 15px; }
-.azc-foot { display: flex; justify-content: center; padding: 12px 18px 16px; }
-.azc-cta { display: inline-flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 600; color: var(--soft); padding-bottom: 3px; background: linear-gradient(currentColor, currentColor) left 100% / 100% 1px no-repeat; transition: color .25s; }
-.azc-cta svg { width: 12px; height: 12px; }
-.azc-cta:hover { color: var(--paper); }
-html.azc-lock { overflow: hidden; }
-@media (max-width: 760px) {
-  .azc { width: 100vw; height: calc(100dvh - 12px); margin: auto 0 0; }
-  .azc-win { border-radius: 22px 22px 0 0; }
-  .azc[open] { animation-name: azcUp; }
-  @keyframes azcUp { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
-  .azc-form input { font-size: 16px; }
-}
-@media (prefers-reduced-motion: reduce) { .azc[open], .azc[open]::backdrop, .azc.closing, .azc.closing::backdrop, .azc-m, .azc-chip { animation: none; } .azc-m.typing span { animation: none; opacity: .7; } }
-
 /* Création du showroom jointe à la demande */
 .cs-look { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
 .cs-look .sw { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: -1px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.15); }
@@ -1086,7 +935,6 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
 .pr-ctas small { max-width: 66em; line-height: 1.5; }
 .cs-sheet .wrap { padding-top: 0; }
 .cs-head { padding-block: clamp(44px, 5vw, 72px) 36px; }
-.cs-invite { margin: 0 0 20px; color: #626469; }
 .cs-sheet .cs-fine { font: 450 13px/1.5 var(--display); letter-spacing: 0; text-transform: none; }
 @media (min-width: 761px) and (max-width: 1180px) {
   .base { grid-template-columns: 1fr auto; }
@@ -1121,44 +969,20 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
 .works { padding-top: clamp(32px, 4vw, 56px); }
 .home-other p { margin: 24px 0 0; color: var(--soft); font-size: 15px; }
 .home-other a { color: var(--paper); text-decoration: underline; text-underline-offset: 4px; }
-/* Visibilité : service distinct, dans le parcours des offres existant. */
-.visibility-service { margin-top: 36px; padding-block: 28px; border-block: 1px solid #C9C9C4; color: #111214; }
-.visibility-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 48px; align-items: start; }
-.visibility-service h3 { margin: 0 0 16px; max-width: 24ch; font: 600 clamp(27px, 3vw, 40px)/1.08 var(--display); letter-spacing: -.03em; text-wrap: balance; }
-.visibility-service p { margin: 0; max-width: 66ch; color: #4A4C51; font-size: 15px; line-height: 1.6; }
-.visibility-service .visibility-terms { font-size: 13px; margin-top: 16px; }
-.visibility-service .visibility-cta { display: inline-flex; align-items: center; gap: 12px; margin-top: 20px; padding-block: 8px; color: #111214; font-size: 14px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
-.visibility-cta svg { width: 14px; height: 14px; flex: none; }
-.visibility-details { margin-top: 24px; border-top: 1px solid #C9C9C4; }
-.visibility-details summary { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-block: 18px; cursor: pointer; list-style: none; font-size: 14px; font-weight: 600; }
-.visibility-details summary::-webkit-details-marker { display: none; }
-.visibility-details summary svg { width: 14px; height: 14px; flex: none; }
-.visibility-details[open] summary svg { transform: rotate(45deg); }
-.visibility-details summary:focus-visible, .visibility-cta:focus-visible { outline: 2px solid #111214; outline-offset: 3px; }
-.visibility-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 48px; padding-block: 8px 20px; }
-.visibility-grid h4 { margin: 0 0 10px; font-size: 18px; font-weight: 600; letter-spacing: -.015em; }
-.visibility-details ul { margin: 4px 0 20px; padding-left: 20px; color: #4A4C51; font-size: 14px; line-height: 1.7; }
-.visibility-service .visibility-limit { font-size: 13px; max-width: none; }
-@media (max-width: 760px) { .visibility-intro, .visibility-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; } .visibility-service { margin-top: 28px; padding-block: 24px; } }
-.extra-services { margin-top: 28px; border-block: 1px solid #C9C9C4; }
-.extra-services > summary, .contact-options > summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; padding-block: 20px; font-size: 15px; font-weight: 600; list-style: none; }
-.extra-services > summary::-webkit-details-marker, .contact-options > summary::-webkit-details-marker { display: none; }
-.extra-services > summary > span { font-size: 20px; }
-.extra-services[open] > summary > span { transform: rotate(45deg); }
-.extra-services .xi-sec { background: transparent; color: #111214; }
-.extra-services .xi-grid { padding: 24px 0 32px; }
-.extra-services .sx-head { margin-top: 0; }
-.extra-services .sx-head h2 { font-size: 30px; }
-.extra-services .aza { margin-top: 36px; padding-top: 28px; }
-.extra-services .aza-h { font-size: 30px; }
-.extra-services .xi-explore { margin-top: 24px; }
+.other-services { display:flex; flex-wrap:wrap; gap:8px 24px; align-items:baseline; margin:28px 0 0; padding-block:20px; border-top:1px solid #C9C9C4; font-size:14px; color:#4A4C51; }
+.other-services a { color:#111214; font-weight:600; text-decoration:underline; text-underline-offset:4px; padding-block:4px; }
+.other-services a:focus-visible { outline:2px solid #111214; outline-offset:4px; }
+.ofc-tax { display:block; margin-top:10px; font-size:12px; line-height:1.5; color:#4A4C51; }
+.ofc.is-dark .ofc-tax { color:var(--soft); }
 .contact-options { border-bottom: 1px solid #C6C6C2; }
+.contact-options > summary { display:flex; align-items:center; justify-content:space-between; gap:16px; cursor:pointer; padding-block:20px; font-size:15px; font-weight:600; list-style:none; }
+.contact-options > summary::-webkit-details-marker { display:none; }
+.contact-options > summary > span { margin-left:auto; }
 .contact-options summary span { color: #5E6062; font-size: 12px; font-weight: 400; }
 .contact-options > summary::after { content: "+"; }
 .contact-options[open] > summary::after { content: "−"; }
 .contact-options .cs-row { border-bottom: 0; border-top: 1px solid #C6C6C2; }
-.extra-services summary:focus-visible, .contact-options summary:focus-visible { outline: 2px solid #111214; outline-offset: 3px; }
-.extra-services .xi-head, .extra-services .aza-btn { scroll-margin-top: calc(var(--navh) + 20px); }
+.contact-options summary:focus-visible { outline: 2px solid #111214; outline-offset: 3px; }
 #xi-01, #xi-02, #xi-03, #xi-04, #automations, #votre-projet, #pourquoi-azel { scroll-margin-top: calc(var(--navh) + 20px); }
 </style>
 <script>
@@ -1221,6 +1045,13 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
     anim.onfinish = function () { wrap.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 120, fill: "forwards" }).onfinish = done; };
   };
   setTimeout(fly, 460);
+})();
+</script>
+<script>
+(() => {
+  const oldServices = { '#expertises': '/services/', '#services-complementaires': '/services/', '#automations': '/services/#assistant', '#xi-01': '/#offres', '#xi-02': '/#realisations', '#xi-03': '/services/#automations', '#xi-04': '/services/#automations' };
+  const routeService = () => { if (Object.hasOwn(oldServices, location.hash)) location.replace(oldServices[location.hash]); };
+  routeService(); addEventListener('hashchange', routeService);
 })();
 </script>
 <script defer src="/analytics.js"></script>
@@ -1302,7 +1133,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
           "@type": "Offer",
           "name": "Essentiel à partir de 490 €",
           "url": "https://azelstudio.fr/#offres",
-          "description": "Prix de départ. Devis avant réalisation. Nom de domaine, hébergement et maintenance distincts.",
+          "description": "Prix de départ. TVA non applicable, art. 293 B du CGI. Devis avant réalisation. Nom de domaine et suivi technique distincts.",
           "priceSpecification": {
             "@type": "PriceSpecification",
             "minPrice": 490,
@@ -1327,7 +1158,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
           "@type": "Offer",
           "name": "Vitrine à partir de 790 €",
           "url": "https://azelstudio.fr/#offres",
-          "description": "Prix de départ. Devis avant réalisation. Nom de domaine, hébergement et maintenance distincts.",
+          "description": "Prix de départ. TVA non applicable, art. 293 B du CGI. Devis avant réalisation. Nom de domaine et suivi technique distincts.",
           "priceSpecification": {
             "@type": "PriceSpecification",
             "minPrice": 790,
@@ -1352,7 +1183,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
           "@type": "Offer",
           "name": "Site et outil à partir de 1290 €",
           "url": "https://azelstudio.fr/#offres",
-          "description": "Prix de départ. Devis avant réalisation. Nom de domaine, hébergement et maintenance distincts.",
+          "description": "Prix de départ. TVA non applicable, art. 293 B du CGI. Devis avant réalisation. Nom de domaine et suivi technique distincts.",
           "priceSpecification": {
             "@type": "PriceSpecification",
             "minPrice": 1290,
@@ -1380,7 +1211,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       "@id": "https://azelstudio.fr/#service-visibilite",
       "name": "Référencement Google (SEO) et visibilité dans les moteurs IA (GEO)",
       "serviceType": "Accompagnement SEO et GEO",
-      "url": "https://azelstudio.fr/#visibilite",
+      "url": "https://azelstudio.fr/services/#visibilite",
       "description": "Analyse de votre présence actuelle, priorités et améliorations de vos pages, puis suivi des données disponibles selon le devis. Accompagnement distinct de la création du site. Aucune position sur Google ni recommandation par une IA garantie.",
       "provider": {
         "@id": "https://azelstudio.fr/#organization"
@@ -1392,7 +1223,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       "offers": {
         "@type": "Offer",
         "name": "SEO et GEO sur devis",
-        "url": "https://azelstudio.fr/#visibilite",
+        "url": "https://azelstudio.fr/services/#visibilite",
         "description": "Accompagnement distinct de la création du site, sur devis. Périmètre et suivi définis ensemble."
       }
     }
@@ -1434,10 +1265,10 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       </div></div>
 
       <div class="stage">
-        <div class="tbox"><h1 class="title" id="title" aria-label="Votre futur site. Essayez-le. On le réalise.">
+        <div class="tbox"><h1 class="title" id="title" aria-label="Votre futur site. Essayez-le. Je le réalise.">
           <span class="l"><span>Votre futur site.</span></span>
           <span class="l"><span>Essayez-le.</span></span>
-          <span class="l"><span>On le réalise.</span></span>
+          <span class="l"><span>Je le réalise.</span></span>
         </h1></div>
 
         <div class="mark" id="mark" aria-hidden="true">
@@ -1450,7 +1281,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
       </div>
 
       <div class="base-wrap"><div class="base fade">
-        <div class="hero-intro"><p class="lede">Essayez votre futur site. Azel l’adapte à votre activité et s’occupe de la mise en ligne. <b>Il vous appartient.</b></p>
+        <div class="hero-intro"><p class="lede">Essayez votre futur site. Je l’adapte à votre activité et je m’occupe de la mise en ligne. <b>Il vous appartient.</b></p>
           <a class="g-badge" href="https://share.google/Iq4VzEaaXbyfdsarA" target="_blank" rel="noopener" aria-label="Note Google 5 sur 5, voir la fiche Google d'Azel Studio">
             <svg class="g-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
             <span class="g-txt"><span class="g-top"><b>5/5</b><span class="g-stars" aria-hidden="true">★★★★★</span></span><span class="g-sub">Avis clients Google<span class="g-more"> · Voir la fiche</span></span></span>
@@ -1506,9 +1337,9 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
     <div class="cl-stage" id="clStage">
     <div class="wrap cl-intro">
       <span class="label">Projets clients</span>
-      <h2 id="cl-title">Ils nous ont fait confiance.</h2>
+      <h2 id="cl-title">Ils m’ont fait confiance.</h2>
       <div class="cl-nav" aria-hidden="false">
-        <span class="cl-count"><b id="clNow">01</b> / 04</span>
+        <span class="cl-count"><b id="clNow">01</b> / 03</span>
         <button type="button" class="cl-arrow" id="clPrev" aria-label="Projet précédent"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2 4 7l5 5"/></svg></button>
         <button type="button" class="cl-arrow" id="clNext" aria-label="Projet suivant"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m5 2 5 5-5 5"/></svg></button>
       </div>
@@ -1532,25 +1363,6 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
               </div>
             </details>
             <a class="case-site" href="https://abdelhakim-taleb.fr/" target="_blank" rel="noopener">Voir le site publié <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
-          </div>
-        </article>
-        <article class="case" aria-label="Acciseo">
-          <div class="case-heading">
-            <h3>Acciseo</h3>
-            <p class="case-meta">Remboursement TICPE · Transporteurs</p>
-          </div>
-          <div class="case-visual"><div class="case-visual-bar"><span class="case-visual-label">Le site publié</span></div><figure class="case-shot"><img src="acciseo-home.jpg" alt="Page d'accueil du site Acciseo" loading="lazy" style="object-position:left top"></figure><p class="case-compare-note">Aperçu du site</p></div>
-          <div class="case-txt">
-            <p class="case-outcome">Estimer son remboursement avant de prendre contact.</p>
-            <ul class="case-highlights"><li>Un simulateur adapté à la flotte et à la région</li><li>Un parcours pour comprendre et vérifier ses droits</li></ul>
-            <details class="case-details">
-              <summary>Détails du projet</summary>
-              <div class="case-details-content">
-            <div class="case-block"><span class="label">Le contexte</span><p>Un sujet technique et peu connu des transporteurs. Le site devait l'expliquer simplement et donner envie de vérifier ce qu'on peut récupérer.</p></div>
-            <div class="case-block"><span class="label">Ce que j'ai réalisé</span><ul><li>Simulateur qui estime le remboursement selon la flotte et la région</li><li>Page de diagnostic qui compare le dû et le reçu</li><li>Vidéo de présentation et animations</li><li>Formulaire relié à la boîte mail professionnelle</li></ul></div>
-              </div>
-            </details>
-            <a class="case-site" href="https://www.acciseo.fr/" target="_blank" rel="noopener">Voir le site publié <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
           </div>
         </article>
         <article class="case" aria-label="TMG Programmation">
@@ -1608,10 +1420,10 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
                 <div class="ap-track" id="apTrack">
           <div class="ap-line"><i id="apFill"></i></div>
           <ol class="ap-steps">
-            <li><span class="ap-dot"></span><span class="ap-when">01</span><h3>On échange</h3><p>Vous nous présentez votre activité, vos envies et vos besoins. On définit ensemble le périmètre et le budget.</p></li>
+            <li><span class="ap-dot"></span><span class="ap-when">01</span><h3>Parlons de votre projet</h3><p>Vous me présentez votre activité et vos besoins. Je vous propose un périmètre et un budget.</p></li>
             <li><span class="ap-dot"></span><span class="ap-when">02</span><h3>Vous voyez l’aperçu</h3><p>Vous découvrez une première direction pour votre site. Vous ne payez que si l’aperçu vous plaît.</p></li>
-            <li><span class="ap-dot"></span><span class="ap-when">03</span><h3>On réalise votre site</h3><p>Après votre accord, on adapte les contenus et on développe votre site. Vous validez les étapes importantes.</p></li>
-            <li><span class="ap-dot"></span><span class="ap-when">04</span><h3>Votre site est en ligne</h3><p>On vérifie le site sur ordinateur et mobile, puis on le publie. Votre site vous appartient.</p></li>
+            <li><span class="ap-dot"></span><span class="ap-when">03</span><h3>Je réalise votre site</h3><p>Après votre accord, j’adapte les contenus et je développe votre site. Vous validez les étapes importantes.</p></li>
+            <li><span class="ap-dot"></span><span class="ap-when">04</span><h3>Votre site est en ligne</h3><p>Je vérifie votre site sur ordinateur et mobile, puis je le mets en ligne. Votre site vous appartient.</p></li>
           </ol>
         </div>
         <p class="ap-foot"><strong>Essentiel en 1 à 3 semaines</strong> après validation de l’aperçu et réception des contenus. Pour les autres projets, le délai est fixé dans le devis.</p>
@@ -1625,12 +1437,12 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
         <div class="sec-meta"><span class="label">Offres et budgets</span><span class="label">Tarifs de départ, devis précis après l'échange</span></div>
         <div class="ofc-head">
           <h2 id="of-title" class="split">Des prix clairs,<br>dès le départ.</h2>
-          <p>Trois formules pour un site qui vous appartient. Aperçu gratuit, puis devis précis avant la réalisation. Azel prend en charge l’adaptation et la mise en ligne selon le périmètre convenu.</p>
+          <p>Trois formules pour un site qui vous appartient. Aperçu gratuit, puis devis précis avant la réalisation. Je prends en charge l’adaptation et la mise en ligne selon le périmètre convenu.</p>
         </div>
         <div class="ofc-grid">
           <article class="ofc">
             <div class="ofc-top"><span class="ofc-name">Essentiel</span><span class="ofc-kind">Site one-page</span></div>
-            <div class="ofc-price"><span>À partir de</span><strong>490 €</strong></div>
+            <div class="ofc-price"><span>À partir de</span><strong>490 €</strong><small class="ofc-tax">TVA non applicable, art. 293 B du CGI.</small></div>
             <p class="ofc-promise">Une première présence en ligne soignée, sur une seule page.</p>
             <ul><li>Une page qui présente l'activité</li><li>Design adapté aux ordinateurs et mobiles</li><li>Formulaire de contact simple</li><li>Mise en ligne selon les modalités convenues</li></ul>
             <span class="ofc-delay">Délai indicatif de 1 à 3 semaines</span>
@@ -1638,7 +1450,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
           </article>
           <article class="ofc is-dark">
             <div class="ofc-top"><span class="ofc-name">Vitrine</span><span class="ofc-kind">Site multipage</span></div>
-            <div class="ofc-price"><span>À partir de</span><strong>790 €</strong></div>
+            <div class="ofc-price"><span>À partir de</span><strong>790 €</strong><small class="ofc-tax">TVA non applicable, art. 293 B du CGI.</small></div>
             <p class="ofc-promise">Plusieurs pages pour présenter chaque prestation et gagner en crédibilité.</p>
             <ul><li>Site de plusieurs pages</li><li>Design personnalisé</li><li>Mise en valeur de vos prestations</li><li>Formulaire de contact ou de demande de devis</li></ul>
             <span class="ofc-delay">Délai précisé dans le devis</span>
@@ -1646,7 +1458,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
           </article>
           <article class="ofc">
             <div class="ofc-top"><span class="ofc-name">Site et outil</span><span class="ofc-kind">Fonctionnalités spécifiques</span></div>
-            <div class="ofc-price"><span>À partir de</span><strong>1 290 €</strong></div>
+            <div class="ofc-price"><span>À partir de</span><strong>1 290 €</strong><small class="ofc-tax">TVA non applicable, art. 293 B du CGI.</small></div>
             <p class="ofc-promise">Le site, avec ce qui fait gagner du temps à votre activité.</p>
             <ul><li>Réservation en ligne</li><li>Paiement</li><li>Formulaires avancés</li><li>Connexion à vos outils existants</li></ul>
             <span class="ofc-delay">Périmètre défini après échange</span>
@@ -1659,119 +1471,13 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
           <a class="btn line ofx-cta" href="#contact" data-offer="Sur mesure">Parler de mon projet <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
         </div>
         <p class="ofc-ownership"><strong>Votre site vous appartient.</strong> Vous achetez votre site, vous ne le louez pas. L’hébergement et la maintenance sont des services distincts.</p>
-        <p class="ofc-note">Les formules se distinguent par le nombre de pages, les fonctionnalités et l'accompagnement. Le nom de domaine, l’hébergement et la maintenance sont à prévoir en plus. Ils sont précisés dans le devis.</p>
+        <p class="ofc-note"><strong>Hébergement et suivi technique en option, 19 €/mois.</strong> Pour un site vitrine statique. Vous pouvez aussi conserver votre hébergeur. Le domaine est facturé séparément au tarif du fournisseur, précisé avant votre accord.</p>
         <p class="ofc-note"><a href="/questions-frequentes/" style="text-decoration:underline;text-underline-offset:3px">Les réponses à vos questions sur les prix, les délais et la livraison</a></p>
         <details class="ofx-cond">
           <summary><span>Ce qui est inclus, ce qui dépend du devis</span><i aria-hidden="true"></i></summary>
-          <dl><div><dt>Aperçu et réalisation</dt><dd>L’aperçu est gratuit. Le périmètre et le prix de la réalisation sont précisés dans le devis avant votre accord.</dd></div><div><dt>Votre site</dt><dd>Vous achetez votre site. Les modalités de livraison sont précisées dans le devis. L’hébergement et la maintenance sont des services distincts.</dd></div><div><dt>Prix annoncés</dt><dd>Ce sont des prix de départ. Le devis final dépend du périmètre retenu ensemble.</dd></div><div><dt>Nom de domaine</dt><dd>Non inclus d'office. Modalités précisées dans le devis.</dd></div><div><dt>Hébergement</dt><dd>Non inclus d'office. Modalités précisées dans le devis.</dd></div><div><dt>Maintenance et suivi</dt><dd>Proposés séparément. Modalités précisées dans le devis.</dd></div><div><dt>Modifications après livraison</dt><dd>Modalités précisées dans le devis.</dd></div><div><dt>Frais récurrents</dt><dd>Selon les choix d'hébergement et de suivi, précisés dans le devis.</dd></div><div><dt>Délais</dt><dd>Indicatifs, communiqués dans le devis selon le projet.</dd></div></dl>
+          <dl><div><dt>Aperçu et réalisation</dt><dd>L’aperçu est gratuit. Le périmètre et le prix de la réalisation sont précisés dans le devis avant votre accord.</dd></div><div><dt>Votre site</dt><dd>Vous achetez votre site. Les modalités de livraison sont précisées dans le devis. L’hébergement et la maintenance sont des services distincts.</dd></div><div><dt>Prix annoncés</dt><dd>Prix de départ. TVA non applicable, art. 293 B du CGI. Le devis précise le montant final avant votre accord.</dd></div><div><dt>Nom de domaine</dt><dd>Facturé séparément au tarif du fournisseur, précisé dans le devis.</dd></div><div><dt>Hébergement et suivi technique</dt><dd>Option à 19 €/mois pour un site vitrine statique. TVA non applicable, art. 293 B du CGI. Hébergement, contrôle mensuel de disponibilité et du HTTPS, sauvegarde des fichiers à chaque intervention et interventions techniques mineures limitées à 15 minutes par mois, non reportables. Les sites WordPress et les fonctions avec backend restent sur devis.</dd></div><div><dt>Ce que le suivi ne comprend pas</dt><dd>Changements de textes ou de photos, nouvelles pages, nouvelles fonctionnalités, abonnements à des outils tiers et domaine. Ces besoins sont chiffrés séparément avant votre accord.</dd></div><div><dt>Modifications après livraison</dt><dd>Modalités précisées dans le devis.</dd></div><div><dt>Frais récurrents</dt><dd>19 €/mois si vous choisissez le suivi d’un site vitrine statique. Le domaine et les éventuels outils tiers sont chiffrés à part. Vous pouvez choisir votre hébergeur.</dd></div><div><dt>Délais</dt><dd>Indicatifs, communiqués dans le devis selon le projet.</dd></div></dl>
         </details>
-        <section class="visibility-service" id="visibilite" aria-labelledby="visibility-title">
-          <div class="visibility-intro">
-            <div><h3 id="visibility-title">Aidez vos futurs clients à vous trouver.</h3><p>Référencement Google (SEO) et visibilité dans les moteurs IA (GEO).</p></div>
-            <div><p>Sur Google comme dans les réponses de ChatGPT, votre activité doit être facile à comprendre. Nous travaillons vos pages et vos informations pour améliorer votre visibilité.</p>
-              <a class="visibility-cta ofx-cta" href="#contact" data-offer="SEO et GEO">Parler de ma visibilité <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
-              <p class="visibility-terms">Accompagnement distinct de la création du site, sur devis. Périmètre et suivi définis ensemble.</p>
-            </div>
-          </div>
-          <details class="visibility-details">
-            <summary>Ce que nous améliorons pour Google et les IA <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 1v12M1 7h12"/></svg></summary>
-            <div class="visibility-grid">
-              <div><h4>Être trouvé sur Google</h4><p>Le SEO vise à rendre vos services plus faciles à trouver dans les recherches de vos futurs clients. Nous améliorons les contenus, les titres et la structure de vos pages pour aider Google à les comprendre.</p></div>
-              <div><h4>Être compris par les moteurs IA</h4><p>Le GEO vise à rendre votre activité plus facile à identifier et à citer dans les réponses d’outils comme ChatGPT. Nous organisons vos informations, vos services et vos réponses aux questions des clients de façon claire et cohérente.</p></div>
-            </div>
-            <ul><li>Analyse de votre présence actuelle.</li><li>Priorités et améliorations de vos pages, selon le devis.</li><li>Suivi des données disponibles, notamment dans Google Search Console.</li></ul>
-            <p class="visibility-limit">Le travail vise à améliorer votre visibilité. Aucune position sur Google ni recommandation par une IA ne peut être garantie.</p>
-          </details>
-        </section>
-        <details class="extra-services" id="services-complementaires"><summary>Les services complémentaires <span aria-hidden="true">+</span></summary><section class="xi-sec" id="expertises" aria-labelledby="xp-title">
-    <div class="wrap xi-grid">
-      <div class="xi-intro">
-        <div class="sx-head"><h2 id="xp-title">Des besoins complémentaires ?</h2><p>Outils, automatisations et assistant sont étudiés séparément, selon vos besoins.</p></div>
-      </div>
-      <div class="xi-list" id="xiList">
-        <div class="xi-fam" data-fam="0">
-          <div class="xi-famhead"><span class="xi-famname">Présence digitale</span><span class="xi-famnote">Notre activité principale</span></div>
-          <ol class="xi-rows">
-            <li class="xi major" data-fam="0">
-              <button type="button" class="xi-head" aria-expanded="false" aria-controls="xi-01">
-                <span class="xi-n">01</span>
-                <span class="xi-t">Création web</span>
-                <span class="xi-p">Un site clair, rapide et à votre image.</span>
-                <span class="xi-ic" aria-hidden="true"></span>
-              </button>
-              <div class="xi-body" id="xi-01" role="region" aria-label="Création web"><div class="xi-in">
-                <p class="xi-d">Du site d'une page au site vitrine complet, conçu pour votre métier et lisible sur tous les écrans.</p>
-                <ul class="xi-apps"><li>Site d'une page</li><li>Site vitrine</li><li>Réservation et paiement en ligne</li><li>Formulaires de contact et de devis</li><li>Fiche Google</li></ul>
-                
-              </div></div>
-            </li>
-            <li class="xi major" data-fam="0">
-              <button type="button" class="xi-head" aria-expanded="false" aria-controls="xi-02">
-                <span class="xi-n">02</span>
-                <span class="xi-t">Refonte et design</span>
-                <span class="xi-p">Moderniser l'existant, sans repartir de zéro.</span>
-                <span class="xi-ic" aria-hidden="true"></span>
-              </button>
-              <div class="xi-body" id="xi-02" role="region" aria-label="Refonte et design"><div class="xi-in">
-                <p class="xi-d">On garde ce qui fonctionne et on repense l’interface, les parcours et la direction artistique.</p>
-                <ul class="xi-apps"><li>Refonte de site</li><li>Interfaces et parcours utilisateur</li><li>Direction artistique web</li><li>Maquettes ordinateur et mobile</li></ul>
-                
-              </div></div>
-            </li>
-          </ol>
-        </div>
-        <div class="xi-fam" data-fam="1">
-          <div class="xi-famhead"><span class="xi-famname">Solutions digitales</span><span class="xi-famnote">Sur étude de faisabilité</span></div>
-          <ol class="xi-rows">
-            <li class="xi" data-fam="1">
-              <button type="button" class="xi-head" aria-expanded="false" aria-controls="xi-03">
-                <span class="xi-n">03</span>
-                <span class="xi-t">Intégrations et automatisations</span>
-                <span class="xi-p">Relier vos outils, alléger les tâches répétitives.</span>
-                <span class="xi-ic" aria-hidden="true"></span>
-              </button>
-              <div class="xi-body" id="xi-03" role="region" aria-label="Intégrations et automatisations"><div class="xi-in">
-                <p class="xi-d">Lorsque c'est techniquement maîtrisé, je connecte vos formulaires, agendas et outils de gestion, et j'automatise certaines tâches.</p>
-                <ul class="xi-apps"><li>Formulaires reliés à vos outils</li><li>Agendas et notifications</li><li>Outils de gestion connectés</li></ul>
-                <a class="xi-cta" href="#contact" data-need="Automatisation ou intégration">Demander une étude de faisabilité <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
-              </div></div>
-            </li>
-            <li class="xi" data-fam="1">
-              <button type="button" class="xi-head" aria-expanded="false" aria-controls="xi-04">
-                <span class="xi-n">04</span>
-                <span class="xi-t">Outils métier</span>
-                <span class="xi-p">Des outils internes pensés pour votre activité.</span>
-                <span class="xi-ic" aria-hidden="true"></span>
-              </button>
-              <div class="xi-body" id="xi-04" role="region" aria-label="Outils métier"><div class="xi-in">
-                <p class="xi-d">Chaque projet commence par un cadrage et une vérification de faisabilité, avant tout engagement.</p>
-                <ul class="xi-apps"><li>Interfaces de suivi</li><li>Tableaux de bord</li><li>Portails clients</li><li>Espaces documentaires</li></ul>
-                <a class="xi-cta" href="#contact" data-need="Outil numérique sur mesure">Demander une étude de faisabilité <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a>
-              </div></div>
-            </li>
-          </ol>
-        </div>
-        <p class="xi-explore">Le tri automatique de documents et la recherche documentaire assistée sont encore à l’étude. Ils ne sont pas encore proposés comme prestations.</p>
-
-        <!-- AZEL / AUTOMATIONS : l'assistant, service complémentaire -->
-        <div class="aza" id="automations">
-          <div class="aza-txt">
-            <span class="aza-lbl">Azel / Automations</span>
-            <h3 class="aza-h">Votre site peut aussi travailler pour vous.</h3>
-            <p class="aza-p">Un assistant IA pour répondre aux visiteurs, recueillir leurs demandes et les orienter, même en dehors de vos horaires.</p>
-            <div class="aza-act">
-              <button type="button" class="aza-btn" id="azaBtn" aria-haspopup="dialog" aria-controls="azaChat">Découvrir l'assistant <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></button>
-              <span class="aza-fine">Service complémentaire, sur devis. Non inclus dans les formules de création de site.</span>
-            </div>
-          </div>
-          <figure class="aza-fig" id="azaFig" aria-hidden="true">
-            <div class="aza-float"><img src="azel-auto-480.webp" srcset="azel-auto-480.webp 480w, azel-auto-900.webp 838w" sizes="(max-width: 760px) 64vw, 30vw" width="838" height="654" alt="" loading="lazy" decoding="async"></div>
-            <i class="aza-shadow"></i>
-          </figure>
-        </div>
-      </div>
-    </div>
-  </section></details>
+        <p class="other-services" id="visibilite"><a href="/services/">Autres services</a><span>Référencement, automatisations et outils métier.</span></p>
       </div>
     </div>
   </section>
@@ -1797,8 +1503,8 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
   <section class="cs-sheet" id="contact" aria-labelledby="cs-sheet-title">
     <div class="wrap" id="devis">
       <div class="cs-head">
-        <div><p class="label cs-invite">Et maintenant, à vous.</p><h2 id="cs-sheet-title"><span>Parlons</span><span>concret.</span></h2></div>
-        <div class="cs-side"><p>Un site vous plaît, ou vous avez votre propre idée ? Dites-moi l’essentiel. Je vous répondrai personnellement pour cadrer l’aperçu, l’adaptation et la mise en ligne.</p><span class="cs-fine">Aperçu gratuit · Devis avant réalisation</span></div>
+        <div><h2 id="cs-sheet-title"><span>Parlons</span> <span>concret.</span></h2></div>
+        <div class="cs-side"><p>Je suis Yacine, votre interlocuteur de la première idée à la mise en ligne. Décrivez-moi votre projet. Je vous répondrai personnellement.</p><span class="cs-fine">Aperçu gratuit · Devis avant réalisation</span></div>
       </div>
       <form class="cs-form" id="ctForm" novalidate>
         <input type="hidden" name="access_key" value="24874dfa-3e2e-4286-8078-adc1f0334c1c">
@@ -1815,7 +1521,7 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
           </div>
         </div>
         <div class="cs-row"><div class="cs-rt">02 / Votre projet</div>
-          <div class="cs-fld"><label for="f-msg">Dites-nous l'essentiel *</label><textarea id="f-msg" aria-describedby="f-msg-msg" name="message" maxlength="1500" placeholder="Votre activité, votre idée, ce que vous aimeriez améliorer…" required></textarea><p class="cs-msg" id="f-msg-msg" aria-live="polite"></p></div>
+          <div class="cs-fld"><label for="f-msg">Dites-moi l’essentiel *</label><textarea id="f-msg" aria-describedby="f-msg-msg" name="message" maxlength="1500" placeholder="Votre activité, votre idée, ce que vous aimeriez améliorer…" required></textarea><p class="cs-msg" id="f-msg-msg" aria-live="polite"></p></div>
         </div>
         <details class="contact-options"><summary>Précisions et parrainage <span>Facultatif</span></summary><div class="cs-row"><div class="cs-rt">Votre besoin</div>
           <div><div class="cs-chips" role="group" aria-label="Type de projet" id="csChips">
@@ -1849,34 +1555,13 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
   </section>
 </main>
 
-<!-- Démonstration de l'assistant Azel : simulation à scénarios, sans IA ni envoi de données -->
-<dialog class="azc" id="azaChat" aria-labelledby="azcTitle" aria-describedby="azcSub">
-  <div class="azc-win">
-    <header class="azc-head">
-      <img class="azc-avatar" src="azel-auto-480.webp" width="480" height="375" alt="">
-      <div class="azc-ttl"><h2 id="azcTitle">Essayez l'assistant Azel</h2><p id="azcSub">Une démonstration de ce que votre futur site pourrait proposer.</p></div>
-      <button type="button" class="azc-x" id="azcClose" aria-label="Fermer la démonstration"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3l8 8M11 3l-8 8"/></svg></button>
-    </header>
-    <div class="azc-sim"><i></i>Cette simulation utilise des réponses prévues à l’avance. Rien n’est envoyé ni enregistré.</div>
-    <div class="azc-log" id="azcLog" role="log" aria-live="polite" aria-relevant="additions"></div>
-    <div class="azc-sugg" id="azcSugg" role="group" aria-label="Suggestions"></div>
-    <form class="azc-form" id="azcForm" autocomplete="off">
-      <label class="sr-only" for="azcIn">Votre message</label>
-      <input id="azcIn" type="text" maxlength="200" placeholder="Écrivez votre message…" enterkeyhint="send">
-      <button type="submit" class="azc-send" aria-label="Envoyer"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2.5 8h10M8.5 4l4 4-4 4"/></svg></button>
-    </form>
-    <footer class="azc-foot"><a class="azc-cta ofx-cta" id="azcCta" href="#devis" data-offer="Assistant IA">Je veux cet assistant sur mon site <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 11 3M4.5 3H11v6.5"/></svg></a></footer>
-  </div>
-</dialog>
-
-
 <footer class="cs-foot">
   <div class="wrap">
     <div class="cs-foot-top">
       <a class="brand" href="#top" aria-label="Azel Studio, retour en haut"><svg viewBox="0 0 30 30" aria-hidden="true"><rect x="0" y="10.5" width="19.5" height="19.5" rx="1.6" fill="#F3F1EB"/><rect x="19.5" y="0" width="10.5" height="10.5" rx="1.1" fill="#F3F1EB"/></svg><span><b>AZEL</b> STUDIO</span></a>
       <p class="cs-claim">De bonnes idées méritent<br>une meilleure présence.</p>
     </div>
-    <div class="cs-foot-bottom"><span>© 2026 Azel Studio · Montmagny, Val-d’Oise</span><span><a href="https://wa.me/33619438978?text=Bonjour%2C%20je%20viens%20du%20site%20Azel%20Studio%20et%20j%27aimerais%20parler%20de%20mon%20projet." target="_blank" rel="noopener">WhatsApp</a> · <a href="#expertises">Services complémentaires</a> · <a href="parrainage/">Parrainage</a> · <a href="/questions-frequentes/">Questions fréquentes</a> · <a href="/mentions-legales.html">Mentions légales</a> · <a href="/mentions-legales.html#confidentialite">Confidentialité</a></span><a href="#top">Retour en haut ↑</a></div>
+    <div class="cs-foot-bottom"><span>© 2026 Azel Studio · Montmagny, Val-d’Oise</span><span><a href="https://wa.me/33619438978?text=Bonjour%2C%20je%20viens%20du%20site%20Azel%20Studio%20et%20j%27aimerais%20parler%20de%20mon%20projet." target="_blank" rel="noopener">WhatsApp</a> · <a href="/services/">Autres services</a> · <a href="parrainage/">Parrainage</a> · <a href="/questions-frequentes/">Questions fréquentes</a> · <a href="/mentions-legales.html">Mentions légales</a> · <a href="/mentions-legales.html#confidentialite">Confidentialité</a></span><a href="#top">Retour en haut ↑</a></div>
   </div>
 </footer>
 
@@ -1927,17 +1612,22 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
 
 
   const fOffer = document.getElementById('f-offer'), fNeed = document.getElementById('f-need');
-  const needFor = { 'Essentiel': 'Création de site', 'Vitrine': 'Création de site', 'Site et outil': 'Site et outil', 'Sur mesure': 'Autre projet', 'SEO et GEO': 'Autre projet' };
+  const needFor = { 'Essentiel': 'Création de site', 'Vitrine': 'Création de site', 'Site et outil': 'Site et outil', 'Sur mesure': 'Autre projet', 'SEO et GEO': 'Autre projet', 'Assistant IA': 'Autre projet', 'Automatisation': 'Autre projet', 'Outil métier': 'Autre projet' };
   const chips = [...document.querySelectorAll('#csChips .cs-chip')];
   const setNeed = v => { const c = chips.find(x => x.dataset.v === v) || chips[3]; chips.forEach(x => { const on = x === c; x.classList.toggle('active', on); x.setAttribute('aria-pressed', on); }); fNeed.value = c.dataset.v; };
   chips.forEach(c => c.addEventListener('click', () => setNeed(c.dataset.v)));
   const csOffer = document.getElementById('csOffer'), csOfferName = document.getElementById('csOfferName');
   const setOffer = name => { fOffer.value = name || ''; csOffer.hidden = !name; csOfferName.textContent = name || ''; };
   document.getElementById('csOfferClear').addEventListener('click', () => setOffer(''));
+  const serviceNames = { 'seo-geo': 'SEO et GEO', 'assistant': 'Assistant IA', 'automatisation': 'Automatisation', 'outil-metier': 'Outil métier' };
+  const serviceKey = new URLSearchParams(location.search).get('service');
+  const serviceName = Object.hasOwn(serviceNames, serviceKey) ? serviceNames[serviceKey] : '';
+  if (serviceName) { setOffer(serviceName); setNeed(needFor[serviceName]); }
+
   document.querySelectorAll('.ofx-cta').forEach(a => a.addEventListener('click', e => {
     e.preventDefault();
     const name = a.dataset.offer; setOffer(name); setNeed(needFor[name]);
-    document.getElementById('devis').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    document.getElementById('contact').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     setTimeout(() => document.getElementById('f-name').focus({ preventScroll: true }), reduce ? 0 : 700);
   }));
 
@@ -1973,24 +1663,6 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
   });
   form.querySelectorAll('.cs-fld input, .cs-fld textarea').forEach(el => el.addEventListener('input', () => { const f = el.closest('.cs-fld'); if (f.classList.contains('err')) { f.classList.remove('err'); el.removeAttribute('aria-invalid'); document.getElementById(el.id + '-msg').textContent = ''; } }));
 
-  // ===== Expertises : une ligne ouverte à la fois, au clic, au toucher ou au clavier
-  const xis = [...document.querySelectorAll('#xiList .xi')], xiSec = document.querySelector('.xi-sec');
-  function openXi(li) {
-    const wasOpen = li.classList.contains('open');
-    xis.forEach(x => { const on = x === li && !wasOpen; x.classList.toggle('open', on); x.querySelector('.xi-head').setAttribute('aria-expanded', on); });
-    const cur = xis.find(x => x.classList.contains('open'));
-    xiSec.classList.toggle('fam1', !!cur && cur.dataset.fam === '1');
-  }
-  xis.forEach(li => li.querySelector('.xi-head').addEventListener('click', () => openXi(li)));
-  document.querySelectorAll('.xi-cta:not(.ofx-cta)').forEach(a => a.addEventListener('click', e => {
-    e.preventDefault();
-    setOffer('Sur mesure'); setNeed('Autre projet');
-    document.getElementById('devis').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-    setTimeout(() => document.getElementById('f-name').focus({ preventScroll: true }), reduce ? 0 : 700);
-  }));
-
-
-
   // Projets clients : flèches, compteur et barre de progression (glisser ou scroller sur mobile)
   const clTrack = document.getElementById('clTrack'), cases = [...clTrack.querySelectorAll('.case')];
   const clNow = document.getElementById('clNow'), clBar = document.getElementById('clBar');
@@ -2019,15 +1691,6 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
   const navState = () => navEl.classList.toggle('solid', scrollY > 24);
   addEventListener('scroll', navState, { passive: true }); navState();
 
-  const extraServices = document.getElementById('services-complementaires');
-  const openLinkedServices = () => {
-    const target = document.getElementById(location.hash.slice(1));
-    if (target && extraServices.contains(target)) {
-      extraServices.open = true;
-      requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
-    }
-  };
-  openLinkedServices(); addEventListener('hashchange', openLinkedServices);
   document.querySelectorAll('details:not([data-mobile-menu])').forEach(d => d.addEventListener('toggle', () => {
     if (window.ScrollTrigger) requestAnimationFrame(() => ScrollTrigger.refresh());
   }));
@@ -2280,130 +1943,6 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
 })();
 </script>
 
-<script>
-/* AZEL / AUTOMATIONS : apparition douce, inclinaison légère à la souris, présentation dépliable */
-(() => {
-  const fig = document.getElementById('azaFig'), btn = document.getElementById('azaBtn');
-  if (!fig) return;
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || !('IntersectionObserver' in window)) fig.classList.add('in');
-  else { const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { fig.classList.add('in'); io.disconnect(); } }), { rootMargin: '0px 0px -12% 0px' }); io.observe(fig); }
-  if (!reduce && matchMedia('(hover: hover) and (pointer: fine)').matches) {
-    const img = fig.querySelector('img'), zone = fig.closest('.aza');
-    zone.addEventListener('pointermove', (e) => { const r = fig.getBoundingClientRect(), x = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / r.width)); img.style.transform = `rotate(${x * 3.5}deg) translateX(${x * 4}px)`; });
-    zone.addEventListener('pointerleave', () => { img.style.transform = ''; });
-  }
-})();
-</script>
-
-<script>
-/* Démonstration de l'assistant Azel. Aucune IA, aucune API, aucun envoi : des scénarios écrits à l'avance
-   et une reconnaissance simple d'intentions par mots-clés, avec des réponses de secours honnêtes. */
-(() => {
-  const dlg = document.getElementById('azaChat'), openBtn = document.getElementById('azaBtn');
-  if (!dlg || !dlg.showModal) { if (openBtn) openBtn.addEventListener('click', () => document.getElementById('devis').scrollIntoView()); return; }
-  const log = document.getElementById('azcLog'), sugg = document.getElementById('azcSugg'), form = document.getElementById('azcForm'), input = document.getElementById('azcIn');
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, fine = matchMedia('(pointer: fine)').matches;
-  let busy = false, flow = null, started = false;
-
-  const scroll = () => { log.scrollTo({ top: log.scrollHeight, behavior: reduce ? 'auto' : 'smooth' }); };
-  const add = (cls, html) => { const m = document.createElement('div'); m.className = 'azc-m ' + cls; if (cls === 'me') m.textContent = html; else m.innerHTML = html; log.append(m); scroll(); return m; };
-  const chips = (list) => { sugg.replaceChildren(); list.forEach((t, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'azc-chip'; b.textContent = t; b.style.animationDelay = i * 60 + 'ms'; b.addEventListener('click', () => send(t)); sugg.append(b); }); requestAnimationFrame(scroll); };
-  const say = (msgs, next) => new Promise((res) => {
-    busy = true; sugg.replaceChildren(); let k = 0;
-    const step = () => {
-      if (k >= msgs.length) { busy = false; if (next) chips(next); res(); return; }
-      const t = reduce ? null : add('bot typing', '<span></span><span></span><span></span>');
-      setTimeout(() => { if (t) t.remove(); const m = msgs[k++]; add(m.startsWith('§') ? 'note' : 'bot', m.replace(/^§/, '')); step(); }, reduce ? 0 : Math.min(1100, 420 + msgs[k].length * 6));
-    };
-    step();
-  });
-
-  /* Jours ouvrés à venir, pour le scénario rendez-vous */
-  const nextDays = () => { const out = [], d = new Date(); while (out.length < 3) { d.setDate(d.getDate() + 1); if (d.getDay() > 0 && d.getDay() < 6) out.push(d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })); } return out; };
-  const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-  const START = ['Quels sont vos horaires ?', 'Je souhaite un devis', 'Je veux prendre rendez-vous'];
-  const END = ['Je souhaite un devis', 'Je veux prendre rendez-vous', 'Comment ça marche ?'];
-
-  /* Intentions : mots-clés simples, sans accents */
-  const norm = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-  const INTENTS = [
-    ['perso', /@|\b0[1-9](?:[ .-]?\d{2}){4}\b|\+33/],
-    ['horaires', /horaire|ouvert|ferme|heure|quand.*(ouvr|dispo)|week.?end|samedi|dimanche/],
-    ['devis', /devis|prix|tarif|cout|combien|budget/],
-    ['rdv', /rendez|rdv|reserv|creneau|rencontr|appel|visio/],
-    ['ia', /\bia\b|intelligence|robot|chatgpt|vrai|humain|qui es.tu|t.es qui|comment ca marche|fonctionne/],
-    ['bonjour', /^(bonjour|salut|hello|coucou|bonsoir|hey)\b/],
-    ['merci', /merci|super|parfait|top|genial|ok\b|d.accord/],
-  ];
-  const intent = (t) => { const n = norm(t); const hit = INTENTS.find(([, r]) => r.test(n)); return hit ? hit[0] : null; };
-
-  const R = {
-    horaires: () => say(['Ici, c\'est un exemple : nous sommes ouverts du lundi au vendredi, de 9h à 18h, et le samedi de 10h à 13h.', 'Sur votre site, je répondrais avec vos vrais horaires, vos jours fériés et vos fermetures exceptionnelles.'], ['Et le dimanche ?', 'Je veux prendre rendez-vous', 'Je souhaite un devis']),
-    dimanche: () => say(['Le dimanche, c\'est fermé dans cet exemple. Je peux quand même noter une demande, et l\'équipe vous répond dès le lundi.'], END),
-    devis: () => { flow = { k: 'devis', s: 1 }; return say(['Avec plaisir. Quel type de projet avez-vous en tête ?'], ['Un site vitrine', 'Un site avec réservation', 'Je ne sais pas encore']); },
-    rdv: () => { flow = { k: 'rdv', s: 1 }; const d = nextDays(); return say(['Bien sûr. Quel jour vous arrangerait ?'], d.map(cap)); },
-    ia: () => say(['Bonne question : ici, je suis une démonstration. Mes réponses sont écrites à l\'avance et je reconnais quelques mots-clés, sans intelligence artificielle derrière.', 'Sur votre site, l\'assistant serait configuré avec vos informations, et il passerait la main à un humain dès qu\'il ne sait pas.'], END),
-    bonjour: () => say(['Bonjour ! Je peux vous donner les horaires, préparer une demande de devis ou proposer un rendez-vous.'], START),
-    merci: () => say(['Avec plaisir. Autre chose ?'], END),
-    perso: () => say(['Inutile de me donner vos coordonnées : c\'est une démonstration, rien n\'est enregistré ni transmis.'], END),
-    fallback: () => say(['Je suis une démonstration avec des réponses prévues à l\'avance, je ne comprends pas encore tout.', 'Essayez une de ces questions :'], START),
-  };
-
-  const FLOWS = {
-    devis: (t) => {
-      if (flow.s === 1) { flow.type = t; flow.s = 2; return say(['Noté. Et pour quand l\'imaginez-vous ?'], ['Dès que possible', 'Dans 1 à 3 mois', 'Pas pressé']); }
-      flow = null;
-      return say(['Merci ! Voici le résumé que je transmettrais à l\'équipe : <b>' + esc(this_type) + '</b>, délai <b>' + esc(t.toLowerCase()) + '</b>.', 'Sur un vrai site, je demanderais ensuite vos coordonnées pour qu\'on vous recontacte.', '§Démonstration : aucune demande n\'a été envoyée.'], END);
-    },
-    rdv: (t) => {
-      if (flow.s === 1) { flow.day = t; flow.s = 2; return say([t + ', parfait. Quel créneau ?'], ['10h00', '14h30', '17h00']); }
-      const day = flow.day; flow = null;
-      return say(['C\'est noté : <b>' + esc(day.toLowerCase()) + ' à ' + esc(t) + '</b>.', 'Sur votre site, le créneau serait bloqué dans votre agenda et le client recevrait une confirmation.', '§Démonstration : aucun rendez-vous n\'a été réservé.'], END);
-    },
-  };
-  let this_type = '';
-  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-
-  function send(text) {
-    text = String(text || '').trim(); if (!text || busy) return;
-    add('me', text); input.value = '';
-    const n = norm(text);
-    if (/dimanche/.test(n)) return R.dimanche();
-    if (flow) {
-      const other = intent(text);
-      if (other && other !== flow.k && other !== 'merci' && other !== 'bonjour') { flow = null; return R[other](); }
-      if (flow.k === 'devis' && flow.s === 1) this_type = text.toLowerCase();
-      return FLOWS[flow.k](text);
-    }
-    const i = intent(text); return (R[i] || R.fallback)();
-  }
-
-  form.addEventListener('submit', (e) => { e.preventDefault(); send(input.value); });
-
-  /* Ouverture et fermeture : croix, Échap, clic sur le fond ; défilement de la page bloqué, focus rendu au bouton */
-  const open = () => {
-    document.documentElement.classList.add('azc-lock'); dlg.classList.remove('closing'); dlg.showModal();
-    if (!started) { started = true; say(['Bonjour ! 👋 Je suis l\'assistant de démonstration Azel. Que puis-je faire pour vous ?'], START); }
-    (fine ? input : document.getElementById('azcClose')).focus({ preventScroll: true });
-  };
-  const close = (after) => {
-    if (!dlg.open) return;
-    const done = () => { dlg.classList.remove('closing'); dlg.close(); document.documentElement.classList.remove('azc-lock'); if (after) after(); else openBtn.focus({ preventScroll: true }); };
-    if (reduce) return done(); dlg.classList.add('closing'); setTimeout(done, 200);
-  };
-  openBtn.addEventListener('click', open);
-  document.getElementById('azcClose').addEventListener('click', () => close());
-  dlg.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
-  dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); });
-  /* « Je veux cet assistant » : le formulaire de projet se préremplit (Assistant IA) grâce au lien d'offre existant */
-  document.getElementById('azcCta').addEventListener('click', () => close(() => {
-    document.getElementById('devis').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-    setTimeout(() => document.getElementById('f-name').focus({ preventScroll: true }), reduce ? 0 : 700);
-  }));
-})();
-</script>
-
 <script src="/case-compare.js"></script>
 <script src="/contact-source.js"></script>
 
@@ -2471,8 +2010,8 @@ section[id], #devis { scroll-margin-top: calc(var(--navh) + 20px + env(safe-area
     if (formule) { const fo = document.getElementById('f-offer'); fo.value = formule; document.getElementById('csOfferName').textContent = formule; document.getElementById('csOffer').hidden = false; }
     if (!msg.value) msg.value = `Bonjour, la création ${concept.replace(/\s*\(.*\)$/, '')} m'intéresse${nom ? ' pour ' + nom : ''}${ville ? ', à ' + ville : ''}. `;
   }
-  try { history.replaceState(null, '', location.pathname + '#devis'); } catch (e) {}
-  const go = () => { const d = document.getElementById('devis'); if (d) d.scrollIntoView({ block: 'start' }); const n = document.getElementById('f-name'); if (n) n.focus({ preventScroll: true }); };
+  try { history.replaceState(null, '', location.pathname + '#contact'); } catch (e) {}
+  const go = () => { const d = document.getElementById('contact'); if (d) d.scrollIntoView({ block: 'start' }); const n = document.getElementById('f-name'); if (n) n.focus({ preventScroll: true }); };
   if (document.readyState === 'complete') setTimeout(go, 300); else addEventListener('load', () => setTimeout(go, 300));
 })();
 </script>

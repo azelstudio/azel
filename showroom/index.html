@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="description" content="Essayez nos exemples de sites pour artisans, commerces et indépendants. Azel Studio adapte votre site et le met en ligne. Sites dès 490 €.">
+<meta name="description" content="Essayez mes exemples de sites pour artisans, commerces et indépendants. Azel Studio adapte votre site et le met en ligne. Sites dès 490 €.">
 <script defer src="/analytics.js"></script>
 <script src="/showroom/artisan-config.js"></script>
 <script src="/showroom/apiculture/config.js"></script>
@@ -382,13 +382,15 @@ footer.sr-foot a:hover { color: var(--paper); }
 #draftStatus:empty { display: none; }
 .fields select { width:100%; min-width:0; min-height:48px; border:0; background:var(--panel); color:var(--paper); font:inherit; font-size:14px; padding:12px 6px; }
 #beeDraftStatus:empty { display:none; }
+
+.price-tax { display:block; max-width:28ch; margin-top:8px; font:400 12px/1.5 var(--display, "Instrument Sans", Arial, sans-serif); color:#5A5C60; }
 </style>
 <link rel="canonical" href="https://azelstudio.fr/showroom/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Azel Studio">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:title" content="Exemples de sites internet à essayer | Azel Studio">
-<meta property="og:description" content="Essayez nos exemples de sites pour artisans, commerces et indépendants. Azel Studio adapte votre site et le met en ligne. Sites dès 490 €.">
+<meta property="og:description" content="Essayez mes exemples de sites pour artisans, commerces et indépendants. Azel Studio adapte votre site et le met en ligne. Sites dès 490 €.">
 <meta property="og:url" content="https://azelstudio.fr/showroom/">
 <meta property="og:image" content="https://azelstudio.fr/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -519,7 +521,7 @@ footer.sr-foot a:hover { color: var(--paper); }
       <span><b>AZEL</b><span class="brand-studio"> STUDIO</span></span><span class="tag">SHOWROOM</span>
     </a>
     <nav class="nav-links" aria-label="Navigation">
-      <a href="#collection" id="navShowroom" aria-current="page">Nos créations</a>
+      <a href="#collection" id="navShowroom" aria-current="page">Les créations</a>
       <a href="/#offres">Offres</a>
       <a href="/">Le studio</a>
       <a class="btn" href="/#contact">Contact</a>
@@ -534,8 +536,8 @@ footer.sr-foot a:hover { color: var(--paper); }
       <span class="label">Inspirez-vous. Imaginez votre vision.</span>
       <h1 id="srTitle"><span>Des idées qui donnent envie.</span> <span>Des sites dès 490 €.</span></h1>
       <div class="intro-foot">
-        <p>Essayez un vrai site, avec votre nom si vous le souhaitez. Azel l’adapte à votre activité et le met en ligne. Le site livré vous appartient.</p>
-        <span class="label" id="srCount">10 créations disponibles</span>
+        <p>Essayez un vrai site, avec votre nom si vous le souhaitez. Je l’adapte à votre activité et je le mets en ligne. Le site livré vous appartient.</p>
+        <span class="label" id="srCount">11 créations disponibles</span>
       </div>
       <div class="filters" id="filters" role="group" aria-label="Filtrer par activité"></div>
       <div class="filter-select" id="filterSelect" hidden><label for="sectorSelect">Votre activité</label><select id="sectorSelect"><option value="tous">Toutes les activités</option></select></div>
@@ -783,7 +785,7 @@ const renderFiche = (t, mode) => {
   $("#vFiche").innerHTML = `
   <div class="wrap f-hero" id="fHero">
     <div class="f-copy">
-      <div class="crumbs"><a href="#collection">Nos créations</a><span class="label">/ ${esc(t.sector)}</span></div>
+      <div class="crumbs"><a href="#collection">Les créations</a><span class="label">/ ${esc(t.sector)}</span></div>
       <h1>${esc(t.name)}</h1>
       <p>Parcourez ce site gratuitement. S’il vous plaît, Azel l’adapte à votre activité et s’occupe de la mise en ligne.</p>
     </div>
@@ -792,7 +794,7 @@ const renderFiche = (t, mode) => {
   <section class="wrap perso" id="fPerso" aria-labelledby="persoTitle">
     <div class="perso-form rv">
       <h2 id="persoTitle">À votre image.</h2>
-      <p>Essayez avec votre nom si vous le souhaitez. Pour les textes, les photos et la mise en ligne, on s’en occupe avec vous.</p>
+      <p>Essayez avec votre nom si vous le souhaitez. Pour les textes, les photos et la mise en ligne, je m’en occupe avec vous.</p>
       <div class="fields">
         <div class="row"><label for="meName">Entreprise</label><input id="meName" type="text" maxlength="${t.id === "pilates-classique" ? 62 : 32}" autocomplete="organization" placeholder="Le nom de votre entreprise"></div>
         ${t.colors ? `<div class="row tall"><span class="lbl-c"><label id="lblCol">Couleur</label></span><div class="swatch-row" role="group" aria-labelledby="lblCol">${t.colors.map(([n, h], i) => `<button type="button" class="sw" style="--c:#${esc(h)}" data-hex="${esc(h)}" data-name="${esc(n)}" aria-pressed="${i === 0}" aria-label="${esc(n)}"></button>`).join("")}<span class="sw pick" id="swPick" title="Votre couleur"><input type="color" id="mePick" value="#${esc(t.colors[0][1])}" aria-label="Choisir votre couleur"></span><span class="sw-name" id="swName">${esc(t.colors[0][0])}</span></div></div>` : ""}
@@ -808,7 +810,7 @@ const renderFiche = (t, mode) => {
       <p class="privacy option-note">Votre logo reste sur votre appareil : il n'est envoyé nulle part.</p>
       </details>
       ${t.id === "pilates-classique" ? `<details class="perso-options"><summary>Ancienneté et réservation <span>Facultatif</span></summary><div class="artisan-fields"><p class="privacy">Ajoutez uniquement une année connue et un lien public de réservation existant. Aucun agenda n’est créé par la démo.</p><div class="fields">${AzelPilates.fields.slice(1).map(f=>`<div class="row"><label for="pilates-${f.key}">${f.label}</label><input id="pilates-${f.key}" type="${f.type||'text'}" maxlength="${f.max}" placeholder="${f.placeholder}" ${f.inputmode?'inputmode="'+f.inputmode+'"':''}></div>`).join('')}</div><p class="privacy" id="pilatesError" role="status"></p></div></details>` : ""}
-      ${t.id === "artisan" ? `<details class="perso-options" id="businessOptions"><summary>Textes et coordonnées <span>Facultatif</span></summary><div class="artisan-fields"><p class="privacy">Vous pouvez faire l’essai ici, ou nous laisser adapter ces éléments après votre demande.</p><div class="fields">${AzelArtisan.fields.map((f) => `<div class="row"><label for="artisan-${f.key}">${f.label}</label><input id="artisan-${f.key}" data-artisan-field="${f.key}" type="${f.type || "text"}" maxlength="${f.max}" placeholder="${esc(f.placeholder)}" autocomplete="${f.key === "phone" ? "tel" : f.key === "email" ? "email" : "off"}"></div>`).join("")}</div></div></details><p class="privacy" id="draftStatus" role="status"></p>` : ""}
+      ${t.id === "artisan" ? `<details class="perso-options" id="businessOptions"><summary>Textes et coordonnées <span>Facultatif</span></summary><div class="artisan-fields"><p class="privacy">Vous pouvez faire l’essai ici, ou me laisser adapter ces éléments après votre demande.</p><div class="fields">${AzelArtisan.fields.map((f) => `<div class="row"><label for="artisan-${f.key}">${f.label}</label><input id="artisan-${f.key}" data-artisan-field="${f.key}" type="${f.type || "text"}" maxlength="${f.max}" placeholder="${esc(f.placeholder)}" autocomplete="${f.key === "phone" ? "tel" : f.key === "email" ? "email" : "off"}"></div>`).join("")}</div></div></details><p class="privacy" id="draftStatus" role="status"></p>` : ""}
       ${t.id === "apiculture" ? `<details class="perso-options" id="beeOptions"><summary>La signature de votre rucher <span>Facultatif</span></summary><div class="artisan-fields"><p class="privacy">Votre nom prend place sur les pots dès l’accueil. Essayez deux signatures d’étiquette, puis ajustez l’accroche, le retrait et le miel présenté.</p><div class="fields">${AzelApiculture.fields.map(f=>`<div class="row"><label for="bee-${f.key}">${f.label}</label>${f.type==='select'?`<select id="bee-${f.key}"><option value="">Choix du modèle</option>${f.options.map(([v,n])=>`<option value="${v}">${n}</option>`).join('')}</select>`:`<input id="bee-${f.key}" maxlength="${f.max}" placeholder="${esc(f.placeholder)}">`}</div>`).join('')}</div></div></details><p class="privacy" role="status" id="beeDraftStatus"></p>` : ""}
       <div class="perso-tools"><button type="button" id="resetLook" class="reset-look">Réinitialiser</button></div>
       <div class="mine" id="mine" aria-live="polite"></div>
@@ -834,11 +836,11 @@ const renderFiche = (t, mode) => {
 
   <section class="wrap offer" id="fOffer" aria-labelledby="offerTitle">
     <div class="offer-head rv"><div><span class="label">L'offre</span><h2 id="offerTitle" style="margin-top:12px">Ce site, réalisé pour vous.</h2></div>
-      <p style="margin:0;color:var(--soft);max-width:30em">Aperçu gratuit, puis devis précis avant la réalisation. Vous choisissez une direction ; Azel adapte le site et prend en charge sa mise en ligne.</p></div>
+      <p style="margin:0;color:var(--soft);max-width:30em">Aperçu gratuit, puis devis précis avant la réalisation. Vous choisissez une direction. J’adapte le site et je prends en charge sa mise en ligne.</p></div>
     <div class="offer-options" id="offerOptions"><div class="offer-grid rv">
       <div class="alts" role="radiogroup" aria-labelledby="formulaChoiceTitle"><span class="label" id="formulaChoiceTitle" style="padding:0 4px">Choisir la formule</span>
         ${["essentiel", "vitrine", "outil"].map((k, i) => `<label class="alt"><input type="radio" name="formula" value="${k}" aria-describedby="formula-line-${k}"${i === 0 ? " checked" : ""}><div><b>${esc(OFFERS[k].name)}</b><span class="description" id="formula-line-${k}">${esc(OFFERS[k].line)}</span></div><span class="p">Dès ${esc(OFFERS[k].price)}</span></label>`).join("")}
-        <p class="extra">Nom de domaine, hébergement et maintenance en plus.</p></div>
+        <p class="extra">Domaine séparé. Hébergement et suivi technique en option à 19 €/mois pour un site vitrine statique.</p></div>
       <div class="formula" id="formula"></div>
     </div></div>
   </section>
@@ -1025,15 +1027,15 @@ const renderFormula = (persist = true) => {
   const detailsOpen = $("#formulaDetails")?.open === true;
   $("#formula").innerHTML = `
     <div class="formula-top"><div><span class="label">Création ${esc(t.name)}</span><h3>${esc(o.name)} pour ${esc(ME.name || "votre entreprise")}</h3></div>
-      <div class="amount"><span>À partir de</span><b>${esc(o.price)}</b></div></div>
+      <div class="amount"><span>À partir de</span><b>${esc(o.price)}</b><small class="price-tax">TVA non applicable, art. 293 B du CGI.</small></div></div>
     <p class="scope">${esc(o.line)}</p>
     ${k !== "outil" ? '<p class="boundary">Les réservations, paiements et formulaires avancés montrés dans la démo nécessitent un périmètre adapté.</p>' : '<p class="boundary">Le périmètre des fonctionnalités est défini après échange et précisé dans le devis.</p>'}
     <details class="formula-details" id="formulaDetails"${detailsOpen ? " open" : ""}><summary>Contenu et délai <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 7h10"/><path d="M7 2v10"/></svg></summary>
       <ul>${o.inc.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>
-      <div class="facts"><div><b>Délai indicatif</b>${esc(o.delay)}</div><div><b>Ensuite</b>Vous recevez un devis précis, puis on adapte textes, photos et couleurs ensemble.</div></div>
+      <div class="facts"><div><b>Délai indicatif</b>${esc(o.delay)}</div><div><b>Ensuite</b>Vous recevez un devis précis, puis j’adapte les textes, les photos et les couleurs avec vous.</div></div>
     </details>
-    <a class="btn lg" id="order" href="/#devis">Demander un devis ${up}</a>
-    <p class="note">Votre site vous appartient. Adaptation et mise en ligne selon le devis. Le nom de domaine, l’hébergement et la maintenance restent distincts. Vos choix sont joints à votre demande.</p>`;
+    <a class="btn lg" id="order" href="/#contact">Demander un devis ${up}</a>
+    <p class="note">Votre site vous appartient. Adaptation et mise en ligne selon le devis. Hébergement et suivi technique en option à 19 €/mois pour un site vitrine statique. Domaine séparé. <a href="/questions-frequentes/#frais">Voir le périmètre et les frais</a>. Vos choix sont joints à votre demande.</p>`;
   const lines = [`Demande depuis le Showroom Azel`, `Création : ${t.name} (${t.num}, ${t.sector})`, `Formule souhaitée : ${o.name}, à partir de ${o.price}`, `Entreprise : ${ME.name || "non précisée"}${ME.city ? ", " + ME.city : ""}`, ...(ME.color ? [`Couleur choisie : #${ME.color.toUpperCase()}`] : []), ...(ME.logo ? ["Logo : à m'envoyer (testé dans l'aperçu)"] : [])].join("\n");
   /* Tout ce que le visiteur a personnalisé part avec sa demande : concept, nom, ville, couleur, lien vers son aperçu. */
   const look = new URLSearchParams();
@@ -1049,7 +1051,7 @@ const renderFormula = (persist = true) => {
   if (new URLSearchParams(location.search).get("origine") === "page-artisan") q.set("origine", "page-artisan");
   look.forEach((v, k) => q.set(k, v));
   if (ME.logo) q.set("logo", "1");
-  $("#order").href = "../?" + q + "#devis";
+  $("#order").href = "../?" + q + "#contact";
   SHARE.url = apercu; SHARE.name = ME.name; SHARE.t = t;
   $("#fullDemo").href = apercu;
   const subj = `Aperçu de site : ${t.name}${ME.name ? " pour " + ME.name : ""}`;

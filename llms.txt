@@ -2,17 +2,21 @@
 
 > Studio de création de sites internet basé à Montmagny (95360), dans le Val-d’Oise, intervenant partout en France pour les indépendants, artisans et commerces.
 
-Azel Studio est le nom commercial de Yacine Bali, entrepreneur individuel. Le studio propose un aperçu gratuit et sans engagement, puis l’adaptation et la mise en ligne selon un devis accepté. Le site livré appartient au client. Le nom de domaine, l’hébergement et la maintenance sont des services distincts, précisés dans le devis.
+Azel Studio est le nom commercial de Yacine Bali, entrepreneur individuel. Le studio propose un aperçu gratuit et sans engagement, puis l’adaptation et la mise en ligne selon un devis accepté. Le site livré appartient au client. Hébergement et suivi technique en option à 19 €/mois pour un site vitrine statique, avec contrôle mensuel de disponibilité et du HTTPS, sauvegarde des fichiers à chaque intervention et interventions techniques mineures limitées à 15 minutes par mois non reportables. Le domaine, les changements de contenu, nouvelles fonctionnalités et outils tiers restent distincts. WordPress et backend sur devis. Le client peut conserver son hébergeur. TVA non applicable, art. 293 B du CGI.
 
 ## Le studio et ses offres
 
 - [Accueil et présentation du studio](https://azelstudio.fr/): création de sites internet, fonctionnement, offres et contact.
-- [Offres et budgets](https://azelstudio.fr/#offres): Essentiel dès 490 €, Vitrine dès 790 €, Site et outil dès 1 290 €. Prix de départ ; périmètre et prix final définis au devis.
+- [Offres et budgets](https://azelstudio.fr/#offres): Essentiel dès 490 €, Vitrine dès 790 €, Site et outil dès 1 290 €. Prix de départ. TVA non applicable, art. 293 B du CGI. Périmètre et prix final définis au devis.
 - [Comment ça se passe](https://azelstudio.fr/#approche): échange, aperçu, réalisation et mise en ligne. Essentiel : délai indicatif de 1 à 3 semaines après validation de l’aperçu et réception des contenus. Les autres délais sont fixés dans le devis.
+
+## Autres services
+
+- [Services complémentaires](https://azelstudio.fr/services/): référencement, automatisations, outils métier et démonstration d’assistant. Prestations distinctes, sur devis.
 
 ## Visibilité Google et moteurs IA
 
-- [Accompagnement SEO et GEO](https://azelstudio.fr/#visibilite): analyse de la présence actuelle, améliorations des pages et suivi des données disponibles. Service distinct de la création du site, sur devis ; aucune position ou recommandation IA garantie.
+- [Accompagnement SEO et GEO](https://azelstudio.fr/services/#visibilite): analyse de la présence actuelle, améliorations des pages et suivi des données disponibles. Service distinct de la création du site, sur devis ; aucune position ou recommandation IA garantie.
 
 ## Sites par activité
 
@@ -21,7 +25,7 @@ Azel Studio est le nom commercial de Yacine Bali, entrepreneur individuel. Le st
 ## Créations et projets clients
 
 - [Showroom de démonstration](https://azelstudio.fr/showroom/): concepts fictifs à essayer, avec personnalisation facultative. Les entreprises et contenus des démos sont fictifs.
-- [Ils nous ont fait confiance](https://azelstudio.fr/#realisations): projets clients, présentés séparément des concepts du showroom.
+- [Ils m’ont fait confiance](https://azelstudio.fr/#realisations): projets clients, présentés séparément des concepts du showroom.
 
 - [Atelier Pilates](https://azelstudio.fr/showroom/#pilates-classique): concept de studio de Pilates classique avec quatre ambiances et lien de réservation externe facultatif. Visuels générés, marque fictive et démonstration non affiliée.
 
